@@ -1,0 +1,10 @@
+---
+chapter: 1
+knit: "bookdown::render_book"
+---
+
+## Introduction 
+
+The COVID-19 pandemic has had a massive effect on economies around the world. Across different countries, millions of workers were furloughed or even lost their jobs as businesses struggled to survive [@ny2020]. The same situation happened in Australia, due to more restrictions, many businesses closed their doors, while employees were working with less hours or being dismissed by companies. As a result of the continuous "lockdown" periods in 2020, estimates made by the Australian Bureau of Statistics [@ABS2021] concluded that 72% of businesses generated less revenue and the underemployment rate hit a historical high of 13.8% by the end of April, 2020, only one month after the COVID-19 outbreak.
+
+Our research is motivated by the lack of quantitative research on the employment of two-digit disaggregated industry sectors in Australia, as many studies have focused on the aggregated employment rate. A general problem of aggregated research is the loss of hierarchical information, which may result in a biased conclusion or "an illusion of employment prosperity". Thus, a quantitative analysis of the sectoral employment will ameliorate this problem, giving us a better scope to evaluate the impacts of COVID-19 in Australia.

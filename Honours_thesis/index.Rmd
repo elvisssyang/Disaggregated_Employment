@@ -1,0 +1,47 @@
+---
+title: 'Disaggregated Sectoral Employment Dynamics in Australia'
+degreetype: 'Bachelor of Commerce (Honours)'
+author: 'Zhixiang Yang'
+studentid: 30306396
+output: bookdown::pdf_book
+site: bookdown::bookdown_site
+link-citations: yes
+knit: "bookdown::render_book"
+---
+
+<!-- 
+This file should be left empty other than the header above.
+
+The thesis contents are contained in the other Rmd files: `01-chap1.Rmd `, `02-chap2.Rmd`, `A-appA.Rmd`, etc. Add new Rmd files as required. You'll need to edit the `_bookdown.yml` file to set the order in which you'd like them to appear.
+
+If you have specific LaTeX packages to add, put them in `monashthesis.tex`.
+
+You will need to ensure you have installed the `knitr` and `bookdown` packages for R.
+
+You will also need LaTeX installed on your computer.
+-->
+
+
+# Acknowledgement {-}
+
+I would like to express gratitude to my supervisor Professor Farshid Vahid and my coordinatior Professor Heather Anderson for their selfless support and devoted care along the way.
+
+
+
+
+
+
+
+# Declaration {-}
+
+
+I declare that this thesis contains no material which has been submitted in any form for the award of any other degree or diploma in any university or equivalent institution, and that, to the best of my knowledge and belief, this thesis contains no material previously published or written by another person, except where due reference is made in the text of the thesis.
+
+# Abstract {-}
+
+
+We develop a multivariate time series model of employment in Australia at a disaggregated level with 87 sectors in total. We use this model to determine the long run employment spillovers to the total employment at this level. Our findings is that ... Moreover, we provide an interactive shiny app that will give an intuitive visualization of these changes. At the stage of recovering from COVID-19, it will provide more useful information for policymakers on recovering total employment rate more effectively. 
+
+
+
+

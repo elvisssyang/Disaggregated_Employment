@@ -1,0 +1,441 @@
+{
+    "sources": [
+        {
+            "author": [
+                {
+                    "family": "Anderson",
+                    "given": "Heather"
+                },
+                {
+                    "family": "Caggiano",
+                    "given": "Giovanni"
+                },
+                {
+                    "family": "Vahid",
+                    "given": "Farshid"
+                },
+                {
+                    "family": "Wong",
+                    "given": "Benjamin"
+                }
+            ],
+            "container-title": "Australian Economic Review",
+            "id": "anderson2020",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "page": "402-414",
+            "publisher": "Wiley Online Library",
+            "title": "Sectoral employment dynamics in australia and the COVID-19 pandemic",
+            "type": "article-journal",
+            "volume": "53"
+        },
+        {
+            "URL": "https://www.abs.gov.au/articles/one-year-covid-19-aussie-jobs-business-and-economy",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2022,
+                        4,
+                        29
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "ABS"
+                }
+            ],
+            "id": "ABS2021",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "title": "One year of COVID-19: Aussie jobs, business and the economy",
+            "title-short": "One year of COVID-19",
+            "type": "webpage"
+        },
+        {
+            "URL": "https://www.abs.gov.au/statistics/labour/employment-and-unemployment/labour-force-australia-detailed/latest-release",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2022,
+                        4,
+                        29
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "ABS"
+                }
+            ],
+            "id": "ABS2022",
+            "issued": {
+                "date-parts": [
+                    [
+                        2022
+                    ]
+                ]
+            },
+            "title": "Labour force, australia, detailed, march 2022",
+            "type": "webpage"
+        },
+        {
+            "URL": "https://www.nytimes.com/2020/05/09/business/economy/coronavirus-unemployment.html\n",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2022,
+                        4,
+                        29
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Lewis",
+                    "given": "Brent"
+                },
+                {
+                    "family": "Hsu",
+                    "given": "Tiffany"
+                }
+            ],
+            "id": "ny2020",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "title": "The collateral damage of coronavirus",
+            "type": "webpage"
+        },
+        {
+            "author": [
+                {
+                    "family": "Ludvigson",
+                    "given": "Sydney C"
+                },
+                {
+                    "family": "Ma",
+                    "given": "Sai"
+                },
+                {
+                    "family": "Ng",
+                    "given": "Serena"
+                }
+            ],
+            "id": "ludvigson2020covid",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "publisher": "National Bureau of Economic Research",
+            "title": "COVID-19 and the macroeconomic effects of costly disasters",
+            "type": "report"
+        },
+        {
+            "author": [
+                {
+                    "family": "Berger",
+                    "given": "Tino"
+                },
+                {
+                    "family": "Morley",
+                    "given": "James"
+                },
+                {
+                    "family": "Wong",
+                    "given": "Benjamin"
+                }
+            ],
+            "container-title": "Journal of Econometrics",
+            "id": "berger2020nowcasting",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "publisher": "Elsevier",
+            "title": "Nowcasting the output gap",
+            "type": "article-journal"
+        },
+        {
+            "author": [
+                {
+                    "family": "Gregory",
+                    "given": "Victoria"
+                },
+                {
+                    "family": "Menzio",
+                    "given": "Guido"
+                },
+                {
+                    "family": "Wiczer",
+                    "given": "David G"
+                }
+            ],
+            "id": "gregory2020pandemic",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "publisher": "National Bureau of Economic Research",
+            "title": "Pandemic recession: L or v-shaped?",
+            "title-short": "Pandemic recession",
+            "type": "report"
+        },
+        {
+            "author": [
+                {
+                    "family": "Litterman",
+                    "given": "Robert B"
+                }
+            ],
+            "container-title": "Journal of Business & Economic Statistics",
+            "id": "litterman1986",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        1986
+                    ]
+                ]
+            },
+            "page": "25-38",
+            "publisher": "Taylor & Francis",
+            "title": "Forecasting with bayesian vector autoregressions—five years of experience",
+            "type": "article-journal",
+            "volume": "4"
+        },
+        {
+            "author": [
+                {
+                    "family": "Litterman",
+                    "given": "Robert B"
+                },
+                {
+                    "literal": "others"
+                }
+            ],
+            "id": "litterman1979",
+            "issued": {
+                "date-parts": [
+                    [
+                        1979
+                    ]
+                ]
+            },
+            "title": "Techniques of forecasting using vector autoregressions",
+            "type": "report"
+        },
+        {
+            "author": [
+                {
+                    "family": "Robertson",
+                    "given": "John C"
+                },
+                {
+                    "family": "Tallman",
+                    "given": "Ellis W"
+                }
+            ],
+            "container-title": "Economic Review-Federal Reserve Bank of Atlanta",
+            "id": "robertson1999vector",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        1999
+                    ]
+                ]
+            },
+            "page": "4",
+            "publisher": "Federal Reserve Bank of Atlanta",
+            "title": "Vector autoregressions: Forecasting and reality",
+            "title-short": "Vector autoregressions",
+            "type": "article-journal",
+            "volume": "84"
+        },
+        {
+            "author": [
+                {
+                    "family": "Bańbura",
+                    "given": "Marta"
+                },
+                {
+                    "family": "Giannone",
+                    "given": "Domenico"
+                },
+                {
+                    "family": "Reichlin",
+                    "given": "Lucrezia"
+                }
+            ],
+            "container-title": "Journal of applied Econometrics",
+            "id": "banbura2010large",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2010
+                    ]
+                ]
+            },
+            "page": "71-92",
+            "publisher": "Wiley Online Library",
+            "title": "Large bayesian vector auto regressions",
+            "type": "article-journal",
+            "volume": "25"
+        },
+        {
+            "author": [
+                {
+                    "family": "Woźniak",
+                    "given": "Tomasz"
+                }
+            ],
+            "container-title": "Australian Economic Review",
+            "id": "wozniak2016bayesian",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016
+                    ]
+                ]
+            },
+            "page": "365-380",
+            "publisher": "Wiley Online Library",
+            "title": "Bayesian vector autoregressions",
+            "type": "article-journal",
+            "volume": "49"
+        },
+        {
+            "author": [
+                {
+                    "family": "Kadiyala",
+                    "given": "K Rao"
+                },
+                {
+                    "family": "Karlsson",
+                    "given": "Sune"
+                }
+            ],
+            "container-title": "Journal of Applied Econometrics",
+            "id": "kadiyala1997",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        1997
+                    ]
+                ]
+            },
+            "page": "99-132",
+            "publisher": "Wiley Online Library",
+            "title": "Numerical methods for estimation and inference in bayesian VAR-models",
+            "type": "article-journal",
+            "volume": "12"
+        },
+        {
+            "author": [
+                {
+                    "family": "Waggoner",
+                    "given": "Daniel F"
+                },
+                {
+                    "family": "Zha",
+                    "given": "Tao"
+                }
+            ],
+            "container-title": "Review of Economics and Statistics",
+            "id": "waggoner1999",
+            "issue": "4",
+            "issued": {
+                "date-parts": [
+                    [
+                        1999
+                    ]
+                ]
+            },
+            "page": "639-651",
+            "publisher": "MIT Press 238 Main St., Suite 500, Cambridge, MA 02142-1046, USA journals …",
+            "title": "Conditional forecasts in dynamic multivariate models",
+            "type": "article-journal",
+            "volume": "81"
+        },
+        {
+            "ISBN": "978-3-319-24277-4",
+            "URL": "https://ggplot2.tidyverse.org",
+            "author": [
+                {
+                    "family": "Wickham",
+                    "given": "Hadley"
+                }
+            ],
+            "id": "ggplot2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016
+                    ]
+                ]
+            },
+            "publisher": "Springer-Verlag New York",
+            "title": "ggplot2: Elegant graphics for data analysis",
+            "title-short": "ggplot2",
+            "type": "book"
+        },
+        {
+            "URL": "https://CRAN.R-project.org/package=fabletools",
+            "author": [
+                {
+                    "family": "O’Hara-Wild",
+                    "given": "Mitchell"
+                },
+                {
+                    "family": "Hyndman",
+                    "given": "Rob"
+                },
+                {
+                    "family": "Wang",
+                    "given": "Earo"
+                }
+            ],
+            "id": "fable",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "note": "R package version 0.3.2",
+            "title": "Fabletools: Core tools for packages in the ’fable’ framework",
+            "title-short": "Fabletools",
+            "type": "book"
+        }
+    ],
+    "project_biblios": []
+}

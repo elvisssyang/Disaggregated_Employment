@@ -1,0 +1,99 @@
+% This is a LaTeX thesis template for Monash University.
+% to be used with Rmarkdown
+% This template was produced by Rob Hyndman
+% Version: 6 September 2016
+
+\documentclass{monashthesis}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Add any LaTeX packages and other preamble here if required
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\author{Zhixiang Yang}
+\title{Disaggregated Sectoral Employment Dynamics in Australia}
+\studentid{30306396}
+\def\degreetitle{Bachelor of Commerce (Honours)}
+% Add subject and keywords below
+\hypersetup{
+     %pdfsubject={The Subject},
+     %pdfkeywords={Some Keywords},
+     pdfauthor={Zhixiang Yang},
+     pdftitle={Disaggregated Sectoral Employment Dynamics in Australia},
+     pdfproducer={Bookdown with LaTeX}
+}
+
+
+\bibliography{thesisrefs}
+
+\begin{document}
+
+\pagenumbering{roman}
+
+\titlepage
+
+{\setstretch{1.2}\sf\tighttoc\doublespacing}
+
+\clearpage\pagenumbering{arabic}\setcounter{page}{0}
+
+\hypertarget{acknowledgement}{%
+\chapter*{Acknowledgement}\label{acknowledgement}}
+\addcontentsline{toc}{chapter}{Acknowledgement}
+
+I would like to express gratitude to my supervisor Professor Farshid Vahid and my coordinatior Professor Heather Anderson for their selfless support and devoted care along the way.
+
+\hypertarget{declaration}{%
+\chapter*{Declaration}\label{declaration}}
+\addcontentsline{toc}{chapter}{Declaration}
+
+I declare that this thesis contains no material which has been submitted in any form for the award of any other degree or diploma in any university or equivalent institution, and that, to the best of my knowledge and belief, this thesis contains no material previously published or written by another person, except where due reference is made in the text of the thesis.
+
+\hypertarget{abstract}{%
+\chapter*{Abstract}\label{abstract}}
+\addcontentsline{toc}{chapter}{Abstract}
+
+We develop a multivariate time series model of employment in Australia at a disaggregated level with 87 sectors in total. We use this model to determine the long run employment spillovers to the total employment at this level. Our findings is that \ldots{} Moreover, we provide an interactive shiny app that will give an intuitive visualization of these changes. At the stage of recovering from COVID-19, it will provide more useful information for policymakers on recovering total employment rate more effectively.
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+The COVID-19 pandemic has had a massive effect on economies around the world. Across different countries, millions of workers were furloughed or even lost their jobs as businesses struggled to survive \autocite{ny2020}. The same situation happened in Australia, due to more restrictions, many businesses closed their doors, while employees were working with less hours or being dismissed by companies. As a result of the continuous ``lockdown'' periods in 2020, estimates made by the Australian Bureau of Statistics \autocite{ABS2021} concluded that 72\% of businesses generated less revenue and the underemployment rate hit a historical high of 13.8\% by the end of April, 2020, only one month after the COVID-19 outbreak.
+
+Our research is motivated by the lack of quantitative research on the employment of two-digit disaggregated industry sectors in Australia, as many studies have focused on the aggregated employment rate. A general problem of aggregated research is the loss of hierarchical information, which may result in a biased conclusion or ``an illusion of employment prosperity''. Thus, a quantitative analysis of the sectoral employment will ameliorate this problem, giving us a better scope to evaluate the impacts of COVID-19 in Australia.
+
+\hypertarget{sec:expsmooth}{%
+\chapter{Exponential Smoothing}\label{sec:expsmooth}}
+
+\hypertarget{organizing-your-ideas}{%
+\section{Organizing your ideas}\label{organizing-your-ideas}}
+
+Imagine you are writing for your fellow Honours students. Topics that are well-known to them do not have to be included here. But things that they may not know about should be included. Resist the temptation to discuss everything you've read in the last year.
+
+Do not organize your chapter around the papers you have read with one section per paper. Instead, you should organize your chapters around themes, and within each theme provide a story explaining the development of ideas. It is usually helpful to plan out a table of contents first with major section headings.
+
+When you are discussing results from several papers or books, you will need to adopt a common notation to ensure your chapter makes sense. Do not use different notation for the same thing.
+
+\hypertarget{citations}{%
+\section{Citations}\label{citations}}
+
+All citations should be done using markdown notation as shown below. This way, your bibliography will be compiled automatically and correctly.
+
+Exponential smoothing was originally developed in the late 1950s \autocite{Brown59,Brown63,Holt57,Winters60}. Because of their computational simplicity and interpretability, they became widely used in practice.
+
+Empirical studies by \textcite{MH79} and \textcite{Metal82} found little difference in forecast accuracy between exponential smoothing and ARIMA models. This made the family of exponential smoothing procedures an attractive proposition \autocite[see][]{CKOS01}.
+
+The methods were less popular in academic circles until \textcite{OKS97} introduced a state space formulation of some of the methods, which was extended in \textcite{HKSG02} to cover the full range of exponential smoothing methods.
+
+\appendix
+
+\hypertarget{additional-stuff}{%
+\chapter{Additional stuff}\label{additional-stuff}}
+
+You might put some computer output here, or maybe additional tables.
+
+Note that \texttt{\textbackslash{}appendix} must appear before your first appendix. But other appendices can just start like any other chapter.
+
+\printbibliography[heading=bibintoc]
+
+
+
+\end{document}
