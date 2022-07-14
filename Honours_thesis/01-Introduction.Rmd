@@ -3,8 +3,39 @@ chapter: 1
 knit: "bookdown::render_book"
 ---
 
-## Introduction 
+# Introduction 
+
+
+
+
+# The Australian COVID-19 Pandemic Background
 
 The COVID-19 pandemic has had a massive effect on economies around the world. Across different countries, millions of workers were furloughed or even lost their jobs as businesses struggled to survive [@ny2020]. The same situation happened in Australia, due to more restrictions, many businesses closed their doors, while employees were working with less hours or being dismissed by companies. As a result of the continuous "lockdown" periods in 2020, estimates made by the Australian Bureau of Statistics [@ABS2021] concluded that 72% of businesses generated less revenue and the underemployment rate hit a historical high of 13.8% by the end of April, 2020, only one month after the COVID-19 outbreak.
 
 Our research is motivated by the lack of quantitative research on the employment of two-digit disaggregated industry sectors in Australia, as many studies have focused on the aggregated employment rate. A general problem of aggregated research is the loss of hierarchical information, which may result in a biased conclusion or "an illusion of employment prosperity". Thus, a quantitative analysis of the sectoral employment will ameliorate this problem, giving us a better scope to evaluate the impacts of COVID-19 in Australia.
+
+
+
+
+
+## Research Aim and questions 
+
+This research will extend @anderson2020 by using data on 87 two-digit industry sectors instead of 19 sectors that they used. I will develop a model for the two-digit sectors to evaluate the long run effect and the COVID-19 post-impacts. I will also provide a counterfactual analysis based on the assumption "if there is no pandemic". The two-digit sectoral data will provide us with more information, which will assist in getting a better understanding of employment dynamics in Australia.
+
+The overall research aim is to provide estimates of two-digit sectoral employment based on historical data. Specifically, my goals are: 
+
+1. To construct a time series model of employment in 87 two-digit sectors of the Australian economy.
+
+1. To use this model to conduct a counterfactual analysis. 
+
+3. To use this model to determine which two-digit sectors have the highest impact (or positive spillover) on employment growth in the long run.
+
+
+
+## Thesis Structure 
+
+
+This thesis focus on analyzing Australian Employment at a disaggregated level, then estimate the long run effects of the COVID-19 to sectoral employment rate in Australia. The remainder of the thesis is structured as follows. 
+
+
+
