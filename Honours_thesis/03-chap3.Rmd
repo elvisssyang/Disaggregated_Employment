@@ -1,0 +1,30 @@
+---
+chapter: 3
+knit: "bookdown::render_book"
+---
+
+
+
+
+# Data collection and exploratory analysis
+
+## Data Introduction
+
+
+
+Our data source is the ABS Employment by industry subdivision of main job [@ABS2022], which records employment (measured in $thousands$) by the ANZSIC industry sub-division of their main jobs from $1984:Q4$ to $2021:Q4$. Our data structure is provided via Figure \ref{fig:anzsic}.
+
+Although seasonally adjusted data is available in [@ABS2022], I will work with the original data to capture any possible changes in seasonal patterns. I will apply a seasonal difference the logarithm of the original series in order to make them stationary and eliminate seasonality, which will make it easier to conduct further steps.
+
+## Preliminary Exploratory Data Analysis
+
+\newpage
+
+Figure \ref{fig:19} illustrates the changes of raw data for 19 main sectors in Australia during the pandemic. Due to the closedown of businesses and travel bans in 2020:Q2, we can observe that the total employment number dropped substantially (from around 13,200,000 to 12,200,000 on $2020:Q2$). Most industries behaved similarly with significant changes shown in Figure \ref{fig:19} . Comparing with the previous data of these industries," Accommodation & Food", "Media & telecom" and Administrative industries have experienced a severe loss of employment and have not fully recovered to the pre-covid level. However, some industries like "Financial" and "Electricity & Gas" showed a continuously increasing trend as before.
+
+Nevertheless, there is a drawback of considering the 19 board sectors only; because the two-digit subsectoral dynamics of these sectors may not be homogeneous with their aggregated sectoral changes. For example, when observing the aggregated performance of the "Manufacturing" and "Mining" sectors from the 19 sectoral level (see Figure \ref{fig:a19}), we may believe that their corresponding subsetors should illustrate the same pattern. However, the reality is that while there is a decreasing trend in the "Manufacturing" sector or an increasing trend in the "Mining" sector, some of their two-digit subsectors are performed differently (see Figure \ref{fig:a87}). This means that not all two-digit subsectors follow the same pattern with the aggregated sectoral level.
+
+
+Table \ref{tab:comp} shows the top five and bottom five two-digit subsectors in terms of their employment growth during the pandemic. From \ref{tab:comp} we can conclude that the "Forestry and Logging" experienced a severe shock after the lockdown happened on 2020:Q2, followed by "Private Households Employing Staff" and "Library and Other Information Services". Figure \ref{fig:87} demonstrates the performance of each industry at a more disaggregated two-digit subsectoral level, we can observe that many two-digit subsectors have also shown huge decreases in employment in 2020:Q2.
+
+

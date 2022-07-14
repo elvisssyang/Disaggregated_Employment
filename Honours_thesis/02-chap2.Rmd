@@ -3,24 +3,37 @@ chapter: 2
 knit: "bookdown::render_book"
 ---
 
-# Exponential Smoothing {#sec:expsmooth}
+# Review of literature
 
-## Organizing your ideas
+Our review of literature mainly focuses on two areas:
 
-Imagine you are writing for your fellow Honours students. Topics that are well-known to them do not have to be included here. But things that they may not know about should be included. Resist the temptation to discuss everything you've read in the last year.
+1.  The COVID-19 sectoral impacts and modelling of the economy. 
 
-Do not organize your chapter around the papers you have read with one section per paper. Instead, you should organize your chapters around themes, and within each theme provide a story explaining the development of ideas. It is usually helpful to plan out a table of contents first with major section headings.
+2.  Modelling of large numbers of time series.
 
-When you are discussing results from several papers or books, you will need to adopt a common notation to ensure your chapter makes sense. Do not use different notation for the same thing.
 
-## Citations
+## Sectoral Impact of COVID-19.
 
-All citations should be done using markdown notation as shown below. This way, your bibliography will be compiled automatically and correctly.
+Most existing studies have focused on the evaluation of the impacts of COVID-19 on broad sectors of large economies such as the US and Europe. @ludvigson2020covid developed a disaster series to translate the macroeconomic impact of costly and deadly disasters in recent US history and model them as sectoral shocks to predict COVID-19. They concluded that the shock would lead to a cumulative loss of 20% in industrial production, 39% in public services and also reduce the US GDP by 12.75 per cent at the end of 2020. @gregory2020pandemic conducted simulations under different scenarios via a search theoretic model using US data and found the recovery in the US is L-shaped, with employment remaining lower than pre-covid for a long period. They also extended their studies at a disaggregated level of 20 sectors, showing that "arts and entertainment" and "accommodation and food services" sectors would have the biggest shock during the pandemic.
 
-Exponential smoothing was originally developed in the late 1950s [@Brown59;@Brown63;@Holt57;@Winters60]. Because of their computational simplicity and interpretability, they became widely used in practice.
 
-Empirical studies by @MH79 and @Metal82 found little difference in forecast accuracy between exponential smoothing and ARIMA models. This made the family of exponential smoothing procedures an attractive proposition [see @CKOS01].
 
-The methods were less popular in academic circles until  @OKS97 introduced a state space formulation of some of the methods, which was extended in @HKSG02 to cover the full range of exponential smoothing methods.
+In Australia, @anderson2020 developed a multivariate time series model for 19 main sectors in Australia (as a small open economy) using a Bayesian VARX model. Their research concluded that "Manufacturing" and "Construction" have the highest positive spillovers for the aggregate economy. Meanwhile, they also applied a "conditional forecasting" method proposed by @waggoner1999 to simulate different scenarios for the pandemic in Australia. However, their research does not use a finely disaggregated level in Australia (two-digit subsectors of main sectors), which can be extremely useful in macroeconomic analysis.
+
+
+
+
+
+## Modelling
+
+### Baysian VAR
+
+The Bayesian Vector Autoregression model (BVAR) is commonly used in the literature for multivariate data [e.g. @anderson2020; @litterman1986; @banbura2010large]. The BVAR model is attractive because it allows us to estimate a large number of parameters, when the sample size is not large, in a statistically coherent way.[@litterman1986;@wozniak2016bayesian].
+
+In order to utilize the Bayesian VAR estimators @litterman1979 proposed the Minnesota Prior, which decreases the weight of the lagged variable with the lag length. The prior mean on the first own lag is set to unity and the rest are set to zero so that (a) the most recent lag should provide more information than distant lags; and (b) own lags should explain more than the lags of other variables.
+
+### Improvement of BVAR
+
+The literature suggests that a significant improvement can be made in large BVAR dynamic models by imposing a stronger shrinkage parameter [@banbura2010large; @litterman1986]. @robertson1999vector and @kadiyala1997 proposed a Normal-inverse-Wishart prior which retains the principal of Minnesota prior. Meanwhile, @banbura2010large suggested an easier way to apply the Minnesota prior via adding dummy observations into the BVAR system.
 
 
