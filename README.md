@@ -26,7 +26,7 @@ Due to the reason that in the second-digit level, data is not too clean as the f
 
 + calculate the estimated phi, please **RUN the MAIN.m** to draw the estimated parameters of **BVAR** 
 
-+ Estimated coefficients of BVAR is in **phi.csv **
++ Estimated coefficients of BVAR is in **phi.csv**
 
 
 
