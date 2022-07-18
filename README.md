@@ -1,9 +1,10 @@
 # Disaggregated_Employment
+
 This is the Honours thesis_ Disaggregated Employment Dynamics in Australia
 
 
 
-# Purpose: Build up the Bayesian VAR using minne prior with a nature conjugate setting mentioned in banbura paper 
+*Purpose: Build up the Bayesian VAR using Minnesota prior with a nature conjugate setting mentioned in banbura paper *
 
 
 
@@ -18,17 +19,26 @@ Due to the reason that in the second-digit level, data is not too clean as the f
 
 
 
-# Operation steps : 
+# Operating steps : 
 
 
 ## Matlab code is used to 
 
-+ calculate the estimated phi, please **RUN the MAIN.m** to draw the estimated parameters of **BVAR**
++ calculate the estimated phi, please **RUN the MAIN.m** to draw the estimated parameters of **BVAR** 
+
++ Estimated coefficients of BVAR is in **phi.csv **
+
 
 
 ## R code is used to : 
 
-+train the best estimated hyper parameter  \lambda 
++ Train the best estimated hyper parameter  $\lambda$
 
-+ conduct spillover analysis 
++ Conduct spillover analysis 
+
++ Do the scenario forecasting 
+
+
+
+ 
 
