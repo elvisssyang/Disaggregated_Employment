@@ -6,5 +6,7 @@ rmd_files: ["index.Rmd",
   "01-Introduction.Rmd",
   "02-chap2.Rmd",
   "03-chap3.Rmd",
+  "04-chap4.Rmd",
+  "B-appB.Rmd",
   "A-appA.Rmd"]
 delete_merged_file: TRUE

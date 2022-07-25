@@ -25,10 +25,29 @@ maxhor = 2; %maximum forecast horizon where we are imposing conditions
 
 
 %Fit an BVAR to get the parameters for the BVAR 
-[phi,SIGMA,X,e] = BVAR(y,p,lambda);
 
 
-% write out the phi to csv file 
-%csvwrite('phi.csv',phi)  
+
+%[phi,SIGMA,X,e] = BVAR(y,p,lambda);
+
+
+% write out the phi to csv file
+
+%csvwrite('phi.csv',phi);
+
+
+% Train use the time series cross validation with various lambda avaliable 
+
+
+for i=1:32
+       
+
+    % fit an BVAR model 
+
+    for 
+
+
+
+end 
 
 

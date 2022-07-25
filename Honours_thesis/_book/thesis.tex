@@ -35,6 +35,8 @@
 
 \clearpage\pagenumbering{arabic}\setcounter{page}{0}
 
+\graphicspath{ {/Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figure} }
+
 \hypertarget{acknowledgement}{%
 \chapter*{Acknowledgement}\label{acknowledgement}}
 \addcontentsline{toc}{chapter}{Acknowledgement}
@@ -132,11 +134,70 @@ Although seasonally adjusted data is available in \autocite{ABS2022}, I will wor
 
 \newpage
 
-Figure \ref{fig:19} illustrates the changes of raw data for 19 main sectors in Australia during the pandemic. Due to the closedown of businesses and travel bans in 2020:Q2, we can observe that the total employment number dropped substantially (from around 13,200,000 to 12,200,000 on \(2020:Q2\)). Most industries behaved similarly with significant changes shown in Figure \ref{fig:19} . Comparing with the previous data of these industries,'' Accommodation \& Food'', ``Media \& telecom'' and Administrative industries have experienced a severe loss of employment and have not fully recovered to the pre-covid level. However, some industries like ``Financial'' and ``Electricity \& Gas'' showed a continuously increasing trend as before.
+Figure \ref{fig:19} illustrates the changes in the raw data for 19 main sectors in Australia during the pandemic. Due to the closedown of businesses and travel bans on 2020:Q2, we can observe that the total employment number dropped substantially (from around 13,200,000 to 12,200,000 on \(2020:Q2\)). Most industries behaved similarly with significant changes shown in Figure \ref{fig:19} . Comparing with the previous data of these industries,'' Accommodation \& Food'', ``Media \& telecom'' and Administrative industries have experienced a severe loss of employment and have not fully recovered to the pre-covid level. However, some industries like ``Financial'' and ``Electricity \& Gas'' showed a continuously increasing trend as before.
 
-Nevertheless, there is a drawback of considering the 19 board sectors only; because the two-digit subsectoral dynamics of these sectors may not be homogeneous with their aggregated sectoral changes. For example, when observing the aggregated performance of the ``Manufacturing'' and ``Mining'' sectors from the 19 sectoral level (see Figure \ref{fig:a19}), we may believe that their corresponding subsetors should illustrate the same pattern. However, the reality is that while there is a decreasing trend in the ``Manufacturing'' sector or an increasing trend in the ``Mining'' sector, some of their two-digit subsectors are performed differently (see Figure \ref{fig:a87}). This means that not all two-digit subsectors follow the same pattern with the aggregated sectoral level.
+Nevertheless, there is a drawback of considering the 19 board sectors only; because the two-digit subsectoral dynamics of these sectors may not be homogeneous with their aggregated sectoral changes. For example, when observing the aggregated performance of the ``Manufacturing'' and ``Mining'' sectors from the 19 sectoral level (see Figure \ref{fig:a19}), we may believe that their corresponding subsectors should illustrate the same pattern. However, the reality is that while there is a decreasing trend in the ``Manufacturing'' sector or an increasing trend in the ``Mining'' sector, some of their two-digit subsectors are performed differently (see Figure \ref{fig:a87}). This means that not all two-digit subsectors follow the same pattern with the aggregated sectoral level.
 
 Table \ref{tab:comp} shows the top five and bottom five two-digit subsectors in terms of their employment growth during the pandemic. From \ref{tab:comp} we can conclude that the ``Forestry and Logging'' experienced a severe shock after the lockdown happened on 2020:Q2, followed by ``Private Households Employing Staff'' and ``Library and Other Information Services''. Figure \ref{fig:87} demonstrates the performance of each industry at a more disaggregated two-digit subsectoral level, we can observe that many two-digit subsectors have also shown huge decreases in employment in 2020:Q2.
+
+\hypertarget{methdology}{%
+\chapter{Methdology}\label{methdology}}
+
+\hypertarget{proposed-model}{%
+\section{Proposed Model}\label{proposed-model}}
+
+I plan to use a Bayesian VARX model based on a method proposed by \textcite{anderson2020}. In the model, each sector is affected by the lags of sectoral growth and a lag of the total employment growth. The lag of aggregate employment growth acts as an economy-wide factor which will affect each sector.
+
+Under the assumption that the structure of the Australian economy will not change during COVID-19, we suggest the BVAR model as
+
+\[
+\begin{aligned}
+\textbf{y}_t=\textbf{c}+\textbf{A}_1 \textbf{y}_{t-1}+\textbf{A}_2\textbf{y}_{t-2}+\textbf{A}_3\textbf{y}_{t-3}+\textbf{A}_4\textbf{y}_{t-4}+\bf{\Gamma}\textbf{x}_{t-1}+\bf{u}_t
+\end{aligned}
+\]
+
+where \(\bf{y}_t\) is an \(87\times1\) vector of two-digit subsectoral employment growth rate at time \(t\) and \(\bf{x}_{t-1}\) is the \(4\times1\) vector of 4 lags of the growth rate of aggregate employment (this vector of variables are predetermined at time \(t\)), \textbf{c} is a vector of constants, \(\bf{A}_{1,2,3,4}\) are \(87\times87\) parameter matrices. \(\bf{\Gamma}\) is a \(87\times4\) matrix and \(\bf{u}_t\) is a vector of reduced form errors with the mean equals to zero and independent variance \(\bf{u}_t \sim (0,\bf{\Sigma})\). (see Appendix)
+
+\hypertarget{prior-and-shrinkage}{%
+\section{Prior and shrinkage}\label{prior-and-shrinkage}}
+
+Bayesian VAR helps to overcome the curse of high dimensionality via the imposition of prior beliefs on the parameters \autocite{banbura2010large}. I will estimate the VARX using Bayesian methods by specifying a Minnesota prior \autocites[e.g.][]{anderson2020,litterman1986,robertson1999vector}. In order to set up the Minnesota prior in our BVAR model, \textcite{banbura2010large} suggests a Minnesota-type prior that applies shrinkage to the VAR slope coefficients as follows:
+
+\[
+\begin{aligned}\label{eq:1}
+&E[a_{j}^{jk}] = E[\gamma_{i}^j]=0\\
+\\
+&Var[a_j^{jk}]= 
+\begin{cases}
+\frac{\lambda^2}{i^2},&j=k\\
+\frac{\lambda^2}{i^2}\frac{\sigma^2_{j}}{\sigma^2_k},& otherwise
+\end{cases}\\
+\\
+&Var[\gamma_i^{j}]=\frac{\lambda^2}{i^2}\frac{\sigma^2_{j}}{\sigma^2_e}
+\end{aligned}
+\]
+where the degree of shrinkage is governed by \(\lambda\), \(\frac{1}{i^2}\) to down-weight more distant lags and the \(\frac{\sigma_j^2}{\sigma_k^2}\) adjusts for different scale of the data. \(\sigma^2_e\) is the variance after fitting an AR model on total employment growth.
+
+\textcite{banbura2010large} also suggested that a natural conjugate Normal-Inverse-Wishart which retains the principle of Minnesota prior will help in adding Minnesota prior to the Bayesian VAR system. Its posterior moments can be calculated either analytically or through adding the dummy observations. I will use dummy observations to estimate the BVAR \autocites[e.g.][]{banbura2010large,anderson2020,wozniak2016bayesian}. More details are provided in the Appendix.
+
+\hypertarget{sectoral-employment-multiplier-analysis}{%
+\section{Sectoral Employment Multiplier Analysis}\label{sectoral-employment-multiplier-analysis}}
+
+I will also conduct a two-digit subsectoral employment multiplier analysis based on the estimated BVAR model and the 87 two-digit subsectoral data.
+
+At each time period, we have :
+
+\[
+GR_T=\sum_{j=1}^{87} w_j\times {GR}_j
+\]
+
+where \(w_j\) is the share of employment of two-digit subsector \(j\) in the total employment, \(GR_T\) is the growth rate in total employment and \(GR_j\) is the growth rate in employment of two-digit subsector \(j\).
+
+Due to the interconnection of macroeconomic two-digit subsectors, when a two-digit subsector \(j\) has an increase in employment, in the long run, it may have spillover effect onto other two-digit subsectors, especially those that have high connections with the two-digit subsector \(j\) (\textcite{anderson2020}).
+
+If this long-run effect is larger than the immediate effect, then this two-digit subsector will have positive spillover effect on total employment, and \emph{vice versa}. I will use the interconnection of BVAR parameters to estimate two-digit subsectors which have strong positive spillovers for the total employment. Then, if the government makes policies to stimulate these two-digit subsectors, the total employment will recover more effectively.
+
+\newpage
 
 \appendix
 
@@ -146,6 +207,43 @@ Table \ref{tab:comp} shows the top five and bottom five two-digit subsectors in 
 You might put some computer output here, or maybe additional tables.
 
 Note that \texttt{\textbackslash{}appendix} must appear before your first appendix. But other appendices can just start like any other chapter.
+
+\graphicspath{ {/Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figures} }
+
+\begin{figure}[t]
+\includegraphics[scale=0.6]{free_19}
+\centering
+\caption{Employment('000) of 19 sectors in Australia from 2019:Q1 to 2021:Q4}
+\label{fig:19}
+\end{figure}
+
+\begin{figure}[t]
+\includegraphics[scale=0.5]{free_87}
+\centering
+\caption{Employment('000) of 87 two-digit subsectors in Australia from 2019:Q1 to 2021:Q4}
+\label{fig:87}
+\end{figure}
+
+\begin{figure}[t]
+\includegraphics[scale=0.5]{agg_19}
+\centering
+\caption{Aggregated Employment(in thousands) for Manufacturing and Mining sector in Australia from 1984:Q4 to 2021:Q4}
+\label{fig:a19}
+\end{figure}
+
+\begin{figure}[t]
+\includegraphics[scale=0.5]{agg_87}
+\centering
+\caption{Disaaggregate Employment(in thousands) of 87 two-digit subsectors in Manufacturing and Mining sector from 1984:Q4 to 2021:Q4}
+\label{fig:a87}
+\end{figure}
+
+\begin{figure}[t]
+\includegraphics[scale=0.5]{ANZSIC}
+\centering
+\caption{Australian Industry Pamamid plot by (ANZSIC)}
+\label{fig:anzsic}
+\end{figure}
 
 \printbibliography[heading=bibintoc]
 

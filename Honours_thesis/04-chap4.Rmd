@@ -1,0 +1,59 @@
+---
+chapter: 4
+knit: "bookdown::render_book"
+---
+
+# Methdology
+## Proposed Model
+
+I plan to use a Bayesian VARX model based on a method proposed by @anderson2020. In the model, each sector is affected by the lags of sectoral growth and a lag of the total employment growth. The lag of aggregate employment growth acts as an economy-wide factor which will affect each sector.
+
+Under the assumption that the structure of the Australian economy will not change during COVID-19, we suggest the BVAR model as
+
+$$
+\begin{aligned}
+\textbf{y}_t=\textbf{c}+\textbf{A}_1 \textbf{y}_{t-1}+\textbf{A}_2\textbf{y}_{t-2}+\textbf{A}_3\textbf{y}_{t-3}+\textbf{A}_4\textbf{y}_{t-4}+\bf{\Gamma}\textbf{x}_{t-1}+\bf{u}_t
+\end{aligned}
+$$
+
+where $\bf{y}_t$ is an $87\times1$ vector of two-digit subsectoral employment growth rate at time $t$  and $\bf{x}_{t-1}$ is the $4\times1$ vector of 4 lags of the growth rate of aggregate employment (this vector of variables are predetermined at time $t$), **c** is a vector of constants, $\bf{A}_{1,2,3,4}$ are $87\times87$ parameter matrices. $\bf{\Gamma}$ is a $87\times4$ matrix and $\bf{u}_t$ is a vector of reduced form errors with the mean equals to zero and independent variance $\bf{u}_t \sim (0,\bf{\Sigma})$. (see Appendix)
+
+## Prior and shrinkage
+
+Bayesian VAR helps to overcome the curse of high dimensionality via the imposition of prior beliefs on the parameters [@banbura2010large]. I will estimate the VARX using Bayesian methods by specifying a Minnesota prior [e.g. @anderson2020; @litterman1986; @robertson1999vector]. In order to set up the Minnesota prior in our BVAR model, @banbura2010large suggests a Minnesota-type prior that applies shrinkage to the VAR slope coefficients as follows:
+
+$$
+\begin{aligned}\label{eq:1}
+&E[a_{j}^{jk}] = E[\gamma_{i}^j]=0\\
+\\
+&Var[a_j^{jk}]= 
+\begin{cases}
+\frac{\lambda^2}{i^2},&j=k\\
+\frac{\lambda^2}{i^2}\frac{\sigma^2_{j}}{\sigma^2_k},& otherwise
+\end{cases}\\
+\\
+&Var[\gamma_i^{j}]=\frac{\lambda^2}{i^2}\frac{\sigma^2_{j}}{\sigma^2_e}
+\end{aligned}
+$$
+where the degree of shrinkage is governed by $\lambda$, $\frac{1}{i^2}$ to down-weight more distant lags and the $\frac{\sigma_j^2}{\sigma_k^2}$ adjusts for different scale of the data. $\sigma^2_e$ is the variance after fitting an AR model on total employment growth. 
+
+@banbura2010large also suggested that a natural conjugate Normal-Inverse-Wishart which retains the principle of Minnesota prior will help in adding Minnesota prior to the Bayesian VAR system. Its posterior moments can be calculated either analytically or through adding the dummy observations. I will use dummy observations to estimate the BVAR [e.g. @banbura2010large; @anderson2020; @wozniak2016bayesian]. More details are provided in the Appendix.
+
+## Sectoral Employment Multiplier Analysis 
+
+I will also conduct a two-digit subsectoral employment multiplier analysis based on the estimated BVAR model and the 87 two-digit subsectoral data. 
+
+At each time period, we have : 
+
+$$
+GR_T=\sum_{j=1}^{87} w_j\times {GR}_j
+$$
+
+where $w_j$ is the share of employment of two-digit subsector $j$ in the total employment, $GR_T$ is the growth rate in total employment and $GR_j$ is the growth rate in employment of two-digit subsector $j$. 
+
+Due to the interconnection of macroeconomic two-digit subsectors, when a two-digit subsector $j$ has an increase in employment, in the long run, it may have spillover effect onto other two-digit subsectors, especially those that have high connections with the two-digit subsector $j$ (@anderson2020).
+
+If this long-run effect is larger than the immediate effect, then this two-digit subsector will have positive spillover effect on total employment, and *vice versa*. I will use the interconnection of BVAR parameters to estimate two-digit subsectors which have strong positive spillovers for the total employment. Then, if the government makes policies to stimulate these two-digit subsectors, the total employment will recover more effectively.  
+
+\newpage
+

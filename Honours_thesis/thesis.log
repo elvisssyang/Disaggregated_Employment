@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2022.2.28)  14 JUL 2022 21:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2022.2.28)  25 JUL 2022 11:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -847,7 +847,7 @@ LaTeX Font Info:    Font shape `T1/fvs/m/n' will be
 (Font)              scaled to size 12.9599pt on input line 32.
 LaTeX Font Info:    Font shape `T1/fvs/m/n' will be
 (Font)              scaled to size 15.55188pt on input line 32.
-<figures/crest.jpg, id=56, 509.905pt x 553.06625pt>
+<figures/crest.jpg, id=76, 509.905pt x 553.06625pt>
 File: figures/crest.jpg Graphic file (type jpg)
 <use figures/crest.jpg>
 Package pdftex.def Info: figures/crest.jpg  used on input line 32.
@@ -903,7 +903,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 
 ]
 LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
-(Font)              scaled to size 18.66588pt on input line 39.
+(Font)              scaled to size 18.66588pt on input line 41.
 [1] [2
 
 ] [3] [4
@@ -912,147 +912,112 @@ LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
 
 ]
 Chapter 1.
-
-LaTeX Warning: Citation 'ny2020' on page 7 undefined on input line 59.
-
-
-LaTeX Warning: Citation 'ABS2021' on page 7 undefined on input line 59.
-
 LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
-(Font)              scaled to size 13.49991pt on input line 64.
-
-LaTeX Warning: Citation 'anderson2020' on page 7 undefined on input line 66.
-
+(Font)              scaled to size 13.49991pt on input line 66.
 [7]
 LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
-(Font)              scaled to size 12.9599pt on input line 86.
+(Font)              scaled to size 12.9599pt on input line 88.
 [8]
 Chapter 2.
-
-LaTeX Warning: Citation 'ludvigson2020covid' on page 9 undefined on input line 
-101.
-
-
-LaTeX Warning: Citation 'gregory2020pandemic' on page 9 undefined on input line
- 101.
-
-
-LaTeX Warning: Citation 'anderson2020' on page 9 undefined on input line 103.
-
-
-LaTeX Warning: Citation 'waggoner1999' on page 9 undefined on input line 103.
-
 [9
 
 ]
 LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
-(Font)              scaled to size 10.79993pt on input line 109.
-
-LaTeX Warning: Citation 'anderson2020' on page 10 undefined on input line 111.
-
-
-LaTeX Warning: Citation 'litterman1986' on page 10 undefined on input line 111.
-
-
-
-LaTeX Warning: Citation 'banbura2010large' on page 10 undefined on input line 1
-11.
-
-
-LaTeX Warning: Citation 'litterman1986' on page 10 undefined on input line 111.
-
-
-
-LaTeX Warning: Citation 'wozniak2016bayesian' on page 10 undefined on input lin
-e 111.
-
-
-LaTeX Warning: Citation 'litterman1979' on page 10 undefined on input line 113.
-
-
-
-LaTeX Warning: Citation 'banbura2010large' on page 10 undefined on input line 1
-18.
-
-
-LaTeX Warning: Citation 'litterman1986' on page 10 undefined on input line 118.
-
-
-
-LaTeX Warning: Citation 'robertson1999vector' on page 10 undefined on input lin
-e 118.
-
-
-LaTeX Warning: Citation 'kadiyala1997' on page 10 undefined on input line 118.
-
-
-LaTeX Warning: Citation 'banbura2010large' on page 10 undefined on input line 1
-18.
-
+(Font)              scaled to size 10.79993pt on input line 111.
 [10]
 Chapter 3.
-
-LaTeX Warning: Citation 'ABS2022' on page 11 undefined on input line 126.
-
-
-LaTeX Warning: Reference `fig:anzsic' on page 11 undefined on input line 126.
-
-
-LaTeX Warning: Citation 'ABS2022' on page 11 undefined on input line 128.
-
 [11
 
 ]
 
-LaTeX Warning: Reference `fig:19' on page 12 undefined on input line 135.
+LaTeX Warning: Reference `tab:comp' on page 12 undefined on input line 141.
 
 
-LaTeX Warning: Reference `fig:19' on page 12 undefined on input line 135.
-
-
-LaTeX Warning: Reference `fig:a19' on page 12 undefined on input line 137.
-
-
-LaTeX Warning: Reference `fig:a87' on page 12 undefined on input line 137.
-
-
-LaTeX Warning: Reference `tab:comp' on page 12 undefined on input line 139.
-
-
-LaTeX Warning: Reference `tab:comp' on page 12 undefined on input line 139.
-
-
-LaTeX Warning: Reference `fig:87' on page 12 undefined on input line 139.
+LaTeX Warning: Reference `tab:comp' on page 12 undefined on input line 141.
 
 [12]
+Chapter 4.
+[13
+
+] [14] [15] [16
+
+]
 Appendix A.
-LaTeX Font Info:    Trying to load font information for T1+fvm on input line 14
-8.
+LaTeX Font Info:    Trying to load font information for T1+fvm on input line 20
+9.
 (/usr/local/texlive/2021/texmf-dist/tex/latex/bera/t1fvm.fd
 File: t1fvm.fd 2004/09/07 scalable font definitions for T1/fvm.
 )
 LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
-(Font)              scaled to size 9.85492pt on input line 148.
+(Font)              scaled to size 9.85492pt on input line 209.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `fvm' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
+</Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figu
+res/free_19.png, id=267, 844.47495pt x 597.31155pt>
+File: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis
+/figures/free_19.png Graphic file (type png)
+<use /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/
+figures/free_19.png>
+Package pdftex.def Info: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employ
+ment/Honours_thesis/figures/free_19.png  used on input line 214.
+(pdftex.def)             Requested size: 506.68887pt x 358.3897pt.
 
-LaTeX Warning: Empty bibliography on input line 150.
+Overfull \hbox (51.44476pt too wide) in paragraph at lines 214--216
+ [][] 
+ []
 
-[13
+</Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figu
+res/free_87.png, id=268, 844.47495pt x 597.31155pt>
+File: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis
+/figures/free_87.png Graphic file (type png)
+<use /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/
+figures/free_87.png>
+Package pdftex.def Info: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employ
+ment/Honours_thesis/figures/free_87.png  used on input line 221.
+(pdftex.def)             Requested size: 422.23643pt x 298.65504pt.
+</Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figu
+res/agg_19.png, id=270, 844.47495pt x 597.31155pt>
+File: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis
+/figures/agg_19.png Graphic file (type png)
+<use /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/
+figures/agg_19.png>
+Package pdftex.def Info: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employ
+ment/Honours_thesis/figures/agg_19.png  used on input line 228.
+(pdftex.def)             Requested size: 422.23643pt x 298.65504pt.
+</Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figu
+res/agg_87.png, id=271, 844.47495pt x 597.31155pt>
+File: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis
+/figures/agg_87.png Graphic file (type png)
+<use /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/
+figures/agg_87.png>
+Package pdftex.def Info: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employ
+ment/Honours_thesis/figures/agg_87.png  used on input line 235.
+(pdftex.def)             Requested size: 422.23643pt x 298.65504pt.
+</Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figu
+res/ANZSIC.png, id=272, 787.94376pt x 671.50874pt>
+File: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis
+/figures/ANZSIC.png Graphic file (type png)
+<use /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/
+figures/ANZSIC.png>
+Package pdftex.def Info: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employ
+ment/Honours_thesis/figures/ANZSIC.png  used on input line 242.
+(pdftex.def)             Requested size: 393.97092pt x 335.75356pt.
+[17] [18 </Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_th
+esis/figures/free_19.png>] [19 </Users/elvisyang/Desktop/hon_proj/Disaggregated
+_Employment/Honours_thesis/figures/free_87.png> </Users/elvisyang/Desktop/hon_p
+roj/Disaggregated_Employment/Honours_thesis/figures/agg_19.png>] [20 </Users/el
+visyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figures/agg_87
+.png>] [21 </Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_
+thesis/figures/ANZSIC.png>] [22
 
-] (./thesis.aux)
+] [23] [24] (./thesis.aux)
 
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 123F6A637B1712A20F40052C10F93CB6;2306.
-
-Package biblatex Warning: Please (re)run Biber on the file:
-(biblatex)                thesis
-(biblatex)                and rerun LaTeX afterwards.
-
+(rerunfilecheck)             Checksum: CCC4FF34967EE2F06FFAE789BB05B19D;3126.
 Package logreq Info: Writing requests to 'thesis.run.xml'.
 \openout1 = `thesis.run.xml'.
 
@@ -1062,24 +1027,29 @@ Package logreq Info: Writing requests to 'thesis.run.xml'.
 ### semi simple group (level 1) entered at line 102 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 21883 strings out of 478994
- 366406 string characters out of 5858184
- 1142009 words of memory out of 5000000
- 38744 multiletter control sequences out of 15000+600000
- 496774 words of font info for 232 fonts, out of 8000000 for 9000
+ 22179 strings out of 478994
+ 373112 string characters out of 5858184
+ 1148406 words of memory out of 5000000
+ 38895 multiletter control sequences out of 15000+600000
+ 511085 words of font info for 303 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 86i,11n,89p,1045b,17289s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 86i,14n,89p,1045b,17665s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/base/8r.enc
-}</usr/local/texlive/2021/texmf-dist/fonts/type1/public/bera/fvmr8a.pfb></usr/l
-ocal/texlive/2021/texmf-dist/fonts/type1/public/bera/fvsb8a.pfb></usr/local/tex
-live/2021/texmf-dist/fonts/type1/public/bera/fvsr8a.pfb></usr/local/texlive/202
-1/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/local/texlive/2021/texmf
--dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/local/texlive/2021/texmf-dist/f
-onts/type1/urw/palatino/uplri8a.pfb>
-Output written on thesis.pdf (16 pages, 147217 bytes).
+}</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb>
+</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></
+usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></u
+sr/local/texlive/2021/texmf-dist/fonts/type1/public/mathpazo/fplmr.pfb></usr/lo
+cal/texlive/2021/texmf-dist/fonts/type1/public/mathpazo/fplmri.pfb></usr/local/
+texlive/2021/texmf-dist/fonts/type1/public/bera/fvmr8a.pfb></usr/local/texlive/
+2021/texmf-dist/fonts/type1/public/bera/fvsb8a.pfb></usr/local/texlive/2021/tex
+mf-dist/fonts/type1/public/bera/fvsr8a.pfb></usr/local/texlive/2021/texmf-dist/
+fonts/type1/urw/palatino/uplb8a.pfb></usr/local/texlive/2021/texmf-dist/fonts/t
+ype1/urw/palatino/uplr8a.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/ur
+w/palatino/uplri8a.pfb>
+Output written on thesis.pdf (27 pages, 1543394 bytes).
 PDF statistics:
- 202 PDF objects out of 1000 (max. 8388607)
- 175 compressed objects within 2 object streams
- 52 named destinations out of 1000 (max. 500000)
- 79470 words of extra memory for PDF output out of 89155 (max. 10000000)
+ 379 PDF objects out of 1000 (max. 8388607)
+ 324 compressed objects within 4 object streams
+ 90 named destinations out of 1000 (max. 500000)
+ 97967 words of extra memory for PDF output out of 106986 (max. 10000000)
 

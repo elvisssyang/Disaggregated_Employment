@@ -61,7 +61,7 @@ for i = 1:N
     [AR_coeff] = olsvar(y(:,i),1);  %should this be y or Y? Must same as above
     if AR_coeff(2) >= 0.8
         Stack_AR_coeff(1,i) = 1; % in minnesota prior either set 1 or 0
-    end                       %% Elvis-- This can be set to zero as we impose the prior belief of white noise ?? 
+    end                       %% Elvis-- T his can be set to zero as we impose the prior belief of white noise ?? 
 end
 
 % Above steps are setting the E[(A_k)ij] = 1 if j=i and k=1, otherwise 0. 
