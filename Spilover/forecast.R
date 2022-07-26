@@ -157,10 +157,11 @@ maxhor=2 # maximum forecast horizon where we are imposing conditions
 # generate the phi of your estimated model
 
 
-phi <- BVAR(d4logdata,p,lambda)
+#phi <- BVAR(d4logdata,p,lambda)
+      
 
+phi <- read.csv("phi.csv",header=FALSE) %>% as.matrix #estimated parameters produced by MATLAB code
 
-#phi <- read.csv("phi.csv",header=FALSE) %>% as.matrix #estimated parameters produced by MATLAB code
 n = nrow(d4logdata)
 k = ncol(d4logdata)
 

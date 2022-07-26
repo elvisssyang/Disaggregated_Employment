@@ -9,7 +9,7 @@ addpath('_funcs')
 
 % Test script to estimate Australia BVAR of employment growth
 % Read data, 19 sectors in the first 19 columns - total in the 20th column
-alldata =  xlsread('ABSemp.xlsx', "A2:CG152");
+alldata =  xlsread('ABSemp.xlsx', "B2:CH142");
 
 
 % Transform data to year on year growth rate 100*ln(y_t/y_{t-4})
@@ -28,26 +28,12 @@ maxhor = 2; %maximum forecast horizon where we are imposing conditions
 
 
 
-%[phi,SIGMA,X,e] = BVAR(y,p,lambda);
+[phi,SIGMA,X,e] = BVAR(y,p,lambda);
 
 
 % write out the phi to csv file
 
 %csvwrite('phi.csv',phi);
 
-
-% Train use the time series cross validation with various lambda avaliable 
-
-
-for i=1:32
-       
-
-    % fit an BVAR model 
-
-    for 
-
-
-
-end 
 
 
