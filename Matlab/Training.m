@@ -22,6 +22,15 @@ alldata =  xlsread('ABSemp.xlsx', "B2:CH142");
 
 
 
+% set up the accumulated error measures 
+   MAE_acc  = [];
+   RMSE_acc = [];
+   MAPE_acc = [];
+   MASE_acc = [];
+   RMSSE_acc = [];
+
+
+
 for i= 20:140 % 20 is the minimum required number to fit the model
        
     % split training and test, starting with minimum training is 20q=5yrs
@@ -41,7 +50,7 @@ for i= 20:140 % 20 is the minimum required number to fit the model
     
     N = size(y,2);
     p = 4;
-    lambda = 0.2; %shrinakge lambda
+    lambda = 0.1; %shrinakge lambda ---- YOU CAN REPLACE WITH DIFFERENT LAMBDA 
     hor = 1; % forecast horizon for iteration (horizon for CV=1)
    
     
@@ -53,7 +62,7 @@ for i= 20:140 % 20 is the minimum required number to fit the model
     % prepare to conduct our forecasts 
     rawhat = zeros(n,k);
     yhat = zeros(n+hor,k);
-    sdiff = zeros(n,k); 
+
     
 
 
@@ -70,9 +79,9 @@ for i= 20:140 % 20 is the minimum required number to fit the model
         end 
 
         rawhatv = alldata(a-4,1:(k-1)) .* exp(yhat(a,1:(k-1))/100);
-        yhat(a,k) = 100 .* log(sum(rawhatv)/y(i-4,k));
-        rawhat(a,:)= alldata((a-4),1:k) .* exp(yhat(a,1:k)/100);
-        sdiff(a,:) = exp(yhat(a,1:k)/100);
+        yhat(a,k) = 100 .* log(sum(rawhatv)/alldata(a-4,k));
+        rawhat(a,:)= alldata(a-4,1:k) .* exp(yhat(a,1:k)/100);
+      
 
     end
 
@@ -96,22 +105,22 @@ for i= 20:140 % 20 is the minimum required number to fit the model
 
 
         rawhatv = alldata(b-4,1:(k-1)) .* exp(yhat(b,1:(k-1))/100);
-        yhat(b,k) = 100 .* log(sum(rawhatv)/y(i-4,k));
-        rawhat_fore(n+hor,:)= alldata((b-4),1:k) .* exp(yhat(b,1:k)/100);
-        sdiff_fore(i,:) = exp(yhat(b,1:k)/100);
+        yhat(b,k) = 100 .* log(sum(rawhatv)/alldata(b-4,k));
+        rawhat_fore(b,:)= alldata((b-4),1:k) .* exp(yhat(b,1:k)/100);
+        sdiff_fore(b,:) = exp(yhat(b,1:k)/100);
 
 
    end 
 
    newraw = test(hor,:);
-   error = rawhat_fore(n+1:n+hor,:) - test(hor,:); % calculate forecast difference between rawhat(estimated ones) and real data 
+   error = rawhat_fore(n+1:n+hor,:) - newraw; % calculate forecast difference between rawhat(estimated ones) and real data 
    train_err = zeros(hor,k);
 
    % Scale dependent error 
 
 
    MAE = mean(sumabs(error));
-   RMSE = sqrt(mean(sum(error)));
+   RMSE = sqrt(mean(sumabs(error)));
    
 
    % percentage error 
@@ -133,22 +142,36 @@ for i= 20:140 % 20 is the minimum required number to fit the model
 
    % scaled error Hyndman & Koehler (2006) see [https://otexts.com/fpp3/accuracy.html]
 
-   denom = sumabs(sdiff_fore)/hor;
+   denom = sumabs(sdiff_fore)/hor; % set up the denominator 
+ 
+   q_j = zeros(hor,k); % set up the $q_j$ see https://otexts.com/fpp3/accuracy.html
 
 
 
 
+   for a= 1:hor
+
+       for b = 1:k 
+           q_j(a,b) = error(a,b)/denom;
+       end
 
 
+   end 
+   
+   MASE = meanabs(q_j);
+
+   RMSSE = sqrt(meanabs(q_j));
 
 
 
     
    % Accumulative 
-   MAE_acc  = ;
-   RMSE_acc = ;
-   MAPE_acc = ;
-   MASE_acc = ;
+   MAE_acc  = [MAE_acc;MAE];
+   RMSE_acc = [RMSE_acc;RMSE];
+   MAPE_acc = [MAPE_acc;MAPE];
+   MASE_acc = [MASE_acc;MASE];
+   RMSSE_acc = [RMSSE_acc;RMSSE];
+
 
 
 %Fit an BVAR to get the parameters for the BVAR 
@@ -156,6 +179,17 @@ for i= 20:140 % 20 is the minimum required number to fit the model
 
 % Train use the time series cross validation with various lambda avaliable 
 end
+
+
+
+% Total Trained errors 
+
+Overall_MAE = sumabs(MAE_acc) / (size(alldata,1)-20); % have to average all the tests (START:20, END:141 in this case) START can be changed but min threashold is 20.
+Overall_RMSE = sumabs(RMSE_acc) / (size(alldata,1)-20);
+Overall_MAPE = sumabs(MAPE_acc) / (size(alldata,1)-20);
+Overall_MASE = sumabs(MASE_acc) / (size(alldata,1)-20);
+Overall_RMSSE = sumabs(RMSSE_acc) / (size(alldata,1)-20);
+
 
 
 
