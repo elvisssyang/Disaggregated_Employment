@@ -35,8 +35,6 @@
 
 \clearpage\pagenumbering{arabic}\setcounter{page}{0}
 
-\graphicspath{ {/Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figure} }
-
 \hypertarget{acknowledgement}{%
 \chapter*{Acknowledgement}\label{acknowledgement}}
 \addcontentsline{toc}{chapter}{Acknowledgement}
@@ -49,11 +47,17 @@ I would like to express gratitude to my supervisor Professor Farshid Vahid and m
 
 I declare that this thesis contains no material which has been submitted in any form for the award of any other degree or diploma in any university or equivalent institution, and that, to the best of my knowledge and belief, this thesis contains no material previously published or written by another person, except where due reference is made in the text of the thesis.
 
+\vspace{12pt}
+
+-- Signature: \underline{\emph{\textbf{Elvis Zhixiang Yang}}}
+
 \hypertarget{abstract}{%
 \chapter*{Abstract}\label{abstract}}
 \addcontentsline{toc}{chapter}{Abstract}
 
-We develop a multivariate time series model of employment in Australia at a disaggregated level with 87 sectors in total. We use this model to determine the long run employment spillovers to the total employment at this level. Our findings is that \ldots{} Moreover, we provide an interactive shiny app that will give an intuitive visualization of these changes. At the stage of recovering from COVID-19, it will provide more useful information for policymakers on recovering total employment rate more effectively.
+I develop a multivariate time series model of employment in Australia at a disaggregated level with 87 sectors in total. I use this model to determine the long run employment spillovers to the total employment at this level. Our findings is that \ldots{}
+
+Moreover, I provide an interactive shiny app that will give an intuitive visualization of these changes. At the stage of recovering from COVID-19, it will provide more useful information for policymakers on recovering total employment rate more effectively.
 
 \hypertarget{the-australian-covid-19-pandemic-background}{%
 \chapter{The Australian COVID-19 Pandemic Background}\label{the-australian-covid-19-pandemic-background}}
@@ -122,23 +126,63 @@ The literature suggests that a significant improvement can be made in large BVAR
 \hypertarget{data-collection-and-exploratory-analysis}{%
 \chapter{Data collection and exploratory analysis}\label{data-collection-and-exploratory-analysis}}
 
-\hypertarget{data-introduction}{%
-\section{Data Introduction}\label{data-introduction}}
+\hypertarget{data-introduction-and-wrangling}{%
+\section{Data Introduction and wrangling}\label{data-introduction-and-wrangling}}
 
-Our data source is the ABS Employment by industry subdivision of main job \autocite{ABS2022}, which records employment (measured in \(thousands\)) by the ANZSIC industry sub-division of their main jobs from \(1984:Q4\) to \(2021:Q4\). Our data structure is provided via Figure \ref{fig:anzsic}.
+The data I use in this thesis come from the Australia Bureau of Statistics (ABS), involving 87 industry sub-division of main jobs. The ABS records the employment (measured in \(thousands\)) from \(1984:Q4\) to \(2021:Q4\) with a structure provided via Figure \ref{fig:anzsic}.
 
-Although seasonally adjusted data is available in \autocite{ABS2022}, I will work with the original data to capture any possible changes in seasonal patterns. I will apply a seasonal difference the logarithm of the original series in order to make them stationary and eliminate seasonality, which will make it easier to conduct further steps.
+Although seasonally adjusted data is available in \autocite{ABS2022}, the method of seasonal adjustment used by ABS is unknown. Therefore, I choose to work with the original data to capture any possible changes in seasonal patterns instead of the seasonally adjusted data provided by Australian Bureau of Statistics.
+
+Since the original data from ABS is not tidy. In this thesis, I use the Excel to extract both the employment for both two-digit disaggregated level and the total employment. Then, I take the following modifications to deal with zeros, meanwhile, keeping the data structure coherent.
+
+\begin{itemize}
+\item
+  Merge the two-digit subsector \emph{57- Internet Publishing and Boardcasting} and \emph{54- Publishing(except internet)} to be come \emph{54 Publishing and boadcasting}.
+\item
+  Merge the \emph{96 Private Households Employing Staff and Undifferentiated Goodsand Service Producing Activities of Households for Own Use} and \emph{95 Personal and Other Services} to become \emph{95 Personal and other services (include activities for own use)}.
+\end{itemize}
+
+Without any zeros, a log transformation can be applied to interprete the percentage change of the employment. The VAR model decided to fit the data requires stationary. As a result, I will further apply a seasonal difference to eliminate the seasonality (i.e.~nonstationarity).
 
 \hypertarget{preliminary-exploratory-data-analysis}{%
 \section{Preliminary Exploratory Data Analysis}\label{preliminary-exploratory-data-analysis}}
-
-\newpage
 
 Figure \ref{fig:19} illustrates the changes in the raw data for 19 main sectors in Australia during the pandemic. Due to the closedown of businesses and travel bans on 2020:Q2, we can observe that the total employment number dropped substantially (from around 13,200,000 to 12,200,000 on \(2020:Q2\)). Most industries behaved similarly with significant changes shown in Figure \ref{fig:19} . Comparing with the previous data of these industries,'' Accommodation \& Food'', ``Media \& telecom'' and Administrative industries have experienced a severe loss of employment and have not fully recovered to the pre-covid level. However, some industries like ``Financial'' and ``Electricity \& Gas'' showed a continuously increasing trend as before.
 
 Nevertheless, there is a drawback of considering the 19 board sectors only; because the two-digit subsectoral dynamics of these sectors may not be homogeneous with their aggregated sectoral changes. For example, when observing the aggregated performance of the ``Manufacturing'' and ``Mining'' sectors from the 19 sectoral level (see Figure \ref{fig:a19}), we may believe that their corresponding subsectors should illustrate the same pattern. However, the reality is that while there is a decreasing trend in the ``Manufacturing'' sector or an increasing trend in the ``Mining'' sector, some of their two-digit subsectors are performed differently (see Figure \ref{fig:a87}). This means that not all two-digit subsectors follow the same pattern with the aggregated sectoral level.
 
 Table \ref{tab:comp} shows the top five and bottom five two-digit subsectors in terms of their employment growth during the pandemic. From \ref{tab:comp} we can conclude that the ``Forestry and Logging'' experienced a severe shock after the lockdown happened on 2020:Q2, followed by ``Private Households Employing Staff'' and ``Library and Other Information Services''. Figure \ref{fig:87} demonstrates the performance of each industry at a more disaggregated two-digit subsectoral level, we can observe that many two-digit subsectors have also shown huge decreases in employment in 2020:Q2.
+
+\begin{table}
+\begin{center}
+\begin{tabular}{ccc}
+\hline
+Date     & Sector                                        & Percentage Changes \\
+\hline
+2020:Q2  & 27 Gas Supply                                 & 50.48\%                                \\
+2020: Q2 & 57 Internet Publishing and Broadcasting       & 44.44\%                                \\
+2020: Q2 & 56 Broadcasting                               & 41.43\%                                \\
+2020: Q2 & 26 Electricity Supply                         & 36.34\%                                \\
+2020: Q2 & 20 Non-Metallic Mineral Product Manufacturing & 32.37\% 
+                 \\
+                 \\
+                 \hline
+Date     &  Sectors                                      &Percentage Changes\\
+                 \hline
+2020: Q2 & 03 Forestry and Logging                   &-55.88\%  
+                 \\
+2020: Q2 & 96 Private Households Employing Staff     & -49.09\% 
+                 \\
+2020: Q2 & 60 Library and Other Information Services & -46.60\% 
+                 \\
+2020: Q2 & 02 Aquaculture                                & -44.58\%  
+                 \\
+2020: Q2 & 91 Sports and Recreation Activities           & -43.71\%
+\end{tabular}
+\end{center}
+\caption{The highest and lowest five two-digit subsectors' employment percentage change for 2020:Q1 to 2020:Q2 }
+\label{tab:comp}
+\end{table}
 
 \hypertarget{methdology}{%
 \chapter{Methdology}\label{methdology}}
@@ -152,11 +196,11 @@ Under the assumption that the structure of the Australian economy will not chang
 
 \[
 \begin{aligned}
-\textbf{y}_t=\textbf{c}+\textbf{A}_1 \textbf{y}_{t-1}+\textbf{A}_2\textbf{y}_{t-2}+\textbf{A}_3\textbf{y}_{t-3}+\textbf{A}_4\textbf{y}_{t-4}+\bf{\Gamma}\textbf{x}_{t-1}+\bf{u}_t
+\textbf{y}_t=\textbf{c}+\textbf{A}_1 \textbf{y}_{t-1}+\textbf{A}_2\textbf{y}_{t-2}+\textbf{A}_3\textbf{y}_{t-3}+\textbf{A}_4\textbf{y}_{t-4}+\boldsymbol{\Gamma}\textbf{x}_{t-1}+\bf{u}_t
 \end{aligned}
 \]
 
-where \(\bf{y}_t\) is an \(87\times1\) vector of two-digit subsectoral employment growth rate at time \(t\) and \(\bf{x}_{t-1}\) is the \(4\times1\) vector of 4 lags of the growth rate of aggregate employment (this vector of variables are predetermined at time \(t\)), \textbf{c} is a vector of constants, \(\bf{A}_{1,2,3,4}\) are \(87\times87\) parameter matrices. \(\bf{\Gamma}\) is a \(87\times4\) matrix and \(\bf{u}_t\) is a vector of reduced form errors with the mean equals to zero and independent variance \(\bf{u}_t \sim (0,\bf{\Sigma})\). (see Appendix)
+where \(\bf{y}_t\) is an \(87\times1\) vector of two-digit subsectoral employment growth rate at time \(t\) and \(\bf{x}_{t-1}\) is the \(4\times1\) vector of 4 lags of the growth rate of aggregate employment (this vector of variables are predetermined at time \(t\)), \(\textbf{c}\) is a vector of constants, \(\bf{A}_{1,2,3,4}\) are \(87\times87\) parameter matrices. \(\boldsymbol{\Gamma}\) is a \(87\times4\) matrix and \(\bf{u}_t\) is a vector of reduced form errors with the mean equals to zero and independent variance \(\bf{u}_t \sim (0,\boldsymbol{\Sigma})\). (see Appendix)
 
 \hypertarget{prior-and-shrinkage}{%
 \section{Prior and shrinkage}\label{prior-and-shrinkage}}
@@ -165,9 +209,9 @@ Bayesian VAR helps to overcome the curse of high dimensionality via the impositi
 
 \[
 \begin{aligned}\label{eq:1}
-&E[a_{j}^{jk}] = E[\gamma_{i}^j]=0\\
+&E[a_{i}^{jk}] = E[\gamma_{i}^j]=0\\
 \\
-&Var[a_j^{jk}]= 
+&Var[a_i^{jk}]= 
 \begin{cases}
 \frac{\lambda^2}{i^2},&j=k\\
 \frac{\lambda^2}{i^2}\frac{\sigma^2_{j}}{\sigma^2_k},& otherwise
@@ -178,7 +222,116 @@ Bayesian VAR helps to overcome the curse of high dimensionality via the impositi
 \]
 where the degree of shrinkage is governed by \(\lambda\), \(\frac{1}{i^2}\) to down-weight more distant lags and the \(\frac{\sigma_j^2}{\sigma_k^2}\) adjusts for different scale of the data. \(\sigma^2_e\) is the variance after fitting an AR model on total employment growth.
 
-\textcite{banbura2010large} also suggested that a natural conjugate Normal-Inverse-Wishart which retains the principle of Minnesota prior will help in adding Minnesota prior to the Bayesian VAR system. Its posterior moments can be calculated either analytically or through adding the dummy observations. I will use dummy observations to estimate the BVAR \autocites[e.g.][]{banbura2010large,anderson2020,wozniak2016bayesian}. More details are provided in the Appendix.
+\textcite{banbura2010large} also suggested that a natural conjugate Normal-Inverse-Wishart which retains the principle of Minnesota prior will help in adding Minnesota prior to the Bayesian VAR system. Its posterior moments can be calculated either analytically or through adding the dummy observations. I will use dummy observations to estimate the BVAR \autocite{banbura2010large}. More details are provided in the Appendix.
+
+\newpage
+
+\hypertarget{shrinkage-parameter-lambda-selection}{%
+\section{\texorpdfstring{Shrinkage parameter (\(\lambda\)) selection}{Shrinkage parameter (\textbackslash lambda) selection}}\label{shrinkage-parameter-lambda-selection}}
+
+Specifically, the Minnesota type prior have the following beliefs about the variances:
+
+\[
+\begin{aligned}
+&Var[a_i^{jk}]= 
+\begin{cases}
+\frac{\lambda^2}{i^2},&j=k\\
+\frac{\lambda^2}{i^2}\frac{\sigma^2_{j}}{\sigma^2_k},& otherwise
+\end{cases}\\
+\\
+&Var[\gamma_i^{j}]=\frac{\lambda^2}{i^2}\frac{\sigma^2_{j}}{\sigma^2_e}
+\end{aligned}
+\]
+
+where \(\lambda\) is a shrinkage hyperparemeter here we need to specify based on how far we will shrink the estimator.
+
+In the VAR literature, the selection of shrinkage hyperparameter \(\lambda\) is important in improving forecast accuracy. For example, \textcite{banbura2010large} point out that a gain in efficiency could be made by applying an Bayesian shrinkage in estimating large multivariate VAR models. Moreover, they also conclude that large VARs with shrinkage are credible to conduct structural analysis. Nonetheless, the main problem that encountered is to set an appropriate value for \(\lambda\) as models become larger (i.e.~how far it will shrink the estimators).
+
+From the above equation, we can see a small shrinkage parameter \(\lambda\) will tighten the distribution of prior, and vice versa. Based on applied experiences, Litterman constructed a 40-variable model and concluded that the shrinkage estimate \(\lambda=0.2\) is indeed sufficient to deal with many empirical cases \autocite{litterman1986}. At the same time, I should also avoid over-fitting when preserving the most important information from the data. That is, the data size is also an essential basis to be considered when deciding the degree of shrinkage\autocite{banbura2010large}. Unlike the one-digit level (19 sectors) did by \textcite{anderson2020}, the two-digit level (87 sectors) employment in Australia is more complex and have more variables. Thus, a new shrinkage parameter \(\lambda\) should be specified particularly for this case.
+
+In this section, I will evaluate the efficient shrinkage estimator \(\lambda\) with a more sophisticated version of training/test algorithm, called time series cross-validation. The time-series cross validation is an automated program based on a rolling forecasting origin, which measure the performance of a model in a statistical way while avoiding over-fitting the data. Here, the data is split into training/test with a minimum training set of length \(n=20\). Then, the program will increasing the size of successive training set by iteration step \(hor=1\) and accumulate the error for each step. After that, it will calculate the mean of accumulated error, which will be the training results (see Figure \ref{fig:tscv}).
+
+\graphicspath{ {/Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figures} }
+
+\begin{figure}[t]
+\includegraphics[scale=0.5]{tscv}
+\centering
+\caption{Time series cross validation with Blue area is training set and Orange is test set, with iteration step = 1 (Source https://otexts.com/fpp3/tscv.html)}
+\label{fig:tscv}
+\end{figure}
+
+Apart from this, we will use several famous error measures to select an appropriate shrinkage parameter \(\lambda\):
+
+\emph{Scale-dependent error}
+
+\begin{itemize}
+\item
+  Mean absolute error: \(MAE = mean(|e_t|)\)
+\item
+  Root mean squared error: RMSE = \(\sqrt{mean(e_t^2)}\)
+\end{itemize}
+
+In the real world, MAE and RMSE are commonly used, but only when data all have the same units. They are easy to understand and calculate, which makes them popular to compare forecast accuracy. Nevertheless, they have a significant drawback, which is not unit-free.
+
+\emph{Percentage error :}
+
+\begin{itemize}
+\tightlist
+\item
+  Mean absolute percentage error: \(MAPE = mean(|\frac{e_t}{y_t}|)\)
+\end{itemize}
+
+The percentage error (i.e.~MAPE) has the advantage of being unit-free. However, it will become unreliable when the data have zeros or extreme values (i.e.~very close to zero). As a result, I will use it only as a reference in this literature.
+
+\emph{Scale-independent error:}
+
+\begin{itemize}
+\item
+  MASE: \(MASE = mean(|q_j|)\)
+\item
+  RMSSE = \(RMSSE=\sqrt{mean(q_j^2)}\)
+\end{itemize}
+
+where
+
+\(q_j^2=\frac{e_j}{\frac{1}{T-m}\Sigma^T_{t=m+1}|y_t-y_{t-m}|}\) and \(m\) is the seasonality. In this case, we set \(m=1\) after a seasonal difference and logarithm transformation, which is used for stationary (i.e.~non-seasonal) data.
+
+MASE and RMSSE are useful when comparing forecast accuracy across data with different units \autocite{hyndman2006}. Both of them are scaled based on the same measure but from a simple forecast method. Since the employment data have a strong seasonality, the scaled error is defined using random walk with drift forecasts.
+
+\vspace{24pt}
+
+Table \ref{testres} demostrates the training results for \(\lambda\) with the following values \(0.3,0.2,0.19 \cdots 0.14\) and \(0.1\) after using the time series cross validation algorithm
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}
+\hline\hline
+\multicolumn{6}{|c|}{Training results using time-series cross validation}\\
+\hline
+\multicolumn{6}{|c|}{initial training (n = 20) ; iteration step (hor = 1)}\\
+\hline\hline
+ $\lambda$    & MAE         & MAPE    & MASE   & RMSE    & RMSSE  \\
+\hline\hline
+0.3  & 1.0832 e+03 & 14.5901 & 0.1465 & 32.5049 & 0.3778 \\
+0.21 & 1.0738 e+03 & 14.1178 & 0.1457 & 32.3324 & 0.3765 \\
+0.2  & 1.0727 e+03 & 14.0599 & 0.1457 & 32.3137 & 0.3764 \\
+0.19 & 1.0715 e+03 & 14.0000 & 0.1455 & 32.2937 & 0.3762 \\
+0.18 & 1.0701 e+03 & 13.9371 & 0.1454 & 32.2713 & 0.3760 \\
+0.17 & 1.0685 e+03 & 13.8707 & 0.1453 & 32.2461 & 0.3758 \\
+0.16 & 1.0668 e+03 & 13.8006 & 0.1451 & 32.2180 & 0.3756 \\
+0.15 & 1.0648 e+03 & 13.7253 & 0.1449 & 32.1870 & 0.3753 \\
+0.14 & 1.0626 e+03 & 13.6450 & 0.1446 & 32.1531 & 0.3750 \\
+0.1  & 1.0512 e+03 & 13.2350 & 0.1433 & 31.9753 & 0.37333\\
+\hline\hline
+\end{tabular}
+\end{center}
+\caption{Forecast error for different hyperparameter $\lambda$}
+\label{testres}
+\end{table}
+
+To sum up, We prefer the value of \(\lambda\) that has the lowest error measures. From table \ref{testres}, all the errors are decreasing as the shrinkage estimator becomes stronger (i.e.~the value of lambda becomes smaller). In this case, the shrinkage hyperparameter \(\lambda=0.1\) outperforms other values in our training steps. Therefore, the optimal value of the shrinkage parameter \(lambda\) for the Minnesota prior in our Bayesian VAR model is \(\lambda=0.1\).
+
+\newpage
 
 \hypertarget{sectoral-employment-multiplier-analysis}{%
 \section{Sectoral Employment Multiplier Analysis}\label{sectoral-employment-multiplier-analysis}}
@@ -195,14 +348,143 @@ where \(w_j\) is the share of employment of two-digit subsector \(j\) in the tot
 
 Due to the interconnection of macroeconomic two-digit subsectors, when a two-digit subsector \(j\) has an increase in employment, in the long run, it may have spillover effect onto other two-digit subsectors, especially those that have high connections with the two-digit subsector \(j\) (\textcite{anderson2020}).
 
-If this long-run effect is larger than the immediate effect, then this two-digit subsector will have positive spillover effect on total employment, and \emph{vice versa}. I will use the interconnection of BVAR parameters to estimate two-digit subsectors which have strong positive spillovers for the total employment. Then, if the government makes policies to stimulate these two-digit subsectors, the total employment will recover more effectively.
+If this long-run effect is larger than the immediate effect, then this two-digit subsector will have positive spillover effect on total employment, and \emph{vice versa}. I will use the interconnection of BVAR parameters to study two-digit subsectors which have strong positive spillovers for the total employment. Then, if the government makes policies to stimulate these two-digit subsectors, the total employment will recover more effectively.
 
 \newpage
 
+\hypertarget{timeline-for-honours-2022}{%
+\chapter{Timeline for Honours 2022}\label{timeline-for-honours-2022}}
+
+Table \ref{tab:timeline1} summaries the work done to date. Table \ref{tab:timeline2} maps out the plan for completing the thesis research.
+
+\begin{table}
+
+\caption{\label{tab:timeline1}Completed work}
+\centering
+\begin{tabular}[t]{ll}
+\toprule
+Timeline & Tasks\\
+\midrule
+Week 2 & Background reading about Multivariate VAR model\\
+Week 3 & Collect two-digit subsectoral data from ABS website\\
+ & Prepare materials reltaed to two-digit subsectoral employment evaluations\\
+Week 4 & Prepare literature review related to BVAR model and setting priors\\
+ & Analysis about the MATLAB code done by Andereson et al. (2020)\\
+\addlinespace
+Week 5 & Read articles about Conditional Forecasting\\
+Week 6 & Prepare the conditional forecasting coding and hierarchical forecasting\\
+Week 7 & Exploratory data analysis on sectoral and two-digit subsectoral data\\
+Week 8 & Select suitable plots and test softwares to prepare the proposal\\
+week 9 & Write research proposal and prepare the first presentation\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}
+
+\caption{\label{tab:timeline2}Research plan}
+\centering
+\begin{tabular}[t]{ll}
+\toprule
+Timeline & Tasks\\
+\midrule
+June - July & Modelling of two-digit subsectoral employment\\
+August & Train the model using pre-covid data with BVAR model and compare the accuracy with other models\\
+September & apply forecasts using BVAR , conduct both conterfactual analysis and sectoral multiplier analysis\\
+October & Write my thesis and prepare for the second presentation\\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \appendix
 
-\hypertarget{additional-stuff}{%
-\chapter{Additional stuff}\label{additional-stuff}}
+\hypertarget{an-example-of-bayesian-var-prior}{%
+\chapter{An Example of Bayesian VAR Prior}\label{an-example-of-bayesian-var-prior}}
+
+The VARX model is:
+
+\begin{align}
+\textbf{y}_t&=\textbf{c}+\textbf{A}_1 \textbf{y}_{t-1}+\textbf{A}_2+\cdots+\textbf{A}_4\textbf{y}_{t-4}+\bf{\Gamma}_1\textbf{x}_{t-1}+\bf{u}_t\\
+&=
+\begin{bmatrix}
+c_1\\
+\vdots\\
+c_2
+\end{bmatrix}
++
+\begin{bmatrix}
+a_1^{11}&\cdots&a_1^{1n}&\cdots&a_4^{11}&\cdots&a_4^{1n}&\gamma_1^{1}&\cdots&\gamma_4^{1}\\
+\vdots&\ddots&\vdots&\ddots&\vdots&\ddots&\vdots&\vdots&\ddots&\vdots\\
+a_1^{n1}&\cdots&a_1^{nn}&\cdots&a_4^{n1}&\cdots&a_4^{nn}&\gamma_1^n&\cdots&\gamma_4^n\\
+\end{bmatrix}
+\begin{bmatrix}
+\bf{y}_{t-1}\\
+\vdots\\
+\bf{y}_{t-4}\\
+x_{t-1}\\
+\vdots\\
+x_{t-4}
+\end{bmatrix}\\
+&+
+\begin{bmatrix}
+u_{1,t}\\
+\vdots\\
+u_{n,t}
+\end{bmatrix}\\
+\end{align}
+
+where \(E(\bf{u}_t\bf{u}'_t)=\bf{\Sigma}\) and \(E(\bf{u}_t\bf{u'}_{t-1})=0\). Here the \(n\) represent the number of sectors (or in our case will be 87) and \(c\)represents the vector of constants. There are 4 lags included for the total employment \((x_{t-1},\cdots,x_{t-4})\) as predetermined variable at time \(t\).
+
+Then we implement our VAR by defining dummy observations.
+
+\[
+\begin{aligned}
+Y_d&=
+\begin{pmatrix}
+\bf0_{np+p,n}\\
+\bf diag(\bf{\sigma_1,\cdots,\sigma_n})\\
+\bf0_{1\times n}
+\end{pmatrix}\\
+X_d&=
+\begin{pmatrix}
+\bf{J_p}\otimes diag(\frac{\sigma_1}{\lambda}\cdots\frac{\sigma_n}{\lambda},\frac{\sigma_e}{\lambda})&\bf0_{(np+p)\times1}\\
+\bf 0_{n,np+p}&\bf 0_{n\times1}
+\\
+\bf 0_{1,np+p}&\bf \epsilon
+\end{pmatrix}
+\end{aligned}
+\] where
+
+\[
+\begin{aligned}
+\bf{J_p}=diag(1,\cdots,p)\\
+\bf{S_0}=(Y_d-X_d\times B_0)'(Y_d-X_dB_0)\\
+\bf{B_0}=(X_d'X_d)^{-1}X_dY_d,\ \Omega_0=(X_d'X_d)^{-1}\  and\\
+a_0=T_d-np-p-1\\
+\end{aligned}
+\]
+
+where \(T_d\) is the number of rows for both \(\bf{Y}_d\) and \(\bf{X}_d\).
+
+We can get
+\begin{align}
+\bf{Y^*}=\bf{X^*}\bf{\beta}+\bf{\mu}^*\ \ \  where: \\
+\bf{Y^*}=[\bf{Y'},\bf{Y'_d}]';\ \bf{X^*}=[\bf{X'},\bf{X'_d}]';\ \bf{\mu^*}=[\bf{\mu'},\bf{\mu'_d}]'
+\end{align}
+
+Then we can estimating the BVAR by conducting an least square regression of \(Y^*\) on\(X^*\). The posterior distribution then have the form of
+
+\begin{align}
+&vec(\mathbf{\beta})|\Sigma,Y\sim N(vec(\bf{\tilde\beta}),\Sigma\otimes(\bf{X^*}'\bf{X^*})^{-1})\ and\\
+&\Sigma|Y\sim\mathbf{IW}(\tilde\Sigma,T_d+T-np+2)
+\end{align}
+
+where \(\bf{\tilde\beta} =(X*'X*)^{-1}X^{*'}Y^*\) and \(\tilde\Sigma=(\bf{Y^*}-\bf{X^*}\bf{\tilde\beta})'(\bf{Y^*}-\bf{X^*}\bf{\tilde\beta})\)
+
+\newpage
+
+\hypertarget{graphs}{%
+\chapter{Graphs}\label{graphs}}
 
 You might put some computer output here, or maybe additional tables.
 

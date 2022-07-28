@@ -5,7 +5,7 @@
 
 
 library(matrixStats)
-library(ggploot2)
+library(ggplot2)
 library(zoo)
 library(tidyverse)
 library(dplyr)
@@ -192,8 +192,6 @@ for (i in 5:n){
 # Steps are similar use the last four observation to fit the phi above to generate t+1 forecast 
 
 
-
-for (i in 5:n)
 
 
 # Testing model using error measurements MAPE and Scaled errors

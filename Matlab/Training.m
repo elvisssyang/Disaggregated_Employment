@@ -1,6 +1,6 @@
 %% ELvis Yang 
 % Monash University
-% Jun 2022
+% July 2022
 
 clear all
 clc
@@ -165,7 +165,7 @@ for i= 20:140 % 20 is the minimum required number to fit the model
 
 
     
-   % Accumulative 
+   % Accumulative errors
    MAE_acc  = [MAE_acc;MAE];
    RMSE_acc = [RMSE_acc;RMSE];
    MAPE_acc = [MAPE_acc;MAPE];

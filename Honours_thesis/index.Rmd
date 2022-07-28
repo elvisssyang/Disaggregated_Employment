@@ -39,12 +39,19 @@ I would like to express gratitude to my supervisor Professor Farshid Vahid and m
 # Declaration {-}
 
 
-I declare that this thesis contains no material which has been submitted in any form for the award of any other degree or diploma in any university or equivalent institution, and that, to the best of my knowledge and belief, this thesis contains no material previously published or written by another person, except where due reference is made in the text of the thesis.
+I declare that this thesis contains no material which has been submitted in any form for the award of any other degree or diploma in any university or equivalent institution, and that, to the best of my knowledge and belief, this thesis contains no material previously published or written by another person, except where due reference is made in the text of the thesis. 
+
+\vspace{12pt}
+
+
+-- Signature: \underline{\emph{\textbf{Elvis Zhixiang Yang}}}
 
 # Abstract {-}
 
 
-We develop a multivariate time series model of employment in Australia at a disaggregated level with 87 sectors in total. We use this model to determine the long run employment spillovers to the total employment at this level. Our findings is that ... Moreover, we provide an interactive shiny app that will give an intuitive visualization of these changes. At the stage of recovering from COVID-19, it will provide more useful information for policymakers on recovering total employment rate more effectively. 
+I develop a multivariate time series model of employment in Australia at a disaggregated level with 87 sectors in total. I use this model to determine the long run employment spillovers to the total employment at this level. Our findings is that ...  
+
+Moreover, I provide an interactive shiny app that will give an intuitive visualization of these changes. At the stage of recovering from COVID-19, it will provide more useful information for policymakers on recovering total employment rate more effectively. 
 
 
 

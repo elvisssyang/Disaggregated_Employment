@@ -4,7 +4,99 @@ knit: "bookdown::render_book"
 
 \appendix
 
-## Graphs 
+# An Example of Bayesian VAR Prior 
+
+
+The VARX model is: 
+
+```{=tex}
+\begin{align}
+\textbf{y}_t&=\textbf{c}+\textbf{A}_1 \textbf{y}_{t-1}+\textbf{A}_2+\cdots+\textbf{A}_4\textbf{y}_{t-4}+\bf{\Gamma}_1\textbf{x}_{t-1}+\bf{u}_t\\
+&=
+\begin{bmatrix}
+c_1\\
+\vdots\\
+c_2
+\end{bmatrix}
++
+\begin{bmatrix}
+a_1^{11}&\cdots&a_1^{1n}&\cdots&a_4^{11}&\cdots&a_4^{1n}&\gamma_1^{1}&\cdots&\gamma_4^{1}\\
+\vdots&\ddots&\vdots&\ddots&\vdots&\ddots&\vdots&\vdots&\ddots&\vdots\\
+a_1^{n1}&\cdots&a_1^{nn}&\cdots&a_4^{n1}&\cdots&a_4^{nn}&\gamma_1^n&\cdots&\gamma_4^n\\
+\end{bmatrix}
+\begin{bmatrix}
+\bf{y}_{t-1}\\
+\vdots\\
+\bf{y}_{t-4}\\
+x_{t-1}\\
+\vdots\\
+x_{t-4}
+\end{bmatrix}\\
+&+
+\begin{bmatrix}
+u_{1,t}\\
+\vdots\\
+u_{n,t}
+\end{bmatrix}\\
+\end{align}
+```
+where $E(\bf{u}_t\bf{u}'_t)=\bf{\Sigma}$ and $E(\bf{u}_t\bf{u'}_{t-1})=0$. Here the $n$ represent the number of sectors (or in our case will be 87) and $c$represents the vector of constants. There are 4 lags included for the total employment $(x_{t-1},\cdots,x_{t-4})$ as predetermined variable at time $t$.
+
+
+Then we implement our VAR by defining dummy observations. 
+
+$$
+\begin{aligned}
+Y_d&=
+\begin{pmatrix}
+\bf0_{np+p,n}\\
+\bf diag(\bf{\sigma_1,\cdots,\sigma_n})\\
+\bf0_{1\times n}
+\end{pmatrix}\\
+X_d&=
+\begin{pmatrix}
+\bf{J_p}\otimes diag(\frac{\sigma_1}{\lambda}\cdots\frac{\sigma_n}{\lambda},\frac{\sigma_e}{\lambda})&\bf0_{(np+p)\times1}\\
+\bf 0_{n,np+p}&\bf 0_{n\times1}
+\\
+\bf 0_{1,np+p}&\bf \epsilon
+\end{pmatrix}
+\end{aligned}
+$$ where
+
+$$
+\begin{aligned}
+\bf{J_p}=diag(1,\cdots,p)\\
+\bf{S_0}=(Y_d-X_d\times B_0)'(Y_d-X_dB_0)\\
+\bf{B_0}=(X_d'X_d)^{-1}X_dY_d,\ \Omega_0=(X_d'X_d)^{-1}\  and\\
+a_0=T_d-np-p-1\\
+\end{aligned}
+$$ 
+
+where $T_d$ is the number of rows for both $\bf{Y}_d$ and $\bf{X}_d$.
+
+We can get 
+\begin{align}
+\bf{Y^*}=\bf{X^*}\bf{\beta}+\bf{\mu}^*\ \ \  where: \\
+\bf{Y^*}=[\bf{Y'},\bf{Y'_d}]';\ \bf{X^*}=[\bf{X'},\bf{X'_d}]';\ \bf{\mu^*}=[\bf{\mu'},\bf{\mu'_d}]'
+\end{align}
+
+
+Then we can estimating the BVAR by conducting an least square regression of $Y^*$ on$X^*$. The posterior distribution then have the form of
+
+\begin{align}
+&vec(\mathbf{\beta})|\Sigma,Y\sim N(vec(\bf{\tilde\beta}),\Sigma\otimes(\bf{X^*}'\bf{X^*})^{-1})\ and\\
+&\Sigma|Y\sim\mathbf{IW}(\tilde\Sigma,T_d+T-np+2)
+\end{align}
+
+
+where $\bf{\tilde\beta} =(X*'X*)^{-1}X^{*'}Y^*$ and $\tilde\Sigma=(\bf{Y^*}-\bf{X^*}\bf{\tilde\beta})'(\bf{Y^*}-\bf{X^*}\bf{\tilde\beta})$
+
+
+\newpage
+
+
+
+# Graphs 
 
 You might put some computer output here, or maybe additional tables.
 
@@ -52,6 +144,10 @@ Note that `\appendix` must appear before your first appendix. But other appendic
 \caption{Australian Industry Pamamid plot by (ANZSIC)}
 \label{fig:anzsic}
 \end{figure}
+
+
+
+
 
 
 

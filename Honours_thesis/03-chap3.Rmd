@@ -8,17 +8,35 @@ knit: "bookdown::render_book"
 
 # Data collection and exploratory analysis
 
-## Data Introduction
+## Data Introduction and wrangling 
 
 
 
-Our data source is the ABS Employment by industry subdivision of main job [@ABS2022], which records employment (measured in $thousands$) by the ANZSIC industry sub-division of their main jobs from $1984:Q4$ to $2021:Q4$. Our data structure is provided via Figure \ref{fig:anzsic}.
+The data I use in this thesis come from the Australia Bureau of Statistics (ABS), involving 87 industry sub-division of main jobs. The ABS records the employment (measured in $thousands$) from $1984:Q4$ to $2021:Q4$ with a structure provided via Figure \ref{fig:anzsic}. 
 
-Although seasonally adjusted data is available in [@ABS2022], I will work with the original data to capture any possible changes in seasonal patterns. I will apply a seasonal difference the logarithm of the original series in order to make them stationary and eliminate seasonality, which will make it easier to conduct further steps.
+
+Although seasonally adjusted data is available in [@ABS2022], the method of seasonal adjustment used by ABS is unknown. Therefore, I choose to work with the original data to capture any possible changes in seasonal patterns instead of the seasonally adjusted data provided by Australian Bureau of Statistics. 
+
+
+
+Since the original data from ABS is not tidy. In this thesis, I use the Excel to extract both the employment for both two-digit disaggregated level and the total employment. Then, I take the following modifications to deal with zeros, meanwhile, keeping the data structure coherent. 
+
+
++ Merge the two-digit subsector *57- Internet Publishing and Boardcasting* and *54- Publishing(except internet)* to be come  *54 Publishing and boadcasting*. 
+
+
++ Merge the *96 Private Households Employing Staff and Undifferentiated Goodsand Service Producing Activities of Households for Own Use* and *95 Personal and Other Services* to become *95 Personal and other services (include activities for own use)*.
+
+Without any zeros, a log transformation can be applied to interprete the percentage change of the employment. The VAR model decided to fit the data requires stationary. As a result, I will further apply a seasonal difference to eliminate the seasonality (i.e. nonstationarity).
+
+
+
+
+
+
 
 ## Preliminary Exploratory Data Analysis
 
-\newpage
 
 Figure \ref{fig:19} illustrates the changes in the raw data for 19 main sectors in Australia during the pandemic. Due to the closedown of businesses and travel bans on 2020:Q2, we can observe that the total employment number dropped substantially (from around 13,200,000 to 12,200,000 on $2020:Q2$). Most industries behaved similarly with significant changes shown in Figure \ref{fig:19} . Comparing with the previous data of these industries," Accommodation & Food", "Media & telecom" and Administrative industries have experienced a severe loss of employment and have not fully recovered to the pre-covid level. However, some industries like "Financial" and "Electricity & Gas" showed a continuously increasing trend as before.
 
@@ -26,5 +44,41 @@ Nevertheless, there is a drawback of considering the 19 board sectors only; beca
 
 
 Table \ref{tab:comp} shows the top five and bottom five two-digit subsectors in terms of their employment growth during the pandemic. From \ref{tab:comp} we can conclude that the "Forestry and Logging" experienced a severe shock after the lockdown happened on 2020:Q2, followed by "Private Households Employing Staff" and "Library and Other Information Services". Figure \ref{fig:87} demonstrates the performance of each industry at a more disaggregated two-digit subsectoral level, we can observe that many two-digit subsectors have also shown huge decreases in employment in 2020:Q2.
+
+
+
+```{=tex}
+\begin{table}
+\begin{center}
+\begin{tabular}{ccc}
+\hline
+Date     & Sector                                        & Percentage Changes \\
+\hline
+2020:Q2  & 27 Gas Supply                                 & 50.48\%                                \\
+2020: Q2 & 57 Internet Publishing and Broadcasting       & 44.44\%                                \\
+2020: Q2 & 56 Broadcasting                               & 41.43\%                                \\
+2020: Q2 & 26 Electricity Supply                         & 36.34\%                                \\
+2020: Q2 & 20 Non-Metallic Mineral Product Manufacturing & 32.37\% 
+                 \\
+                 \\
+                 \hline
+Date     &  Sectors                                      &Percentage Changes\\
+                 \hline
+2020: Q2 & 03 Forestry and Logging                   &-55.88\%  
+                 \\
+2020: Q2 & 96 Private Households Employing Staff     & -49.09\% 
+                 \\
+2020: Q2 & 60 Library and Other Information Services & -46.60\% 
+                 \\
+2020: Q2 & 02 Aquaculture                                & -44.58\%  
+                 \\
+2020: Q2 & 91 Sports and Recreation Activities           & -43.71\%
+\end{tabular}
+\end{center}
+\caption{The highest and lowest five two-digit subsectors' employment percentage change for 2020:Q1 to 2020:Q2 }
+\label{tab:comp}
+\end{table}
+```
+
 
 
