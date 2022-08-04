@@ -36,4 +36,4 @@ In order to utilize the Bayesian VAR estimators @litterman1979 proposed the Minn
 
 The literature suggests that a significant improvement can be made in large BVAR dynamic models by imposing a stronger shrinkage parameter [@banbura2010large; @litterman1986]. @robertson1999vector and @kadiyala1997 proposed a Normal-inverse-Wishart prior which retains the principal of Minnesota prior. Meanwhile, @banbura2010large suggested an easier way to apply the Minnesota prior via adding dummy observations into the BVAR system.
 
-
+\clearpage

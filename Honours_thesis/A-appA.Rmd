@@ -11,12 +11,12 @@ The VARX model is:
 
 ```{=tex}
 \begin{align}
-\textbf{y}_t&=\textbf{c}+\textbf{A}_1 \textbf{y}_{t-1}+\textbf{A}_2+\cdots+\textbf{A}_4\textbf{y}_{t-4}+\bf{\Gamma}_1\textbf{x}_{t-1}+\bf{u}_t\\
+\boldsymbol{y}_t&=\boldsymbol{c}+\boldsymbol{A}_1 \boldsymbol{y}_{t-1}+\boldsymbol{A}_2+\cdots+\boldsymbol{A}_4\boldsymbol{y}_{t-4}+\boldsymbol{\Gamma}_1\boldsymbol{x}_{t-1}+\boldsymbol{u}_t\\
 &=
 \begin{bmatrix}
 c_1\\
 \vdots\\
-c_2
+c_n
 \end{bmatrix}
 +
 \begin{bmatrix}
@@ -25,9 +25,9 @@ a_1^{11}&\cdots&a_1^{1n}&\cdots&a_4^{11}&\cdots&a_4^{1n}&\gamma_1^{1}&\cdots&\ga
 a_1^{n1}&\cdots&a_1^{nn}&\cdots&a_4^{n1}&\cdots&a_4^{nn}&\gamma_1^n&\cdots&\gamma_4^n\\
 \end{bmatrix}
 \begin{bmatrix}
-\bf{y}_{t-1}\\
+\boldsymbol{y}_{t-1}\\
 \vdots\\
-\bf{y}_{t-4}\\
+\boldsymbol{y}_{t-4}\\
 x_{t-1}\\
 \vdots\\
 x_{t-4}
@@ -40,56 +40,58 @@ u_{n,t}
 \end{bmatrix}\\
 \end{align}
 ```
-where $E(\bf{u}_t\bf{u}'_t)=\bf{\Sigma}$ and $E(\bf{u}_t\bf{u'}_{t-1})=0$. Here the $n$ represent the number of sectors (or in our case will be 87) and $c$represents the vector of constants. There are 4 lags included for the total employment $(x_{t-1},\cdots,x_{t-4})$ as predetermined variable at time $t$.
+where $\mathbb{E}(\boldsymbol{u}_t\boldsymbol{u}'_t)=\boldsymbol{\Sigma}$ and $\mathbb{E}(\boldsymbol{u}_t\boldsymbol{u'}_{t-1})=0$. Here the $n$ represent the number of sectors (in our case this will be 87) and $\boldsymbol{c}$represents the vector of constants. There are 4 lags included for the total employment $(x_{t-1},\cdots,x_{t-4})$ as predetermined variable at time $t$.
 
 
-Then we implement our VAR by defining dummy observations. 
+Then we implement our VAR by defining $(np+n+1)$ dummy observations. 
 
 $$
 \begin{aligned}
-Y_d&=
+\boldsymbol{Y_d}&=
 \begin{pmatrix}
-\bf0_{np+p,n}\\
-\bf diag(\bf{\sigma_1,\cdots,\sigma_n})\\
-\bf0_{1\times n}
+\boldsymbol0_{np+p,n}\\
+diag({\sigma_1,\cdots,\sigma_n})\\
+\boldsymbol0_{1\times n}
 \end{pmatrix}\\
-X_d&=
+\boldsymbol{X_d}&=
 \begin{pmatrix}
-\bf{J_p}\otimes diag(\frac{\sigma_1}{\lambda}\cdots\frac{\sigma_n}{\lambda},\frac{\sigma_e}{\lambda})&\bf0_{(np+p)\times1}\\
-\bf 0_{n,np+p}&\bf 0_{n\times1}
+\boldsymbol{J_p}\otimes diag(\frac{\sigma_1}{\lambda}\cdots\frac{\sigma_n}{\lambda},\frac{\sigma_e}{\lambda})&\boldsymbol0_{(np+p)\times1}\\
+\boldsymbol 0_{n,np+p}&\boldsymbol 0_{n\times1}
 \\
-\bf 0_{1,np+p}&\bf \epsilon
+\boldsymbol 0_{1,np+p}&\boldsymbol{\epsilon}
 \end{pmatrix}
 \end{aligned}
 $$ where
 
 $$
 \begin{aligned}
-\bf{J_p}=diag(1,\cdots,p)\\
-\bf{S_0}=(Y_d-X_d\times B_0)'(Y_d-X_dB_0)\\
-\bf{B_0}=(X_d'X_d)^{-1}X_dY_d,\ \Omega_0=(X_d'X_d)^{-1}\  and\\
+\boldsymbol{J_p}=diag(1,\cdots,p)\\
+\boldsymbol{S_0}=(Y_d-X_d\times B_0)'(Y_d-X_dB_0)\\
+\boldsymbol{B_0}=(\boldsymbol{X_d}'\boldsymbol{X_d})^{-1}\boldsymbol{X_d}\boldsymbol{Y_d},\ \boldsymbol{\Omega_0}=(\boldsymbol{X_d}'\boldsymbol{X_d})^{-1}\  and\\
 a_0=T_d-np-p-1\\
 \end{aligned}
 $$ 
 
-where $T_d$ is the number of rows for both $\bf{Y}_d$ and $\bf{X}_d$.
+where $T_d$ is the number of rows for both $\boldsymbol{Y}_d$ and $\boldsymbol{X}_d$.
 
 We can get 
-\begin{align}
-\bf{Y^*}=\bf{X^*}\bf{\beta}+\bf{\mu}^*\ \ \  where: \\
-\bf{Y^*}=[\bf{Y'},\bf{Y'_d}]';\ \bf{X^*}=[\bf{X'},\bf{X'_d}]';\ \bf{\mu^*}=[\bf{\mu'},\bf{\mu'_d}]'
-\end{align}
+$$
+\begin{aligned}
+\boldsymbol{Y^*}=\boldsymbol{X^*}\boldsymbol{\beta}+\boldsymbol{\mu}^*\ \ \  where: \\
+\boldsymbol{Y^*}=[\boldsymbol{Y'},\boldsymbol{Y'_d}]';\ \boldsymbol{X^*}=[\boldsymbol{X'},\boldsymbol{X'_d}]';\ \boldsymbol{\mu^*}=[\boldsymbol{\mu'},\boldsymbol{\mu'_d}]'
+\end{aligned}
+$$
 
 
-Then we can estimating the BVAR by conducting an least square regression of $Y^*$ on$X^*$. The posterior distribution then have the form of
-
-\begin{align}
-&vec(\mathbf{\beta})|\Sigma,Y\sim N(vec(\bf{\tilde\beta}),\Sigma\otimes(\bf{X^*}'\bf{X^*})^{-1})\ and\\
+Then we can estimating the BVAR by conducting least squares regression of $\boldsymbol{Y}^*$ on$\boldsymbol{X}^*$. The posterior distribution then has the form of
+$$
+\begin{aligned}
+&vec(\mathbf{\beta})|\Sigma,Y\sim N(vec(\boldsymbol{\tilde\beta}),\boldsymbol{\Sigma}\otimes(\boldsymbol{X^*}'\boldsymbol{X^*})^{-1})\ and\\
 &\Sigma|Y\sim\mathbf{IW}(\tilde\Sigma,T_d+T-np+2)
-\end{align}
+\end{aligned}
+$$
 
-
-where $\bf{\tilde\beta} =(X*'X*)^{-1}X^{*'}Y^*$ and $\tilde\Sigma=(\bf{Y^*}-\bf{X^*}\bf{\tilde\beta})'(\bf{Y^*}-\bf{X^*}\bf{\tilde\beta})$
+where $\boldsymbol{\tilde\beta} =(X*'X*)^{-1}X^{*'}Y^*$ and $\tilde{\boldsymbol{\Sigma}}=(\boldsymbol{Y^*}-\boldsymbol{X^*}\boldsymbol{\tilde\beta})'(\boldsymbol{Y^*}-\boldsymbol{X^*}\boldsymbol{\tilde\beta})$
 
 
 \newpage
@@ -97,12 +99,6 @@ where $\bf{\tilde\beta} =(X*'X*)^{-1}X^{*'}Y^*$ and $\tilde\Sigma=(\bf{Y^*}-\bf{
 
 
 # Graphs 
-
-You might put some computer output here, or maybe additional tables.
-
-Note that `\appendix` must appear before your first appendix. But other appendices can just start like any other chapter.
-
-
 
 
 \graphicspath{ {/Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figures} }

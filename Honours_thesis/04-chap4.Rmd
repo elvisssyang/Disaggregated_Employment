@@ -43,7 +43,7 @@ where the degree of shrinkage is governed by $\lambda$, $\frac{1}{i^2}$ to down-
 \newpage
 
 
-## Shrinkage parameter ($\lambda$) selection
+## Shrinkage selection in Bayesian VAR 
 
 Specifically, the Minnesota type prior have the following beliefs about the variances: 
 
@@ -53,26 +53,40 @@ $$
 \begin{cases}
 \frac{\lambda^2}{i^2},&j=k\\
 \frac{\lambda^2}{i^2}\frac{\sigma^2_{j}}{\sigma^2_k},& otherwise
-\end{cases}\\
+\end{cases}\cdots(4.3.1)\\
 \\
-&Var[\gamma_i^{j}]=\frac{\lambda^2}{i^2}\frac{\sigma^2_{j}}{\sigma^2_e}
+&Var[\gamma_i^{j}]=\frac{\lambda^2}{i^2}\frac{\sigma^2_{j}}{\sigma^2_e}\cdots(4.3.2)
 \end{aligned}
 $$
 
-where $\lambda$ is a shrinkage hyperparemeter here we need to specify based on how far we will shrink the estimator. 
+where $\lambda$ is a hyperparemeter here we need to specify based on how far we will shrink the estimator and $\frac{\sigma^2_{j}}{\sigma^2_k}$ adjusts for the different scale of the data. To effectively scale the estimator on total employment growth $\gamma$, I will fit an AR(4) to on the total employment growth [@anderson2020]. 
+
+In equation $4.3.1$, we can see as $i$ (number of estimators) increases, the $Var[a_i^{jk}]$ will then decrease in both cases, which preserved the structure of Minnesota Prior to weight down more distant lags.  
+
+
+In Minnesota prior described above, the hyperparameter $\lambda$ controls the overall tightness (variance) of the prior distribution [@banbura2010]. If $\lambda=0$, we can see that the prior have no variance, which means the posterior equals the prior and the data have no influence on the estimates. On the contrary, if $\lambda=\infty$, the posterior expectations will be same as ordinary least squares (OLS) estimates. Therefore, a small $\lambda$ will shrink the posterior mean towards the zero and benefits . 
 
 
 
 
 
-In the VAR literature, the selection of shrinkage hyperparameter $\lambda$ is important in improving forecast accuracy. For example,  @banbura2010large point out that a gain in efficiency could be made by applying an Bayesian shrinkage in estimating large multivariate VAR models. Moreover, they also conclude that large VARs with shrinkage are credible to conduct structural analysis. Nonetheless, the main problem that encountered is to set an appropriate value for $\lambda$ as models become larger (i.e. how far it will shrink the estimators). 
+
+Admittedly, the selection of shrinkage hyperparameter $\lambda$ is important in improving forecast accuracy. For example, @banbura2010large point out that a gain in efficiency could be made by applying an Bayesian shrinkage in estimating large multivariate VAR models. Moreover, they also conclude that large vector autoregressions (VARs) with shrinkage are credible to conduct structural analysis. Nonetheless, the main problem that encountered is to set an appropriate value for $\lambda$ as models become larger (i.e. how far it will shrink the estimators). 
+
+
+
+
 
 
 From the above equation, we can see a small shrinkage parameter $\lambda$ will tighten the distribution of prior, and vice versa. Based on applied experiences, Litterman constructed a 40-variable model and concluded that the shrinkage estimate $\lambda=0.2$ is indeed sufficient to deal with many empirical cases [@litterman1986]. At the same time, I should also avoid over-fitting when preserving the most important information from the data. That is, the data size is also an essential basis to be considered when deciding the degree of shrinkage[@banbura2010large]. Unlike the one-digit level (19 sectors) did by @anderson2020, the two-digit level (87 sectors) employment in Australia is more complex and have more variables. Thus, a new shrinkage parameter $\lambda$ should be specified particularly for this case.   
 
 
 
+
 In this section, I will evaluate the efficient shrinkage estimator $\lambda$ with a more sophisticated version of training/test algorithm, called time series cross-validation. The time-series cross validation is an automated program based on a rolling forecasting origin, which measure the performance of a model in a statistical way while avoiding over-fitting the data. Here, the data is split into training/test with a minimum training set of length $n=20$. Then, the program will increasing the size of successive training set by iteration step $hor=1$ and accumulate the error for each step. After that, it will calculate the mean of accumulated error, which will be the training results (see Figure \ref{fig:tscv}). 
+
+
+
 
 
 \graphicspath{ {/Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figures} }
@@ -190,7 +204,6 @@ To sum up, We prefer the value of $\lambda$ that has the lowest error measures. 
 
 
 
-\newpage
 
 ## Sectoral Employment Multiplier Analysis 
 

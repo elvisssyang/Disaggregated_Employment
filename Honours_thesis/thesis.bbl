@@ -1,0 +1,521 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.1 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nyt/global//global/global}
+    \entry{ABS2021}{online}{}
+      \name{author}{1}{}{%
+        {{hash=7d8a220d2262f9d6c658d549ee12cf2c}{%
+           family={ABS},
+           familyi={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{7d8a220d2262f9d6c658d549ee12cf2c}
+      \strng{fullhash}{7d8a220d2262f9d6c658d549ee12cf2c}
+      \strng{bibnamehash}{7d8a220d2262f9d6c658d549ee12cf2c}
+      \strng{authorbibnamehash}{7d8a220d2262f9d6c658d549ee12cf2c}
+      \strng{authornamehash}{7d8a220d2262f9d6c658d549ee12cf2c}
+      \strng{authorfullhash}{7d8a220d2262f9d6c658d549ee12cf2c}
+      \field{extraname}{1}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{One year of COVID-19: Aussie jobs, business and the economy}
+      \field{urlday}{29}
+      \field{urlmonth}{4}
+      \field{urlyear}{2022}
+      \field{year}{2021}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.abs.gov.au/articles/one-year-covid-19-aussie-jobs-business-and-economy
+      \endverb
+      \verb{url}
+      \verb https://www.abs.gov.au/articles/one-year-covid-19-aussie-jobs-business-and-economy
+      \endverb
+    \endentry
+    \entry{ABS2022}{online}{}
+      \name{author}{1}{}{%
+        {{hash=7d8a220d2262f9d6c658d549ee12cf2c}{%
+           family={ABS},
+           familyi={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{7d8a220d2262f9d6c658d549ee12cf2c}
+      \strng{fullhash}{7d8a220d2262f9d6c658d549ee12cf2c}
+      \strng{bibnamehash}{7d8a220d2262f9d6c658d549ee12cf2c}
+      \strng{authorbibnamehash}{7d8a220d2262f9d6c658d549ee12cf2c}
+      \strng{authornamehash}{7d8a220d2262f9d6c658d549ee12cf2c}
+      \strng{authorfullhash}{7d8a220d2262f9d6c658d549ee12cf2c}
+      \field{extraname}{2}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Labour Force, Australia, Detailed, March 2022}
+      \field{urlday}{29}
+      \field{urlmonth}{4}
+      \field{urlyear}{2022}
+      \field{year}{2022}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.abs.gov.au/statistics/labour/employment-and-unemployment/labour-force-australia-detailed/latest-release
+      \endverb
+      \verb{url}
+      \verb https://www.abs.gov.au/statistics/labour/employment-and-unemployment/labour-force-australia-detailed/latest-release
+      \endverb
+    \endentry
+    \entry{anderson2020}{article}{}
+      \name{author}{4}{}{%
+        {{hash=754fa330a175eda673e02ad90033c778}{%
+           family={Anderson},
+           familyi={A\bibinitperiod},
+           given={Heather},
+           giveni={H\bibinitperiod}}}%
+        {{hash=f535a85e2122cd05c3d8390de8233baa}{%
+           family={Caggiano},
+           familyi={C\bibinitperiod},
+           given={Giovanni},
+           giveni={G\bibinitperiod}}}%
+        {{hash=8036a70c0154fbea66c0c050b82b6bd7}{%
+           family={Vahid},
+           familyi={V\bibinitperiod},
+           given={Farshid},
+           giveni={F\bibinitperiod}}}%
+        {{hash=4b5698c548199d04060ad0ba735f12a1}{%
+           family={Wong},
+           familyi={W\bibinitperiod},
+           given={Benjamin},
+           giveni={B\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Wiley Online Library}%
+      }
+      \strng{namehash}{08ac2f35067f96eef5464a94b3e16efb}
+      \strng{fullhash}{915910d06eb9232166d9666eafe328ff}
+      \strng{bibnamehash}{915910d06eb9232166d9666eafe328ff}
+      \strng{authorbibnamehash}{915910d06eb9232166d9666eafe328ff}
+      \strng{authornamehash}{08ac2f35067f96eef5464a94b3e16efb}
+      \strng{authorfullhash}{915910d06eb9232166d9666eafe328ff}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Australian Economic Review}
+      \field{number}{3}
+      \field{title}{Sectoral Employment Dynamics in Australia and the COVID-19 Pandemic}
+      \field{volume}{53}
+      \field{year}{2020}
+      \field{pages}{402\bibrangedash 414}
+      \range{pages}{13}
+    \endentry
+    \entry{banbura2010large}{article}{}
+      \name{author}{3}{}{%
+        {{hash=e25ec9356d870687dd117dd94e62d3bb}{%
+           family={Bańbura},
+           familyi={B\bibinitperiod},
+           given={Marta},
+           giveni={M\bibinitperiod}}}%
+        {{hash=5bd75a97c4a951e753c86c8edbc8a560}{%
+           family={Giannone},
+           familyi={G\bibinitperiod},
+           given={Domenico},
+           giveni={D\bibinitperiod}}}%
+        {{hash=7b2f5c758fdfb711329e5ce8613416ee}{%
+           family={Reichlin},
+           familyi={R\bibinitperiod},
+           given={Lucrezia},
+           giveni={L\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Wiley Online Library}%
+      }
+      \strng{namehash}{6e43e05931d5f44a350e9b67532cdd2f}
+      \strng{fullhash}{6e43e05931d5f44a350e9b67532cdd2f}
+      \strng{bibnamehash}{6e43e05931d5f44a350e9b67532cdd2f}
+      \strng{authorbibnamehash}{6e43e05931d5f44a350e9b67532cdd2f}
+      \strng{authornamehash}{6e43e05931d5f44a350e9b67532cdd2f}
+      \strng{authorfullhash}{6e43e05931d5f44a350e9b67532cdd2f}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of applied Econometrics}
+      \field{number}{1}
+      \field{title}{Large bayesian vector auto regressions}
+      \field{volume}{25}
+      \field{year}{2010}
+      \field{pages}{71\bibrangedash 92}
+      \range{pages}{22}
+    \endentry
+    \entry{gregory2020pandemic}{report}{}
+      \name{author}{3}{}{%
+        {{hash=8288e0c9dc43c21f4090259b22e94685}{%
+           family={Gregory},
+           familyi={G\bibinitperiod},
+           given={Victoria},
+           giveni={V\bibinitperiod}}}%
+        {{hash=98a5d4f31ee92f7033929f3c89640420}{%
+           family={Menzio},
+           familyi={M\bibinitperiod},
+           given={Guido},
+           giveni={G\bibinitperiod}}}%
+        {{hash=e673d1e324d2c24dec56c5cd878495f0}{%
+           family={Wiczer},
+           familyi={W\bibinitperiod},
+           given={David\bibnamedelima G},
+           giveni={D\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {National Bureau of Economic Research}%
+      }
+      \strng{namehash}{e5071eb180da4f52abe5738b1c017dec}
+      \strng{fullhash}{e5071eb180da4f52abe5738b1c017dec}
+      \strng{bibnamehash}{e5071eb180da4f52abe5738b1c017dec}
+      \strng{authorbibnamehash}{e5071eb180da4f52abe5738b1c017dec}
+      \strng{authornamehash}{e5071eb180da4f52abe5738b1c017dec}
+      \strng{authorfullhash}{e5071eb180da4f52abe5738b1c017dec}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Pandemic recession: L or V-shaped?}
+      \field{type}{techreport}
+      \field{year}{2020}
+    \endentry
+    \entry{hyndman2006}{article}{}
+      \name{author}{2}{}{%
+        {{hash=2f709db8a046ae1d056e75c1f3aad31c}{%
+           family={Hyndman},
+           familyi={H\bibinitperiod},
+           given={Rob\bibnamedelima J},
+           giveni={R\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=e1d517a3ae1d7b892371ef8f37f88412}{%
+           family={Koehler},
+           familyi={K\bibinitperiod},
+           given={Anne\bibnamedelima B},
+           giveni={A\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier}%
+      }
+      \strng{namehash}{5b8826bba5f702862b6f6d20f0ae0758}
+      \strng{fullhash}{5b8826bba5f702862b6f6d20f0ae0758}
+      \strng{bibnamehash}{5b8826bba5f702862b6f6d20f0ae0758}
+      \strng{authorbibnamehash}{5b8826bba5f702862b6f6d20f0ae0758}
+      \strng{authornamehash}{5b8826bba5f702862b6f6d20f0ae0758}
+      \strng{authorfullhash}{5b8826bba5f702862b6f6d20f0ae0758}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{International journal of forecasting}
+      \field{number}{4}
+      \field{title}{Another look at measures of forecast accuracy}
+      \field{volume}{22}
+      \field{year}{2006}
+      \field{pages}{679\bibrangedash 688}
+      \range{pages}{10}
+    \endentry
+    \entry{kadiyala1997}{article}{}
+      \name{author}{2}{}{%
+        {{hash=f4e5df942c5485d5eff4d666767b4888}{%
+           family={Kadiyala},
+           familyi={K\bibinitperiod},
+           given={K\bibnamedelima Rao},
+           giveni={K\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=51dd82fbdfcb9a779d1de657fec3c5d2}{%
+           family={Karlsson},
+           familyi={K\bibinitperiod},
+           given={Sune},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Wiley Online Library}%
+      }
+      \strng{namehash}{5ce58cd4dcd01b72436d0b104864cb21}
+      \strng{fullhash}{5ce58cd4dcd01b72436d0b104864cb21}
+      \strng{bibnamehash}{5ce58cd4dcd01b72436d0b104864cb21}
+      \strng{authorbibnamehash}{5ce58cd4dcd01b72436d0b104864cb21}
+      \strng{authornamehash}{5ce58cd4dcd01b72436d0b104864cb21}
+      \strng{authorfullhash}{5ce58cd4dcd01b72436d0b104864cb21}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Applied Econometrics}
+      \field{number}{2}
+      \field{title}{Numerical methods for estimation and inference in Bayesian VAR-models}
+      \field{volume}{12}
+      \field{year}{1997}
+      \field{pages}{99\bibrangedash 132}
+      \range{pages}{34}
+    \endentry
+    \entry{ny2020}{online}{}
+      \name{author}{2}{}{%
+        {{hash=27acf26c3d1612ff540a65c9f542fec7}{%
+           family={Lewis},
+           familyi={L\bibinitperiod},
+           given={Brent},
+           giveni={B\bibinitperiod}}}%
+        {{hash=a16a595d4ebb3840c341879341f4c6ec}{%
+           family={Hsu},
+           familyi={H\bibinitperiod},
+           given={Tiffany},
+           giveni={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{ee52a07f485dc6e0e377e379ad437ac8}
+      \strng{fullhash}{ee52a07f485dc6e0e377e379ad437ac8}
+      \strng{bibnamehash}{ee52a07f485dc6e0e377e379ad437ac8}
+      \strng{authorbibnamehash}{ee52a07f485dc6e0e377e379ad437ac8}
+      \strng{authornamehash}{ee52a07f485dc6e0e377e379ad437ac8}
+      \strng{authorfullhash}{ee52a07f485dc6e0e377e379ad437ac8}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{The Collateral Damage of Coronavirus}
+      \field{urlday}{29}
+      \field{urlmonth}{4}
+      \field{urlyear}{2022}
+      \field{year}{2020}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.nytimes.com/2020/05/09/business/economy/coronavirus-unemployment.html
+      \endverb
+      \verb{url}
+      \verb https://www.nytimes.com/2020/05/09/business/economy/coronavirus-unemployment.html
+      \endverb
+    \endentry
+    \entry{litterman1979}{report}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{1}{}{%
+        {{hash=9754c550f95d9cd5578e74d0a9834000}{%
+           family={Litterman},
+           familyi={L\bibinitperiod},
+           given={Robert\bibnamedelima B},
+           giveni={R\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+      }
+      \strng{namehash}{acbe46c2dd4f92cd848f22e7b03a1cb3}
+      \strng{fullhash}{acbe46c2dd4f92cd848f22e7b03a1cb3}
+      \strng{bibnamehash}{acbe46c2dd4f92cd848f22e7b03a1cb3}
+      \strng{authorbibnamehash}{acbe46c2dd4f92cd848f22e7b03a1cb3}
+      \strng{authornamehash}{acbe46c2dd4f92cd848f22e7b03a1cb3}
+      \strng{authorfullhash}{acbe46c2dd4f92cd848f22e7b03a1cb3}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Techniques of forecasting using vector autoregressions}
+      \field{type}{techreport}
+      \field{year}{1979}
+    \endentry
+    \entry{litterman1986}{article}{}
+      \name{author}{1}{}{%
+        {{hash=9754c550f95d9cd5578e74d0a9834000}{%
+           family={Litterman},
+           familyi={L\bibinitperiod},
+           given={Robert\bibnamedelima B},
+           giveni={R\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Taylor \& Francis}%
+      }
+      \strng{namehash}{9754c550f95d9cd5578e74d0a9834000}
+      \strng{fullhash}{9754c550f95d9cd5578e74d0a9834000}
+      \strng{bibnamehash}{9754c550f95d9cd5578e74d0a9834000}
+      \strng{authorbibnamehash}{9754c550f95d9cd5578e74d0a9834000}
+      \strng{authornamehash}{9754c550f95d9cd5578e74d0a9834000}
+      \strng{authorfullhash}{9754c550f95d9cd5578e74d0a9834000}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Business \& Economic Statistics}
+      \field{number}{1}
+      \field{title}{Forecasting with Bayesian vector autoregressions—five years of experience}
+      \field{volume}{4}
+      \field{year}{1986}
+      \field{pages}{25\bibrangedash 38}
+      \range{pages}{14}
+    \endentry
+    \entry{ludvigson2020covid}{report}{}
+      \name{author}{3}{}{%
+        {{hash=a6a56af42017edef3cf1028207671a70}{%
+           family={Ludvigson},
+           familyi={L\bibinitperiod},
+           given={Sydney\bibnamedelima C},
+           giveni={S\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=57850e51b912247997e0f2ded724a9bb}{%
+           family={Ma},
+           familyi={M\bibinitperiod},
+           given={Sai},
+           giveni={S\bibinitperiod}}}%
+        {{hash=3d9598cb5e0ac67e52bb26096e0fd043}{%
+           family={Ng},
+           familyi={N\bibinitperiod},
+           given={Serena},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {National Bureau of Economic Research}%
+      }
+      \strng{namehash}{ef3994a52f6d06f8c6236eb196c46302}
+      \strng{fullhash}{ef3994a52f6d06f8c6236eb196c46302}
+      \strng{bibnamehash}{ef3994a52f6d06f8c6236eb196c46302}
+      \strng{authorbibnamehash}{ef3994a52f6d06f8c6236eb196c46302}
+      \strng{authornamehash}{ef3994a52f6d06f8c6236eb196c46302}
+      \strng{authorfullhash}{ef3994a52f6d06f8c6236eb196c46302}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{COVID-19 and the macroeconomic effects of costly disasters}
+      \field{type}{techreport}
+      \field{year}{2020}
+    \endentry
+    \entry{robertson1999vector}{article}{}
+      \name{author}{2}{}{%
+        {{hash=028f8af512190b5487274f317ff99efa}{%
+           family={Robertson},
+           familyi={R\bibinitperiod},
+           given={John\bibnamedelima C},
+           giveni={J\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=02e272910ef5c8dd80aeab5128ab8417}{%
+           family={Tallman},
+           familyi={T\bibinitperiod},
+           given={Ellis\bibnamedelima W},
+           giveni={E\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Federal Reserve Bank of Atlanta}%
+      }
+      \strng{namehash}{c61022b5cd5029b2746fcd18a6bcaba4}
+      \strng{fullhash}{c61022b5cd5029b2746fcd18a6bcaba4}
+      \strng{bibnamehash}{c61022b5cd5029b2746fcd18a6bcaba4}
+      \strng{authorbibnamehash}{c61022b5cd5029b2746fcd18a6bcaba4}
+      \strng{authornamehash}{c61022b5cd5029b2746fcd18a6bcaba4}
+      \strng{authorfullhash}{c61022b5cd5029b2746fcd18a6bcaba4}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Economic Review-Federal Reserve Bank of Atlanta}
+      \field{number}{1}
+      \field{title}{Vector autoregressions: forecasting and reality}
+      \field{volume}{84}
+      \field{year}{1999}
+      \field{pages}{4}
+      \range{pages}{1}
+    \endentry
+    \entry{waggoner1999}{article}{}
+      \name{author}{2}{}{%
+        {{hash=4c3dc008eec2cbe6d06155aa2fb22c4e}{%
+           family={Waggoner},
+           familyi={W\bibinitperiod},
+           given={Daniel\bibnamedelima F},
+           giveni={D\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+        {{hash=46eb2d1d358e965c8df03d5243b424cb}{%
+           family={Zha},
+           familyi={Z\bibinitperiod},
+           given={Tao},
+           giveni={T\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {MIT Press 238 Main St., Suite 500, Cambridge, MA 02142-1046, USA journals~…}%
+      }
+      \strng{namehash}{2f4f21b7d4c993bbbca0aaf1ddacc27f}
+      \strng{fullhash}{2f4f21b7d4c993bbbca0aaf1ddacc27f}
+      \strng{bibnamehash}{2f4f21b7d4c993bbbca0aaf1ddacc27f}
+      \strng{authorbibnamehash}{2f4f21b7d4c993bbbca0aaf1ddacc27f}
+      \strng{authornamehash}{2f4f21b7d4c993bbbca0aaf1ddacc27f}
+      \strng{authorfullhash}{2f4f21b7d4c993bbbca0aaf1ddacc27f}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Review of Economics and Statistics}
+      \field{number}{4}
+      \field{title}{Conditional forecasts in dynamic multivariate models}
+      \field{volume}{81}
+      \field{year}{1999}
+      \field{pages}{639\bibrangedash 651}
+      \range{pages}{13}
+    \endentry
+    \entry{wozniak2016bayesian}{article}{}
+      \name{author}{1}{}{%
+        {{hash=a0fe7a03a86ada4f4963c151898d09a0}{%
+           family={Woźniak},
+           familyi={W\bibinitperiod},
+           given={Tomasz},
+           giveni={T\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Wiley Online Library}%
+      }
+      \strng{namehash}{a0fe7a03a86ada4f4963c151898d09a0}
+      \strng{fullhash}{a0fe7a03a86ada4f4963c151898d09a0}
+      \strng{bibnamehash}{a0fe7a03a86ada4f4963c151898d09a0}
+      \strng{authorbibnamehash}{a0fe7a03a86ada4f4963c151898d09a0}
+      \strng{authornamehash}{a0fe7a03a86ada4f4963c151898d09a0}
+      \strng{authorfullhash}{a0fe7a03a86ada4f4963c151898d09a0}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Australian Economic Review}
+      \field{number}{3}
+      \field{title}{Bayesian vector autoregressions}
+      \field{volume}{49}
+      \field{year}{2016}
+      \field{pages}{365\bibrangedash 380}
+      \range{pages}{16}
+    \endentry
+  \enddatalist
+  \missing{banbura2010}
+\endrefsection
+\endinput
+

@@ -88,6 +88,8 @@ The overall research aim is to provide estimates of two-digit sectoral employmen
 
 This thesis focus on analyzing Australian Employment at a disaggregated level, then estimate the long run effects of the COVID-19 to sectoral employment rate in Australia. The remainder of the thesis is structured as follows. In chapter 2, we review the existing literature in the relevant fields. In chapter 3, we will provide exploratory data analysis and data resources.
 
+\clearpage
+
 \hypertarget{review-of-literature}{%
 \chapter{Review of literature}\label{review-of-literature}}
 
@@ -122,6 +124,8 @@ In order to utilize the Bayesian VAR estimators \textcite{litterman1979} propose
 \subsection{Improvement of BVAR}\label{improvement-of-bvar}}
 
 The literature suggests that a significant improvement can be made in large BVAR dynamic models by imposing a stronger shrinkage parameter \autocite{banbura2010large,litterman1986}. \textcite{robertson1999vector} and \textcite{kadiyala1997} proposed a Normal-inverse-Wishart prior which retains the principal of Minnesota prior. Meanwhile, \textcite{banbura2010large} suggested an easier way to apply the Minnesota prior via adding dummy observations into the BVAR system.
+
+\clearpage
 
 \hypertarget{data-collection-and-exploratory-analysis}{%
 \chapter{Data collection and exploratory analysis}\label{data-collection-and-exploratory-analysis}}
@@ -226,8 +230,8 @@ where the degree of shrinkage is governed by \(\lambda\), \(\frac{1}{i^2}\) to d
 
 \newpage
 
-\hypertarget{shrinkage-parameter-lambda-selection}{%
-\section{\texorpdfstring{Shrinkage parameter (\(\lambda\)) selection}{Shrinkage parameter (\textbackslash lambda) selection}}\label{shrinkage-parameter-lambda-selection}}
+\hypertarget{shrinkage-selection-in-bayesian-var}{%
+\section{Shrinkage selection in Bayesian VAR}\label{shrinkage-selection-in-bayesian-var}}
 
 Specifically, the Minnesota type prior have the following beliefs about the variances:
 
@@ -237,15 +241,19 @@ Specifically, the Minnesota type prior have the following beliefs about the vari
 \begin{cases}
 \frac{\lambda^2}{i^2},&j=k\\
 \frac{\lambda^2}{i^2}\frac{\sigma^2_{j}}{\sigma^2_k},& otherwise
-\end{cases}\\
+\end{cases}\cdots(4.3.1)\\
 \\
-&Var[\gamma_i^{j}]=\frac{\lambda^2}{i^2}\frac{\sigma^2_{j}}{\sigma^2_e}
+&Var[\gamma_i^{j}]=\frac{\lambda^2}{i^2}\frac{\sigma^2_{j}}{\sigma^2_e}\cdots(4.3.2)
 \end{aligned}
 \]
 
-where \(\lambda\) is a shrinkage hyperparemeter here we need to specify based on how far we will shrink the estimator.
+where \(\lambda\) is a hyperparemeter here we need to specify based on how far we will shrink the estimator and \(\frac{\sigma^2_{j}}{\sigma^2_k}\) adjusts for the different scale of the data. To effectively scale the estimator on total employment growth \(\gamma\), I will fit an AR(4) to on the total employment growth \autocite{anderson2020}.
 
-In the VAR literature, the selection of shrinkage hyperparameter \(\lambda\) is important in improving forecast accuracy. For example, \textcite{banbura2010large} point out that a gain in efficiency could be made by applying an Bayesian shrinkage in estimating large multivariate VAR models. Moreover, they also conclude that large VARs with shrinkage are credible to conduct structural analysis. Nonetheless, the main problem that encountered is to set an appropriate value for \(\lambda\) as models become larger (i.e.~how far it will shrink the estimators).
+In equation \(4.3.1\), we can see as \(i\) (number of estimators) increases, the \(Var[a_i^{jk}]\) will then decrease in both cases, which preserved the structure of Minnesota Prior to weight down more distant lags.
+
+In Minnesota prior described above, the hyperparameter \(\lambda\) controls the overall tightness (variance) of the prior distribution \autocite{banbura2010}. If \(\lambda=0\), we can see that the prior have no variance, which means the posterior equals the prior and the data have no influence on the estimates. On the contrary, if \(\lambda=\infty\), the posterior expectations will be same as ordinary least squares (OLS) estimates. Therefore, a small \(\lambda\) will shrink the posterior mean towards the zero and benefits .
+
+Admittedly, the selection of shrinkage hyperparameter \(\lambda\) is important in improving forecast accuracy. For example, \textcite{banbura2010large} point out that a gain in efficiency could be made by applying an Bayesian shrinkage in estimating large multivariate VAR models. Moreover, they also conclude that large vector autoregressions (VARs) with shrinkage are credible to conduct structural analysis. Nonetheless, the main problem that encountered is to set an appropriate value for \(\lambda\) as models become larger (i.e.~how far it will shrink the estimators).
 
 From the above equation, we can see a small shrinkage parameter \(\lambda\) will tighten the distribution of prior, and vice versa. Based on applied experiences, Litterman constructed a 40-variable model and concluded that the shrinkage estimate \(\lambda=0.2\) is indeed sufficient to deal with many empirical cases \autocite{litterman1986}. At the same time, I should also avoid over-fitting when preserving the most important information from the data. That is, the data size is also an essential basis to be considered when deciding the degree of shrinkage\autocite{banbura2010large}. Unlike the one-digit level (19 sectors) did by \textcite{anderson2020}, the two-digit level (87 sectors) employment in Australia is more complex and have more variables. Thus, a new shrinkage parameter \(\lambda\) should be specified particularly for this case.
 
@@ -331,8 +339,6 @@ Table \ref{testres} demostrates the training results for \(\lambda\) with the fo
 
 To sum up, We prefer the value of \(\lambda\) that has the lowest error measures. From table \ref{testres}, all the errors are decreasing as the shrinkage estimator becomes stronger (i.e.~the value of lambda becomes smaller). In this case, the shrinkage hyperparameter \(\lambda=0.1\) outperforms other values in our training steps. Therefore, the optimal value of the shrinkage parameter \(lambda\) for the Minnesota prior in our Bayesian VAR model is \(\lambda=0.1\).
 
-\newpage
-
 \hypertarget{sectoral-employment-multiplier-analysis}{%
 \section{Sectoral Employment Multiplier Analysis}\label{sectoral-employment-multiplier-analysis}}
 
@@ -367,15 +373,15 @@ Timeline & Tasks\\
 \midrule
 Week 2 & Background reading about Multivariate VAR model\\
 Week 3 & Collect two-digit subsectoral data from ABS website\\
- & Prepare materials reltaed to two-digit subsectoral employment evaluations\\
-Week 4 & Prepare literature review related to BVAR model and setting priors\\
- & Analysis about the MATLAB code done by Andereson et al. (2020)\\
+ & Prepare materials related to the two-digit subsectoral employment evaluations\\
+Week 4 & Prepare literature review related to BVAR models and setting priors\\
+ & Analysis of the MATLAB code done by Anderson et al. (2020)\\
 \addlinespace
 Week 5 & Read articles about Conditional Forecasting\\
 Week 6 & Prepare the conditional forecasting coding and hierarchical forecasting\\
 Week 7 & Exploratory data analysis on sectoral and two-digit subsectoral data\\
-Week 8 & Select suitable plots and test softwares to prepare the proposal\\
-week 9 & Write research proposal and prepare the first presentation\\
+Week 8 & Select suitable plots and test software to prepare the proposal\\
+week 9 & Write the research proposal and prepare the first presentation\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -388,9 +394,9 @@ week 9 & Write research proposal and prepare the first presentation\\
 \toprule
 Timeline & Tasks\\
 \midrule
-June - July & Modelling of two-digit subsectoral employment\\
-August & Train the model using pre-covid data with BVAR model and compare the accuracy with other models\\
-September & apply forecasts using BVAR , conduct both conterfactual analysis and sectoral multiplier analysis\\
+June - July & Modelling of two-digit subsectoral employment and train the best shrinkage estimator\\
+August & Generate forecasts using BVAR\\
+September & Conduct conterfactual analysis and sectoral multiplier analysis, present a shiny app\\
 October & Write my thesis and prepare for the second presentation\\
 \bottomrule
 \end{tabular}
@@ -404,12 +410,12 @@ October & Write my thesis and prepare for the second presentation\\
 The VARX model is:
 
 \begin{align}
-\textbf{y}_t&=\textbf{c}+\textbf{A}_1 \textbf{y}_{t-1}+\textbf{A}_2+\cdots+\textbf{A}_4\textbf{y}_{t-4}+\bf{\Gamma}_1\textbf{x}_{t-1}+\bf{u}_t\\
+\boldsymbol{y}_t&=\boldsymbol{c}+\boldsymbol{A}_1 \boldsymbol{y}_{t-1}+\boldsymbol{A}_2+\cdots+\boldsymbol{A}_4\boldsymbol{y}_{t-4}+\boldsymbol{\Gamma}_1\boldsymbol{x}_{t-1}+\boldsymbol{u}_t\\
 &=
 \begin{bmatrix}
 c_1\\
 \vdots\\
-c_2
+c_n
 \end{bmatrix}
 +
 \begin{bmatrix}
@@ -418,9 +424,9 @@ a_1^{11}&\cdots&a_1^{1n}&\cdots&a_4^{11}&\cdots&a_4^{1n}&\gamma_1^{1}&\cdots&\ga
 a_1^{n1}&\cdots&a_1^{nn}&\cdots&a_4^{n1}&\cdots&a_4^{nn}&\gamma_1^n&\cdots&\gamma_4^n\\
 \end{bmatrix}
 \begin{bmatrix}
-\bf{y}_{t-1}\\
+\boldsymbol{y}_{t-1}\\
 \vdots\\
-\bf{y}_{t-4}\\
+\boldsymbol{y}_{t-4}\\
 x_{t-1}\\
 \vdots\\
 x_{t-4}
@@ -433,62 +439,61 @@ u_{n,t}
 \end{bmatrix}\\
 \end{align}
 
-where \(E(\bf{u}_t\bf{u}'_t)=\bf{\Sigma}\) and \(E(\bf{u}_t\bf{u'}_{t-1})=0\). Here the \(n\) represent the number of sectors (or in our case will be 87) and \(c\)represents the vector of constants. There are 4 lags included for the total employment \((x_{t-1},\cdots,x_{t-4})\) as predetermined variable at time \(t\).
+where \(\mathbb{E}(\boldsymbol{u}_t\boldsymbol{u}'_t)=\boldsymbol{\Sigma}\) and \(\mathbb{E}(\boldsymbol{u}_t\boldsymbol{u'}_{t-1})=0\). Here the \(n\) represent the number of sectors (in our case this will be 87) and \(\boldsymbol{c}\)represents the vector of constants. There are 4 lags included for the total employment \((x_{t-1},\cdots,x_{t-4})\) as predetermined variable at time \(t\).
 
-Then we implement our VAR by defining dummy observations.
+Then we implement our VAR by defining \((np+n+1)\) dummy observations.
 
 \[
 \begin{aligned}
-Y_d&=
+\boldsymbol{Y_d}&=
 \begin{pmatrix}
-\bf0_{np+p,n}\\
-\bf diag(\bf{\sigma_1,\cdots,\sigma_n})\\
-\bf0_{1\times n}
+\boldsymbol0_{np+p,n}\\
+diag({\sigma_1,\cdots,\sigma_n})\\
+\boldsymbol0_{1\times n}
 \end{pmatrix}\\
-X_d&=
+\boldsymbol{X_d}&=
 \begin{pmatrix}
-\bf{J_p}\otimes diag(\frac{\sigma_1}{\lambda}\cdots\frac{\sigma_n}{\lambda},\frac{\sigma_e}{\lambda})&\bf0_{(np+p)\times1}\\
-\bf 0_{n,np+p}&\bf 0_{n\times1}
+\boldsymbol{J_p}\otimes diag(\frac{\sigma_1}{\lambda}\cdots\frac{\sigma_n}{\lambda},\frac{\sigma_e}{\lambda})&\boldsymbol0_{(np+p)\times1}\\
+\boldsymbol 0_{n,np+p}&\boldsymbol 0_{n\times1}
 \\
-\bf 0_{1,np+p}&\bf \epsilon
+\boldsymbol 0_{1,np+p}&\boldsymbol{\epsilon}
 \end{pmatrix}
 \end{aligned}
 \] where
 
 \[
 \begin{aligned}
-\bf{J_p}=diag(1,\cdots,p)\\
-\bf{S_0}=(Y_d-X_d\times B_0)'(Y_d-X_dB_0)\\
-\bf{B_0}=(X_d'X_d)^{-1}X_dY_d,\ \Omega_0=(X_d'X_d)^{-1}\  and\\
+\boldsymbol{J_p}=diag(1,\cdots,p)\\
+\boldsymbol{S_0}=(Y_d-X_d\times B_0)'(Y_d-X_dB_0)\\
+\boldsymbol{B_0}=(\boldsymbol{X_d}'\boldsymbol{X_d})^{-1}\boldsymbol{X_d}\boldsymbol{Y_d},\ \boldsymbol{\Omega_0}=(\boldsymbol{X_d}'\boldsymbol{X_d})^{-1}\  and\\
 a_0=T_d-np-p-1\\
 \end{aligned}
 \]
 
-where \(T_d\) is the number of rows for both \(\bf{Y}_d\) and \(\bf{X}_d\).
+where \(T_d\) is the number of rows for both \(\boldsymbol{Y}_d\) and \(\boldsymbol{X}_d\).
 
 We can get
-\begin{align}
-\bf{Y^*}=\bf{X^*}\bf{\beta}+\bf{\mu}^*\ \ \  where: \\
-\bf{Y^*}=[\bf{Y'},\bf{Y'_d}]';\ \bf{X^*}=[\bf{X'},\bf{X'_d}]';\ \bf{\mu^*}=[\bf{\mu'},\bf{\mu'_d}]'
-\end{align}
+\[
+\begin{aligned}
+\boldsymbol{Y^*}=\boldsymbol{X^*}\boldsymbol{\beta}+\boldsymbol{\mu}^*\ \ \  where: \\
+\boldsymbol{Y^*}=[\boldsymbol{Y'},\boldsymbol{Y'_d}]';\ \boldsymbol{X^*}=[\boldsymbol{X'},\boldsymbol{X'_d}]';\ \boldsymbol{\mu^*}=[\boldsymbol{\mu'},\boldsymbol{\mu'_d}]'
+\end{aligned}
+\]
 
-Then we can estimating the BVAR by conducting an least square regression of \(Y^*\) on\(X^*\). The posterior distribution then have the form of
-
-\begin{align}
-&vec(\mathbf{\beta})|\Sigma,Y\sim N(vec(\bf{\tilde\beta}),\Sigma\otimes(\bf{X^*}'\bf{X^*})^{-1})\ and\\
+Then we can estimating the BVAR by conducting least squares regression of \(\boldsymbol{Y}^*\) on\(\boldsymbol{X}^*\). The posterior distribution then has the form of
+\[
+\begin{aligned}
+&vec(\mathbf{\beta})|\Sigma,Y\sim N(vec(\boldsymbol{\tilde\beta}),\boldsymbol{\Sigma}\otimes(\boldsymbol{X^*}'\boldsymbol{X^*})^{-1})\ and\\
 &\Sigma|Y\sim\mathbf{IW}(\tilde\Sigma,T_d+T-np+2)
-\end{align}
+\end{aligned}
+\]
 
-where \(\bf{\tilde\beta} =(X*'X*)^{-1}X^{*'}Y^*\) and \(\tilde\Sigma=(\bf{Y^*}-\bf{X^*}\bf{\tilde\beta})'(\bf{Y^*}-\bf{X^*}\bf{\tilde\beta})\)
+where \(\boldsymbol{\tilde\beta} =(X*'X*)^{-1}X^{*'}Y^*\) and \(\tilde{\boldsymbol{\Sigma}}=(\boldsymbol{Y^*}-\boldsymbol{X^*}\boldsymbol{\tilde\beta})'(\boldsymbol{Y^*}-\boldsymbol{X^*}\boldsymbol{\tilde\beta})\)
 
 \newpage
 
 \hypertarget{graphs}{%
 \chapter{Graphs}\label{graphs}}
-
-You might put some computer output here, or maybe additional tables.
-
-Note that \texttt{\textbackslash{}appendix} must appear before your first appendix. But other appendices can just start like any other chapter.
 
 \graphicspath{ {/Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figures} }
 

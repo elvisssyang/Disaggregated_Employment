@@ -32,6 +32,7 @@ alldata =  xlsread('ABSemp.xlsx', "B2:CH142");
 
 % generate a list of lambda 
 
+
  lambda_lst = [0.001:0.001:0.1]';
 
 % generate the weighted error for each iteration 
@@ -43,15 +44,13 @@ alldata =  xlsread('ABSemp.xlsx', "B2:CH142");
 for l = 1:numel(lambda_lst)
 
 
-% ABANDON THE CROSS VALIDATION -- 4 AUG 2022 
-
+% ABANDON THE CROSS VALIDATION 
 % 20 is the minimum required number to fit the model
-
 %for i= 20:140 
        
-    % split training and test
+    % split training and test, starting with minimum training is 20q=5yrs
 
-    i= 120; 
+    i= 120;
     
     
     training = alldata(1:i,:);
@@ -89,18 +88,14 @@ for l = 1:numel(lambda_lst)
 
     % First: Draw estimates 
 
-    for a = 5:n  
+    for a = n-4:n  
 
-        for j = 1:k-1
+        for j = 1:k
          
-        yhat(a,j) = phi(1,j) + y(a-1,:) * phi(2:86,j) + y(a-2,:) * phi(87:171,j) + y(a-3,:)* phi(172:256,j) + y(a-4,:) * phi(257:341,j); % do the estimate 
+        yhat(a,j) = y(a,j);
     
         end 
 
-        rawhatv = alldata(a-4,1:(k-1)) .* exp(yhat(a,1:(k-1))/100);
-        yhat(a,k) = 100 .* log(sum(rawhatv)/alldata(a-4,k));
-        rawhat(a,:)= alldata(a-4,1:k) .* exp(yhat(a,1:k)/100);
-      
 
     end
 
@@ -166,7 +161,7 @@ for l = 1:numel(lambda_lst)
    q_j = zeros(hor,k); % set up the $q_j$ see https://otexts.com/fpp3/accuracy.html
 
 
-
+   
 
    for a= 1:hor
 
@@ -176,6 +171,7 @@ for l = 1:numel(lambda_lst)
 
 
    end 
+
    
    MASE = meanabs(q_j);
 
@@ -197,9 +193,6 @@ for l = 1:numel(lambda_lst)
 %Fit an BVAR to get the parameters for the BVAR 
 
 
-% Train use the time series cross validation with various lambda avaliable 
-%end
-
 
 
 % Total Trained errors 
@@ -210,25 +203,22 @@ Overall_MAPE = sumabs(MAPE_acc) / (size(MAPE_acc,1));
 Overall_MASE = sumabs(MASE_acc) / (size(MASE_acc,1));
 Overall_RMSSE = sumabs(RMSSE_acc) / (size(RMSSE_acc,1));
 
-
 % weighted trained errors 
 % here only weighted scaled error due to the reason of scale independent
 
-weighted_error(l,1)= (sum(Overall_RMSE)+ sum(Overall_MASE) + sum(Overall_RMSSE)) / 3; 
-
-
-%%%%% weighted_error =(sum(Overall_RMSE)+ sum(Overall_MASE) + sum(Overall_RMSSE)) / 3;
-
-
-
+weighted_error(l,1)= (sum(Overall_MAE) + sum(Overall_RMSE)+ sum(Overall_MASE) + sum(Overall_RMSSE)) / 4; 
 
 % QUESTION: SHOULD I CHANGE THE ERROR MEASUREMENT IN THE WEIGHTED ERROR
 % ???? 
 
 
+
  end 
 
  min(weighted_error) 
+
+
+ 
 
 
 
