@@ -61,6 +61,8 @@ test <- pre_2019[121:nrow(pre_2019),]
 training <- training |> 
   pivot_longer(cols = c(-Quarter) , names_to = "Industry", values_to = "Employment")
 
+test <- test |> 
+  pivot_longer(cols = c(-Quarter) , names_to = "Industry", values_to = "Employment")
 
 ```
 
@@ -71,20 +73,53 @@ training <- training |>
 
 ```{r}
 fc_model <- training |> 
-  model(stepwise = ARIMA(Employment))
+  model(stepwise = ARIMA(Employment), 
+        ets = ETS(Employment), 
+        mean = MEAN(Employment))
 
 
 fc_emp<- fc_model |> 
   forecast(h=21)
 
 
+error <-  fc_emp |> 
+  accuracy(test)%>%
+  select(.model, RMSE:MAPE)
+
+
 ```
+
+# Check the error measurement 
+```{r}
+ETS_mod <- error |> 
+  filter(.model == "ets")
+
+ETS_MAPE <- colSums(as.matrix(ETS_mod$MAPE)) / nrow(ETS_mod)
+
+
+```
+
 
 
 ```{r}
-fc_emp |> 
-  pivot_wider( names_from = "Industry", values_from = ".mean")
+ARIMA_mod <- error |> 
+  filter(.model == "stepwise")
+
+ARIMA_MAPE <- colSums(as.matrix(ARIMA_mod$MAPE)) / nrow(ARIMA_mod)
+
+
 ```
 
+
+
+
+```{r}
+ARIMA_mod <- error |> 
+  filter(.model == "stepwise")
+
+ARIMA_MAPE <- colSums(as.matrix(ARIMA_mod$MAPE)) / nrow(ARIMA_mod)
+
+
+```
 
 
