@@ -58,6 +58,9 @@ test <- pre_2019[121:nrow(pre_2019),]
 
 ```{r}
 
+orlong <- ts_employ |> 
+  pivot_longer(cols = c(-Quarter) , names_to = "Industry", values_to = "Employment")
+
 training <- training |> 
   pivot_longer(cols = c(-Quarter) , names_to = "Industry", values_to = "Employment")
 
@@ -74,8 +77,7 @@ test <- test |>
 ```{r}
 fc_model <- training |> 
   model(stepwise = ARIMA(Employment), 
-        ets = ETS(Employment), 
-        mean = MEAN(Employment))
+        ets = ETS(Employment))
 
 
 fc_emp<- fc_model |> 
@@ -83,20 +85,23 @@ fc_emp<- fc_model |>
 
 
 error <-  fc_emp |> 
-  accuracy(test)%>%
-  select(.model, RMSE:MAPE)
+  accuracy(orlong)#%>%
+  #select(.model, RMSE:MAPE)
 
 
 ```
 
 # Check the error measurement 
+
+
+
 ```{r}
 ETS_mod <- error |> 
   filter(.model == "ets")
 
 ETS_MAPE <- colSums(as.matrix(ETS_mod$MAPE)) / nrow(ETS_mod)
 
-
+ETS_MASE <- colSums(as.matrix(ETS_mod$MASE)) / nrow(ETS_mod)
 ```
 
 
@@ -107,6 +112,7 @@ ARIMA_mod <- error |>
 
 ARIMA_MAPE <- colSums(as.matrix(ARIMA_mod$MAPE)) / nrow(ARIMA_mod)
 
+ARIMA_MASE <- colSums(as.matrix(ARIMA_mod$MASE)) / nrow(ARIMA_mod)
 
 ```
 
@@ -114,10 +120,10 @@ ARIMA_MAPE <- colSums(as.matrix(ARIMA_mod$MAPE)) / nrow(ARIMA_mod)
 
 
 ```{r}
-ARIMA_mod <- error |> 
-  filter(.model == "stepwise")
+MEAN_mod <- error |> 
+  filter(.model == "mean")
 
-ARIMA_MAPE <- colSums(as.matrix(ARIMA_mod$MAPE)) / nrow(ARIMA_mod)
+MEAN_MAPE <- colSums(as.matrix(MEAN_mod$MAPE)) / nrow(MEAN_mod)
 
 
 ```
