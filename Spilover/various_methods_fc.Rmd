@@ -1,0 +1,90 @@
+---
+title: "various_mthods_fc"
+author: "Elvis Yang"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r}
+library(fpp3)
+```
+
+
+```{r}
+employ<- read.csv("ABSemp.csv")
+```
+
+
+
+
+# Type 
+
+```{r}
+# employ <- employ |> 
+#   mutate(Month = yearmonth(Date)) |> 
+#   select(-Date) 
+
+  
+  
+ts_employ <- employ |> 
+    mutate(Quarter = yearquarter(my(Date))) |> 
+    select(-Date) |> 
+    as_tsibble(index = Quarter) 
+
+pre_2019 <- ts_employ |> 
+  filter(Quarter <= yearquarter("2019 Q4"))
+
+```
+
+
+# Split the test and training set 
+
+```{r}
+
+training <- pre_2019[1:120,] 
+
+test <- pre_2019[121:nrow(pre_2019),]
+```
+
+
+
+
+# pivot into longer format 
+
+
+  
+
+
+
+```{r}
+
+training <- training |> 
+  pivot_longer(cols = c(-Quarter) , names_to = "Industry", values_to = "Employment")
+
+
+```
+
+
+
+
+# Conduct the forecast 
+
+```{r}
+fc_model <- training |> 
+  model(stepwise = ARIMA(Employment))
+
+
+fc_emp<- fc_model |> 
+  forecast(h=21)
+
+
+```
+
+
+```{r}
+fc_emp |> 
+  pivot_wider( names_from = "Industry", values_from = ".mean")
+```
+
+
+

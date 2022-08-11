@@ -2,7 +2,7 @@
 % Monash University
 % July 2022
 
-% This is method 1: Out of sample forecast based on the original data 
+% This is method 2: Out of sample forecast based on the estimated data 
 
 clear all
 clc
@@ -36,7 +36,7 @@ alldata =  xlsread('ABSemp.xlsx', "B2:CH142");
 for l = 1:numel(lambda_lst)
 
 
-    % split training and test
+    % split training and test, starting with minimum training is 20q=5yrs
 
     i= 120;
     
@@ -57,8 +57,8 @@ for l = 1:numel(lambda_lst)
     N = size(y,2);
     p = 4;
     lambda = lambda_lst(l,1); %shrinakge lambda ---- YOU CAN REPLACE WITH DIFFERENT LAMBDA 
-    hor = 21; % forecast horizon 
-
+    hor = 21; % forecast horizon for iteration (horizon for CV=1)
+   
     
     [phi,SIGMA,X,e] = BVAR(y,p,lambda);
 
@@ -78,14 +78,18 @@ for l = 1:numel(lambda_lst)
 
     % First: Draw estimates 
 
-    for a = n-4:n  
+     for a = 5:n  
 
-        for j = 1:k
+        for j = 1:k-1
          
-        yhat(a,j) = y(a,j);
+        yhat(a,j) = phi(1,j) + y(a-1,:) * phi(2:86,j) + y(a-2,:) * phi(87:171,j) + y(a-3,:)* phi(172:256,j) + y(a-4,:) * phi(257:341,j); % do the estimate 
     
         end 
 
+        rawhatv = alldata(a-4,1:(k-1)) .* exp(yhat(a,1:(k-1))/100);
+        yhat(a,k) = 100 .* log(sum(rawhatv)/alldata(a-4,k));
+        rawhat(a,:)= alldata(a-4,1:k) .* exp(yhat(a,1:k)/100);
+      
 
     end
 

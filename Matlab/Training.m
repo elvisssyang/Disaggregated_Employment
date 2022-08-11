@@ -204,20 +204,20 @@ for l = 1:numel(lambda_lst)
 
 % Total Trained errors 
 
-Overall_MAE = sumabs(MAE_acc) / (size(MAE_acc,1)); % have to average all the tests (START:20, END:141 in this case) START can be changed but min threashold is 20.
-Overall_RMSE = sumabs(RMSE_acc) / (size(RMSE_acc,1));
-Overall_MAPE = sumabs(MAPE_acc) / (size(MAPE_acc,1));
-Overall_MASE = sumabs(MASE_acc) / (size(MASE_acc,1));
-Overall_RMSSE = sumabs(RMSSE_acc) / (size(RMSSE_acc,1));
+%Overall_MAE = sumabs(MAE_acc) / (size(MAE_acc,1)); % have to average all the tests (START:20, END:141 in this case) START can be changed but min threashold is 20.
+%Overall_RMSE = sumabs(RMSE_acc) / (size(RMSE_acc,1));
+%Overall_MAPE = sumabs(MAPE_acc) / (size(MAPE_acc,1));
+%Overall_MASE = sumabs(MASE_acc) / (size(MASE_acc,1));
+%Overall_RMSSE = sumabs(RMSSE_acc) / (size(RMSSE_acc,1));
 
 
 % weighted trained errors 
 % here only weighted scaled error due to the reason of scale independent
 
-weighted_error(l,1)= (sum(Overall_RMSE)+ sum(Overall_MASE) + sum(Overall_RMSSE)) / 3; 
+%weighted_error(l,1)= (sum(Overall_RMSE)+ sum(Overall_MASE) + sum(Overall_RMSSE)) / 3; 
 
 
-%%%%% weighted_error =(sum(Overall_RMSE)+ sum(Overall_MASE) + sum(Overall_RMSSE)) / 3;
+weighted_error =(RMSE+ MASE + RMSSE) / 3;
 
 
 
