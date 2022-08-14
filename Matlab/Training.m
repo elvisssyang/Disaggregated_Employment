@@ -219,13 +219,6 @@ for l = 1:numel(lambda_lst)
 
 weighted_error =(RMSE+ MASE + RMSSE) / 3;
 
-
-
-
-% QUESTION: SHOULD I CHANGE THE ERROR MEASUREMENT IN THE WEIGHTED ERROR
-% ???? 
-
-
  end 
 
  min(weighted_error) 
