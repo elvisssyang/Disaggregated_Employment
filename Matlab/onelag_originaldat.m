@@ -1,7 +1,8 @@
 %% ELvis Yang 
 % Monash University
 % July 2022
-% This is the forecasts based on the estimated data 
+% This is the forecast directly based on the original data 
+
 
 
 clear all
@@ -19,9 +20,14 @@ MAPE_acc = [];
 
 
 
-lambda_lst = [0.01:0.01:0.1]';
+%lambda_lst = [0.01:0.01:0.1]'; --- we found the minima between 0.05 & 0.06
 
-for l = 1:numel(lambda_lst)
+% lambda_lst = [0.05:0.001:0.6]'; --- we foudn the minima between 0.058 & 0.059
+
+% lambda_lst = [0.058:0.0001:0.059]' -- we found the minima between 0.0585
+% and 0.0583 -- or we finally select 0.0586
+
+%for l = 1:numel(lambda_lst)
 
     i= 120; 
     
@@ -42,7 +48,8 @@ for l = 1:numel(lambda_lst)
     
     N = size(y,2);
     p = 1;
-    lambda = lambda_lst(l,:); %shrinakge lambda ---- YOU CAN REPLACE WITH DIFFERENT LAMBDA 
+    % lambda = lambda_lst(l,:); %shrinakge lambda ---- YOU CAN REPLACE WITH DIFFERENT LAMBDA 
+    lambda = 0.0586;
     hor = 21; % forecast horizon for iteration (horizon for CV=1)
    
     
@@ -53,28 +60,17 @@ for l = 1:numel(lambda_lst)
     
     % prepare to conduct our forecasts 
     rawhat = zeros(n,k);
-    yhat = zeros(n+hor,k);
+    yhat = [y;zeros(hor,k)];
 
     
 
 
-    % CONDUCT THE FORECAST 
 
-    % First: Draw estimates 
 
-    for a = 2:n  
 
-        for j = 1:k-1
-         
-        yhat(a,j) = phi(1,j) + y(a-1,:) * phi(2:86,j); % do the estimate 
+
     
-        end 
 
-        rawhatv = alldata(a-1,1:(k-1)) .* exp(yhat(a,1:(k-1))/100);
-        yhat(a,k) = 100 .* log(sum(rawhatv)/alldata(a-1,k));
-        rawhat(a,:)= alldata(a-1,1:k) .* exp(yhat(a,1:k)/100);
-      
-    end
 
 
 
@@ -103,12 +99,12 @@ for l = 1:numel(lambda_lst)
 
 
         rawhatv = alldata(b-1,1:(k-1)) .* exp(yhat(b,1:(k-1))/100);
-        yhat(b,k) = 100 .* log(sum(rawhatv)/alldata(b-4,k));
+        yhat(b,k) = 100 .* log(sum(rawhatv)/alldata(b-1,k));
         rawhat_fore(b,:)= alldata((b-1),1:k) .* exp(yhat(b,1:k)/100);
         sdiff_fore(b,:) = exp(yhat(b,1:k)/100);
 
-   end 
 
+   end 
 
    newraw = test;
    error = rawhat_fore(n+1:n+hor,:) - newraw; % calculate forecast difference between rawhat(estimated ones) and real data 
@@ -142,7 +138,10 @@ for l = 1:numel(lambda_lst)
    MAPE_acc = [MAPE_acc;MAPE];
 
 
-end 
+%end 
+
+
+%Grid_search = [lambda_lst,MAPE_acc];
    
 
 

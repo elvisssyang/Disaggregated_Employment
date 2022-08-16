@@ -1,7 +1,8 @@
 %% ELvis Yang 
 % Monash University
 % July 2022
-% This is the forecasts based on the estimated data 
+% This is the forecast directly based on the original data 
+
 
 
 clear all
@@ -19,7 +20,9 @@ MAPE_acc = [];
 
 
 
-lambda_lst = [0.01:0.01:0.1]';
+%lambda_lst = [0.01:0.01:0.1]'; --- we found the minima between 0.05 & 0.06
+
+lambda_lst = [0.05:0.001:0.6]'; --- we foudn the minima between 0.058 & 0.059
 
 for l = 1:numel(lambda_lst)
 
@@ -53,28 +56,17 @@ for l = 1:numel(lambda_lst)
     
     % prepare to conduct our forecasts 
     rawhat = zeros(n,k);
-    yhat = zeros(n+hor,k);
+    yhat = [y;zeros(hor,k)];
 
     
 
 
-    % CONDUCT THE FORECAST 
 
-    % First: Draw estimates 
 
-    for a = 2:n  
 
-        for j = 1:k-1
-         
-        yhat(a,j) = phi(1,j) + y(a-1,:) * phi(2:86,j); % do the estimate 
+
     
-        end 
 
-        rawhatv = alldata(a-1,1:(k-1)) .* exp(yhat(a,1:(k-1))/100);
-        yhat(a,k) = 100 .* log(sum(rawhatv)/alldata(a-1,k));
-        rawhat(a,:)= alldata(a-1,1:k) .* exp(yhat(a,1:k)/100);
-      
-    end
 
 
 
@@ -103,12 +95,12 @@ for l = 1:numel(lambda_lst)
 
 
         rawhatv = alldata(b-1,1:(k-1)) .* exp(yhat(b,1:(k-1))/100);
-        yhat(b,k) = 100 .* log(sum(rawhatv)/alldata(b-4,k));
+        yhat(b,k) = 100 .* log(sum(rawhatv)/alldata(b-1,k));
         rawhat_fore(b,:)= alldata((b-1),1:k) .* exp(yhat(b,1:k)/100);
         sdiff_fore(b,:) = exp(yhat(b,1:k)/100);
 
-   end 
 
+   end 
 
    newraw = test;
    error = rawhat_fore(n+1:n+hor,:) - newraw; % calculate forecast difference between rawhat(estimated ones) and real data 
@@ -143,6 +135,9 @@ for l = 1:numel(lambda_lst)
 
 
 end 
+
+
+Grid_search = [lambda_lst,MAPE_acc];
    
 
 
