@@ -33,7 +33,7 @@ maxhor = 2; %maximum forecast horizon where we are imposing conditions
 
 % write out the phi to csv file
 
-%csvwrite('phi.csv',phi);
+csvwrite('phi.csv',phi);
 
 
 

@@ -18,22 +18,24 @@ alldata =  xlsread('ABSemp.xlsx', "B2:CH142");
 MAPE_acc = [];
 
 
+% 
+ lambda_lst = [0.01:0.0001:0.1]';
 
-lambda_lst = [0.01:0.01:0.1]';
+ for l = 1:numel(lambda_lst)
 
-for l = 1:numel(lambda_lst)
-
-    i= 120; 
-    
-    
+     i= 120; 
+%     
+%     
     training = alldata(1:i,:);
     test = alldata(i+1:141,:);
-
+% 
 
 
     % Transform data to year on year growth rate 100*ln(y_t/y_{t-4})
+% 
+  logdat = log(training);
 
-    logdat = log(training);
+    % logdat = log(alldata);
 
 
     % Change later if we are doing BVAR on all sectors
@@ -42,7 +44,8 @@ for l = 1:numel(lambda_lst)
     
     N = size(y,2);
     p = 1;
-    lambda = lambda_lst(l,:); %shrinakge lambda ---- YOU CAN REPLACE WITH DIFFERENT LAMBDA 
+    lambda = lambda_lst(l,:);
+   % lambda = 0.0586; %shrinakge lambda ---- YOU CAN REPLACE WITH DIFFERENT LAMBDA 
     hor = 21; % forecast horizon for iteration (horizon for CV=1)
    
     
@@ -62,7 +65,7 @@ for l = 1:numel(lambda_lst)
 
     % First: Draw estimates 
 
-    for a = 2:n  
+    for a = 5:n  
 
         for j = 1:k-1
          
@@ -70,11 +73,13 @@ for l = 1:numel(lambda_lst)
     
         end 
 
-        rawhatv = alldata(a-1,1:(k-1)) .* exp(yhat(a,1:(k-1))/100);
-        yhat(a,k) = 100 .* log(sum(rawhatv)/alldata(a-1,k));
-        rawhat(a,:)= alldata(a-1,1:k) .* exp(yhat(a,1:k)/100);
+        rawhatv = alldata(a-4,1:(k-1)) .* exp(yhat(a,1:(k-1))/100);
+        yhat(a,k) = 100 .* log(sum(rawhatv)/alldata(a-4,k));
+        rawhat(a,:)= alldata(a-4,1:k) .* exp(yhat(a,1:k)/100); 
       
     end
+
+    
 
 
 
@@ -102,9 +107,9 @@ for l = 1:numel(lambda_lst)
        end
 
 
-        rawhatv = alldata(b-1,1:(k-1)) .* exp(yhat(b,1:(k-1))/100);
+        rawhatv = alldata(b-4,1:(k-1)) .* exp(yhat(b,1:(k-1))/100);
         yhat(b,k) = 100 .* log(sum(rawhatv)/alldata(b-4,k));
-        rawhat_fore(b,:)= alldata((b-1),1:k) .* exp(yhat(b,1:k)/100);
+        rawhat_fore(b,:)= alldata((b-4),1:k) .* exp(yhat(b,1:k)/100);
         sdiff_fore(b,:) = exp(yhat(b,1:k)/100);
 
    end 
@@ -145,4 +150,7 @@ for l = 1:numel(lambda_lst)
 end 
    
 
+% store the variable into the csv file 
+
+%csvwrite("phi.csv", phi)
 
