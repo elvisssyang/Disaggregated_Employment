@@ -32,13 +32,14 @@ library(fpp3)
 
 alldata <- readr::read_csv("ABSemp.csv")  |> 
   mutate(Quarter = yearquarter(my(Date))) |> 
-  select(-Date) |> 
-  filter(Quarter <= yearquarter("2019 Q4"))
+  select(-Date, -`96 Total`) |> 
+  filter(Quarter <= yearquarter("2019 Q4")) |> 
+  select(-Quarter) 
 
 
+# generate the total number 
 alldata <- alldata |> 
-  select(-Quarter)
-
+  mutate(`96 Total` = rowSums(alldata[,1:ncol(alldata)]))
 
 
 # generate the total amount of the data 
@@ -93,19 +94,19 @@ for (i in 5:n){
 
 # Use the updated data between COVID-19
 # 
-# alldata <- readr::read_csv("ABSemp.csv")  |> 
-#   mutate(Quarter = yearquarter(my(Date))) |> 
+# alldata <- readr::read_csv("ABSemp.csv")  |>
+#   mutate(Quarter = yearquarter(my(Date))) |>
 #   select(-Date)
 # 
 # 
-# alldata <- alldata |> 
+# alldata <- alldata |>
 #   select(-Quarter)
 # 
 # 
 # 
-# rawdata <- as.matrix(alldata) 
-
-
+# rawdata <- as.matrix(alldata)
+# 
+# k = 85 
 
 # Conduct our multiplier analysis 
 # The row we set 44 is 4(4 last observations to start forecasting) + 40(10 years horizon of forecasting)
@@ -128,7 +129,8 @@ for (sector in 1:(k-1)){
     multiraw[i,1:(k-1)] = multiraw[(i-4),1:(k-1)]*exp(multig[i,1:(k-1)]/100) # The first value is negative means related to this 
     
     multiraw[i,k] = sum(multiraw[i,1:(k-1)])
-    multig[i,k]=100*(log(multiraw[i,k]) - log(multiraw[(i-4),k]))# Fourth difference and convert into percentage change  # PROBLEM: WHY LOG(1) \ne 0
+    
+    multig[i,k]=100 * log(multiraw[i,k]/multiraw[(i-4),k])# Fourth difference and convert into percentage change  # PROBLEM: WHY LOG(1) \ne 0
   }
   multilevels[,sector]=multiraw[,k]
   multigrowth[,sector]=multig[,k]   # suspect here will need to select k instead sector 
@@ -142,8 +144,12 @@ mtplers <- rbind(shares,mpers)
 write.csv(file="multipliers_1.csv",rbind(shares,mpers))
 
 
-
-
+i = 5 
+for(j in 1:k-1){
+  
+  multiraw[,] = 
+  
+}
 
 
 

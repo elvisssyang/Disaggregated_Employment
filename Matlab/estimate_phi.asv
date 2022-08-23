@@ -24,6 +24,8 @@ lambda = 0.0391; %shrinakge
 maxhor = 2; %maximum forecast horizon where we are imposing conditions
 
 
+k = 85;
+
 %Fit an BVAR to get the parameters for the BVAR 
 
 
@@ -44,7 +46,7 @@ maxhor = 2; %maximum forecast horizon where we are imposing conditions
 multiraw = zeros(44,k);
 multiraw(1:4,:) = alldata(end-3:end,:);
 multig = zeros(44,k);
-multlevels = zeros(44,k-1);
+multilevels = zeros(44,k-1);
 multigrowth = zeros(44,k-1);
 
 
@@ -60,17 +62,29 @@ for sector = 1:(k-1)
                 multig(i,j) = multig(i,j)+1;
             end 
 
+        end
+
             multiraw(i,1:k-1) = multiraw(i-4,1:k-1) .* exp(multig(i,1:k-1)/ 100);
             
 
-            multiraw(i,k) = sum(multiraw(i,1:k-1));
-            multig(i,k) = 100 .* log(multiraw(i,k) / multi)
+            multiraw(i,k) = sum(multiraw(i,1:k-1), 2);
+            multig(i,k) = 100 .* log(multiraw(i,k) / multiraw(i-4,k));
 
-        end 
-
+         
 
     end 
 
 
+     multilevels(:,sector) = multiraw(:,k);
+     multigrowth(:,sector) = multig(:,k);
 
 end 
+
+multipliers = sum(multigrowth, 1) / 4;
+
+mpers = cumsum(multigrowth(5:44,:),1) / 4; 
+
+
+shares = sum(alldata(end-3:end,1:84),1) / sum(alldata(end-3:end,85));
+
+mtplers = [shares;mpers];
