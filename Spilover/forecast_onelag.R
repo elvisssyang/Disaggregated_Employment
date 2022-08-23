@@ -19,15 +19,6 @@ library(lubridate)
 library(fpp3)
 
 
-# INPUTS 
-
-# y  Time series 
-#p lags 
-# varagin There are the(optional) bootstrapping options 
-# 'parametric'   Draw residuals parametrically from the covariance matrix 
-# 'bootstrap_with _replacement'  Draw residuals randomly from the empirical residuals 
-# 'double_bootstrap'   Bias correction boostrap-after -bootstrap
-# 'wild_bootstrap' Allws for hetroskedasticity by multiplying by a random variable 
 
 
 alldata <- readr::read_csv("ABSemp.csv")  |> 
@@ -69,8 +60,6 @@ k = ncol(d4logdata)
 
 # For users, you have to replace the numbers phi if you really want to build up another type of model
 # The phi is produced using MATLAB MAIN.m file, please run that file to generate the estimated coefficients. 
-# Here the phi are divided to give four lags and one constant. 
-# phi[1,j] for constant, the rest are multiplied by the four lags and do the estimation 
 
 rawhat = matrix(0,n,k)
 yhat = matrix(0,n,k)  
@@ -92,7 +81,7 @@ for (i in 5:n){
 
 
 
-# Use the updated data between COVID-19
+# Use the updated data after COVID-19
 # 
 # alldata <- readr::read_csv("ABSemp.csv")  |>
 #   mutate(Quarter = yearquarter(my(Date))) |>
@@ -151,7 +140,7 @@ write.csv(file="multipliers_1.csv",rbind(shares,mpers))
 
 
 
-## ----- Workbook till 17/07----Below codes hasn't changed yet --EY 
+## ----- Workbook till 23 AUG----Below codes hasn't changed yet --EY 
 
 
 ## forecasts
