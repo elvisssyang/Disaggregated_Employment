@@ -144,12 +144,7 @@ mtplers <- rbind(shares,mpers)
 write.csv(file="multipliers_1.csv",rbind(shares,mpers))
 
 
-i = 5 
-for(j in 1:k-1){
-  
-  multiraw[,] = 
-  
-}
+
 
 
 
