@@ -19,10 +19,10 @@ Although seasonally adjusted data is available in [@ABS2022], the method of seas
 
 
 
-Since the original data from ABS is not tidy. In this thesis, I use the Excel to extract both the employment for both two-digit disaggregated level and the total employment. Then, I take the following modifications to deal with zeros, meanwhile, keeping the data structure coherent. 
+Since the original data from ABS is not tidy. In this thesis, I use the Excel to extract both the employment for both two-digit disaggregated level and the total employment. Then, I take the following modifications to deal with zeros, meanwhile, keeping the data structure coherent. The cleaned data can be seen in *ABSemp.xlsx* file at (https://github.com/elvisssyang/Disaggregated_Employment).
 
 
-+ Merge the two-digit subsector *57- Internet Publishing and Boardcasting* and *54- Publishing(except internet)* to be come  *54 Publishing and boadcasting*. 
++ Merge the two-digit subsector *57- Internet Publishing and Boardcasting* and *54- Publishing(except internet)* to be come *54 Publishing and boadcasting*. 
 
 
 + Merge the *96 Private Households Employing Staff and Undifferentiated Goodsand Service Producing Activities of Households for Own Use* and *95 Personal and Other Services* to become *95 Personal and other services (include activities for own use)*.

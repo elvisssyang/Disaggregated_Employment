@@ -24,7 +24,7 @@ library(fpp3)
 alldata <- readr::read_csv("ABSemp.csv")  |> 
   mutate(Quarter = yearquarter(my(Date))) |> 
   select(-Date, -`96 Total`) |> 
-  filter(Quarter <= yearquarter("2019 Q4")) |> 
+  filter(Quarter <= yearquarter("2020 Q1")) |> 
   select(-Quarter) 
 
 
@@ -153,7 +153,7 @@ fgr0 = matrix(0,24,k)
 fgr0[1:4,] = d4logdata[(nrow(d4logdata)-3):nrow(d4logdata),]
 for (i in 5:24){
   for (j in 1:(k-1)){
-    fgr0[i,j]= phi[1,j] + fgr0[(i-1),]%*%phi[(2:21),j] + fgr0[(i-2),]%*%phi[22:41,j] + fgr0[(i-3),]%*%phi[42:61,j] + fgr0[(i-4),]%*%phi[62:81,j]
+    fgr0[i,j]= phi[1,j] + fgr0[(i-1),]%*%phi[(2:86),j] 
   }
   fraw0[i,1:(k-1)] = fraw0[(i-4),1:(k-1)]*exp(fgr0[i,1:(k-1)]/100)
   fraw0[i,k] = sum(fraw0[i,1:(k-1)])
@@ -161,54 +161,59 @@ for (i in 5:24){
 }
 dd = as.yearqtr(2020+seq(1,20)/4)
 nn = c("Date", "YoY", "Employment")
-allrawfcasts = data.frame(cbind(dd,as.numeric(fgr0[5:24,20]),as.numeric(fraw0[5:24,20])))
+allrawfcasts = data.frame(cbind(dd,as.numeric(fgr0[5:24,85]),as.numeric(fraw0[5:24,85])))
 colnames(allrawfcasts) = nn
-#ggplot(allrawfcasts,aes(x=Date, y=YoY)) + geom_line() + xlab("Year-Quarter") + ylab("YoY Growth in Total Employment") + scale_x_yearqtr(format = "%YQ%q", breaks = seq(as.yearqtr(2020.25),as.yearqtr(2025.0), by = 0.5), minor_breaks= seq(as.yearqtr(2020.25),as.yearqtr(2025.0), by = 0.25))
+ggplot(allrawfcasts,aes(x=Date, y=YoY)) + geom_line() + xlab("Year-Quarter") + ylab("YoY Growth in Total Employment") + scale_x_yearqtr(format = "%YQ%q", breaks = seq(as.yearqtr(2020.25),as.yearqtr(2025.0), by = 0.5), minor_breaks= seq(as.yearqtr(2020.25),as.yearqtr(2025.0), by = 0.25))
+
+
+
+
+
 
 
 # Scenario O (The forecast routine in the app is much nicer)
-fraw1 = matrix(0,24,k)
-fraw1[1:4,]= rawdata[(nrow(rawdata)-3):nrow(rawdata),]
-fgr1 = matrix(0,24,k)
-fgr1[1:4,] = d4logdata[(nrow(d4logdata)-3):nrow(d4logdata),]
-flag = matrix(10000,4,19)
-flag[1,]=c(-9.476325055,-2.915775394,-4.083103671,-0.16813662,-6.409944992,-4.394476644,-6.823570644,-33.39984639,-2.974739421,-6.489477032,-1.037667682,-11.0133505,-5.642445473,-10.04476017,-5.143099447,-1.961685419,-2.860893739,-26.95945301,-12.04715082)
-# use this if input is YoY change 
-#flag[1,]=c(-9.1,	-3.7,	-4.2,	-16.2,	-6.5,	-9.2,	-9.1,	-39.7,	-0.6,	-2.2,	6.8,	-11.7,	-2.9,	-13.9,	-5.6,	0.4,	4.1,	-33.2,	-18.7)
-flag[2,]=c(-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999)
-for (i in 5:24){
-  for (j in 1:(k-1)){
-    if (i==5 | i==6 | i==7 | i==8){
-      if (flag[(i-4),j] == -9999) {
-        fraw1[i,j] = fraw1[i-1,j]
-        fgr1[i,j] = 100*log(fraw1[i,j]/fraw1[i-4,j])
-      }
-      else if (flag[(i-4),j] == 10000) {
-        fgr1[i,j]= phi[1,j] + fgr1[(i-1),]%*%phi[(2:21),j] + fgr1[(i-2),]%*%phi[22:41,j] + fgr1[(i-3),]%*%phi[42:61,j] + fgr1[(i-4),]%*%phi[62:81,j]
-        fraw1[i,j]=fraw1[i-4,j]*exp(fgr1[i,j]/100)
-      }
-      else {
-        #        fgr1[i,j] = flag[(i-4),j] #use this and the line below it if user supplied figures are on YoY growth rates
-        #        fraw1[i,j]=fraw1[i-4,j]*exp(fgr1[i,j]/100)
-        fraw1[i,j] = fraw1[i-1,j]*(1+flag[(i-4),j]/100) #use this and the line below it if user inputs QoQ growth rates
-        fgr1[i,j] = 100*log(fraw1[i,j]/fraw1[i-4,j])
-      }
-    }  
-    else 
-      fgr1[i,j]= phi[1,j] + fgr1[(i-1),]%*%phi[(2:21),j] + fgr1[(i-2),]%*%phi[22:41,j] + fgr1[(i-3),]%*%phi[42:61,j] + fgr1[(i-4),]%*%phi[62:81,j]
-    fraw1[i,j]=fraw1[i-4,j]*exp(fgr1[i,j]/100)
-  }
-  fraw1[i,k] = sum(fraw1[i,1:(k-1)])
-  fgr1[i,k]=100*log(fraw1[i,k]/fraw1[(i-4),k])
-}
-f1 = data.frame(cbind(as.numeric(fgr1[5:24,20]),as.numeric(fraw1[5:24,20])))
-colnames(f1)=c("YoY1","Employment1")
-allrawfcasts = cbind(allrawfcasts,f1)
-ggplot(allrawfcasts) + geom_line(aes(x=Date,y=YoY),color="blue") + geom_line(aes(x=Date, y=YoY1),color="red") + xlab("Year-Quarter") + ylab("YoY Growth in Total Employment") + scale_x_yearqtr(format = "%YQ%q", breaks = seq(as.yearqtr(2020.25),as.yearqtr(2025.0), by = 0.5), minor_breaks= seq(as.yearqtr(2020.25),as.yearqtr(2025.0), by = 0.25))
-
-
-
-
-
-
-
+# fraw1 = matrix(0,24,k)
+# fraw1[1:4,]= rawdata[(nrow(rawdata)-3):nrow(rawdata),]
+# fgr1 = matrix(0,24,k)
+# fgr1[1:4,] = d4logdata[(nrow(d4logdata)-3):nrow(d4logdata),]
+# flag = matrix(10000,4,19)
+# flag[1,]=c(-9.476325055,-2.915775394,-4.083103671,-0.16813662,-6.409944992,-4.394476644,-6.823570644,-33.39984639,-2.974739421,-6.489477032,-1.037667682,-11.0133505,-5.642445473,-10.04476017,-5.143099447,-1.961685419,-2.860893739,-26.95945301,-12.04715082)
+# # use this if input is YoY change
+# #flag[1,]=c(-9.1,	-3.7,	-4.2,	-16.2,	-6.5,	-9.2,	-9.1,	-39.7,	-0.6,	-2.2,	6.8,	-11.7,	-2.9,	-13.9,	-5.6,	0.4,	4.1,	-33.2,	-18.7)
+# flag[2,]=c(-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999)
+# for (i in 5:24){
+#   for (j in 1:(k-1)){
+#     if (i==5 | i==6 | i==7 | i==8){
+#       if (flag[(i-4),j] == -9999) {
+#         fraw1[i,j] = fraw1[i-1,j]
+#         fgr1[i,j] = 100*log(fraw1[i,j]/fraw1[i-4,j])
+#       }
+#       else if (flag[(i-4),j] == 10000) {
+#         fgr1[i,j]= phi[1,j] + fgr1[(i-1),]%*%phi[(2:21),j] + fgr1[(i-2),]%*%phi[22:41,j] + fgr1[(i-3),]%*%phi[42:61,j] + fgr1[(i-4),]%*%phi[62:81,j]
+#         fraw1[i,j]=fraw1[i-4,j]*exp(fgr1[i,j]/100)
+#       }
+#       else {
+#         #        fgr1[i,j] = flag[(i-4),j] #use this and the line below it if user supplied figures are on YoY growth rates
+#         #        fraw1[i,j]=fraw1[i-4,j]*exp(fgr1[i,j]/100)
+#         fraw1[i,j] = fraw1[i-1,j]*(1+flag[(i-4),j]/100) #use this and the line below it if user inputs QoQ growth rates
+#         fgr1[i,j] = 100*log(fraw1[i,j]/fraw1[i-4,j])
+#       }
+#     }
+#     else
+#       fgr1[i,j]= phi[1,j] + fgr1[(i-1),]%*%phi[(2:21),j] + fgr1[(i-2),]%*%phi[22:41,j] + fgr1[(i-3),]%*%phi[42:61,j] + fgr1[(i-4),]%*%phi[62:81,j]
+#     fraw1[i,j]=fraw1[i-4,j]*exp(fgr1[i,j]/100)
+#   }
+#   fraw1[i,k] = sum(fraw1[i,1:(k-1)])
+#   fgr1[i,k]=100*log(fraw1[i,k]/fraw1[(i-4),k])
+# }
+# f1 = data.frame(cbind(as.numeric(fgr1[5:24,20]),as.numeric(fraw1[5:24,20])))
+# colnames(f1)=c("YoY1","Employment1")
+# allrawfcasts = cbind(allrawfcasts,f1)
+# ggplot(allrawfcasts) + geom_line(aes(x=Date,y=YoY),color="blue") + geom_line(aes(x=Date, y=YoY1),color="red") + xlab("Year-Quarter") + ylab("YoY Growth in Total Employment") + scale_x_yearqtr(format = "%YQ%q", breaks = seq(as.yearqtr(2020.25),as.yearqtr(2025.0), by = 0.5), minor_breaks= seq(as.yearqtr(2020.25),as.yearqtr(2025.0), by = 0.25))
+# 
+# 
+# 
+# 
+# 
+# 
+# 

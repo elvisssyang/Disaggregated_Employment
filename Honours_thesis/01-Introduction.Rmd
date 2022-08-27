@@ -30,7 +30,7 @@ The overall research aim is to provide estimates of two-digit sectoral employmen
 ## Thesis Structure 
 
 
-This thesis focus on analyzing Australian Employment at a disaggregated level, then estimate the long run effects of the COVID-19 to sectoral employment rate in Australia. The remainder of the thesis is structured as follows. In chapter 2, we review the existing literature in the relevant fields. In chapter 3, we will provide exploratory data analysis and data resources.
+This thesis focuses on analyzing Australian Employment at a disaggregated level, then estimate the long run effects of the COVID-19 to sectoral employment rate in Australia. The remainder of the thesis is structured as follows. In chapter 2, we review the existing literature in the relevant fields. In chapter 3, we will provide exploratory data analysis and data resources.
 
 
 
