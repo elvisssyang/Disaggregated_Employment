@@ -1,0 +1,73 @@
+---
+chapter: 5
+knit: "bookdown::render_book"
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Sectoral Employment Analysis 
+
+
+
+## Evaluations after COVID-19
+
+
+
+
+## Long-run Multiplier Analysis 
+
+Due to the reason that industries are interdependent, we should notice that the change of one sector may have influences on both total employment and other sectors. In this thesis, I will use the structure of multivariate BVAR to capture the dynamics of sectoral employment for each disaggregated sector. 
+
+
+This analysis is based on the estimated BVAR model and the 87 two-digit disaggregated data. 
+
+At each time period, we have :
+
+$$
+GR_T=\sum_{j=1}^{87} w_j\times {GR}_j
+$$
+
+where $w_j$ is the share of employment of two-digit subsector $j$ in the total employment, $GR_T$ is the growth rate in total employment and $GR_j$ is the growth rate in employment of two-digit subsector $j$. 
+
+
+
+In particular, if there is a one percent increase in sector *i*, the total employment will increase by sector *i*'s share simultaneously. Nonetheless, given the increase in total employment in sector *i* may also have indirect effects to other sectors in consecutive periods, especially for sectors with similar economic pattens. Therefore, I define the long-run employment multiplier as the effect of initial increase in sector *i* onto the total employment in the long-run , which follow the definition stated in @anderson2020. Admittedly, if the long-run effect is larger than the immediate effect for this sector, then stimulate this sector will have positive spillover effect onto the total employment. 
+
+I use the estimated BVAR model to simulate the long-run employment multiplier for each specific sector with the horizons of one year, two year and ten years. Subsequently, the differences between the simulated five year multipliers and the initial shares are the spillovers of the  two-digit subsectors. 
+
+
+Compare the long-term multipliers with the shares of sectors, we can find that `Furniture and Other Manufacturing`, followed by ` Broadcasting (except Internet)`, `Agriculture, Forestry and Fishing Support Services` generate the strongest positive spillover to the total economy. They belongs to the `Manufacturing`, `Agriculture` and `Information, Media & Telecom` respectively.
+
+
+A very interesting fact 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

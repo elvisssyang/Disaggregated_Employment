@@ -2385,16 +2385,15 @@
     <bcf:citekey order="32">banbura2010large</bcf:citekey>
     <bcf:citekey order="33">banbura2010large</bcf:citekey>
     <bcf:citekey order="34">anderson2020</bcf:citekey>
-    <bcf:citekey order="35">banbura2010</bcf:citekey>
+    <bcf:citekey order="35">banbura2010large</bcf:citekey>
     <bcf:citekey order="36">banbura2010large</bcf:citekey>
     <bcf:citekey order="37">banbura2010large</bcf:citekey>
     <bcf:citekey order="38">litterman1986</bcf:citekey>
     <bcf:citekey order="39">banbura2010large</bcf:citekey>
     <bcf:citekey order="40">anderson2020</bcf:citekey>
     <bcf:citekey order="41">anderson2020</bcf:citekey>
-    <bcf:citekey order="42">hyndman2006</bcf:citekey>
+    <bcf:citekey order="42">anderson2020</bcf:citekey>
     <bcf:citekey order="43">anderson2020</bcf:citekey>
-    <bcf:citekey order="44">anderson2020</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nyt">

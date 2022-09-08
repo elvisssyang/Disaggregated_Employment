@@ -86,7 +86,7 @@ The overall research aim is to provide estimates of two-digit sectoral employmen
 \hypertarget{thesis-structure}{%
 \section{Thesis Structure}\label{thesis-structure}}
 
-This thesis focus on analyzing Australian Employment at a disaggregated level, then estimate the long run effects of the COVID-19 to sectoral employment rate in Australia. The remainder of the thesis is structured as follows. In chapter 2, we review the existing literature in the relevant fields. In chapter 3, we will provide exploratory data analysis and data resources.
+This thesis focuses on analyzing Australian Employment at a disaggregated level, then estimate the long run effects of the COVID-19 to sectoral employment rate in Australia. The remainder of the thesis is structured as follows. In chapter 2, we review the existing literature in the relevant fields. In chapter 3, we will provide exploratory data analysis and data resources.
 
 \clearpage
 
@@ -106,26 +106,21 @@ Our review of literature mainly focuses on two areas:
 \hypertarget{sectoral-impact-of-covid-19.}{%
 \section{Sectoral Impact of COVID-19.}\label{sectoral-impact-of-covid-19.}}
 
-Most existing studies have focused on the evaluation of the impacts of COVID-19 on broad sectors of large economies such as the US and Europe. \textcite{ludvigson2020covid} developed a disaster series to translate the macroeconomic impact of costly and deadly disasters in recent US history and model them as sectoral shocks to predict COVID-19. They concluded that the shock would lead to a cumulative loss of 20\% in industrial production, 39\% in public services and also reduce the US GDP by 12.75 per cent at the end of 2020. \textcite{gregory2020pandemic} conducted simulations under different scenarios via a search theoretic model using US data and found the recovery in the US is L-shaped, with employment remaining lower than pre-covid for a long period. They also extended their studies at a disaggregated level of 20 sectors, showing that ``arts and entertainment'' and ``accommodation and food services'' sectors would have the biggest shock during the pandemic.
+Most existing studies have focused on the evaluation of the impacts of COVID-19 on broad sectors of large economies such as the US and Europe. \textcite{ludvigson2020covid} developed a disaster series to translate the macroeconomic impact of costly and deadly disasters in recent US history and model them as sectoral shocks to predict COVID-19. They concluded that the shock would lead to a cumulative loss of 20\% in industrial production, 39\% in public services and also reduce the US GDP by 12.75 per cent by the end of 2020. \textcite{gregory2020pandemic} conducted simulations under different scenarios via a search theoretic model using US data and found the recovery in the US is L-shaped, with employment remaining lower than pre-covid for a long period. They also extended their studies at a disaggregated level of 20 sectors, showing that ``arts and entertainment'' and ``accommodation and food services'' sectors would have the biggest shock during the pandemic.
 
 In Australia, \textcite{anderson2020} developed a multivariate time series model for 19 main sectors in Australia (as a small open economy) using a Bayesian VARX model. Their research concluded that ``Manufacturing'' and ``Construction'' have the highest positive spillovers for the aggregate economy. Meanwhile, they also applied a ``conditional forecasting'' method proposed by \textcite{waggoner1999} to simulate different scenarios for the pandemic in Australia. However, their research does not use a finely disaggregated level in Australia (two-digit subsectors of main sectors), which can be extremely useful in macroeconomic analysis.
 
-\hypertarget{modelling}{%
-\section{Modelling}\label{modelling}}
-
 \hypertarget{baysian-var}{%
-\subsection{Baysian VAR}\label{baysian-var}}
+\section{Baysian VAR}\label{baysian-var}}
 
 The Bayesian Vector Autoregression model (BVAR) is commonly used in the literature for multivariate data \autocites[e.g.][]{anderson2020,litterman1986,banbura2010large}. The BVAR model is attractive because it allows us to estimate a large number of parameters, when the sample size is not large, in a statistically coherent way.\autocite{litterman1986,wozniak2016bayesian}.
 
-In order to utilize the Bayesian VAR estimators \textcite{litterman1979} proposed the Minnesota Prior, which decreases the weight of the lagged variable with the lag length. The prior mean on the first own lag is set to unity and the rest are set to zero so that (a) the most recent lag should provide more information than distant lags; and (b) own lags should explain more than the lags of other variables.
+In order to utilize the Bayesian VAR estimators \textcite{litterman1979} proposed the Minnesota Prior, which decreases the weight of the lagged variables with the lag length. The prior mean on the first own lag is set to unity and the rest are set to zero so that \emph{(a)} the most recent lag should provide more information than distant lags; and \emph{(b)} own lags should explain more than the lags of other variables.
 
 \hypertarget{improvement-of-bvar}{%
-\subsection{Improvement of BVAR}\label{improvement-of-bvar}}
+\section{Improvement of BVAR}\label{improvement-of-bvar}}
 
-The literature suggests that a significant improvement can be made in large BVAR dynamic models by imposing a stronger shrinkage parameter \autocite{banbura2010large,litterman1986}. \textcite{robertson1999vector} and \textcite{kadiyala1997} proposed a Normal-inverse-Wishart prior which retains the principal of Minnesota prior. Meanwhile, \textcite{banbura2010large} suggested an easier way to apply the Minnesota prior via adding dummy observations into the BVAR system.
-
-\clearpage
+The literature suggests that a significant improvement can be made in large BVAR dynamic models by imposing a stronger prior assumption \autocite{banbura2010large,litterman1986}. \textcite{robertson1999vector} and \textcite{kadiyala1997} proposed a Normal-inverse-Wishart prior which retains the principal of Minnesota prior. Meanwhile, \textcite{banbura2010large} suggested an easier way to apply the Minnesota prior via adding dummy observations into the BVAR system.
 
 \hypertarget{data-collection-and-exploratory-analysis}{%
 \chapter{Data collection and exploratory analysis}\label{data-collection-and-exploratory-analysis}}
@@ -137,7 +132,7 @@ The data I use in this thesis come from the Australia Bureau of Statistics (ABS)
 
 Although seasonally adjusted data is available in \autocite{ABS2022}, the method of seasonal adjustment used by ABS is unknown. Therefore, I choose to work with the original data to capture any possible changes in seasonal patterns instead of the seasonally adjusted data provided by Australian Bureau of Statistics.
 
-Since the original data from ABS is not tidy. In this thesis, I use the Excel to extract both the employment for both two-digit disaggregated level and the total employment. Then, I take the following modifications to deal with zeros, meanwhile, keeping the data structure coherent.
+Since the original data from ABS is not tidy. In this thesis, I use the Excel to extract both the employment for both two-digit disaggregated level and the total employment. Then, I take the following modifications to deal with zeros, meanwhile, keeping the data structure coherent. The cleaned data can be seen in \emph{ABSemp.xlsx} file at (\url{https://github.com/elvisssyang/Disaggregated_Employment}).
 
 \begin{itemize}
 \item
@@ -188,19 +183,23 @@ Date     &  Sectors                                      &Percentage Changes\\
 \label{tab:comp}
 \end{table}
 
+\clearpage
+
 \hypertarget{methdology}{%
 \chapter{Methdology}\label{methdology}}
 
 \hypertarget{proposed-model}{%
 \section{Proposed Model}\label{proposed-model}}
 
-I plan to use a Bayesian VARX model based on a method proposed by \textcite{anderson2020}. In the model, each sector is affected by the lags of sectoral growth and a lag of the total employment growth. The lag of aggregate employment growth acts as an economy-wide factor which will affect each sector.
+I plan to use a Bayesian VARX model based on a method proposed by \textcite{anderson2020}. In the model, each sector is affected by the lag of sectoral growth and a lag of the total employment growth. The lag of aggregate employment growth acts as an economy-wide factor which will affect each sector.
+
+In terms of the lags
 
 Under the assumption that the structure of the Australian economy will not change during COVID-19, we suggest the BVAR model as
 
 \[
 \begin{aligned}
-\textbf{y}_t=\textbf{c}+\textbf{A}_1 \textbf{y}_{t-1}+\textbf{A}_2\textbf{y}_{t-2}+\textbf{A}_3\textbf{y}_{t-3}+\textbf{A}_4\textbf{y}_{t-4}+\boldsymbol{\Gamma}\textbf{x}_{t-1}+\bf{u}_t
+\textbf{y}_t=\textbf{c}+\textbf{A}_1 \textbf{y}_{t-1}+\boldsymbol{\Gamma}\textbf{x}_{t-1}+\bf{u}_t
 \end{aligned}
 \]
 
@@ -251,35 +250,24 @@ where \(\lambda\) is a hyperparemeter here we need to specify based on how far w
 
 In equation \(4.3.1\), we can see as \(i\) (number of estimators) increases, the \(Var[a_i^{jk}]\) will then decrease in both cases, which preserved the structure of Minnesota Prior to weight down more distant lags.
 
-In Minnesota prior described above, the hyperparameter \(\lambda\) controls the overall tightness (variance) of the prior distribution \autocite{banbura2010}. If \(\lambda=0\), we can see that the prior have no variance, which means the posterior equals the prior and the data have no influence on the estimates. On the contrary, if \(\lambda=\infty\), the posterior expectations will be same as ordinary least squares (OLS) estimates. Therefore, a small \(\lambda\) will shrink the posterior mean towards the zero and benefits .
+In Minnesota prior described above, the hyperparameter \(\lambda\) controls the overall tightness (variance) of the prior distribution \autocite{banbura2010large}. If \(\lambda=0\), we can see that the prior have no variance, which means the posterior equals the prior and the data have no influence on the estimates. On the contrary, if \(\lambda=\infty\), the posterior expectations will be same as ordinary least squares (OLS) estimates. In practice, we tend to shrink the forecasts to the mean value, which is an stable and valid method. Therefore, a small \(\lambda\) will shrink the posterior mean towards the zero and benefits .
 
-Admittedly, the selection of shrinkage hyperparameter \(\lambda\) is important in improving forecast accuracy. For example, \textcite{banbura2010large} point out that a gain in efficiency could be made by applying an Bayesian shrinkage in estimating large multivariate VAR models. Moreover, they also conclude that large vector autoregressions (VARs) with shrinkage are credible to conduct structural analysis. Nonetheless, the main problem that encountered is to set an appropriate value for \(\lambda\) as models become larger (i.e.~how far it will shrink the estimators).
+Admittedly, the selection of hyperparameter \(\lambda\) is important in improving forecast accuracy by controlling the degree of shrinkage. For example, \textcite{banbura2010large} point out that a gain in efficiency could be made by applying an Bayesian shrinkage in estimating large multivariate VAR models. Moreover, they also conclude that large vector autoregressions (VARs) with shrinkage are credible to conduct structural analysis. Nonetheless, the main problem that encountered is to set an appropriate value for \(\lambda\) as models become larger (i.e.~how far it will shrink the estimators).
 
-From the above equation, we can see a small shrinkage parameter \(\lambda\) will tighten the distribution of prior, and vice versa. Based on applied experiences, Litterman constructed a 40-variable model and concluded that the shrinkage estimate \(\lambda=0.2\) is indeed sufficient to deal with many empirical cases \autocite{litterman1986}. At the same time, I should also avoid over-fitting when preserving the most important information from the data. That is, the data size is also an essential basis to be considered when deciding the degree of shrinkage\autocite{banbura2010large}. Unlike the one-digit level (19 sectors) did by \textcite{anderson2020}, the two-digit level (87 sectors) employment in Australia is more complex and have more variables. Thus, a new shrinkage parameter \(\lambda\) should be specified particularly for this case.
+From the above equation, we can see a small shrinkage parameter \(\lambda\) will tighten the distribution of prior, and vice versa. Based on applied experiences, Litterman concluded that the shrinkage estimate \(\lambda=0.2\) is indeed sufficient to deal with many empirical cases \autocite{litterman1986}. At the same time, we should also avoid over-fitting when preserving the most important information from the data. That is, the data size is also an essential basis to be considered when deciding the degree of shrinkage\autocite{banbura2010large}. Unlike the one-digit level (19 sectors) did by \textcite{anderson2020}, the two-digit level (87 sectors) employment in Australia is more complex and have more variables. Thus, a new shrinkage parameter \(\lambda\) should be specified particularly for this case.
 
-In this section, I will evaluate the efficient shrinkage estimator \(\lambda\) with a more sophisticated version of training/test algorithm, called time series cross-validation. The time-series cross validation is an automated program based on a rolling forecasting origin, which measure the performance of a model in a statistical way while avoiding over-fitting the data. Here, the data is split into training/test with a minimum training set of length \(n=20\). Then, the program will increasing the size of successive training set by iteration step \(hor=1\) and accumulate the error for each step. After that, it will calculate the mean of accumulated error, which will be the training results (see Figure \ref{fig:tscv}).
+In this section, I will evaluate the efficient shrinkage estimator \(\lambda\) with an out-of-sample test algorithm. The out-of-sample is an widely used algorithm to measure the performance of a model in a statistical way while avoiding over-fitting the training dataset. For our purposes, we want to provide accurate forecasts based on the scenario where no covid-19 happened to support our counterfactual analysis. Therefore, the pre-covid data (before 2020 Quarter One) is split into training/test with a training set of length \(n=120\) and test set of length \(n=21\). After that, it will calculate the mean of accumulated error, which will be the training results (see Figure \ref{talgo}).
 
-\graphicspath{ {/Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figures} }
+\begin{figure}
 
-\begin{figure}[t]
-\includegraphics[scale=0.5]{tscv}
-\centering
-\caption{Time series cross validation with Blue area is training set and Orange is test set, with iteration step = 1 (Source https://otexts.com/fpp3/tscv.html)}
-\label{fig:tscv}
+{\centering \includegraphics{thesis_files/figure-latex/talgo-1} 
+
+}
+
+\caption{Flowchart of selecting the hyperparameter lambda}\label{fig:talgo}
 \end{figure}
 
-Apart from this, we will use several famous error measures to select an appropriate shrinkage parameter \(\lambda\):
-
-\emph{Scale-dependent error}
-
-\begin{itemize}
-\item
-  Mean absolute error: \(MAE = mean(|e_t|)\)
-\item
-  Root mean squared error: RMSE = \(\sqrt{mean(e_t^2)}\)
-\end{itemize}
-
-In the real world, MAE and RMSE are commonly used, but only when data all have the same units. They are easy to understand and calculate, which makes them popular to compare forecast accuracy. Nevertheless, they have a significant drawback, which is not unit-free.
+Apart from this, we will also need to select an suitable error measurement to select an appropriate shrinkage parameter \(\lambda\). In our study, due to the size of industries, different two-digit disaggregated sectors may varies. Accordingly, we need to use the unit-free error measurement to search for the \(\lambda\) that minimize the forecasting errors.
 
 \emph{Percentage error :}
 
@@ -289,26 +277,11 @@ In the real world, MAE and RMSE are commonly used, but only when data all have t
   Mean absolute percentage error: \(MAPE = mean(|\frac{e_t}{y_t}|)\)
 \end{itemize}
 
-The percentage error (i.e.~MAPE) has the advantage of being unit-free. However, it will become unreliable when the data have zeros or extreme values (i.e.~very close to zero). As a result, I will use it only as a reference in this literature.
-
-\emph{Scale-independent error:}
-
-\begin{itemize}
-\item
-  MASE: \(MASE = mean(|q_j|)\)
-\item
-  RMSSE = \(RMSSE=\sqrt{mean(q_j^2)}\)
-\end{itemize}
-
-where
-
-\(q_j^2=\frac{e_j}{\frac{1}{T-m}\Sigma^T_{t=m+1}|y_t-y_{t-m}|}\) and \(m\) is the seasonality. In this case, we set \(m=1\) after a seasonal difference and logarithm transformation, which is used for stationary (i.e.~non-seasonal) data.
-
-MASE and RMSSE are useful when comparing forecast accuracy across data with different units \autocite{hyndman2006}. Both of them are scaled based on the same measure but from a simple forecast method. Since the employment data have a strong seasonality, the scaled error is defined using random walk with drift forecasts.
+The percentage error (i.e.~MAPE) has the advantage of being unit-free. It will become unreliable when the data have zeros or extreme values (i.e.~very close to zero). In our analysis, all forecasts are back transformed from the log-differenced VAR model. Therefore, we neither have zero values recorded nor have extreme values. As a result, I will use it as a primary reference in this literature.
 
 \vspace{24pt}
 
-Table \ref{testres} demostrates the training results for \(\lambda\) with the following values \(0.3,0.2,0.19 \cdots 0.14\) and \(0.1\) after using the time series cross validation algorithm
+Table \ref{testres} demonstrates the training results for \(\lambda\) with the following values \(0.3,0.2,0.19 \cdots 0.14\) and \(0.1\) after using the time series cross validation algorithm
 
 \begin{table}[h]
 \begin{center}
@@ -337,12 +310,25 @@ Table \ref{testres} demostrates the training results for \(\lambda\) with the fo
 \label{testres}
 \end{table}
 
-To sum up, We prefer the value of \(\lambda\) that has the lowest error measures. From table \ref{testres}, all the errors are decreasing as the shrinkage estimator becomes stronger (i.e.~the value of lambda becomes smaller). In this case, the shrinkage hyperparameter \(\lambda=0.1\) outperforms other values in our training steps. Therefore, the optimal value of the shrinkage parameter \(lambda\) for the Minnesota prior in our Bayesian VAR model is \(\lambda=0.1\).
+To sum up, We prefer the value of \(\lambda\) that has the lowest error measures. From the result of our searching algorithm (see table \ref{testres}), the estimated hyperparameter \(\lambda=0.0586\) has the lowest MAPE. Therefore, we conclude that the hyperparameter \(\lambda=0.0586\) outperforms other values in our training steps, which will be applied into our Minnesota prior.
 
-\hypertarget{sectoral-employment-multiplier-analysis}{%
-\section{Sectoral Employment Multiplier Analysis}\label{sectoral-employment-multiplier-analysis}}
+\hypertarget{forecast-evaluation-with-other-candidate-models}{%
+\section{Forecast evaluation with other candidate models}\label{forecast-evaluation-with-other-candidate-models}}
 
-I will also conduct a two-digit subsectoral employment multiplier analysis based on the estimated BVAR model and the 87 two-digit subsectoral data.
+\newpage
+
+\hypertarget{sectoral-employment-analysis}{%
+\chapter{Sectoral Employment Analysis}\label{sectoral-employment-analysis}}
+
+\hypertarget{evaluations-after-covid-19}{%
+\section{Evaluations after COVID-19}\label{evaluations-after-covid-19}}
+
+\hypertarget{long-run-multiplier-analysis}{%
+\section{Long-run Multiplier Analysis}\label{long-run-multiplier-analysis}}
+
+Due to the reason that industries are interdependent, we should notice that the change of one sector may have influences on both total employment and other sectors. In this thesis, I will use the structure of multivariate BVAR to capture the dynamics of sectoral employment for each disaggregated sector.
+
+This analysis is based on the estimated BVAR model and the 87 two-digit disaggregated data.
 
 At each time period, we have :
 
@@ -352,55 +338,18 @@ GR_T=\sum_{j=1}^{87} w_j\times {GR}_j
 
 where \(w_j\) is the share of employment of two-digit subsector \(j\) in the total employment, \(GR_T\) is the growth rate in total employment and \(GR_j\) is the growth rate in employment of two-digit subsector \(j\).
 
-Due to the interconnection of macroeconomic two-digit subsectors, when a two-digit subsector \(j\) has an increase in employment, in the long run, it may have spillover effect onto other two-digit subsectors, especially those that have high connections with the two-digit subsector \(j\) (\textcite{anderson2020}).
+In particular, if there is a one percent increase in sector \emph{i}, the total employment will increase by sector \emph{i}'s share simultaneously. Nonetheless, given the increase in total employment in sector \emph{i} may also have indirect effects to other sectors in consecutive periods, especially for sectors with similar economic pattens. Therefore, I define the long-run employment multiplier as the effect of initial increase in sector \emph{i} onto the total employment in the long-run , which follow the definition stated in \textcite{anderson2020}. Admittedly, if the long-run effect is larger than the immediate effect for this sector, then stimulate this sector will have positive spillover effect onto the total employment.
 
-If this long-run effect is larger than the immediate effect, then this two-digit subsector will have positive spillover effect on total employment, and \emph{vice versa}. I will use the interconnection of BVAR parameters to study two-digit subsectors which have strong positive spillovers for the total employment. Then, if the government makes policies to stimulate these two-digit subsectors, the total employment will recover more effectively.
+I use the estimated BVAR model to simulate the long-run employment multiplier for each specific sector with the horizons of one year, two year and five years. Subsequently, the differences between the simulated five year multipliers and the initial shares are the spillovers of the two-digit subsectors.
 
-\newpage
+\hypertarget{discussions-and-conclusion}{%
+\chapter{Discussions and conclusion}\label{discussions-and-conclusion}}
 
-\hypertarget{timeline-for-honours-2022}{%
-\chapter{Timeline for Honours 2022}\label{timeline-for-honours-2022}}
+\hypertarget{policy-implications}{%
+\section{Policy Implications}\label{policy-implications}}
 
-Table \ref{tab:timeline1} summaries the work done to date. Table \ref{tab:timeline2} maps out the plan for completing the thesis research.
-
-\begin{table}
-
-\caption{\label{tab:timeline1}Completed work}
-\centering
-\begin{tabular}[t]{ll}
-\toprule
-Timeline & Tasks\\
-\midrule
-Week 2 & Background reading about Multivariate VAR model\\
-Week 3 & Collect two-digit subsectoral data from ABS website\\
- & Prepare materials related to the two-digit subsectoral employment evaluations\\
-Week 4 & Prepare literature review related to BVAR models and setting priors\\
- & Analysis of the MATLAB code done by Anderson et al. (2020)\\
-\addlinespace
-Week 5 & Read articles about Conditional Forecasting\\
-Week 6 & Prepare the conditional forecasting coding and hierarchical forecasting\\
-Week 7 & Exploratory data analysis on sectoral and two-digit subsectoral data\\
-Week 8 & Select suitable plots and test software to prepare the proposal\\
-week 9 & Write the research proposal and prepare the first presentation\\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\begin{table}
-
-\caption{\label{tab:timeline2}Research plan}
-\centering
-\begin{tabular}[t]{ll}
-\toprule
-Timeline & Tasks\\
-\midrule
-June - July & Modelling of two-digit subsectoral employment and train the best shrinkage estimator\\
-August & Generate forecasts using BVAR\\
-September & Conduct conterfactual analysis and sectoral multiplier analysis, present a shiny app\\
-October & Write my thesis and prepare for the second presentation\\
-\bottomrule
-\end{tabular}
-\end{table}
+\hypertarget{limitation-and-possible-extensions}{%
+\section{Limitation and possible extensions}\label{limitation-and-possible-extensions}}
 
 \appendix
 

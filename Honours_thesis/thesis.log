@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2022.2.28)  4 AUG 2022 17:31
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2022.2.28)  9 SEP 2022 00:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -806,15 +806,7 @@ Package: blx-case-expl3 2020/12/31 v3.16 expl3 case changing code for biblatex
 
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'thesis.bbl' found.
-(./thesis.bbl
-
-Package biblatex Warning: The following entry could not be found
-(biblatex)                in the database:
-(biblatex)                banbura2010
-(biblatex)                Please verify the spelling and rerun
-(biblatex)                LaTeX afterwards.
-
-)
+(./thesis.bbl)
 Package biblatex Info: Reference section=0 on input line 28.
 Package biblatex Info: Reference segment=0 on input line 28.
 Package hyperref Info: Link coloring ON on input line 28.
@@ -855,7 +847,7 @@ LaTeX Font Info:    Font shape `T1/fvs/m/n' will be
 (Font)              scaled to size 12.9599pt on input line 32.
 LaTeX Font Info:    Font shape `T1/fvs/m/n' will be
 (Font)              scaled to size 15.55188pt on input line 32.
-<figures/crest.jpg, id=88, 509.905pt x 553.06625pt>
+<figures/crest.jpg, id=112, 509.905pt x 553.06625pt>
 File: figures/crest.jpg Graphic file (type jpg)
 <use figures/crest.jpg>
 Package pdftex.def Info: figures/crest.jpg  used on input line 32.
@@ -930,110 +922,112 @@ Chapter 2.
 [9
 
 
-]
-LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
-(Font)              scaled to size 10.79993pt on input line 117.
-[10]
+] [10]
 Chapter 3.
+LaTeX Font Info:    Trying to load font information for T1+fvm on input line 13
+5.
+(/usr/local/texlive/2021/texmf-dist/tex/latex/bera/t1fvm.fd
+File: t1fvm.fd 2004/09/07 scalable font definitions for T1/fvm.
+)
+LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
+(Font)              scaled to size 9.85492pt on input line 135.
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `fvm' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
 LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 1
-44.
+39.
 (/usr/local/texlive/2021/texmf-dist/tex/latex/psnfss/ts1ppl.fd
 File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
 ) [11
 
-
 ] [12] [13] [14
+
 
 ]
 Chapter 4.
 [15] [16] [17]
-</Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figu
-res/tscv.png, id=293, 953.5625pt x 465.74pt>
-File: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis
-/figures/tscv.png Graphic file (type png)
-<use /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/
-figures/tscv.png>
-Package pdftex.def Info: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employ
-ment/Honours_thesis/figures/tscv.png  used on input line 265.
-(pdftex.def)             Requested size: 476.78009pt x 232.86943pt.
 
-Overfull \hbox (21.53598pt too wide) in paragraph at lines 265--267
+LaTeX Warning: Reference `talgo' on page 18 undefined on input line 259.
+
+<thesis_files/figure-latex/talgo-1.pdf, id=323, 707.64375pt x 319.1925pt>
+File: thesis_files/figure-latex/talgo-1.pdf Graphic file (type pdf)
+<use thesis_files/figure-latex/talgo-1.pdf>
+Package pdftex.def Info: thesis_files/figure-latex/talgo-1.pdf  used on input l
+ine 263.
+(pdftex.def)             Requested size: 707.64203pt x 319.19171pt.
+
+Overfull \hbox (252.39792pt too wide) in paragraph at lines 263--264
  [][] 
  []
 
-[18 </Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/
-figures/tscv.png>]
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[19] [20] [21] [22
-
-]
+[18] [19 <./thesis_files/figure-latex/talgo-1.pdf>] [20]
 Chapter 5.
+[21
 
-Overfull \hbox (38.59196pt too wide) in paragraph at lines 393--403
- [][] 
- []
+] [22]
+Chapter 6.
+[23
 
-[23] [24
+] [24
 
 ]
 Appendix A.
 LaTeX Font Info:    Trying to load font information for U+fplmbb on input line 
-442.
+391.
 (/usr/local/texlive/2021/texmf-dist/tex/latex/psnfss/ufplmbb.fd
 File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
 ) [25] [26]
 Appendix B.
 </Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figu
-res/free_19.png, id=354, 844.47495pt x 597.31155pt>
+res/free_19.png, id=392, 844.47495pt x 597.31155pt>
 File: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis
 /figures/free_19.png Graphic file (type png)
 <use /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/
 figures/free_19.png>
 Package pdftex.def Info: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employ
-ment/Honours_thesis/figures/free_19.png  used on input line 501.
+ment/Honours_thesis/figures/free_19.png  used on input line 450.
 (pdftex.def)             Requested size: 506.68887pt x 358.3897pt.
 
-Overfull \hbox (51.44476pt too wide) in paragraph at lines 501--503
+Overfull \hbox (51.44476pt too wide) in paragraph at lines 450--452
  [][] 
  []
 
 </Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figu
-res/free_87.png, id=355, 844.47495pt x 597.31155pt>
+res/free_87.png, id=393, 844.47495pt x 597.31155pt>
 File: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis
 /figures/free_87.png Graphic file (type png)
 <use /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/
 figures/free_87.png>
 Package pdftex.def Info: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employ
-ment/Honours_thesis/figures/free_87.png  used on input line 508.
+ment/Honours_thesis/figures/free_87.png  used on input line 457.
 (pdftex.def)             Requested size: 422.23643pt x 298.65504pt.
 </Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figu
-res/agg_19.png, id=356, 844.47495pt x 597.31155pt>
+res/agg_19.png, id=395, 844.47495pt x 597.31155pt>
 File: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis
 /figures/agg_19.png Graphic file (type png)
 <use /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/
 figures/agg_19.png>
 Package pdftex.def Info: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employ
-ment/Honours_thesis/figures/agg_19.png  used on input line 515.
+ment/Honours_thesis/figures/agg_19.png  used on input line 464.
 (pdftex.def)             Requested size: 422.23643pt x 298.65504pt.
 </Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figu
-res/agg_87.png, id=357, 844.47495pt x 597.31155pt>
+res/agg_87.png, id=396, 844.47495pt x 597.31155pt>
 File: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis
 /figures/agg_87.png Graphic file (type png)
 <use /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/
 figures/agg_87.png>
 Package pdftex.def Info: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employ
-ment/Honours_thesis/figures/agg_87.png  used on input line 522.
+ment/Honours_thesis/figures/agg_87.png  used on input line 471.
 (pdftex.def)             Requested size: 422.23643pt x 298.65504pt.
 </Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figu
-res/ANZSIC.png, id=358, 787.94376pt x 671.50874pt>
+res/ANZSIC.png, id=397, 787.94376pt x 671.50874pt>
 File: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis
 /figures/ANZSIC.png Graphic file (type png)
 <use /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/
 figures/ANZSIC.png>
 Package pdftex.def Info: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employ
-ment/Honours_thesis/figures/ANZSIC.png  used on input line 529.
+ment/Honours_thesis/figures/ANZSIC.png  used on input line 478.
 (pdftex.def)             Requested size: 393.97092pt x 335.75356pt.
 [27
 
@@ -1045,21 +1039,12 @@ yang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figures/agg_87.pn
 g>] [31 </Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_the
 sis/figures/ANZSIC.png>] [32
 
-]
-LaTeX Font Info:    Trying to load font information for T1+fvm on input line 53
-5.
-(/usr/local/texlive/2021/texmf-dist/tex/latex/bera/t1fvm.fd
-File: t1fvm.fd 2004/09/07 scalable font definitions for T1/fvm.
-)
-LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
-(Font)              scaled to size 9.85492pt on input line 535.
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `fvm' (encoding: T1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
-[33] [34] (./thesis.aux)
+] [33] [34] (./thesis.aux)
+
+LaTeX Warning: There were undefined references.
+
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: EE5F6C9688721206E6B69C45CB95DA9E;3836.
+(rerunfilecheck)             Checksum: 212D12D404B678A2BCFC25D4B3D65BFA;5144.
 Package logreq Info: Writing requests to 'thesis.run.xml'.
 \openout1 = `thesis.run.xml'.
 
@@ -1069,13 +1054,13 @@ Package logreq Info: Writing requests to 'thesis.run.xml'.
 ### semi simple group (level 1) entered at line 102 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 22334 strings out of 478994
- 375572 string characters out of 5858184
- 1157144 words of memory out of 5000000
- 38956 multiletter control sequences out of 15000+600000
- 518977 words of font info for 348 fonts, out of 8000000 for 9000
+ 22331 strings out of 478994
+ 375412 string characters out of 5858184
+ 1158096 words of memory out of 5000000
+ 38953 multiletter control sequences out of 15000+600000
+ 514026 words of font info for 343 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 86i,18n,89p,1045b,17661s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 86i,18n,89p,1045b,17654s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/base/8r.enc
 }</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb
 ></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb>
@@ -1093,10 +1078,10 @@ rw/palatino/uplb8a.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/urw/pala
 tino/uplbi8a.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/urw/palatino/u
 plr8a.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/urw/palatino/uplri8a.
 pfb>
-Output written on thesis.pdf (37 pages, 1684516 bytes).
+Output written on thesis.pdf (37 pages, 1611601 bytes).
 PDF statistics:
- 490 PDF objects out of 1000 (max. 8388607)
- 417 compressed objects within 5 object streams
- 116 named destinations out of 1000 (max. 500000)
- 106188 words of extra memory for PDF output out of 106986 (max. 10000000)
+ 529 PDF objects out of 1000 (max. 8388607)
+ 454 compressed objects within 5 object streams
+ 121 named destinations out of 1000 (max. 500000)
+ 100092 words of extra memory for PDF output out of 106986 (max. 10000000)
 

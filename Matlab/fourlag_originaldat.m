@@ -10,6 +10,10 @@ clc
 
 addpath('_funcs')
 
+addpath('bvartools')
+
+
+addpath('cmintools')
 
 
 
@@ -23,7 +27,7 @@ RMSSE_acc = [];
 
 
 
-lambda_lst =  [0.1]'; %--- we found the minima between 0.05 & 0.06
+lambda_lst = [0.0001: 0.0001: 0.1]'; %--- we found the minima between 0.05 & 0.06
 
 % lambda_lst = [0.05:0.001:0.6]'; --- we found the minima between 0.058 & 0.059
 
@@ -50,7 +54,7 @@ for l = 1:numel(lambda_lst)
     y = 100*(logdat(5:end,1:85)-logdat(1:(end-4),1:85));% take fourth difference--elv seasonal difference 
     
     N = size(y,2);
-    p = 1;
+    p = 4;
     lambda = lambda_lst(l,:); %shrinakge lambda ---- YOU CAN REPLACE WITH DIFFERENT LAMBDA 
    % lambda = 0.0586;
     hor = 21; % forecast horizon for iteration (horizon for CV=1)
@@ -95,7 +99,8 @@ for l = 1:numel(lambda_lst)
 
        for j = 1:k-1 % conduct the forecast 
 
-       yhat(b,j) = phi(1,j) + yhat(b-1,:) * phi(2:86,j); % do the forecast
+       yhat(b,j) = phi(1,j) + yhat(b-1,:) * phi(2:86,j) + yhat(b-2,:) * phi(87:171,j) + yhat(b-3,:) * phi(172:256,j) + yhat(b-4,:) * phi(257:341,j); % do the forecast
+
 
        end
 
@@ -107,7 +112,6 @@ for l = 1:numel(lambda_lst)
 
 
    end 
-
 
    newraw = test;
    error = rawhat_fore(n+1:n+hor,:) - newraw; % calculate forecast difference between rawhat(estimated ones) and real data 
@@ -215,7 +219,7 @@ for f = 1: size(MAPE_acc,1)
     end 
 
 end 
-
+% 
 
 
 
@@ -224,9 +228,6 @@ logall = log(alldata);
 
 all_y = 100*(logall(5:end,1:85)-logall(1:(end-4),1:85));
 
-p=1;
-
-
 % ### Package Use 
 % options.prior.name = "Minnesota";
 % BVAR = bvar_(all_y,p,options);
@@ -234,13 +235,12 @@ p=1;
 % ### 
 
 
-
+p=4;
+min_lambda = 0.1;
 [phi_2,SIGMA,X,e] = BVAR(all_y,p,min_lambda);
 
 
 
-
-csvwrite( "phi_lambda_min.csv", phi_2)
-
+csvwrite( "phi_all_4lags.csv", phi_2)
 
 

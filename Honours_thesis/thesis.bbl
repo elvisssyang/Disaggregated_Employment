@@ -207,42 +207,6 @@
       \field{type}{techreport}
       \field{year}{2020}
     \endentry
-    \entry{hyndman2006}{article}{}
-      \name{author}{2}{}{%
-        {{hash=2f709db8a046ae1d056e75c1f3aad31c}{%
-           family={Hyndman},
-           familyi={H\bibinitperiod},
-           given={Rob\bibnamedelima J},
-           giveni={R\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
-        {{hash=e1d517a3ae1d7b892371ef8f37f88412}{%
-           family={Koehler},
-           familyi={K\bibinitperiod},
-           given={Anne\bibnamedelima B},
-           giveni={A\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
-      }
-      \list{publisher}{1}{%
-        {Elsevier}%
-      }
-      \strng{namehash}{5b8826bba5f702862b6f6d20f0ae0758}
-      \strng{fullhash}{5b8826bba5f702862b6f6d20f0ae0758}
-      \strng{bibnamehash}{5b8826bba5f702862b6f6d20f0ae0758}
-      \strng{authorbibnamehash}{5b8826bba5f702862b6f6d20f0ae0758}
-      \strng{authornamehash}{5b8826bba5f702862b6f6d20f0ae0758}
-      \strng{authorfullhash}{5b8826bba5f702862b6f6d20f0ae0758}
-      \field{sortinit}{H}
-      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{year}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{International journal of forecasting}
-      \field{number}{4}
-      \field{title}{Another look at measures of forecast accuracy}
-      \field{volume}{22}
-      \field{year}{2006}
-      \field{pages}{679\bibrangedash 688}
-      \range{pages}{10}
-    \endentry
     \entry{kadiyala1997}{article}{}
       \name{author}{2}{}{%
         {{hash=f4e5df942c5485d5eff4d666767b4888}{%
@@ -515,7 +479,6 @@
       \range{pages}{16}
     \endentry
   \enddatalist
-  \missing{banbura2010}
 \endrefsection
 \endinput
 

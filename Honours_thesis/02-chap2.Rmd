@@ -24,16 +24,95 @@ In Australia, @anderson2020 developed a multivariate time series model for 19 ma
 
 
 
-## Modelling
-
-### Baysian VAR
+## Baysian VAR
 
 The Bayesian Vector Autoregression model (BVAR) is commonly used in the literature for multivariate data [e.g. @anderson2020; @litterman1986; @banbura2010large]. The BVAR model is attractive because it allows us to estimate a large number of parameters, when the sample size is not large, in a statistically coherent way.[@litterman1986;@wozniak2016bayesian].
 
 In order to utilize the Bayesian VAR estimators @litterman1979 proposed the Minnesota Prior, which decreases the weight of the lagged variables with the lag length. The prior mean on the first own lag is set to unity and the rest are set to zero so that *(a)* the most recent lag should provide more information than distant lags; and *(b)* own lags should explain more than the lags of other variables.
 
-### Improvement of BVAR
+## Improvement of BVAR
 
 The literature suggests that a significant improvement can be made in large BVAR dynamic models by imposing a stronger prior assumption [@banbura2010large; @litterman1986]. @robertson1999vector and @kadiyala1997 proposed a Normal-inverse-Wishart prior which retains the principal of Minnesota prior. Meanwhile, @banbura2010large suggested an easier way to apply the Minnesota prior via adding dummy observations into the BVAR system.
+
+
+
+
+
+# Data collection and exploratory analysis
+
+## Data Introduction and wrangling 
+
+
+
+The data I use in this thesis come from the Australia Bureau of Statistics (ABS), involving 87 industry sub-division of main jobs. The ABS records the employment (measured in $thousands$) from $1984:Q4$ to $2021:Q4$ with a structure provided via Figure \ref{fig:anzsic}. 
+
+
+Although seasonally adjusted data is available in [@ABS2022], the method of seasonal adjustment used by ABS is unknown. Therefore, I choose to work with the original data to capture any possible changes in seasonal patterns instead of the seasonally adjusted data provided by Australian Bureau of Statistics. 
+
+
+
+Since the original data from ABS is not tidy. In this thesis, I use the Excel to extract both the employment for both two-digit disaggregated level and the total employment. Then, I take the following modifications to deal with zeros, meanwhile, keeping the data structure coherent. The cleaned data can be seen in *ABSemp.xlsx* file at (https://github.com/elvisssyang/Disaggregated_Employment).
+
+
++ Merge the two-digit subsector *57- Internet Publishing and Boardcasting* and *54- Publishing(except internet)* to be come *54 Publishing and boadcasting*. 
+
+
++ Merge the *96 Private Households Employing Staff and Undifferentiated Goodsand Service Producing Activities of Households for Own Use* and *95 Personal and Other Services* to become *95 Personal and other services (include activities for own use)*.
+
+Without any zeros, a log transformation can be applied to interprete the percentage change of the employment. The VAR model decided to fit the data requires stationary. As a result, I will further apply a seasonal difference to eliminate the seasonality (i.e. nonstationarity).
+
+
+
+
+
+
+
+## Preliminary Exploratory Data Analysis
+
+
+Figure \ref{fig:19} illustrates the changes in the raw data for 19 main sectors in Australia during the pandemic. Due to the closedown of businesses and travel bans on 2020:Q2, we can observe that the total employment number dropped substantially (from around 13,200,000 to 12,200,000 on $2020:Q2$). Most industries behaved similarly with significant changes shown in Figure \ref{fig:19} . Comparing with the previous data of these industries," Accommodation & Food", "Media & telecom" and Administrative industries have experienced a severe loss of employment and have not fully recovered to the pre-covid level. However, some industries like "Financial" and "Electricity & Gas" showed a continuously increasing trend as before.
+
+Nevertheless, there is a drawback of considering the 19 board sectors only; because the two-digit subsectoral dynamics of these sectors may not be homogeneous with their aggregated sectoral changes. For example, when observing the aggregated performance of the "Manufacturing" and "Mining" sectors from the 19 sectoral level (see Figure \ref{fig:a19}), we may believe that their corresponding subsectors should illustrate the same pattern. However, the reality is that while there is a decreasing trend in the "Manufacturing" sector or an increasing trend in the "Mining" sector, some of their two-digit subsectors are performed differently (see Figure \ref{fig:a87}). This means that not all two-digit subsectors follow the same pattern with the aggregated sectoral level.
+
+
+Table \ref{tab:comp} shows the top five and bottom five two-digit subsectors in terms of their employment growth during the pandemic. From \ref{tab:comp} we can conclude that the "Forestry and Logging" experienced a severe shock after the lockdown happened on 2020:Q2, followed by "Private Households Employing Staff" and "Library and Other Information Services". Figure \ref{fig:87} demonstrates the performance of each industry at a more disaggregated two-digit subsectoral level, we can observe that many two-digit subsectors have also shown huge decreases in employment in 2020:Q2.
+
+
+
+```{=tex}
+\begin{table}
+\begin{center}
+\begin{tabular}{ccc}
+\hline
+Date     & Sector                                        & Percentage Changes \\
+\hline
+2020:Q2  & 27 Gas Supply                                 & 50.48\%                                \\
+2020: Q2 & 57 Internet Publishing and Broadcasting       & 44.44\%                                \\
+2020: Q2 & 56 Broadcasting                               & 41.43\%                                \\
+2020: Q2 & 26 Electricity Supply                         & 36.34\%                                \\
+2020: Q2 & 20 Non-Metallic Mineral Product Manufacturing & 32.37\% 
+                 \\
+                 \\
+                 \hline
+Date     &  Sectors                                      &Percentage Changes\\
+                 \hline
+2020: Q2 & 03 Forestry and Logging                   &-55.88\%  
+                 \\
+2020: Q2 & 96 Private Households Employing Staff     & -49.09\% 
+                 \\
+2020: Q2 & 60 Library and Other Information Services & -46.60\% 
+                 \\
+2020: Q2 & 02 Aquaculture                                & -44.58\%  
+                 \\
+2020: Q2 & 91 Sports and Recreation Activities           & -43.71\%
+\end{tabular}
+\end{center}
+\caption{The highest and lowest five two-digit subsectors' employment percentage change for 2020:Q1 to 2020:Q2 }
+\label{tab:comp}
+\end{table}
+```
+
+
+
 
 \clearpage

@@ -16,11 +16,9 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {2.1}Sectoral Impact of COVID-19.}{9}{section.2.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.2}Modelling}{10}{section.2.2}%
+\contentsline {section}{\numberline {2.2}Baysian VAR}{10}{section.2.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.2.1}Baysian VAR}{10}{subsection.2.2.1}%
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.2.2}Improvement of BVAR}{10}{subsection.2.2.2}%
+\contentsline {section}{\numberline {2.3}Improvement of BVAR}{10}{section.2.3}%
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {3}Data collection and exploratory analysis}{11}{chapter.3}%
 \defcounter {refsection}{0}\relax 
@@ -32,16 +30,26 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4.1}Proposed Model}{15}{section.4.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.2}Prior and shrinkage}{15}{section.4.2}%
+\contentsline {section}{\numberline {4.2}Prior and shrinkage}{16}{section.4.2}%
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4.3}Shrinkage selection in Bayesian VAR}{17}{section.4.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.4}Sectoral Employment Multiplier Analysis}{21}{section.4.4}%
+\contentsline {section}{\numberline {4.4}Forecast evaluation with other candidate models}{20}{section.4.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}Timeline for Honours 2022}{23}{chapter.5}%
+\contentsline {chapter}{\numberline {5}Sectoral Employment Analysis}{21}{chapter.5}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.1}Evaluations after COVID-19}{21}{section.5.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.2}Long-run Multiplier Analysis}{21}{section.5.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {6}Discussions and conclusion}{23}{chapter.6}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6.1}Policy Implications}{23}{section.6.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6.2}Limitation and possible extensions}{23}{section.6.2}%
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {A}An Example of Bayesian VAR Prior}{25}{appendix.A}%
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {B}Graphs}{27}{appendix.B}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{Bibliography}{33}{appendix*.14}%
+\contentsline {chapter}{Bibliography}{33}{appendix*.12}%

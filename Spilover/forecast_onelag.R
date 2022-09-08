@@ -21,9 +21,12 @@ library(fpp3)
 
 
 
-alldata <- readr::read_csv("ABSemp.csv")  |> 
+alldata_init <- readr::read_csv("ABSemp.csv")  |> 
   mutate(Quarter = yearquarter(my(Date))) |> 
-  select(-Date, -`96 Total`) |> 
+  select(-Date, -`96 Total`) 
+
+
+alldata <- alldata_init|> 
   filter(Quarter <= yearquarter("2020 Q1")) |> 
   select(-Quarter) 
 
@@ -41,8 +44,6 @@ summary(d4logdata)  # check summary to see if data are read correctly
 
 N=dim(d4logdata)[2]
 p=4
-lambda=0.2 # shrinkage 
-maxhor=2 # maximum forecast horizon where we are imposing conditions 
 
 
 
@@ -52,7 +53,7 @@ maxhor=2 # maximum forecast horizon where we are imposing conditions
 
 
 
-phi <- read.csv("one_lagphi.csv",header=FALSE) %>% as.matrix #estimated parameters produced by MATLAB code
+phi <- read.csv("phi_lambda_01.csv",header=FALSE) %>% as.matrix #estimated parameters produced by MATLAB code
 
 n = nrow(d4logdata)
 k = ncol(d4logdata)
@@ -61,44 +62,40 @@ k = ncol(d4logdata)
 # For users, you have to replace the numbers phi if you really want to build up another type of model
 # The phi is produced using MATLAB MAIN.m file, please run that file to generate the estimated coefficients. 
 
-rawhat = matrix(0,n,k)
+rawhat = matrix(0,n+4,k)
 yhat = matrix(0,n,k)  
-sdiff = matrix(0,n,k)  
+sdiff = matrix(0,n+4,k)  
 
 
-for (i in 5:n){
+for (i in 2:n){
   for (j in 1:(k-1)){
     yhat[i,j]= phi[1,j] + t(d4logdata[(i-1),]) %*% phi[2:86,j]
   }
-  rawhatv = rawdata[(i-4),1:(k-1)] * exp(yhat[i,1:(k-1)]/100) # back transform 
-  yhat[i,k]=100*log(sum(rawhatv)/rawdata[(i-4),k])
-  rawhat[i,] = rawdata[(i-4),1:k] * exp(yhat[i,1:k]/100)
-  sdiff[i,] = exp(yhat[i,1:k]/100)
+  rawhatv = rawdata[i,1:(k-1)] * exp(yhat[i,1:(k-1)]/100) # back transform 
+  yhat[i,k]=100*log(sum(rawhatv)/rawdata[i,k])
+  rawhat[i+4,] = rawdata[i,1:k] * exp(yhat[i,1:k]/100)
+  sdiff[i+4,] = exp(yhat[i,1:k]/100)
 }  
 
 
+test <- rawhat[-c(1:5),] - rawdata[-c(1:5),]
+
+
+
+dd_origin = as.yearqtr(1986 + seq(0,136)/4)
+origin_fore <- data.frame(dd_origin, "Estimated" = rawhat[-c(1:5),85] , `Actual`= as_tibble(alldata[-c(1:5),85]))
+
+g2<- origin_fore |> 
+  ggplot(aes(x = dd_origin, y = Estimated))+ geom_line(colour = "Blue") + geom_line(aes(y =`X96.Total`))
+
+g2
 
 
 
 
-# Use the updated data after COVID-19
-# 
-# alldata <- readr::read_csv("ABSemp.csv")  |>
-#   mutate(Quarter = yearquarter(my(Date))) |>
-#   select(-Date)
-# 
-# 
-# alldata <- alldata |>
-#   select(-Quarter)
-# 
-# 
-# 
-# rawdata <- as.matrix(alldata)
-# 
-# k = 85 
-
-# Conduct our multiplier analysis 
+# Conduct our multiplier analysis
 # The row we set 44 is 4(4 last observations to start forecasting) + 40(10 years horizon of forecasting)
+# 
 
 
 
@@ -115,14 +112,14 @@ for (sector in 1:(k-1)){
       multig[i,j]= multig[(i-1),]%*%phi[(2:86),j]
       if (i==5 & j==sector) {multig[i,j]=multig[i,j]+1}
     }
-    multiraw[i,1:(k-1)] = multiraw[(i-4),1:(k-1)]*exp(multig[i,1:(k-1)]/100) # The first value is negative means related to this 
-    
+    multiraw[i,1:(k-1)] = multiraw[(i-4),1:(k-1)] * exp(multig[i,1:(k-1)]/100) # The first value is negative means related to this
+
     multiraw[i,k] = sum(multiraw[i,1:(k-1)])
-    
+
     multig[i,k]=100 * log(multiraw[i,k]/multiraw[(i-4),k])# Fourth difference and convert into percentage change  # PROBLEM: WHY LOG(1) \ne 0
   }
   multilevels[,sector]=multiraw[,k]
-  multigrowth[,sector]=multig[,k]   # suspect here will need to select k instead sector 
+  multigrowth[,sector]=multig[,k]   # suspect here will need to select k instead sector
 }
 
 
@@ -130,90 +127,140 @@ multipliers = colSums(multigrowth)/4 # division by 4 is necessary because of sea
 mpers = colCumsums(multigrowth[5:44,])/4 #colCumsums() is a function in matrixStats package
 shares=colSums(rawdata[(nrow(rawdata)-3):nrow(rawdata),1:84])/sum(rawdata[(nrow(rawdata)-3):nrow(rawdata),85]) #sector shares estimated like this to eliminate the effect of seasonality
 mtplers <- rbind(shares,mpers)
-write.csv(file="multipliers_1.csv",rbind(shares,mpers))
+# write.csv(file="multipliers_1.csv",rbind(shares,mpers))
+
+# Calculate the spillover measures 
+
+m5m0_div <- mtplers[41,] / shares
+
+m5m0_min <- (mtplers[41,] - shares) 
+
+spilloverm5_timesm0 <- m5m0_div |> 
+  sort(decreasing = TRUE) |> 
+  enframe()
 
 
+spilloverm5_m0 <- m5m0_min |> 
+  sort(decreasing = TRUE) |> 
+  enframe()
 
 
+ Manuf <- sum(spilloverm5_m0[grep("Manufacturing", spilloverm5_m0$name),]$value)
 
+ Const <- sum(spilloverm5_m0[grep("Construction", spilloverm5_m0$name),]$value)
 
-
-
-
-## ----- Workbook till 23 AUG----Below codes hasn't changed yet --EY 
-
-
+ 
+ 
+ 
 ## forecasts
 # baseline: no covid
+# 
 
+# fraw0 = matrix(0,26,k)
+# fraw0[1:5,]= rawdata[(nrow(rawdata)-4):nrow(rawdata),]
+# fgr0 = matrix(0,26,k)
+# fgr0[1,] = d4logdata[nrow(d4logdata),]
+# for (i in 2:22){
+#   for (j in 1:(k-1)){
+#     fgr0[i,j]= phi[1,j] + fgr0[(i-1),]%*%phi[(2:86),j]
+#   }
+#   fraw0[i+4,1:(k-1)] = fraw0[i,1:(k-1)]*exp(fgr0[i,1:(k-1)]/100)
+#   fraw0[i+4,k] = sum(fraw0[i+4,1:(k-1)])
+#   fgr0[i,k]=100*log(fraw0[i+4,k]/fraw0[i,k])
+# }
+# 
+# 
+# dd = as.yearqtr(2020+seq(1,20)/4)
+# nn = c("Date", "YoY", "Employment")
+# allrawfcasts = data.frame(cbind(dd,as.numeric(fgr0[2:22,85]),as.numeric(fraw0[6:26,85])))
+# colnames(allrawfcasts) = nn
+# ggplot(allrawfcasts,aes(x=Date, y=YoY)) + geom_line(aes(x = Date, y = YoY), colour = "Red") + ylab("YoY Growth in Total Employment") + scale_x_yearqtr(format = "%YQ%q", breaks = seq(as.yearqtr(2020.25),as.yearqtr(2025.0), by = 0.5), minor_breaks= seq(as.yearqtr(2020.25),as.yearqtr(2025.0), by = 0.25))
 
-fraw0 = matrix(0,24,k)
-fraw0[1:4,]= rawdata[(nrow(rawdata)-3):nrow(rawdata),]
-fgr0 = matrix(0,24,k)
-fgr0[1:4,] = d4logdata[(nrow(d4logdata)-3):nrow(d4logdata),]
-for (i in 5:24){
-  for (j in 1:(k-1)){
-    fgr0[i,j]= phi[1,j] + fgr0[(i-1),]%*%phi[(2:86),j] 
-  }
-  fraw0[i,1:(k-1)] = fraw0[(i-4),1:(k-1)]*exp(fgr0[i,1:(k-1)]/100)
-  fraw0[i,k] = sum(fraw0[i,1:(k-1)])
-  fgr0[i,k]=100*log(fraw0[i,k]/fraw0[(i-4),k])
-}
-dd = as.yearqtr(2020+seq(1,20)/4)
-nn = c("Date", "YoY", "Employment")
-allrawfcasts = data.frame(cbind(dd,as.numeric(fgr0[5:24,85]),as.numeric(fraw0[5:24,85])))
-colnames(allrawfcasts) = nn
-ggplot(allrawfcasts,aes(x=Date, y=YoY)) + geom_line() + xlab("Year-Quarter") + ylab("YoY Growth in Total Employment") + scale_x_yearqtr(format = "%YQ%q", breaks = seq(as.yearqtr(2020.25),as.yearqtr(2025.0), by = 0.5), minor_breaks= seq(as.yearqtr(2020.25),as.yearqtr(2025.0), by = 0.25))
-
-
-
-
-
-
-
-# Scenario O (The forecast routine in the app is much nicer)
-# fraw1 = matrix(0,24,k)
-# fraw1[1:4,]= rawdata[(nrow(rawdata)-3):nrow(rawdata),]
-# fgr1 = matrix(0,24,k)
-# fgr1[1:4,] = d4logdata[(nrow(d4logdata)-3):nrow(d4logdata),]
-# flag = matrix(10000,4,19)
-# flag[1,]=c(-9.476325055,-2.915775394,-4.083103671,-0.16813662,-6.409944992,-4.394476644,-6.823570644,-33.39984639,-2.974739421,-6.489477032,-1.037667682,-11.0133505,-5.642445473,-10.04476017,-5.143099447,-1.961685419,-2.860893739,-26.95945301,-12.04715082)
-# # use this if input is YoY change
-# #flag[1,]=c(-9.1,	-3.7,	-4.2,	-16.2,	-6.5,	-9.2,	-9.1,	-39.7,	-0.6,	-2.2,	6.8,	-11.7,	-2.9,	-13.9,	-5.6,	0.4,	4.1,	-33.2,	-18.7)
-# flag[2,]=c(-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999,-9999)
+ ##################
+ 
+# 
+# fraw0 = matrix(0,24,k)
+# fraw0[1:4,]= rawdata[(nrow(rawdata)-3):nrow(rawdata),]
+# fgr0 = matrix(0,24,k)
+# fgr0[1:4,] = d4logdata[(nrow(d4logdata)-3):nrow(d4logdata),]
 # for (i in 5:24){
 #   for (j in 1:(k-1)){
-#     if (i==5 | i==6 | i==7 | i==8){
-#       if (flag[(i-4),j] == -9999) {
-#         fraw1[i,j] = fraw1[i-1,j]
-#         fgr1[i,j] = 100*log(fraw1[i,j]/fraw1[i-4,j])
-#       }
-#       else if (flag[(i-4),j] == 10000) {
-#         fgr1[i,j]= phi[1,j] + fgr1[(i-1),]%*%phi[(2:21),j] + fgr1[(i-2),]%*%phi[22:41,j] + fgr1[(i-3),]%*%phi[42:61,j] + fgr1[(i-4),]%*%phi[62:81,j]
-#         fraw1[i,j]=fraw1[i-4,j]*exp(fgr1[i,j]/100)
-#       }
-#       else {
-#         #        fgr1[i,j] = flag[(i-4),j] #use this and the line below it if user supplied figures are on YoY growth rates
-#         #        fraw1[i,j]=fraw1[i-4,j]*exp(fgr1[i,j]/100)
-#         fraw1[i,j] = fraw1[i-1,j]*(1+flag[(i-4),j]/100) #use this and the line below it if user inputs QoQ growth rates
-#         fgr1[i,j] = 100*log(fraw1[i,j]/fraw1[i-4,j])
-#       }
-#     }
-#     else
-#       fgr1[i,j]= phi[1,j] + fgr1[(i-1),]%*%phi[(2:21),j] + fgr1[(i-2),]%*%phi[22:41,j] + fgr1[(i-3),]%*%phi[42:61,j] + fgr1[(i-4),]%*%phi[62:81,j]
-#     fraw1[i,j]=fraw1[i-4,j]*exp(fgr1[i,j]/100)
+#     fgr0[i,j]= phi[1,j] + fgr0[(i-1),]%*%phi[(2:86),j]
 #   }
-#   fraw1[i,k] = sum(fraw1[i,1:(k-1)])
-#   fgr1[i,k]=100*log(fraw1[i,k]/fraw1[(i-4),k])
+#   fraw0[i,1:(k-1)] = fraw0[(i-4),1:(k-1)]*exp(fgr0[i,1:(k-1)]/100)
+#   fraw0[i,k] = sum(fraw0[i,1:(k-1)])
+#   fgr0[i,k]=100*log(fraw0[i,k]/fraw0[(i-4),k])
 # }
-# f1 = data.frame(cbind(as.numeric(fgr1[5:24,20]),as.numeric(fraw1[5:24,20])))
-# colnames(f1)=c("YoY1","Employment1")
-# allrawfcasts = cbind(allrawfcasts,f1)
-# ggplot(allrawfcasts) + geom_line(aes(x=Date,y=YoY),color="blue") + geom_line(aes(x=Date, y=YoY1),color="red") + xlab("Year-Quarter") + ylab("YoY Growth in Total Employment") + scale_x_yearqtr(format = "%YQ%q", breaks = seq(as.yearqtr(2020.25),as.yearqtr(2025.0), by = 0.5), minor_breaks= seq(as.yearqtr(2020.25),as.yearqtr(2025.0), by = 0.25))
-# 
-# 
-# 
-# 
-# 
-# 
-# 
+# dd = as.yearqtr(2020+seq(1,20)/4)
+# nn = c("Date", "YoY", "Employment")
+# allrawfcasts = data.frame(cbind(dd,as.numeric(fgr0[5:24,85]),as.numeric(fraw0[5:24,85])))
+# colnames(allrawfcasts) = nn
+# ggplot(allrawfcasts,aes(x=Date, y=YoY)) + geom_line() + xlab("Year-Quarter") + ylab("YoY Growth in Total Employment") + scale_x_yearqtr(format = "%YQ%q", breaks = seq(as.yearqtr(2020.25),as.yearqtr(2025.0), by = 0.5), minor_breaks= seq(as.yearqtr(2020.25),as.yearqtr(2025.0), by = 0.25))
+
+
+##################
+ 
+#  
+
+
+fraw0 = matrix(0,26,k)
+fraw0[1:5,]= rawdata[(nrow(rawdata)-4):nrow(rawdata),]
+fgr0 = matrix(0,26,k)
+fgr0[1,] = d4logdata[nrow(d4logdata),]
+for (i in 2:21){
+  for (j in 1:(k-1)){
+    fgr0[i,j]= phi[1,j] + fgr0[(i-1),]%*%phi[(2:86),j]
+  }
+  fraw0[i+4,1:(k-1)] = fraw0[i,1:(k-1)]*exp(fgr0[i,1:(k-1)]/100)
+  fraw0[i+4,k] = sum(fraw0[i+4,1:(k-1)])
+  fgr0[i,k]=100*log(fraw0[i+4,k]/fraw0[i,k])
+}
+
+
+dd = as.yearqtr(2020+seq(1,20)/4)
+nn = c("Date", "YoY", "Employment")
+allrawfcasts = data.frame(cbind(dd,as.numeric(fgr0[2:21,85]),as.numeric(fraw0[6:25,85])))
+colnames(allrawfcasts) = nn
+ggplot(allrawfcasts,aes(x=Date, y=YoY)) + geom_line(aes(x = Date, y = YoY), colour = "Red") + ylab("YoY Growth in Total Employment") + scale_x_yearqtr(format = "%YQ%q", breaks = seq(as.yearqtr(2020.25),as.yearqtr(2025.0), by = 0.5), minor_breaks= seq(as.yearqtr(2020.25),as.yearqtr(2025.0), by = 0.25))
+
+ 
+ 
+ 
+
+# Compare the difference between the actual data and forecasts 
+
+actual_covid <- alldata_init |> 
+  filter(Quarter >= yearquarter("2020 Q2")) |> 
+  select(-Quarter)  
+
+actual_covid <- actual_covid |> 
+  mutate(`96 Total` = rowSums(actual_covid[,1:ncol(actual_covid)-1]))
+
+
+comp_fore <- cbind(allrawfcasts[1:9,],  actual_covid[,ncol(actual_covid)]) 
+  
+
+
+g1 <- ggplot(comp_fore,aes(x=Date, y=Employment)) + geom_line(aes(x = Date, y = Employment), colour = "Red") + geom_line(aes(x = Date, y = `96 Total`)) + ylab("Total Employment") + scale_x_yearqtr(format = "%YQ%q", breaks = seq(as.yearqtr(2020.25),as.yearqtr(2025.0), by = 0.5), minor_breaks= seq(as.yearqtr(2020.25),as.yearqtr(2025.0), by = 0.25))
+
+
+comp_fore_val <- comp_fore |> 
+  mutate(dd_origin = as.yearqtr(Date), Estimated = Employment, `X96.Total` = `96 Total`) |> 
+  select(-`Date`, -`YoY`, - `Employment`, -`96 Total`)
+
+estim_fore <- rbind(origin_fore,comp_fore_val)
+
+estim_fore |> 
+  ggplot(aes(x = dd_origin, y = Estimated))+ geom_line(colour = "Blue") + geom_line(aes(y =`X96.Total`))
+
+
+gridExtra::grid.arrange(g1,g2)
+
+
+
+
+
+
+
+
+
