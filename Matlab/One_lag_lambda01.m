@@ -25,7 +25,7 @@ all_y = 100*(logall(5:end,1:85)-logall(1:(end-4),1:85));
 
 p=1;
 
-min_lambda = 0.1;
+min_lambda = 0.0841;
 
 
 % ### Package Use 
@@ -41,7 +41,7 @@ min_lambda = 0.1;
 
 
 
-csvwrite( "phi_lambda_01.csv", phi_2)
+csvwrite( "phi_lambda_00841.csv", phi_2)
 
 
 

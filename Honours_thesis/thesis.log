@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2022.2.28)  9 SEP 2022 00:04
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2022.2.28)  11 SEP 2022 17:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -974,7 +974,7 @@ Chapter 6.
 ]
 Appendix A.
 LaTeX Font Info:    Trying to load font information for U+fplmbb on input line 
-391.
+395.
 (/usr/local/texlive/2021/texmf-dist/tex/latex/psnfss/ufplmbb.fd
 File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
 ) [25] [26]
@@ -986,10 +986,10 @@ File: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis
 <use /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/
 figures/free_19.png>
 Package pdftex.def Info: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employ
-ment/Honours_thesis/figures/free_19.png  used on input line 450.
+ment/Honours_thesis/figures/free_19.png  used on input line 454.
 (pdftex.def)             Requested size: 506.68887pt x 358.3897pt.
 
-Overfull \hbox (51.44476pt too wide) in paragraph at lines 450--452
+Overfull \hbox (51.44476pt too wide) in paragraph at lines 454--456
  [][] 
  []
 
@@ -1000,7 +1000,7 @@ File: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis
 <use /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/
 figures/free_87.png>
 Package pdftex.def Info: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employ
-ment/Honours_thesis/figures/free_87.png  used on input line 457.
+ment/Honours_thesis/figures/free_87.png  used on input line 461.
 (pdftex.def)             Requested size: 422.23643pt x 298.65504pt.
 </Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figu
 res/agg_19.png, id=395, 844.47495pt x 597.31155pt>
@@ -1009,7 +1009,7 @@ File: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis
 <use /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/
 figures/agg_19.png>
 Package pdftex.def Info: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employ
-ment/Honours_thesis/figures/agg_19.png  used on input line 464.
+ment/Honours_thesis/figures/agg_19.png  used on input line 468.
 (pdftex.def)             Requested size: 422.23643pt x 298.65504pt.
 </Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figu
 res/agg_87.png, id=396, 844.47495pt x 597.31155pt>
@@ -1018,7 +1018,7 @@ File: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis
 <use /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/
 figures/agg_87.png>
 Package pdftex.def Info: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employ
-ment/Honours_thesis/figures/agg_87.png  used on input line 471.
+ment/Honours_thesis/figures/agg_87.png  used on input line 475.
 (pdftex.def)             Requested size: 422.23643pt x 298.65504pt.
 </Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figu
 res/ANZSIC.png, id=397, 787.94376pt x 671.50874pt>
@@ -1027,7 +1027,7 @@ File: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis
 <use /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/
 figures/ANZSIC.png>
 Package pdftex.def Info: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employ
-ment/Honours_thesis/figures/ANZSIC.png  used on input line 478.
+ment/Honours_thesis/figures/ANZSIC.png  used on input line 482.
 (pdftex.def)             Requested size: 393.97092pt x 335.75356pt.
 [27
 
@@ -1054,11 +1054,11 @@ Package logreq Info: Writing requests to 'thesis.run.xml'.
 ### semi simple group (level 1) entered at line 102 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 22331 strings out of 478994
- 375412 string characters out of 5858184
+ 22334 strings out of 478994
+ 375439 string characters out of 5858184
  1158096 words of memory out of 5000000
  38953 multiletter control sequences out of 15000+600000
- 514026 words of font info for 343 fonts, out of 8000000 for 9000
+ 514185 words of font info for 345 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  86i,18n,89p,1045b,17654s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/base/8r.enc
@@ -1078,7 +1078,7 @@ rw/palatino/uplb8a.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/urw/pala
 tino/uplbi8a.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/urw/palatino/u
 plr8a.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/urw/palatino/uplri8a.
 pfb>
-Output written on thesis.pdf (37 pages, 1611601 bytes).
+Output written on thesis.pdf (37 pages, 1613236 bytes).
 PDF statistics:
  529 PDF objects out of 1000 (max. 8388607)
  454 compressed objects within 5 object streams

@@ -25,6 +25,8 @@ RMSSE_acc = [];
 
 lambda_lst =  [0.0001:0.0001:0.1]'; %--- we found the minima between 0.05 & 0.06
 
+%lambda_lst =  [0.1:0.0001:0.2]';
+
 
 %lambda_lst =  [0.0370]';
 % lambda_lst = [0.05:0.001:0.6]'; --- we found the minima between 0.058 & 0.059
@@ -33,6 +35,7 @@ lambda_lst =  [0.0001:0.0001:0.1]'; %--- we found the minima between 0.05 & 0.06
 % and 0.0583 -- or we finally select 0.0586
 
 for l = 1:numel(lambda_lst)
+
 
     i= 120; 
     
@@ -66,8 +69,8 @@ for l = 1:numel(lambda_lst)
     % prepare to conduct our forecasts 
     yhat = [y;zeros(hor,k)];
 
+    
 
-    % Second: Backtransform the estimate and conduct forecast 
 
 
 
@@ -89,6 +92,9 @@ for l = 1:numel(lambda_lst)
         rawhatv = alldata(b,1:(k-1)) .* exp(yhat(b,1:(k-1))/100);
         yhat(b,k) = 100 .* log(sum(rawhatv)/alldata(b,k));
         rawhat_fore(b+4,:)= alldata(b,1:k) .* exp(yhat(b,1:k)/100);
+
+
+        
         sdiff_fore(b,:) = exp(yhat(b,1:k)/100);
 
 
@@ -97,7 +103,6 @@ for l = 1:numel(lambda_lst)
 
    newraw = test;
    error = rawhat_fore(n+1+4:n+hor+4,:) - newraw; % calculate forecast difference between rawhat(estimated ones) and real data 
-   
    train_err = zeros(hor,k);
 
    % Scale dependent error 
@@ -124,71 +129,26 @@ for l = 1:numel(lambda_lst)
 
 
 
-
-
-%    % Scaled error 
-%     
-% 
    % Denominator 
 
    seasonal_diff = training(5:end,1:85) - training(1:(end-4),1:85);
    m=4; % set the seasonality as quarter
 
-% 
+
    denom = sumabs(seasonal_diff)/ size(training,1)- m;
    denom2 = sumabs(seasonal_diff.^2) / size(training,1)- m;
-% 
-% 
-% 
-% 
-%     scaled error Hyndman & Koehler (2006) see [https://otexts.com/fpp3/accuracy.html]
-% 
-   q_j = zeros(hor,k); % set up the $q_j$ see https://otexts.com/fpp3/accuracy.html
-% 
-   q_j2 = zeros(hor,k);
-%     
-   for a= 1:hor
 
-       for b = 1:k 
-           q_j(a,b) = (error(a,b))/denom;
-           q_j2(a,b) = (error(a,b).^2)/denom2;
-       end
-
-
-   end 
-   
-
-   
-
-   
-   MASE = meanabs(q_j);
-
-   RMSSE = sqrt(meanabs(q_j2));
 
 
    % Accumulative errors
 
    MAPE_acc = [MAPE_acc;MAPE];
 
-   MASE_acc = [MASE_acc;MASE];
-
-   RMSSE_acc = [RMSSE_acc;RMSSE];
 
 
 end 
 
-% Use combined errors. Otherwise, use the MAPE only 
-% combinederror = (MAPE_acc + MASE_acc + RMSSE_acc)/3;
-% 
-% for f = 1: size(combinederror,1)
-% 
-%     if combinederror(f,1) == min(combinederror) 
-%        
-%        min_lambda = lambda_lst(f,1);
-% 
-%     end 
-% 
-% end 
+
 
 
 % Use MAPE only 
@@ -214,11 +174,6 @@ all_y = 100*(logall(5:end,1:85)-logall(1:(end-4),1:85));
 p=1;
 
 
-% ### Package Use 
-% options.prior.name = "Minnesota";
-% BVAR = bvar_(all_y,p,options);
-% csvwrite( "canova_phi.csv", BVAR.Phi_ols)
-% ### 
 
 
 

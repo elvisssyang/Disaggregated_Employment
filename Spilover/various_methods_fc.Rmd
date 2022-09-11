@@ -27,8 +27,8 @@ ts_employ <- employ |>
     select(-Date) |> 
     as_tsibble(index = Quarter) 
 
-pre_2019 <- ts_employ |> 
-  filter(Quarter <= yearquarter("2019 Q4"))
+pre_2020 <- ts_employ |> 
+  filter(Quarter <= yearquarter("2020 Q1"))
 
 ```
 
@@ -37,9 +37,9 @@ pre_2019 <- ts_employ |>
 
 ```{r}
 
-training <- pre_2019[1:120,] 
+training <- pre_2020[1:120,] 
 
-test <- pre_2019[121:nrow(pre_2019),]
+test <- pre_2020[121:nrow(pre_2020),]
 ```
 
 
@@ -71,19 +71,19 @@ test <- test |>
 # Conduct the forecast 
 
 ```{r}
-fc_model <- training |> 
+fc_model <- ts_employ |> 
   model(stepwise = ARIMA(Employment), 
         ets = ETS(Employment), 
         mean = MEAN(Employment))
 
 
 fc_emp<- fc_model |> 
-  forecast(h=21)
+  forecast(h=22)
 
 
 error <-  fc_emp |> 
   accuracy(orlong)#%>%
-  #select(.model, RMSE:MAPE)
+  select(.model, MAPE)
 
 
 ```

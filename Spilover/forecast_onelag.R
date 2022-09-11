@@ -53,7 +53,7 @@ p=4
 
 
 
-phi <- read.csv("phi_lambda_01.csv",header=FALSE) %>% as.matrix #estimated parameters produced by MATLAB code
+phi <- read.csv("phi_lambda_00841.csv",header=FALSE) %>% as.matrix #estimated parameters produced by MATLAB code
 
 n = nrow(d4logdata)
 k = ncol(d4logdata)
@@ -200,16 +200,19 @@ spilloverm5_m0 <- m5m0_min |>
 
 ##################
  
-#  
+
 
 
 fraw0 = matrix(0,26,k)
 fraw0[1:5,]= rawdata[(nrow(rawdata)-4):nrow(rawdata),]
 fgr0 = matrix(0,26,k)
 fgr0[1,] = d4logdata[nrow(d4logdata),]
+
+
+
 for (i in 2:21){
   for (j in 1:(k-1)){
-    fgr0[i,j]= phi[1,j] + fgr0[(i-1),]%*%phi[(2:86),j]
+    fgr0[i,j]= phi[1,j] + fgr0[(i-1),]%*%phi[(2:86),j] 
   }
   fraw0[i+4,1:(k-1)] = fraw0[i,1:(k-1)]*exp(fgr0[i,1:(k-1)]/100)
   fraw0[i+4,k] = sum(fraw0[i+4,1:(k-1)])
@@ -221,6 +224,9 @@ dd = as.yearqtr(2020+seq(1,20)/4)
 nn = c("Date", "YoY", "Employment")
 allrawfcasts = data.frame(cbind(dd,as.numeric(fgr0[2:21,85]),as.numeric(fraw0[6:25,85])))
 colnames(allrawfcasts) = nn
+
+
+ 
 ggplot(allrawfcasts,aes(x=Date, y=YoY)) + geom_line(aes(x = Date, y = YoY), colour = "Red") + ylab("YoY Growth in Total Employment") + scale_x_yearqtr(format = "%YQ%q", breaks = seq(as.yearqtr(2020.25),as.yearqtr(2025.0), by = 0.5), minor_breaks= seq(as.yearqtr(2020.25),as.yearqtr(2025.0), by = 0.25))
 
  
@@ -239,9 +245,48 @@ actual_covid <- actual_covid |>
 
 comp_fore <- cbind(allrawfcasts[1:9,],  actual_covid[,ncol(actual_covid)]) 
   
+# Confidence Interval via Bootstrap 
+
+nboot = 1000
+
+bootstraped_list = matrix(0,20,1000)
+
+resid = d4logdata[-1,] - yhat[-1,]
+
+fraw_boot = matrix(0,26,k)
+fraw_boot[1:5,]= rawdata[(nrow(rawdata)-4):nrow(rawdata),]
+fgr_boot = matrix(0,26,k)
+fgr_boot[1,] = d4logdata[nrow(d4logdata),]
 
 
-g1 <- ggplot(comp_fore,aes(x=Date, y=Employment)) + geom_line(aes(x = Date, y = Employment), colour = "Red") + geom_line(aes(x = Date, y = `96 Total`)) + ylab("Total Employment") + scale_x_yearqtr(format = "%YQ%q", breaks = seq(as.yearqtr(2020.25),as.yearqtr(2025.0), by = 0.5), minor_breaks= seq(as.yearqtr(2020.25),as.yearqtr(2025.0), by = 0.25))
+
+for (bb in 1:20){
+  for (b in 1:nboot){
+    for (i in 2:21){
+      for (j in 1:(k-1)){
+        fgr_boot[i,j]= phi[1,j] + fgr_boot[(i-1),]%*%phi[(2:86),j] + sample(resid, size = 1)
+      }
+      fraw_boot[i+4,1:(k-1)] = fraw_boot[i,1:(k-1)]*exp(fgr_boot[i,1:(k-1)]/100)
+      fraw_boot[i+4,k] = sum(fraw_boot[i+4,1:(k-1)])
+      fgr_boot[i,k]=100*log(fraw_boot[i+4,k]/fraw_boot[i,k])
+    }
+    bootstraped_list[,b] = as.numeric(fraw_boot[6:25,85])
+  }
+
+ test = as.numeric(quantile(bootstraped_list[bb,], prob = c(0.025,0.975)))
+
+}
+
+
+
+
+
+
+
+
+ggplot(comp_fore,aes(x=Date, y=Employment)) + geom_line(aes(x = Date, y = Employment), colour = "Red") + geom_line(aes(x = Date, y = `96 Total`)) + ylab("Total Employment") + scale_x_yearqtr(format = "%YQ%q", breaks = seq(as.yearqtr(2020.25),as.yearqtr(2025.0), by = 0.5), minor_breaks= seq(as.yearqtr(2020.25),as.yearqtr(2025.0), by = 0.25))
+
+
 
 
 comp_fore_val <- comp_fore |> 
@@ -251,7 +296,11 @@ comp_fore_val <- comp_fore |>
 estim_fore <- rbind(origin_fore,comp_fore_val)
 
 estim_fore |> 
-  ggplot(aes(x = dd_origin, y = Estimated))+ geom_line(colour = "Blue") + geom_line(aes(y =`X96.Total`))
+  ggplot(aes(x = dd_origin, y = Estimated))+ geom_line(colour = "Blue") + geom_line(aes(y =`X96.Total`),linetype = "dashed") 
+
+
+
+
 
 
 gridExtra::grid.arrange(g1,g2)

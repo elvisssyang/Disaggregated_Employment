@@ -15,7 +15,7 @@ Our research is motivated by the lack of quantitative research on the employment
 
 ## Research Aim and questions 
 
-This research will extend @anderson2020 by using data on 87 two-digit industry sectors instead of 19 sectors that they used. I will develop a model for the two-digit sectors to evaluate the long run effect and the COVID-19 post-impacts. I will also provide a counterfactual analysis based on the assumption "if there is no pandemic". The two-digit sectoral data will provide us with more information, which will assist in getting a better understanding of employment dynamics in Australia.
+This research will extend @anderson2020 by using data on 87 two-digit industry sectors instead of 19 sectors that they used. I will develop a model for the two-digit sectors to evaluate the long run effect and the COVID-19 post-impacts. I will also provide a counterfactual analysis based on an optimistic assumption of no pandemic or major events happened. The two-digit sectoral data will provide us with more information, which will assist in getting a better understanding of employment dynamics in Australia on a disaggregated level.
 
 The overall research aim is to provide estimates of two-digit sectoral employment based on historical data. Specifically, my goals are: 
 
@@ -30,7 +30,8 @@ The overall research aim is to provide estimates of two-digit sectoral employmen
 ## Thesis Structure 
 
 
-This thesis focuses on analyzing Australian Employment at a disaggregated level, then estimate the long run effects of the COVID-19 to sectoral employment rate in Australia. The remainder of the thesis is structured as follows. In chapter 2, we review the existing literature in the relevant fields. In chapter 3, we will provide exploratory data analysis and data resources.
+This thesis focuses on analysing Australian Employment at a disaggregated level, then estimate the long run effects of the COVID-19 to sectoral employment rate in Australia. The remainder of the thesis is structured as follows. First, in chapter 2, I review the existing literature in the relevant fields. Second, in chapter 3, I will provide exploratory data analysis and data resources. Then, I will propose our selected model in chapter 4. After we selected our model, I will conduct analysis to evaluate the damages of COVID-19 and provide useful insights on key beneficial industries after COVID-19 in chapter 5. Eventually, I will provide policy implementations and discussions in chapter 6. 
+
 
 
 
