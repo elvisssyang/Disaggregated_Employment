@@ -6,21 +6,22 @@ knit: "bookdown::render_book"
 
 
 # Methdology
+
 ## Proposed Model
 
 I plan to use a Bayesian VARX model based on a method proposed by @anderson2020. In the model, each sector is affected by the lag of sectoral growth and a lag of the total employment growth. The lag of aggregate employment growth acts as an economy-wide factor which will affect each sector.
 
-In terms of the lags 
+Conventionally, lags are selected correspond to the patterns of the time series (i.e. seasonality, cycle or trend). That is, for quarterly employment data, four lags are preferred in general (see @anderson2020 and @stock2001). However, in concern of the dimensionality in my case. In large Bayesian VAR, distant lags can be shrunk by assigning a specific prior distribution. This will make the similar amount information provided by either four lags or one lag. Thus, given I will replace the four lags with one lag on both 84 sectors and the total employment because one lags can effectively avoid overfitting while provide sufficient information. 
 
-Under the assumption that the structure of the Australian economy will not change during COVID-19, we suggest the BVAR model as
+Therefore, under the assumption that the structure of the Australian economy will not change during COVID-19, we suggest the BVAR model as: 
 
 $$
 \begin{aligned}
-\textbf{y}_t=\textbf{c}+\textbf{A}_1 \textbf{y}_{t-1}+\boldsymbol{\Gamma}\textbf{x}_{t-1}+\bf{u}_t
+\textbf{y}_t=\textbf{c}+\textbf{A}_1 \textbf{y}_{t-1}+\boldsymbol{\Gamma}{x}_{t-1}+\bf{u}_t
 \end{aligned}
 $$
 
-where $\bf{y}_t$ is an $87\times1$ vector of two-digit subsectoral employment growth rate at time $t$  and $\bf{x}_{t-1}$ is the $4\times1$ vector of 4 lags of the growth rate of aggregate employment (this vector of variables are predetermined at time $t$), $\textbf{c}$ is a vector of constants, $\bf{A}_{1,2,3,4}$ are $87\times87$ parameter matrices. $\boldsymbol{\Gamma}$ is a $87\times4$ matrix and $\bf{u}_t$ is a vector of reduced form errors with the mean equals to zero and independent variance $\bf{u}_t \sim (0,\boldsymbol{\Sigma})$. (see Appendix)
+where $\bf{y}_t$ is an $84\times1$ vector of two-digit subsectoral employment growth rate at time $t$  and $\bf{x}_{t-1}$ is a $1\times1$ vector stands for one lag on the growth rate of the total employment (this vector of variables are predetermined at time $t$), $\textbf{c}$ is a vector of constants, $\bf{A}_{1}$ are $84\times84$ parameter matrices. $\boldsymbol{\Gamma}$ is a $84\times4$ matrix and $\bf{u}_t$ is a vector of reduced form errors with the mean equals to zero and independent variance $\bf{u}_t \sim (0,\boldsymbol{\Sigma})$. (see Appendix for details)
 
 
 
@@ -28,7 +29,7 @@ where $\bf{y}_t$ is an $87\times1$ vector of two-digit subsectoral employment gr
 
 ## Prior and shrinkage
 
-Bayesian VAR helps to overcome the curse of high dimensionality via the imposition of prior beliefs on the parameters [@banbura2010large]. I will estimate the VARX using Bayesian methods by specifying a Minnesota prior [e.g. @anderson2020; @litterman1986; @robertson1999vector]. In order to set up the Minnesota prior in our BVAR model, @banbura2010large suggests a Minnesota-type prior that applies shrinkage to the VAR slope coefficients as follows:
+Bayesian VAR helps to overcome the curse of high dimensionality via the imposition of prior beliefs on the parameters [@banbura2010large]. I will estimate the dynamics using Bayesian VAR model by specifying a Minnesota prior [e.g. @anderson2020; @litterman1986; @robertson1999vector]. In order to set up the Minnesota prior in our BVAR model, @banbura2010large suggests a Minnesota-type prior that applies shrinkage to the VAR slope coefficients as follows:
 
 $$
 \begin{aligned}\label{eq:1}
@@ -43,6 +44,7 @@ $$
 &Var[\gamma_i^{j}]=\frac{\lambda^2}{i^2}\frac{\sigma^2_{j}}{\sigma^2_e}
 \end{aligned}
 $$
+
 where the degree of shrinkage is governed by $\lambda$, $\frac{1}{i^2}$ to down-weight more distant lags and the $\frac{\sigma_j^2}{\sigma_k^2}$ adjusts for different scale of the data. $\sigma^2_e$ is the variance after fitting an AR model on total employment growth. 
 
 @banbura2010large also suggested that a natural conjugate Normal-Inverse-Wishart which retains the principle of Minnesota prior will help in adding Minnesota prior to the Bayesian VAR system. Its posterior moments can be calculated either analytically or through adding the dummy observations. I will use dummy observations to estimate the BVAR [@banbura2010large]. More details are provided in the Appendix.
@@ -51,7 +53,7 @@ where the degree of shrinkage is governed by $\lambda$, $\frac{1}{i^2}$ to down-
 \newpage
 
 
-## Shrinkage selection in Bayesian VAR 
+## An new approach to select hyperparameter in Minnesota prior 
 
 Specifically, the Minnesota type prior have the following beliefs about the variances: 
 
@@ -67,126 +69,65 @@ $$
 \end{aligned}
 $$
 
-where $\lambda$ is a hyperparemeter here we need to specify based on how far we will shrink the estimator and $\frac{\sigma^2_{j}}{\sigma^2_k}$ adjusts for the different scale of the data. To effectively scale the estimator on total employment growth $\gamma$, I will fit an AR(4) to on the total employment growth [@anderson2020]. 
+where $\lambda$ is a hyperparemeter here we need to specify based on how far we will shrink the estimator and $\frac{\sigma^2_{j}}{\sigma^2_k}$ adjusts for the different scale of the data. To effectively scale the estimator on total employment growth $\gamma$, I will fit an AR(1) to on the total employment growth as mentioned in *Chapter 4.1*
 
 In equation $4.3.1$, we can see as $i$ (number of estimators) increases, the $Var[a_i^{jk}]$ will then decrease in both cases, which preserved the structure of Minnesota Prior to weight down more distant lags.  
 
 
-In Minnesota prior described above, the hyperparameter $\lambda$ controls the overall tightness (variance) of the prior distribution [@banbura2010large]. If $\lambda=0$, we can see that the prior have no variance, which means the posterior equals the prior and the data have no influence on the estimates. On the contrary, if $\lambda=\infty$, the posterior expectations will be same as ordinary least squares (OLS) estimates. In practice, we tend to shrink the forecasts to the mean value, which is an stable and valid method. Therefore, a small $\lambda$ will shrink the posterior mean towards the zero and benefits . 
+As the Minnesota prior described from the above equation ($4.3.1$ and $4.3.2$), the hyperparameter $\lambda$ controls the overall tightness (variance) of the prior distribution [@banbura2010large]. If $\lambda=0$, we can see that the prior have no variance, which means the posterior equals the prior and the data have no influence on the estimates. On the contrary, if $\lambda=\infty$, the posterior expectations will be same as ordinary least squares (OLS) estimates. In practice, we tend to shrink the forecasts to the mean value, which is an valid method for many macroeconomic data, which have mean reversion pattern. Therefore, a small $\lambda$ shrink the posterior mean towards the zero will greatly benefit the forecasting. 
+
+
+
+Admittedly, the selection of hyperparameter $\lambda$ is important in improving forecast accuracy by controlling the degree of shrinkage. For example, @banbura2010large point out that a gain in efficiency could be made by applying an Bayesian shrinkage in estimating large multivariate VAR models. Moreover, they also conclude that large vector autoregressions (VARs) with shrinkage are credible to conduct structural analysis. Nonetheless, the main problem that encountered is to set an appropriate value for $\lambda$ as models become larger (i.e. how far it will shrink the estimators). Based on applied experiences, Litterman concluded that the shrinkage estimate $\lambda=0.2$ is indeed sufficient to deal with many empirical cases [@litterman1986]. Apart from this, the data size is also an essential basis to be considered when deciding the degree of shrinkage [@banbura2010large]. Unlike the one-digit level (19 sectors) did by @anderson2020, the two-digit level (87 sectors) employment in Australia is more complex and have more variables. Thus, a new shrinkage parameter $\lambda$ should be specified particularly for this case. 
+
+
+In concern of  the size of industries, different two-digit disaggregated sectors may have different sizes and on different scales. It is quite obvious that traditional scaled dependent error measurements (e.g. MAE, MSE) will no longer holds. Even though MAPE being unit-free, it is not appropriate because a tiny change in forecasts in a small disaggregated industry will have significant effects on its MAPE. Accordingly, I will aggregate all sectors to the total employment to handle this problem. Consequently, we will only need to minimise the forecast error of total employment in our case to select the optimal $\lambda$.
+
+
+
+To simulate forecasting performance, I conduct an out-of-sample forecasting experiment. Here,I denote $H$ as our longest forecast horizon to be evaluated, and by $T_{b}$ and $T_{e}$ the beginning and the end of the testing sample, respectively. Under a given forecast horizon $h$, lambda value $\lambda$ and model $m$, for each given period between $T_{b}$ and $T_{e}$, we computer $h$-step-ahead forecasts.
 
 
 
 
+Out-of-sample forecast accuracy is measured in terms of the mean squared forecast error (**MSFE**). 
 
 
-Admittedly, the selection of hyperparameter $\lambda$ is important in improving forecast accuracy by controlling the degree of shrinkage. For example, @banbura2010large point out that a gain in efficiency could be made by applying an Bayesian shrinkage in estimating large multivariate VAR models. Moreover, they also conclude that large vector autoregressions (VARs) with shrinkage are credible to conduct structural analysis. Nonetheless, the main problem that encountered is to set an appropriate value for $\lambda$ as models become larger (i.e. how far it will shrink the estimators). 
+$$
+\begin{aligned}
+MSFE^{(\lambda),m}_{i,h}=\frac{1}{T_{e}-T_{b}}\Sigma^{T_{e}-h}_{T=T_{b}+H-h}({y}_{i,T+h|T}^{(\lambda,m)}-y_{i,T+h})
+\end{aligned}
+$$
 
 
+where ${y}_{i,T+h|T}^{(\lambda,m)}$ is defined as the $h$th steps ahead forecast given the information up to time $T$ and $y_{i,T+h}$ is the actual data for the $h$th steps ahead forecast.
 
 
+In this section, I will provide an effective searching algorithm to evaluate the optimal shrinkage estimator $\lambda$. For our purposes, we want to provide accurate forecasts based on the scenario where no covid happened to support our counterfactual analysis. Therefore, the pre-covid data (before 2020 Quarter One) is split into training/test with a training set of length $n=120$ as $T_b$ and test set of length $n=22$ as $T_e$. As a consequence, I will set the $H=22$ being equal to the length of test set, $h=1$ for one step experiment,
 
 
-From the above equation, we can see a small shrinkage parameter $\lambda$ will tighten the distribution of prior, and vice versa. Based on applied experiences, Litterman concluded that the shrinkage estimate $\lambda=0.2$ is indeed sufficient to deal with many empirical cases [@litterman1986]. At the same time, we should also avoid over-fitting when preserving the most important information from the data. That is, the data size is also an essential basis to be considered when deciding the degree of shrinkage[@banbura2010large]. Unlike the one-digit level (19 sectors) did by @anderson2020, the two-digit level (87 sectors) employment in Australia is more complex and have more variables. Thus, a new shrinkage parameter $\lambda$ should be specified particularly for this case.   
-
-
-
-
-In this section, I will evaluate the efficient shrinkage estimator $\lambda$ with an out-of-sample test algorithm. The out-of-sample is an widely used algorithm to measure the performance of a model in a statistical way while avoiding over-fitting the training dataset. For our purposes, we want to provide accurate forecasts based on the scenario where no covid-19 happened to support our counterfactual analysis. Therefore, the pre-covid data (before 2020 Quarter One) is split into training/test with a training set of length $n=120$ and test set of length $n=21$. After that, it will calculate the mean of accumulated error, which will be the training results (see Figure \ref{talgo}). 
-
-
-
-
+Here is a brief description of our proposed algorithm: 
 
 
 
-```{r talgo, echo=FALSE, fig.align='center',fig.cap="Flowchart of selecting the hyperparameter lambda"}
+\graphicspath{ {/Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figures} }
 
-DiagrammeR::mermaid("
-graph TB
-  A[BEGIN]-->B[Pre-covid dataset 1984-Q4 to 2020-Q1]
-  B-->C[Set up a list containing training lambda values -- init = 0.0001, step = 0.0001 and stop = 0.1]
-  C-->D[Pick one lambda from the list each time]
-  D-->E[Training set 120 observations, Test set 21 observations]
-  E-->G[Estimate model based on the lambda ]
-  G-->H[Draw estimated forecasts]
-  H-->F[Subtract the test set 21 observations to calculate errors]
-  F -->
-  
-
-", height = 300)
-```
+\begin{figure}[ht]
+\includegraphics[scale=0.7]{Flowchart_algo}
+\centering
+\caption{Proposed algorithm of selecting optimal $\lambda$}
+\label{fig:sealgo}
+\end{figure}
 
 
 
 
-Apart from this, we will also need to select an suitable error measurement to select an appropriate shrinkage parameter $\lambda$. In our study, due to the size of industries, different two-digit disaggregated sectors may varies. Accordingly, we need to use the unit-free error measurement to search for the $\lambda$ that minimize the forecasting errors. 
+To mitigate the impact of high-dimensionality. I designed algorithm starting from $0.0001$, with a step of $0.0001$ and will stop at $0.3$. There are 3000 different lambdas are considered and it will automatically return the lambda with minimum MSFE (see Matlab code in my github [Link https://github.com/elvisssyang/Disaggregated_Employment/tree/main/Matlab]). 
 
 
 
+In summary, we prefer the value of $\lambda$ that has the lowest MAFE for our total employment. From the return value of our searching algorithm (see Figure \ref{fig:sealgo}). The estimated hyperparameter $\lambda=0.0808$ has the lowest mean scaled forecast error (MSFE). Therefore, we conclude that the hyperparameter $\lambda=0.0808$ outperforms other values in our training steps, which will be applied into our Minnesota prior. 
 
-*Percentage error :* 
-
-
-+ Mean absolute percentage error: $MAPE = mean(|\frac{e_t}{y_t}|)$ 
-
-
-
-
-
-The percentage error (i.e. MAPE) has the advantage of being unit-free. It will become unreliable when the data have zeros or extreme values (i.e. very close to zero). In our analysis, all forecasts are back transformed from the log-differenced VAR model. Therefore, we neither have zero values recorded nor have extreme values. As a result, I will use it as a primary reference in this literature.
-
-
-
-
-\vspace{24pt}
-
-
-
-
-
-
-
-
-
-Table \ref{testres} demonstrates the training results for $\lambda$ with the following values $0.3,0.2,0.19 \cdots 0.14$ and $0.1$ after using the time series cross validation algorithm 
-
-\begin{table}[h]
-\begin{center}
-\begin{tabular}{|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}
-\hline\hline
-\multicolumn{6}{|c|}{Training results using time-series cross validation}\\
-\hline
-\multicolumn{6}{|c|}{initial training (n = 20) ; iteration step (hor = 1)}\\
-\hline\hline
- $\lambda$    & MAE         & MAPE    & MASE   & RMSE    & RMSSE  \\
-\hline\hline
-0.3  & 1.0832 e+03 & 14.5901 & 0.1465 & 32.5049 & 0.3778 \\
-0.21 & 1.0738 e+03 & 14.1178 & 0.1457 & 32.3324 & 0.3765 \\
-0.2  & 1.0727 e+03 & 14.0599 & 0.1457 & 32.3137 & 0.3764 \\
-0.19 & 1.0715 e+03 & 14.0000 & 0.1455 & 32.2937 & 0.3762 \\
-0.18 & 1.0701 e+03 & 13.9371 & 0.1454 & 32.2713 & 0.3760 \\
-0.17 & 1.0685 e+03 & 13.8707 & 0.1453 & 32.2461 & 0.3758 \\
-0.16 & 1.0668 e+03 & 13.8006 & 0.1451 & 32.2180 & 0.3756 \\
-0.15 & 1.0648 e+03 & 13.7253 & 0.1449 & 32.1870 & 0.3753 \\
-0.14 & 1.0626 e+03 & 13.6450 & 0.1446 & 32.1531 & 0.3750 \\
-0.1  & 1.0512 e+03 & 13.2350 & 0.1433 & 31.9753 & 0.37333\\
-\hline\hline
-\end{tabular}
-\end{center}
-\caption{Forecast error for different hyperparameter $\lambda$}
-\label{testres}
-\end{table}
-
-
-
-
-To sum up, We prefer the value of $\lambda$ that has the lowest error measures. From the result of our searching algorithm (see table \ref{testres}), the estimated hyperparameter $\lambda=0.0586$ has the lowest MAPE. Therefore, we conclude that the hyperparameter $\lambda=0.0586$ outperforms other values in our training steps, which will be applied into our Minnesota prior. 
-
-
-
-
-
-## Forecast evaluation with other candidate models 
 
 
 

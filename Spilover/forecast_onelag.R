@@ -53,7 +53,7 @@ p=4
 
 
 
-phi <- read.csv("phi_lambda_00841.csv",header=FALSE) %>% as.matrix #estimated parameters produced by MATLAB code
+phi <- read.csv("phi_lambda_00808.csv",header=FALSE) %>% as.matrix #estimated parameters produced by MATLAB code
 
 n = nrow(d4logdata)
 k = ncol(d4logdata)
@@ -143,14 +143,14 @@ spilloverm5_timesm0 <- m5m0_div |>
 spilloverm5_m0 <- m5m0_min |> 
   sort(decreasing = TRUE) |> 
   enframe()
-
-
- Manuf <- sum(spilloverm5_m0[grep("Manufacturing", spilloverm5_m0$name),]$value)
-
- Const <- sum(spilloverm5_m0[grep("Construction", spilloverm5_m0$name),]$value)
-
- 
- 
+# 
+# 
+#  Manuf <- sum(spilloverm5_m0[grep("Manufacturing", spilloverm5_m0$name),]$value)
+# 
+#  Const <- sum(spilloverm5_m0[grep("Construction", spilloverm5_m0$name),]$value)
+# 
+#  
+#  
  
 ## forecasts
 # baseline: no covid
@@ -245,11 +245,14 @@ actual_covid <- actual_covid |>
 
 comp_fore <- cbind(allrawfcasts[1:9,],  actual_covid[,ncol(actual_covid)]) 
   
-# Confidence Interval via Bootstrap 
+# Confidence Interval via Bootstrap based on empirical residuals 
+
 
 nboot = 1000
 
 bootstraped_list = matrix(0,20,1000)
+
+confidence_interval = matrix(0,20,2)
 
 resid = d4logdata[-1,] - yhat[-1,]
 
@@ -273,30 +276,44 @@ for (bb in 1:20){
     bootstraped_list[,b] = as.numeric(fraw_boot[6:25,85])
   }
 
- test = as.numeric(quantile(bootstraped_list[bb,], prob = c(0.025,0.975)))
+ confidence_interval[bb,] = as.numeric(quantile(bootstraped_list[bb,], prob = c(0.2,0.8)))
 
 }
 
 
+# Then we can plot the confidence interval respect to the actual forecasts 
+
+
+CI_80 <- data.frame("lower_bound" = confidence_interval[,1],"upper_bound" = confidence_interval[,2])
+
+
+comp_fore <- cbind(CI_80[1:9,], comp_fore)
 
 
 
 
+ggplot(comp_fore,aes(x=Date, y=Employment)) + 
+  geom_line(aes(x = Date, y = Employment), colour = "Blue") + 
+  geom_line(aes(x = Date, y = `96 Total`)) + 
+  geom_line(aes(x = Date, y = `lower_bound`),colour = "Red", linetype = "dashed") +
+  geom_line(aes(x = Date, y = `upper_bound`),colour = "Red", linetype = "dashed") +
+  labs(title = "Forecast Number of Total Employment VS Actual Total Employment", subtitle = "80% CI via Bootstrap with Empirical Residuals") + 
+  ylab("Total Employment") + scale_x_yearqtr(format = "%YQ%q", breaks = seq(as.yearqtr(2020.25),as.yearqtr(2025.0), by = 0.5), minor_breaks= seq(as.yearqtr(2020.25),as.yearqtr(2025.0), by = 0.25))
 
 
-ggplot(comp_fore,aes(x=Date, y=Employment)) + geom_line(aes(x = Date, y = Employment), colour = "Red") + geom_line(aes(x = Date, y = `96 Total`)) + ylab("Total Employment") + scale_x_yearqtr(format = "%YQ%q", breaks = seq(as.yearqtr(2020.25),as.yearqtr(2025.0), by = 0.5), minor_breaks= seq(as.yearqtr(2020.25),as.yearqtr(2025.0), by = 0.25))
+
 
 
 
 
 comp_fore_val <- comp_fore |> 
   mutate(dd_origin = as.yearqtr(Date), Estimated = Employment, `X96.Total` = `96 Total`) |> 
-  select(-`Date`, -`YoY`, - `Employment`, -`96 Total`)
+  select(-`Date`, -`YoY`, - `Employment`, -`96 Total`,-`lower_bound`, -`upper_bound`)
 
 estim_fore <- rbind(origin_fore,comp_fore_val)
 
 estim_fore |> 
-  ggplot(aes(x = dd_origin, y = Estimated))+ geom_line(colour = "Blue") + geom_line(aes(y =`X96.Total`),linetype = "dashed") 
+  ggplot(aes(x = dd_origin, y = Estimated))+ geom_line(colour = "Blue") + geom_line(aes(y =`X96.Total`),colour = "Red",linetype = "dashed") 
 
 
 

@@ -85,11 +85,11 @@
     \endentry
     \entry{anderson2020}{article}{}
       \name{author}{4}{}{%
-        {{hash=754fa330a175eda673e02ad90033c778}{%
+        {{hash=6861cd83340fee107ac6f0e92e76e184}{%
            family={Anderson},
            familyi={A\bibinitperiod},
-           given={Heather},
-           giveni={H\bibinitperiod}}}%
+           given={Heather\bibnamedelima M},
+           giveni={H\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
         {{hash=f535a85e2122cd05c3d8390de8233baa}{%
            family={Caggiano},
            familyi={C\bibinitperiod},
@@ -109,12 +109,12 @@
       \list{publisher}{1}{%
         {Wiley Online Library}%
       }
-      \strng{namehash}{08ac2f35067f96eef5464a94b3e16efb}
-      \strng{fullhash}{915910d06eb9232166d9666eafe328ff}
-      \strng{bibnamehash}{915910d06eb9232166d9666eafe328ff}
-      \strng{authorbibnamehash}{915910d06eb9232166d9666eafe328ff}
-      \strng{authornamehash}{08ac2f35067f96eef5464a94b3e16efb}
-      \strng{authorfullhash}{915910d06eb9232166d9666eafe328ff}
+      \strng{namehash}{abc5487207e90427a7044ec8b3d09453}
+      \strng{fullhash}{d466a673e898319dda8098f06a31d043}
+      \strng{bibnamehash}{d466a673e898319dda8098f06a31d043}
+      \strng{authorbibnamehash}{d466a673e898319dda8098f06a31d043}
+      \strng{authornamehash}{abc5487207e90427a7044ec8b3d09453}
+      \strng{authorfullhash}{d466a673e898319dda8098f06a31d043}
       \field{sortinit}{A}
       \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
       \field{extradatescope}{labelyear}
@@ -410,6 +410,39 @@
       \field{year}{1999}
       \field{pages}{4}
       \range{pages}{1}
+    \endentry
+    \entry{stock2001}{article}{}
+      \name{author}{2}{}{%
+        {{hash=2d01c3b46f4061430cc9eb2a1f6408a4}{%
+           family={Stock},
+           familyi={S\bibinitperiod},
+           given={James\bibnamedelima H},
+           giveni={J\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+        {{hash=a4050fd715c1bcb50e38ec0f1c74b6bf}{%
+           family={Watson},
+           familyi={W\bibinitperiod},
+           given={Mark\bibnamedelima W},
+           giveni={M\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+      }
+      \strng{namehash}{73bd348d7c311859349e1b99e53d984a}
+      \strng{fullhash}{73bd348d7c311859349e1b99e53d984a}
+      \strng{bibnamehash}{73bd348d7c311859349e1b99e53d984a}
+      \strng{authorbibnamehash}{73bd348d7c311859349e1b99e53d984a}
+      \strng{authornamehash}{73bd348d7c311859349e1b99e53d984a}
+      \strng{authorfullhash}{73bd348d7c311859349e1b99e53d984a}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Economic perspectives}
+      \field{number}{4}
+      \field{title}{Vector autoregressions}
+      \field{volume}{15}
+      \field{year}{2001}
+      \field{pages}{101\bibrangedash 115}
+      \range{pages}{15}
     \endentry
     \entry{waggoner1999}{article}{}
       \name{author}{2}{}{%

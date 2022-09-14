@@ -59,6 +59,10 @@ Since the original data from ABS is not tidy. In this thesis, I use the Excel to
 
 + Merge the *96 Private Households Employing Staff and Undifferentiated Goodsand Service Producing Activities of Households for Own Use* and *95 Personal and Other Services* to become *95 Personal and other services (include activities for own use)*.
 
+
++ I will also not address the non-classified series in this thesis due to the data contains many zeros and hard to be distributed into specific sectors (we cannot effectively trace the source of them). To make the forecasts coherent (sum to the total employment) and analysis universal, I will not consider them in our analysis. 
+
+
 Without any zeros, a log transformation can be applied to interprete the percentage change of the employment. The VAR model decided to fit the data requires stationary. As a result, I will further apply a seasonal difference to eliminate the seasonality (i.e. nonstationarity).
 
 

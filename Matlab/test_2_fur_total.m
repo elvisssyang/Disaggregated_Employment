@@ -24,7 +24,7 @@ alldata =  xlsread('ABSemp.xlsx', "B2:CH143");
 %lambda_lst =  [0.1:0.0001:0.3]'; %--- we found the minima between 0.05 & 0.06
 
 
-lambda_lst =  [0.0001:0.0001:0.3]'
+lambda_lst =  [0.0001:0.0001:0.3]';
 
 
 for l = 1:numel(lambda_lst)
@@ -35,7 +35,7 @@ for l = 1:numel(lambda_lst)
     
     
     training = alldata(1:i,:);
-    testing = alldata(i+1:141,:);
+    testing = alldata(i+1:end,:);
 
 
 
@@ -52,7 +52,7 @@ for l = 1:numel(lambda_lst)
     p = 1;
     lambda = lambda_lst(l,:);
 
-    hor = 21; % forecast horizon for iteration (horizon for CV=1)
+    hor = 22; % forecast horizon for iteration (horizon for CV=1)
    
     
     [phi,SIGMA,X,e] = BVAR(y,p,lambda);

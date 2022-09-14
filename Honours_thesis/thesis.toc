@@ -32,9 +32,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4.2}Prior and shrinkage}{16}{section.4.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.3}Shrinkage selection in Bayesian VAR}{17}{section.4.3}%
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.4}Forecast evaluation with other candidate models}{20}{section.4.4}%
+\contentsline {section}{\numberline {4.3}An new approach to select hyperparameter in Minnesota prior}{17}{section.4.3}%
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {5}Sectoral Employment Analysis}{21}{chapter.5}%
 \defcounter {refsection}{0}\relax 
@@ -52,4 +50,4 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {B}Graphs}{27}{appendix.B}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{Bibliography}{33}{appendix*.12}%
+\contentsline {chapter}{Bibliography}{33}{appendix*.11}%
