@@ -20,18 +20,22 @@ RMSE_acc = [];
 % Read data, 19 sectors in the first 19 columns - total in the 20th column
 alldata =  xlsread('ABSemp.xlsx', "B2:CH143");
 
+%fulldata = csvread('full_employment_2.csv');
+%alldata = fulldata(1:142,:);
 
+% alldata = fulldata;
 %lambda_lst =  [0.1:0.0001:0.3]'; %--- we found the minima between 0.05 & 0.06
 
 
 lambda_lst =  [0.0001:0.0001:0.3]';
 
+%for i = 60:1:120
 
 for l = 1:numel(lambda_lst)
 
 
-
-    i= 120; 
+    i= 120;
+    
     
     
     training = alldata(1:i,:);
@@ -52,7 +56,7 @@ for l = 1:numel(lambda_lst)
     p = 1;
     lambda = lambda_lst(l,:);
 
-    hor = 22; % forecast horizon for iteration (horizon for CV=1)
+    hor = 142-i; % forecast horizon for iteration (horizon for CV=1)
    
     
     [phi,SIGMA,X,e] = BVAR(y,p,lambda);
@@ -88,6 +92,7 @@ for l = 1:numel(lambda_lst)
 
        yhat(b,j) = phi(1,j) + yhat(b-1,:) * phi(2:86,j); % do the forecast
 
+
        end
 
 
@@ -111,7 +116,7 @@ for l = 1:numel(lambda_lst)
       train_err(b-n,1) = 100 * error(b-n,1) / newraw(b-n,1);
 
 
-
+% 
       MAPE = abs(train_err(b-n,1));
 
       MAPE_withinloop(b-n,:) = MAPE;
@@ -126,13 +131,18 @@ for l = 1:numel(lambda_lst)
 
    MAPE_total = mean(MAPE_withinloop);
 
-   
+    
    MAPE_acc(l,:) = MAPE_total;
 
    RMSE_acc(l,1) = RMSE;
 
    
 end 
+
+
+%test_acc(i,1) = min(RMSE_acc);
+
+%end 
 
 
 
@@ -151,7 +161,7 @@ end
 %     end 
 % 
 % end 
-% 
+
 
 
    

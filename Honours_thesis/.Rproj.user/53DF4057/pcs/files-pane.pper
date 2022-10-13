@@ -2,7 +2,7 @@
     "sortOrder": [
         {
             "columnIndex": 2,
-            "ascending": true
+            "ascending": false
         }
     ],
     "path": "~/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis"

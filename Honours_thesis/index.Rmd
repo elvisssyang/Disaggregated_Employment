@@ -28,8 +28,26 @@ You will also need LaTeX installed on your computer.
 
 # Acknowledgement {-}
 
-I would like to express gratitude to my supervisor Professor Farshid Vahid and my coordinatior Professor Heather Anderson for their selfless support and devoted care along the way.
+I would like to express gratitude to my supervisor Professor Farshid Vahid and my coordinator Professor Heather M Anderson for their selfless support and devoted care along the way. I would also like to thank my family and Xiefei Li for their continuous supports and encouragement. 
 
+
+
+\vspace{48pt}
+
+`Matlab version. 2022a` codes are used to generate the estimated coefficients for the proposed Bayesian VAR model. The author would like to thank Benjamin Wong for providing the MATLAB packages.
+
+R `4.1.2 "Bird Hipple"` [@R] and Rstudio `2022.07.1+554 "Spotted Wakerobin"` [@Rstudio] are used for data analysis in this thesis. 
+
+\vspace{12pt}
+
+R package used and their versions in this research include `matrixStats 0.61.0` [@package_matrixStats], `ggplot2 3.3.5` [@package_ggplot2], `zoo 1.8.9` [@zoo], `tidyverse 1.3.1` [@tidyverse], `dplyr 1.0.8` [@dplyr], `stats 4.1.2` [@stats], `readr 2.1.2` [@readr], `pracma 2.3.8` [@pracma], `lubridate 1.8.0` [@lubridate], `fpp3 0.4.0` [@fpp3], `ggpubr 0.4.0`[@ggpubr]. 
+(*Note: In no particular order above*)
+
+
+\vspace{12pt}
+
+
+This thesis is produced using the R package `bookdown 0.25` [@bookdown] with the Rmarkdown template package `monash 0.0.0.9000` for the honours thesis in the Department of Econometrics and Business Statistics, Monash University [@monash]
 
 
 
@@ -49,10 +67,14 @@ I declare that this thesis contains no material which has been submitted in any 
 # Abstract {-}
 
 
-I develop a multivariate time series model of employment in Australia at a disaggregated level with 87 sectors in total. I use this model to determine the long run employment spillovers to the total employment at this level. Our findings is that ...  
-
-Moreover, I provide an interactive shiny app that will give an intuitive visualization of these changes. At the stage of recovering from COVID-19, it will provide more useful information for policymakers on recovering total employment rate more effectively. 
+I investigate the performance of Australian employment at a disaggregated level and compare the actual situation with the no-COVID situation, generated via a series of appropriate forecasting methods.  A multivariate time series model is developed to determine the long run employment spillovers to the total employment at this level. My results suggest that in the two-digits subsectoral level, `Other Store-Based Retailing`, followed by `Administrative Services`, `Furniture and Other Manufacturing` will generate the strongest positive spillovers to the total economy. One of the main contributions of this paper is that the government can stimulate these high and positive spillovers to recover the total employment rate effectively and efficiently. 
 
 
+Moreover, I evaluate the impacts of COVID-19 on the Australian labour market with the conterfactual analysis. The outcomes demonstrate that the pandemic has a long-lasting effect on the economy. Besides, I point out the main reason behind the lowest unemployment rate record and uncover the underlying problems. The spillover analysis together with the evaluation, thus, provide another aspect for policymarkers to improve the Australian economy. 
+
+
+
+
+<!-- Moreover, I provide an intuitive evaluation of the changes in Australia after COVID-19 happened. I have concluded that the impacts COVID-19 to the Australian labour market is continuing and will not recover in the foreseen future. Thus, together with the spillover analysis, this thesis will provide more useful information for policymakers.  -->
 
 

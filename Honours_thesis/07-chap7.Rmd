@@ -6,11 +6,71 @@ knit: "bookdown::render_book"
 
 # Discussions and conclusion 
 
+In conclusion, I have developed a dynamic Bayesian VAR system for analysis the two-digit employment dynamics in Australia, which provides a new idea of analysing the employment by different industries in the Australian labour market. We conducted the spillover analysis, concluding that in the subdivision level, `Other Store-Based Retailing`, followed by `Administrative Services`, `Furniture and Other Manufacturing` will generate strong positive spillovers to the total economy. By stimulating these sectors, the total employment will increase more steadily. 
 
-## Policy Implications 
+
+
+
+<!-- ## Policy Implications  -->
+
+
+<!-- Our analysis suggests that the impacts COVID-19 mitigated as time goes further. Nevertheless, there is no evidence that the pandemic can be controlled or prevented thoroughly but lives together with humans. Therefore, the COVID-19 will continue influencing the labour market. Maintain the employment rate is one of the goals that the Australia government is trying to achieve. The current situation implies that they should implement more appropriate policies to support the recovery of the economy. One possible strategy is to stimulate these high spillover sectors in a disaggregated level.  -->
+
+
+
+
+
+<!-- Despite this, we have to admit that the COVID-19 is still not a past story. Strategies may need to be taken by the Australian government to stimulate these high spillover sectors in a disaggregated level. -->
+
+<!-- For example, the government can encourage in-store shopping by providing hardship funds to `Other Store-Based Retailing`. Moreover, they can also deduct tax for businesses in the `Manufacturing` related sectors.  -->
+
+
+<!-- Besides, the micro businesses also play important roles in economic recovery. While supporting the large-share sectors, it is essential for the government to pay attention to the micro businesses. They also have great potential for economic development in industries like `Agriculture` and `Information` related services (e.g. `Broadcasting `or `Library Services`).  -->
+
+
+
+
 
 
 
 
 ## Limitation and possible extensions 
+
+### Limitations on Data. 
+
+In this research, the Non-classified data have not been taken into consideration in our research. This because it will influence our sectoral dynamics if I distribute these data by the shares of two-digit subsectors. Instead, I aggregate the existing disaggregated data to be our total employment in order to make our forecasts coherent. A possible future direction will be considering an advanced classification algorithm to effectively cluster these non-classified data into the groups. Apart from this, the details of job keepers or how did the subsidies flow into each disaggregated subsectors are also unclear due to the lack of resources.
+
+Moreover, we only consider the ANZSIC subdivision in our case (two-digit sectors) only. In the future, it will be great to consider adding the Division level (the broadest level) and the group and classes (the finest level) using the hierarchical forecasting. 
+
+### Limitations on Assumption 
+
+
+The predictions we examined are based on the assumption that the both the dynamics and structure of the sectoral employment will not change before and after COVID-19. Therefore, a further research area could consider to justify whether the dynamics or structure of the industries has changed after the COVID.  
+
+
+### Advanced algorithm in hierarchical forecasting  
+
+In this research, the Bayesian VAR modelling method has provided us a great analysis of employment dynamics in Australia. However, when there are more data and hierarchies are considered, the VAR modelling may also be inefficient. Therefore, a more efficient machine learning method can be considered in the application of hierarchical forecasting. 
+
+
+To improve the forecast accuracy, we use machine learning to give a new way designed for accurate and interpretable forecasts. First, pick up the common features or data types from the data and cluster them into groups based on them. Second, conduct the group-based forecasting for each new cluster. Then, we can reconcile them to be coherent, which will benefit the decision and policy implementation processes.  
+
+
+Here, I will given an example of the machine learning algorithm. 
+
+1. Cluster bottom level data  based on common features (e.g. domain-specific features, time series characteristic etc.) via possible machine learning algorithms (e.g. manifold learning, k-means).
+
+
+
+2. Develop a model to forecast each time series in the same cluster. It looks restrictive but two points should be helpful in improving flexibility. First, the choice of model is flexible and can be complex. There are many types of model to choose, depending on the domain-types and time series patterns. Moreover, the types of model are not limited, which can be either a single model (e.g. univariate, multivariate and ML) or a combined model (e.g. Weighted average of various forecasting methods). Second, forecasting methods can be different for different clusters of the data, due to some unique patterns in time series. 
+
+
+3. Reconcile our forecasts to make them coherent. To get more interpretable results, reconciliation is required to fit all forecasts produced in our program into the original structure of the data (i.e. original groups).
+
+
+
+
+
+
+
 

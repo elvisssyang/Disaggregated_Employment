@@ -21,7 +21,7 @@ library(fpp3)
 
 
 
-alldata_init <- readr::read_csv("ABSemp.csv")  |> 
+alldata_init <- readr::read_csv("full_employment.csv")  |> 
   mutate(Quarter = yearquarter(my(Date))) |> 
   select(-Date, -`96 Total`) 
 
@@ -54,7 +54,7 @@ maxhor=2 # maximum forecast horizon where we are imposing conditions
 
 
 
-phi <- read.csv("phi_all_4lags.csv",header=FALSE) %>% as.matrix #estimated parameters produced by MATLAB code
+phi <- read.csv("phi_four_02.csv",header=FALSE) %>% as.matrix #estimated parameters produced by MATLAB code
 
 n = nrow(d4logdata)
 k = ncol(d4logdata)

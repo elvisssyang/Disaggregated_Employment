@@ -1,0 +1,23 @@
+---
+title: "Exercise"
+Subtitle: "EXercise for HTML ppt" 
+author: "Elvis Yang"
+institute: "Monash Univeristy" 
+date: '2022-04-11'
+output:
+  xaringan::moon_reader:
+    nature:
+      slideNumberFormat: "%Current%"
+      highlightStyle:github
+      highlghtLines:true
+      ratio:16:9
+      countIncrementalSlides: true 
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+

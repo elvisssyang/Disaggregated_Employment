@@ -15,17 +15,17 @@ addpath('_funcs')
 
 % Test script to estimate Australia BVAR of employment growth
 % Read data, 19 sectors in the first 19 columns - total in the 20th column
-alldata =  xlsread('ABSemp.xlsx', "B2:CH143");
+%alldata =  xlsread('ABSemp.xlsx', "B2:CH143");
 
-
+alldata = csvread('full_employment.csv');
 
 logall = log(alldata);
 
 all_y = 100*(logall(5:end,1:85)-logall(1:(end-4),1:85));
 
-p=1;
+p=4;
 
-min_lambda = 0.0841;
+min_lambda = 0.0808;
 
 
 % ### Package Use 
@@ -41,7 +41,7 @@ min_lambda = 0.0841;
 
 
 
-csvwrite( "phi_lambda_00841.csv", phi_2)
+csvwrite( "phi_new_00808.csv", phi_2)
 
 
 
