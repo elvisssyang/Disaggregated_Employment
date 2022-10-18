@@ -171,7 +171,7 @@ colors <- c("Actual" = "blue", "Forecasts" = "red")
  
 
 ## Distribute the NFD data 
-
+## We tested to distribute the NFD data by shares here
 # 
 # NFD <- read_csv("NFD_data.csv")
 # 
@@ -231,7 +231,7 @@ colors <- c("Actual" = "blue", "Forecasts" = "red")
 # new_empdat <- cbind(new_empdat,rowSums(new_empdat))
 # 
 # 
-# write.csv(file="full_employment_2.csv",new_empdat)
+# write.csv(file="full_employment.csv",new_empdat)
 # 
 # 
 #  

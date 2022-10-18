@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Sectoral Employment Dynamics in Australia</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Zhixiang Yang (Elvis)" />
+    <script src="libs/header-attrs-2.13/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <link href="libs/font-awesome-animation-1.0/font-awesome-animation-emi.css" rel="stylesheet" />
+    <script src="libs/fontawesome-5.0.13/js/fontawesome-all.min.js"></script>
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+    <!--
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
+    -->
+    <link rel="icon" href="images/favicon.ico"  type='image/x-icon'/>    
+    <link rel="stylesheet" href="assets/animate.css" type="text/css" />
+    <link rel="stylesheet" href="assets/monash-logo.css" type="text/css" />
+    <link rel="stylesheet" href="assets/monash-brand.css" type="text/css" />
+    <link rel="stylesheet" href="assets/monash-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="assets/styles.css" type="text/css" />
+    <link rel="stylesheet" href="assets/custom.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+
+background-color: #006DAE
+class: middle center hide-slide-number
+
+
+&lt;div class="shade_black"  style="width:60%;right:0;bottom:0;padding:10px;border: dashed 4px white;margin: auto;"&gt;
+&lt;i class="fas fa-exclamation-circle"&gt;&lt;/i&gt; These slides are viewed best by Chrome and occasionally need to be refreshed if elements did not load properly. 
+&lt;/div&gt;
+
+&lt;br&gt;
+
+.white[Press the **right arrow** to progress to the next slide!]
+
+---
+
+
+background-image: url(images/auz_workers.jpeg)
+background-size: cover
+class: hide-slide-number split-70 title-slide
+count: false
+
+.column.shade_black[.content[
+
+&lt;br&gt;
+
+# .monash-blue.outline-text[Sectoral Employment Dynamics in Australia]
+
+&lt;h2 class="monash-blue2 outline-text" style="font-size: 30pt!important;"&gt;&lt;/h2&gt;
+
+&lt;br&gt;
+
+&lt;h2 style="font-weight:900!important;"&gt;A story of 87 two-digits Sectors&lt;/h2&gt;
+
+.bottom_abs.width100[
+
+*Zhixiang Yang (Elvis)* 
+
+
+Department of Econometrics and Business Statistics
+
+<span>&lt;i class="fas  fa-envelope faa-float animated "&gt;&lt;/i&gt;</span>  zyan0056@student.monash.edu
+
+10th April 2022
+
+&lt;br&gt;
+]
+
+
+]]
+
+
+
+&lt;div class="column transition monash-m-new delay-1s" style="clip-path:url(#swipe__clip-path);"&gt;
+&lt;div class="background-image" style="background-image:url('images/large.png');background-position: center;background-size:cover;margin-left:3px;"&gt;
+&lt;svg class="clip-svg absolute"&gt;
+&lt;defs&gt;
+&lt;clipPath id="swipe__clip-path" clipPathUnits="objectBoundingBox"&gt;
+&lt;polygon points="0.5745 0, 0.5 0.33, 0.42 0, 0 0, 0 1, 0.27 1, 0.27 0.59, 0.37 1, 0.634 1, 0.736 0.59, 0.736 1, 1 1, 1 0, 0.5745 0" /&gt;
+&lt;/clipPath&gt;
+&lt;/defs&gt;	
+&lt;/svg&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+
+
+---
+# Background 
+
+&lt;br&gt;
+
+
+.grid[
+
+&lt;div style="font-size:18pt"&gt;
+&lt;h2&gt;Health threats&lt;/h2&gt;
+&lt;p&gt;
+&lt;b style="font-size:24pt"&gt;Life impacts (till last week)&lt;/b&gt;&lt;br&gt;
+6.07 million people infected and 7355 people have died. There are many short-term and long-term adverse effects on people who get covid-19. &lt;br&gt;
+&lt;br&gt;
+&lt;b style="font-size:24pt"&gt;Economic impacts&lt;/b&gt;&lt;br&gt;
+Australia has lost billions of money because of the pandemic. In 2020, 72% of businesses generated much lower revenue than before. Moreover, the job losses have reached 1.6 million jobs lost in two weeeks after the global pandemic was announced. The underemployment rate hit historically high with 13.8% by the end of April, 2020. 
+&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;img src="images/covid.png" alt="Trulli" style="width:60%;height:auto"&gt;
+&lt;img src="images/covid2.png" alt="Trulli" style="width:53%;height:auto"&gt;
+&lt;img src="images/covid3.png" alt="Trulli" style="width:40%;height:auto"&gt;
+]
+
+
+---
+# Research Aim 
+
+__The overall research aim is to evaluate the employment effects of COVID-19 via developing a model for the two-digit subsectors (&lt;u&gt;87 totally&lt;/u&gt;) .  __ 
+
+&lt;small style="font-size:14pt"&gt; I'm also trying to solve the following tasks: &lt;/small&gt;
+
+
+--
+
++ To construct a time series multivariate model of employment in 87 subsectors of the Australian economy. 
+
+--
+
++ To use this model to conduct a contrafactual analysis 
+
+--
+
++ To use this model to determine which sectors have the highest impact (or positive spillover) on employment growth. 
+
+
+---
+# Review of Literature 
+# Sectoral studies of COVID-19:
+
+
+
+.font_my_2[
+
++ At a worldwide level, International Labor Organisation provided some initial estimates and concluded the "Accommodation &amp; Food services", "Real Estate, Business,&amp; Administrative Activities", "Manufacturing", and "Wholesale &amp; Retail Trade" as high risk sectors. 
+ 
+
++ In US, &lt;small style="font-size:13pt"&gt;Ludvigson,Ma, and Ng (2020)&lt;/small&gt; developed a costly disaster model to translate the impacts of deadly disasters in recent US history and modeled as shocks to predict the COVID-19 influences.  &lt;small style="font-size:13pt"&gt;Gregory, Menzio, and Wiczer (2020)&lt;/small&gt; expand some Model-based analysis of the disaggregate impacts of 20 sectors. 
+
+
++ In France, &lt;small style="font-size:13pt"&gt;Barrot, Grassi and Sauvagnat (2020)&lt;/small&gt; estimated the impacts at sectoral level. They then use a production network model to estimate the drop of total GDP and sectoral performances. 
+
+
+]
+
+--
+### Limitation:
+
+However, not many studies have done in Australia (as a small open economy nothing like US, Europe).
+
+
+
+
+---
+# Review of Literature
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+.grid[
+.font_my_2[
+
+### An Aussie story begins:
++ Anderson et al. (2020) conducted a multivariate time series Bayesian VARX model for 19 board sectors in Australia. Their research conducted in 2020 at the time full of uncertainty. Therefore, they applied an "conditional forecasting" method to simulate different scenarios for the sectoral employment in Australia during the pandemic. 
+
+
+
+### Limitation:
+
+Some useful information about macroeconomic analysis &lt;u&gt;has been ignored &lt;/u&gt; due to the differences in 19 (Board level) sectors and 87 (Two-digit level) sectors. 
+
+
+]
+
+.font_my_2[
+
+&lt;img src="figure/ANZSIC.png" style="width: 90%; float:right"/&gt;
+
+]
+
+]
+
+---
+# Exploratory Data Analysis
+
+
++ **Don't judge them by their appearances**
+
+
+&lt;small style="font-size:13pt"&gt;Here is the reason why we expand Anderson et al. (2020) to a two-digit level. See the differences :-) &lt;/small&gt; &lt;small style="font-size:13pt"&gt;If we stimulate a industry at a board sector level, our policy may **lack of efficiency**. &lt;/small&gt;
+
+
+&lt;br&gt;
+
+.grid[
+
+&lt;img src="figure/agg_19.png" style="width: 100%; float:left"/&gt;
+
+&lt;img src="figure/agg_87.png" style="width: 100%; float:right"/&gt;
+
+
+]
+
+
+&lt;br&gt;
+
+
+
+---
+# Exploratory Data Analysis
+
+&lt;img src="figure/free_87.png" style="width: 90%; float:center"/&gt;
+
+
+&lt;!-- This is not a single case, just be aware that there are many two-digit sectors performs differently. --&gt;
+
+---
+# Project Design (Data)
+
+
+&lt;br&gt;
+
+
++ **Data collection and processing**
+.font_my_2[
+
++ Data is gained from [ABS Labour Force, Australia, Detailed](https://www.abs.gov.au/statistics/labour/employment-and-unemployment/labour-force-australia-detailed/latest-release)
+
++ An **logarithm** and a **seasonal difference **will be conducted to eliminate the seasonality and make it **stationary**, which will make it easier to conduct further steps. 
+
+]
+
+&lt;br&gt;
+
++ **Why don't I use the seasonally adjusted data ?**
+--
+.font_my_2[
+
++ Seasonally adjusted sectoral data in ABS do not add up seasonally adjusted total employment. There is no evidence of how they process the data so it will be problematic if we use it. I CANNOT make reliable evaluation !!! 
+
++ All new changes are expressed in terms of the raw figures.  
+]
+
+---
+
+# Project Design (Modelling)
+
++ **Bayesian Vector Autoregression**(BVAR) is a useful model to estimate a large number of parameters (while sample size is small) in a statistically coherent way. &lt;small style="font-size:14pt"&gt;(Anderson et al.,2020;Litterman, 1986;Bańbura,Giannone,&amp;Reichlin,2010)&lt;/small&gt;
+
+
+`$$\textbf{y}_t=\textbf{c}+\textbf{A}_1 \textbf{y}_{t-1}+\textbf{A}_2\textbf{y}_{t-2}+\textbf{A}_3\textbf{y}_{t-3}+\textbf{A}_4\textbf{y}_{t-4}+\bf{\Gamma}\textbf{x}_{t-1}+\bf{u}_t$$`
+.font_small[
+**where:**  
+]
+
+
+.font_my_2[
+
++ `\(\bf{y}_t\)` is an `\(87\times1\)` vector of two-digit subsectoral employment growth rate at time `\(t\)` with `\(\bf{A}_{1,2,3,4}\)` are `\(87\times87\)` parameter matrices. There are four lags of growth rate due to the quarterly data in total. 
+
++ `\(\bf{x}_{t-1}\)` is the `\(4\times1\)` vector of 4 lags of the growth rate of total employment with `\(\bf{\Gamma}\)` is `\(87\times4\)` parameter matrices, which act as economy-wide factors. 
+
++ Reduced form errors `\(\bf{u}_t \sim (0,\bf{\Sigma})\)`. 
+
+]
+
+&lt;!-- Also mentioning that we will take log and take  fourth difference to remove seasonality.
+
+2. the reason why we put four lags is because it is a quarterly data--&gt;
+
+
+---
+# Project Design (Modelling)
+
+
+
+.grid[
+.font_my_2[
+&lt;ul&gt;&lt;li&gt;&lt;b&gt;Bayesian VARX Model&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;
+
+&lt;br&gt;
+
+ **Aim**: Analyse Australia sectoral dynamics in a 87 two-digit level and predict the long run effects. 
+ 
+ **Training data**: Historical employment data from 1984:Q4 to 2019:Q4
+ 
+ &lt;br&gt;
+  
+ **Training methods** : Time series Cross Validation (*etc.*)
+ 
+ &lt;br&gt;
+  
+ **Models that will be compared **: 
+  
+  a. Univariate ARIMA models 
+  
+  b. ETS models
+  
+  c. Light GBM model 
+    
+  d. Other machine learning models 
+    (if time permits) 
+
+]
+
+.font_my_2[
+
+&lt;ul&gt;&lt;li&gt;&lt;b&gt;Prior Selection &lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;
+
+&lt;br&gt;
+
+ **Minnesota Prior** is a useful strong prior distribution for Bayesian estimators. &lt;small style="font-size:11pt"&gt;(Anderson et al.,2020;Litterman,    1986;Bańbura,Giannone,&amp;Reichlin,2010)&lt;/small&gt;
+
+&lt;br&gt;
+
+ **Benefits**:  
+  a. Eliminate &lt;u&gt;high-dimensionality&lt;/u&gt; curse. 
+  
+  b.  It makes the most &lt;u&gt;recent lag&lt;/u&gt; provide more information than distant lags. 
+  
+  c. It makes &lt;u&gt;own lags&lt;/u&gt; explain more than the lags of other variables.
+  
+  
+  &lt;br&gt;
+  
+ **Apply** : I will apply it in the BVAR system by creating a Normal- Inverse-Wishart prior (which retain the principal of Minnesota prior) and then adding dummy observations to put the posterior moments of Normal IW prior inside our BVAR system. &lt;small style="font-size:11pt"&gt;(Bańbura,Giannone, and Reichlin (2010))&lt;/small&gt; 
+
+]
+]
+
+
+---
+#Project Design (Sectoral Multiplier Analysis)
+
+
+.grid[
+
+.font_my_2[
+
+&lt;br&gt;
+
+
+#### Background
+
+The total employment growth is: 
+
+`$$GR_T=\sum_{j=1}^{87} w_j\times {GR}_j$$`
+
+&lt;small style="font-size:12pt"&gt;(where `\(w_j\)` is the share of employment of two-digit sector `\(j\)` in the total employment and  `\(GR_j\)`  is the growth rate in employment of two-digit sector j and  `\(GR_T\)`  is the growth rate in total employment )&lt;/small&gt;
+
+📈 Due to the interconnection of macroeconomic two-digit subsectors, when a two-digit subsector `\(j\)` has an increase in employment, in the long run, it may have spillover effect onto other two-digit subsectors, especially those that have high connections with the two-digit subsector `\(j\)`. 
+
+]
+
+
+
+.font_my_2[
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+&lt;ul&gt;&lt;b&gt;Why it is useful?:&lt;/b&gt;&lt;/ul&gt;
+
++ This will take the &lt;u&gt;structure of industries&lt;/u&gt; into consideration, which is more closer to the reality. It also allows us to assess the damage of COVID-19 to these industries.  
+
++ This will help us to evaluate and improve the efficiency. For example, if policies simulate these subsectors, there will be a *bonus* and then we can say &lt;u&gt;"a dollar to these high spillover industries is more valuable than a dollar"&lt;/u&gt;
+
+]
+]
+---
+# Simple Example
+
+
+.grid[
+
+.font_my_2[
+
+&lt;br&gt;
+
+
+## Positive spillover scenario:
+
+Assume there is a high demand of refurnishing houses, then employment in house construction industry will increase. What will happen in the long run? 
+
+#### Answers: 
+
++ More glass windows and wood are needed, which produces work for people in glass and wood manufacturing sectors such as window manufacturers, fence and gate builders. 
+
++ As a result, if a policy has an immediate effect on increasing the employment in the house construction industry. In the long run, the total employment will rise more than the immediate effect for house construction industry due to the indirect effect on glass and wood manufacturing industry, which has also have a positive impact on the total employment. 
+
+]
+.font_my_2[
+
+&lt;br&gt;
+
+&lt;img src="images/window.jpeg" style="width:80%"&gt;
+&lt;img src="images/fence.png" style="width:76%"&gt;
+
+]
+
+
+
+]
+
+
+---
+# Timeline
+
+## Completed work
+
+&lt;br&gt;
+&lt;table class="table" style="font-size: 18px; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Timeline &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Tasks &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Week 2 - 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Data collection and background reading &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Week 5-7 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Preparing readings on Bayesian VAR model &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Week 8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Prepare readings on Sectoral Multiplier Analysis &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; week 9-10 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Write research proposal and prepare the Wednesday presentation &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;br&gt;
+
+## Plan for the research
+
+&lt;br&gt;
+&lt;table class="table" style="font-size: 18px; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Timeline &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Tasks &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; June - July &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Modelling of two-digit subsectoral employment &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; August &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Train the model using pre-covid data with BVAR model and compare the accuracy with other models &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; September &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; apply forecasts using BVAR , conduct both conterfactual analysis and sectoral multiplier analysis &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; October &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Write my thesis and prepare for the second presentation &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;br&gt;
+
+
+
+
+---
+# Future Research Directions
+
++ It is expected that our forecast model can capture the sectoral dynamics in Australia well after training the model.  
+
+&lt;br&gt;
+--
+
++ To compare the model with some typical models, I will try to figure out the advantages of my selected model (&lt;u&gt;BVAR&lt;/u&gt;). 
+
+&lt;br&gt;
+--
+
++ Conducting contrafactural analysis to compare different scenarios to the reality. Assessing the damage of COVID-19 to industries in both short and long run.  
+
+&lt;br&gt;
+--
+
++ Consider a sectoral multiplier analysis, which can provides a better scope of some &lt;u&gt;**"Very Important"**&lt;/u&gt; industries on the road of recovering. 
+
+&lt;br&gt;
+---
+class: center
+# 👨‍🏫 SPECIAL 👨‍💻 THANKS 👩‍🏫
+&lt;br&gt;
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+
+.monash-blue[I would like to gratitude my supervisor, 
+
+**Farshid Vahid**, for your patient and selfless guidance.  ]
+
+&lt;br&gt;
+
+.monash-blue[I would also appreciate **Heather Anderson** for your devoted coordination along the journey.]
+
+
+---
+##Figure Source 
+.font_small[
+
+covid image1: https://humanrights.gov.au/our-work/childrens-rights/publications/impacts-covid-19-children-and-young-people-who-contact-kids
+
+covid image2: https://aurin.org.au/covid-and-employment/
+
+covid image3: https://www.forbes.com/sites/advisor/2020/04/14/coronavirus-concerns-will-less-income-or-job-loss-hurt-your-credit-score/?sh=648c744e4dc4
+
+Front page Data Source: The first year of COVID-19 in Australia: direct and indirect health effects, Summary - Australian Institute of Health and Welfare. (2022). Retrieved 8 May 2022, from https://www.aihw.gov.au/reports/burden-of-disease/the-first-year-of-covid-19-in-australia/summary
+
+fence:https://canberraweekly.com.au/best-fencing-contractors/
+
+window maker: https://www.bizjournals.com/tampabay/news/2020/02/05/pgt-completes-92m-acquisition-of-tampa-based-door.html
+
+]
+
+## Major references
+
+.font_small[
+
+ABS. (2021). One year of covid-19: Aussie jobs, business and the economy. Retrieved April 29, 2022, from https://www.abs.gov.au/articles/one-year-covid-19-aussie-jobs-business- and-economy
+
+Anderson, H, Caggiano, G, Vahid, F, &amp; Wong, B. (2020). Sectoral employment dynamics in australia and the covid-19 pandemic. Australian Economic Review, 53(3), 402–414.
+
+
+Bańbura, M, Giannone, D, &amp; Reichlin, L. (2010). Large bayesian vector auto regressions. Journal of applied Econometrics, 25(1), 71–92.
+
+
+International Labour Organization 2020. ILO Monitor: Covid‐19 and the World of Work.
+
+
+Kadiyala, KR, &amp; Karlsson, S. (1997). Numerical methods for estimation and inference in bayesian var-models. Journal of Applied Econometrics, 12(2), 99–132.
+
+Litterman, RB. (1986). Forecasting with bayesian vector autoregressions—five years of experience.Journal of Business &amp; Economic Statistics, 4(1), 25–38.
+
+]
+---
+
+
+
+
+background-image: url(images/auz_workers.jpeg)
+background-size: cover
+class: hide-slide-number split-70
+count: false
+
+.column.shade_black[.content[
+
+&lt;br&gt;&lt;br&gt;
+
+## Acknowledgements
+
+Slides produced using [Rmarkdown](https://github.com/rstudio/rmarkdown) with [xaringan](https://github.com/yihui/xaringan) styling. 
+
+
+&lt;br&gt; 
+
+
+&lt;br /&gt;
+This work is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
+
+&lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;
+
+
+##Thanks for Listening
+## Any Questions?
+
+.bottom_abs.width100[
+
+Author: Zhixiang Yang (Elvis)
+
+Department of Econometrics and Business Statistics&lt;br&gt;
+<span>&lt;i class="fas  fa-envelope faa-float animated "&gt;&lt;/i&gt;</span>  zyan0056@student.monash.edu
+
+]
+
+
+]]
+
+
+
+&lt;div class="column transition monash-m-new delay-1s" style="clip-path:url(#swipe__clip-path);"&gt;
+&lt;div class="background-image" style="background-image:url('images/large.png');background-position: center;background-size:cover;margin-left:3px;"&gt;
+&lt;svg class="clip-svg absolute"&gt;
+&lt;defs&gt;
+&lt;clipPath id="swipe__clip-path" clipPathUnits="objectBoundingBox"&gt;
+&lt;polygon points="0.5745 0, 0.5 0.33, 0.42 0, 0 0, 0 1, 0.27 1, 0.27 0.59, 0.37 1, 0.634 1, 0.736 0.59, 0.736 1, 1 1, 1 0, 0.5745 0" /&gt;
+&lt;/clipPath&gt;
+&lt;/defs&gt;	
+&lt;/svg&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+
+
+---
+class: center
+#APPENDIX (Bayesian VAR)
+
+.font_my_2[
+`$$\begin{align}
+\textbf{y}_t&amp;=\textbf{c}+\textbf{A}_1 \textbf{y}_{t-1}+\textbf{A}_2+\cdots+\textbf{A}_4\textbf{y}_{t-4}+\bf{\Gamma}_1\textbf{x}_{t-1}+\bf{u}_t\\
+&amp;=
+\begin{bmatrix}
+c_1\\
+\vdots\\
+c_2
+\end{bmatrix}
++
+\begin{bmatrix}
+a_1^{11}&amp;\cdots&amp;a_1^{1n}&amp;\cdots&amp;a_4^{11}&amp;\cdots&amp;a_4^{1n}&amp;\gamma_1^{1}&amp;\cdots&amp;\gamma_4^{1}\\
+\vdots&amp;\ddots&amp;\vdots&amp;\ddots&amp;\vdots&amp;\ddots&amp;\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\
+a_1^{n1}&amp;\cdots&amp;a_1^{nn}&amp;\cdots&amp;a_4^{n1}&amp;\cdots&amp;a_4^{nn}&amp;\gamma_1^n&amp;\cdots&amp;\gamma_4^n\\
+\end{bmatrix}
+\begin{bmatrix}
+\bf{y}_{t-1}\\
+\vdots\\
+\bf{y}_{t-4}\\
+x_{t-1}\\
+\vdots\\
+x_{t-4}
+\end{bmatrix}\\
+&amp;+
+\begin{bmatrix}
+u_{1,t}\\
+\vdots\\
+u_{n,t}
+\end{bmatrix}\\
+\end{align}$$`
+]
+
+.font_my_2[
++ where `\(E(\bf{u}_t\bf{u}'_t)=\bf{\Sigma}\)` and `\(E(\bf{u}_t\bf{u'}_{t-1})=0\)`. The `\(n\)` represent the number of sectors (or in our case will be 87) and `\(c\)` represents the vector of constants. There are 4 lags included for the total employment `\((x_{t-1},\cdots,x_{t-4})\)` as predetermined variable at time `\(t\)`.
+
+]
+---
+# Appendix (Minnesota Prior)
+
+.font_my_2[
+`$$\begin{aligned}\label{eq:1}
+&amp;E[a_{j}^{jk}] = E[\gamma_{i}^j]=0\\
+\\
+&amp;Var[a_j^{jk}]= 
+\begin{cases}
+\frac{\lambda^2}{i^2},&amp;j=k\\
+\frac{\lambda^2}{i^2}\frac{\sigma^2_{j}}{\sigma^2_k},&amp; otherwise
+\end{cases}\\
+\\
+&amp;Var[\gamma_i^{j}]=\frac{\lambda^2}{i^2}\frac{\sigma^2_{j}}{\sigma^2_e}
+\end{aligned}$$`
+]
+
+.font_my_2[
+
++ The degree of shrinkage is governed by `\(\lambda\)`, `\(\frac{1}{i^2}\)` to down-weight more distant lags and the `\(\frac{\sigma_j^2}{\sigma_k^2}\)` adjusts for different scale of the data. `\(\sigma^2_e\)` is the variance after fitting an AR model on total employment growth. 
+
+]
+
+
+---
+# Our system 
+.font_my_2[
+`$$\begin{aligned}\underbrace{Y}_{T\times n} = \underbrace{XB}_{T\times k \times k \times n} \ +\underbrace{U}_{T\times n}\end{aligned}$$`
+
+where `\(\bf{Y}=(Y_1,\cdots,Y_T)'\)`;and `\(\bf{X}=(X_1,\cdots,X_T)'\)` with `\(X_t=(Y'_{t-1},\cdots,Y'_{t-p},x_{t-1},\cdots,x_{t-4},1)'\)` and `\(u=(u_1,\cdots,u_T')\)` . 
+
+]
+
+**Normal-Inverse-Wishart Prior** 
+
+.font_my_2[
+The Normal-Inverse-Wishart Prior has the form 
+
+`$$\begin{aligned}
+&amp;\bf{vec(\mathbf{\beta})}|\bf{\Sigma}\sim N(\bf{vec}(\bf{\beta_0}),\Sigma\otimes\Omega_0)\ \\
+&amp;\bf{\Sigma}\sim\mathbf{IW}(\bf{S_0},a_0)\end{aligned}$$`
+
+where we the prior parameters `\(\mathbf{\beta}_0\)` and `\(\bf{\Omega_0}\)`, `\(\bf{S_0}\)`  and `\(a_0\)` such that they are consistent with the Minnesota prior we mentioned before and the expectation of `\(\bf{\Sigma}\)` being `\(diag(\sigma_1^2,\cdots,\sigma_n^2)\)`.
+]
+---
+# Normal-Inverse-Wishart Prior (Set Up Dummies)
+
+.font_my_2[
+`$$\begin{aligned}
+\bf{Y_d}&amp;=
+\begin{pmatrix}
+\bf0_{np+p,n}\\
+\bf diag(\bf{\sigma_1,\cdots,\sigma_n})\\
+\bf0_{1\times n}
+\end{pmatrix}\\
+\end{aligned}$$`
+
+
+`$$\begin{aligned}
+\bf{X_d}&amp;=
+\begin{pmatrix}
+\bf{J_p}\otimes diag(\frac{\sigma_1}{\lambda}\cdots\frac{\sigma_n}{\lambda},\frac{\sigma_e}{\lambda})&amp;\bf0_{(np+p)\times1}\\
+\bf 0_{n,np+p}&amp;\bf 0_{n\times1}
+\\
+\bf 0_{1,np+p}&amp;\bf \epsilon
+\end{pmatrix}
+\end{aligned}$$`
+
+]
+
+.font_my_2[
+
+
+&lt;br&gt;
+
+
+where:
+`\(\bf{J_p}=diag(1,\cdots,p)\)`; `\(\bf{S_0}=(Y_d-X_d\times B_0)'(Y_d-X_dB_0)\)`, `\(\bf{B_0}=(X_d'X_d)^{-1}X_dY_d\)`, `\(\bf{\Omega_0}=(X_d'X_d)^{-1}\)` and  `\(a_0=T_d-np-p-1;\)` 
+
+&lt;br&gt;
+
+Here, both `\(\bf{Y}_d\)` and `\(\bf{X}_d\)` are the dummy observations we set 
+where `\(T_d\)` is the number of rows for both `\(\bf{Y}_d\)` and `\(\bf{X}_d\)`.
+]
+
+---
+# Normal-Inverse-Wishart Prior 
+
+
+## We can get:
+
+.font_my[
+
+`$$\begin{aligned}
+\bf{Y^*}=\bf{X^*}\bf{\beta}+\bf{\mu}^*\\:
+\end{aligned}$$`
+
+where : 
+
+
+`$$\begin{aligned}
+\bf{Y^*}=[\bf{Y'},\bf{Y'_d}]';\ \bf{X^*}=[\bf{X'},\bf{X'_d}]';\ \bf{\mu^*}=[\bf{\mu'},\bf{\mu'_d}]'
+\end{aligned}$$`
+
+]
+
+.font_my_2[
+Then we can estimate
+ng the BVAR by conducting an least square regression of `\(Y^*\)` on `\(X^*\)` . The posterior distribution then have the form of
+
+`$$\begin{align}
+&amp;\bf{vec(\mathbf{\beta})}|\Sigma,Y\sim N(vec(\bf{\tilde\beta}),\Sigma\otimes(\bf{X^*}'\bf{X^*})^{-1})\ and\\
+&amp;\bf{\Sigma|Y}\sim\mathbf{IW}(\bf{\tilde\Sigma},T_d+T-np+2)
+\end{align}$$`
+
+
+where `\(\bf{\tilde\beta} =(X*'X*)^{-1}X^{*'}Y^*\)` and `\(\bf{\tilde\Sigma}=(\bf{Y^*}-\bf{X^*}\bf{\tilde\beta})'(\bf{Y^*}-\bf{X^*}\bf{\tilde\beta})\)`
+
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="libs/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLanguage": "r",
+"highlightLines": true,
+"highlightSpans": false,
+"countIncrementalSlides": false,
+"slideNumberFormat": "%current%/%total%",
+"navigation": {
+"scroll": false,
+"touch": true,
+"click": false
+},
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'assets/mathjax-local/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

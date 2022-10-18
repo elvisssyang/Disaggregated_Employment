@@ -5,20 +5,21 @@ knit: "bookdown::render_book"
 
 # Review of literature
 
-Our review of literature mainly focuses on two areas:
+We centred our review of the existing literature around two main areas:
 
 1.  The COVID-19 sectoral impacts and modelling of the economy
 
 2.  Bayesian VAR Modelling of large numbers of time series
 
 
+
 ## Sectoral Impact of COVID-19.
 
-Most existing studies have focused on the evaluation of the impacts of COVID-19 on broad sectors of large economies such as the US and Europe. @ludvigson2020covid developed a disaster series to translate the macroeconomic impact of costly and deadly disasters in recent US history and model them as sectoral shocks to predict COVID-19. They concluded that the shock would lead to a cumulative loss of 20% in industrial production, 39% in public services and also reduce the US GDP by 12.75 per cent by the end of 2020. @gregory2020pandemic conducted simulations under different scenarios via a search theoretic model using US data and found the recovery in the U.S. is L-shaped, with employment remaining lower than pre-covid for a long period. They also extended their studies at a disaggregated level of 20 sectors, showing that "arts and entertainment" and "accommodation and food services" sectors would have the biggest shock during the pandemic.
+Most existing studies have focused on the evaluation of the impacts of COVID-19 on broad sectors of large economies such as the US and Europe. @ludvigson2020covid developed a disaster series to translate the macroeconomic impact of costly and deadly disasters in recent US history and model them as sectoral shocks to predict COVID-19. They concluded that the shock would lead to a cumulative loss of 20% in industrial production, 39% in public services and also reduce the US GDP by 12.75 percent by the end of 2020. @gregory2020pandemic conducted simulations under different scenarios via a search theoretic model using US data and found that the recovery in the U.S. would be L-shaped, with employment remaining lower than pre-covid for a long period. They also extended their studies at a disaggregated level of 20 sectors, suggesting that the "arts and entertainment" and "accommodation and food services" sectors would experience the hardest hit during the pandemic.
 
 
 
-In Australia, @anderson2020 developed a multivariate time series model for 19 main sectors in Australia (as a typical small open economy) using a Bayesian VARX model. Their research concluded that "Manufacturing" and "Construction" have the highest positive spillovers for the aggregate economy. Meanwhile, they also applied a "conditional forecasting" method proposed by @waggoner1999 to simulate different scenarios for the pandemic in Australia. However, their research does not use a finely disaggregated level in Australia (two-digit subsectors of main sectors), which can be informative in macroeconomic analysis.
+In Australia, @anderson2020 developed a multivariate time series model for 19 main sectors in Australia (as a typical small open economy) using a Bayesian VARX model. Their research concluded that "Manufacturing" and "Construction" have the highest positive spillovers for the aggregate economy. Meanwhile, they also applied a "conditional forecasting" method proposed by @waggoner1999 to simulate different scenarios for the pandemic in Australia. However, their research did not use a finely disaggregated level in Australia (two-digit subsectors of main sectors), which could be less informative in macroeconomic analysis.
 
 
 
@@ -26,122 +27,13 @@ In Australia, @anderson2020 developed a multivariate time series model for 19 ma
 
 ## Baysian VAR
 
-The Bayesian Vector Autoregression model (BVAR) is commonly used in the literature for high-dimensional multivariate modelling [e.g. @anderson2020; @litterman1986; @banbura2010large]. The BVAR model is attractive because it allows us to estimate a large number of parameters, when the sample size is not large, in a statistically coherent way.[@litterman1986;@wozniak2016bayesian].
+The Bayesian Vector Autoregression model (BVAR) is commonly used in the literature for high-dimensional multivariate modelling [e.g. @anderson2020; @litterman1986; @banbura2010large]. The BVAR model is attractive because it allows us to estimate a large number of parameters, in a statistically coherent way, when the sample size is not large. [@litterman1986;@wozniak2016bayesian].
 
-In order to utilize the Bayesian VAR estimators, @litterman1979 proposed the Minnesota Prior, which decreases the weight of the lagged variables with the lag length. The prior mean on the first own lag is set to unity and the rest are set to zero so that *(a)* the most recent lag should provide more information than distant lags; and *(b)* own lags should explain more than the lags of other variables.
+To utilize the Bayesian VAR estimators, @litterman1979 proposed the Minnesota Prior, which decreases the weight of the lagged variables with the lag length. The prior mean on the first own lag is set to unity and the rest are set to zero so that *(a)* the most recent lag should provide more information than distant lags; and *(b)* own lags should explain more than the lags of other variables.
 
 ## Setting Minnesota Prior with shrinkage
 
 The literature suggests that a significant improvement in the predicting performance of large BVAR dynamic models can be made by more careful choice of prior assumptions [@banbura2010large; @litterman1986]. Moreover, in setting the Minnesota Prior in our estimated model, @robertson1999vector and @kadiyala1997 proposed a Normal-inverse-Wishart prior which retains the principal of Minnesota prior. Particularly, @banbura2010large suggested an easier way to apply the Minnesota prior via adding dummy observations into the BVAR system (see Appendix for details).
-
-
-
-
-
-# Data collection and exploratory analysis
-
-## Data Introduction and wrangling 
-
-
-
-The data I use in this thesis come from the Australia Bureau of Statistics (ABS), involving 86 industry sub-division of main jobs. The ABS records the employment (measured in thousands people $('000)$) from $1984:Q4$ to $2021:Q4$ with a structure provided via Figure \ref{fig:anzsic}. 
-
-
-
-\graphicspath{ {/Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figures} }
-
-
-
-\begin{figure}[H]
-\includegraphics[scale=0.5]{ANZSIC}
-\centering
-\caption{Australian Industry Pamamid plot by (ANZSIC)}
-\label{fig:anzsic}
-\end{figure}
-
-
-
-
-
-
-Although seasonally adjusted data is available in [@ABS2022], however, the seasonal adjustment of post-COVID data is problematic due to the shocks caused by lockdowns would impact the post-covid seasonality. Hence, I use the original data to capture any possible changes in seasonal patterns instead of the seasonally adjusted data provided by Australian Bureau of Statistics. 
-
-
-
-In this thesis, I downloaded only the data from 1984 Quarter 4 to 2022 Quarter 2. Moreover, I use the Excel to extract both the employment for both two-digit disaggregated level and the total employment. Note that some of the data are zero, which is not feasible for a log transformation, so I will making the following modifications to remove them while keeping the structure of data coherent. Then, I take the following modifications to remove zeros, meanwhile, keeping the data structure coherent. The cleaned data can be seen in *ABSemp.xlsx* file at (https://github.com/elvisssyang/Disaggregated_Employment).
-
-
-+ Merge the two-digit subsector *57- Internet Publishing and Boardcasting* and *54- Publishing(except internet)* to a new combined subsector called *54 Publishing and boadcasting*. 
-
-
-+ Combine the *96 Private Households Employing Staff and Undifferentiated Goodsand Service Producing Activities of Households for Own Use* and *95 Personal and Other Services* as *95 Personal and other services (include activities for own use)*.
-
-
-It is notice that there are few non-classified series (nfd) in ABS employment data. However, I will not address these series in this thesis because there are no further details provided by ABS. If this is put into the model, it will influence the sectoral dynamics. To make the forecasts coherent (sum to the total employment) and analysis universal, I will not consider them in this thesis. As a result, my total employment data is not same as the published total employment data. The largest discrepancy, however, is only a small portion of the real total employment. Accordingly, this will not significantly affect our analysis. 
-
-<!-- The largest discrepancy, however, is only 12 % of the total employment.  -->
-
-
-
-Without any zeros, a log transformation can be applied to interprete the percentage change of the employment. The VAR model decided to fit the data requires stationary. As a result, I will further apply a seasonal difference to eliminate the seasonality (i.e. nonstationarity).
-
-Finally, in **Chapter 6**, I have also combine the following data to further support our conterfactual analysis: 
-
-+ Total Labour Force: Gained from ABS website (see @ABS2022)
-
-+ Unemployment Rate: Gained from ABS website (see @ABS2022a)
-
-<!-- + Total "Jobkeeper" Payments by Industy: This dataset has combined three different datasets representing two phrases for the Jobkeeper periods. (see @ABSj1 for the first phrase; @ABSj2,@ABSj3,@ABSj4 for the second phrase) -->
-
-
-
-
-## Preliminary Exploratory Data Analysis
-
-
-Figure \ref{fig:19} illustrates the changes in the raw data for 19 main sectors in Australia from 2010 to 2022. Due to the closedown of businesses and travel bans on 2020:Q2, we can observe that the total employment number dropped substantially (from around 13,200,000 to 12,200,000 on $2020:Q2$). Most industries behaved similarly with significant changes shown in Figure \ref{fig:19} . Comparing with the previous data of these industries," Accommodation & Food", "Media & telecom" and "Arts" industries have experienced a severe loss of employment and have not fully recovered to the pre-covid level. However, some industries like "Financial" and "Healthcare" has barely changed and showed a continuously increasing trend as the pre-COVID period.
-
-
-Nevertheless, there is a drawback of considering the 19 broad sectors only; because the two-digit subsectoral dynamics of these sectors may not be homogeneous with their aggregated sectoral changes. For example, when observing the aggregated performance of the "Manufacturing" and "Mining" sectors from the 19 sectoral level (see Figure \ref{fig:a19}), we may believe that their corresponding subsectors should illustrate the same pattern. However, the reality is that while there is a decreasing trend in the "Manufacturing" sector or an increasing trend in the "Mining" sector, some of their two-digit subsectors are performed differently (see Figure \ref{fig:a87}). This means that not all two-digit subsectors follow the same pattern with the aggregated sectoral level.
-
-
-<!-- Table \ref{tab:comp} shows the top five and bottom five two-digit subsectors in terms of their year-on-year growth of 2022 Q2. From \ref{tab:comp} we can conclude that the "Forestry and Logging" experienced a severe shock after the lockdown happened on 2020:Q2, followed by "Private Households Employing Staff" and "Library and Other Information Services". Figure \ref{fig:87} demonstrates the performance of each industry at a more disaggregated two-digit subsectoral level, we can observe that many two-digit subsectors have also shown huge decreases in employment in 2020:Q2. -->
-
-Table \ref{tab:comp} shows the top five and bottom five two-digit subsectors in terms of their year-on-year growth rate of "2022 Q2". From Table \ref{tab:comp}, we can see that "Other Transport" experienced a severe shock after the lockdown happened on "2020 Q2", followed by "Non-Metallic Mineral Mining and Quarrying" and "Sports and Recreation Activities". However, not all subsectors suffered a lot on "2020 Q2". Here, we can see that both "Water Transport" and "Gas Supply" had a remarkable increase, followed by "Broadcasting (excerpt Internet)" and "Exploration and Other Mining Support Services". 
-
-
-\begin{table}[ht]
-\begin{center}
-\begin{tabular}{ccc}
-\hline
-Date     & Sector                                        & YoY growth rate \\
-\hline
-2020: Q2  & 48 Water Transport                            & 81.01\%                                \\
-2020: Q2 & 27Gas Supply      & 55.14\%                                \\
-
-2020: Q2 & 56 Broadcasting (except Internet)                            & 34.49\%                                \\
-2020: Q2 & 10 Exploration and Other Mining Support Services                     & 32.87\%                                \\
-2020: Q2 & 63 Insurance and Superannuation Funds & 27.78\% 
-                 \\
-                 \\
-                 \hline
-Date     &  Sectors                                      &YoY growth rate \\
-                 \hline
-2020: Q2 & 50 Other Transport                 &-78.98\%  
-                 \\
-2020: Q2 & 09 Non-Metallic Mineral Mining and Quarrying    & -66.92\% 
-                 \\
-2020: Q2 & 91 Sports and Recreation Activities & -60.48\% 
-                 \\
-2020: Q2 & 55 Motion Picture and Sound Recording Activities                           & -55.19\%  
-                 \\
-2020: Q2 & 03 Forestry and Logging         & -54.40\%
-\end{tabular}
-\end{center}
-\caption{The highest and lowest five two-digit subsectors' employment percentage change for 2020:Q1 to 2020:Q2 }
-\label{tab:comp}
-\end{table}
-
 
 
 

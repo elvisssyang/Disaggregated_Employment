@@ -5,9 +5,9 @@ knit: "bookdown::render_book"
 
 # The Australian COVID-19 Pandemic Background
 
-The COVID-19 pandemic has had a massive effect on economies around the world. Across different countries, millions of workers were furloughed or even lost their jobs as businesses struggled to survive [@ny2020]. The same situation happened in Australia, due to more restrictions, many businesses closed their doors, while employees were working with less hours or being dismissed by companies. As a result of the continuous "lockdown" periods in 2020, estimates made by the Australian Bureau of Statistics [@ABS2021] concluded that 72% of businesses generated less revenue and the underemployment rate hit a historical high of 13.8% by the end of April, 2020, only one month after the COVID-19 outbreak.
+The COVID-19 pandemic has had a massive effect on economies around the world. Across different countries, millions of workers have been furloughed or even lost their jobs as businesses struggled to survive [@ny2020]. The same situation occurred in Australia, due to more restrictions, many businesses closed their doors, while employees were working with less hours or being laid off by businesses. As a result of the continued "lockdown" periods in 2020, the Australian Bureau of Statistics [@ABS2021] estimated that 72% of businesses generated less revenue and the underemployment rate hit a historical high of 13.8% by the end of April, 2020, only one month after the outbreak of COVID-19. 
 
-Our research is motivated by the lack of quantitative research on the employment of two-digit disaggregated industry sectors in Australia, while many studies have focused on the aggregated employment rate. A general problem of aggregated research is the loss of hierarchical information, which may result in a biased conclusion or "an illusion of employment prosperity". Thus, a quantitative analysis of the sectoral employment will ameliorate this problem, giving us a better scope to evaluate the impacts of COVID-19 in Australia.
+Our research is motivated by the lack of quantitative research on the employment of two-digit disaggregated industry sectors in Australia, while many studies have focused on the aggregated employment rate. A common problem with aggregated research is the loss of hierarchical information, which can lead to biased conclusions or the illusion of prosperous in labour market. Thus, a quantitative analysis of sectoral employment will ameliorate this problem, giving us a better scope to evaluate the impacts of COVID-19 in Australia.
 
 
 
@@ -15,7 +15,7 @@ Our research is motivated by the lack of quantitative research on the employment
 
 ## Research Aim and questions 
 
-This research will extend @anderson2020 by using data on 87 two-digit industry sectors instead of 19 sectors that they used. I will develop a model for the two-digit sectors to evaluate the long run effect and the COVID-19 post-impacts. I will also provide a counterfactual analysis based on an optimistic assumption of no pandemic or major events happened. The two-digit sectoral data will provide us more information, which will assist in getting a better understanding of employment dynamics in Australia on a more disaggregated level.
+This research will extend @anderson2020 by using data on 87 two-digit industry sectors instead of the 19 sectors that they used. I will develop a model for the two-digit sectors to evaluate the long run effect and the COVID-19 post-impacts. I will also provide a counterfactual analysis based on an optimistic assumption that no pandemic or major events happened. The two-digit sectoral data will provide us more information, which will assist in getting a better understanding of employment dynamics in Australia on a more disaggregated level.
 
 The overall research aim is to provide estimates of two-digit sectoral employment based on historical data. Specifically, my goals are: 
 
@@ -30,7 +30,7 @@ The overall research aim is to provide estimates of two-digit sectoral employmen
 ## Thesis Structure 
 
 
-This thesis focuses on analysing Australian Employment at a disaggregated level, then estimate the long run effects of the COVID-19 to sectoral employment rate in Australia. The remainder of the thesis is structured as follows. First, in chapter 2, I review the existing literature in the relevant fields. Second, in chapter 3, I will provide exploratory data analysis and data resources. Then, I will propose our selected model in chapter 4. After we selected our model, I will conduct counterfactual analysis to evaluate the damages of COVID-19 and provide useful insights on key beneficial industries after COVID-19 in chapter 5. Eventually, I will provide a brief conclusion and discuss the limitations of our works and possible future extensions in chapter 6. 
+This thesis focuses on analysing Australian Employment at a disaggregated level, then estimates the long run effects of COVID-19 on the sectoral employment rate in Australia. The remainder of the thesis is structured as follows. First, in chapter 2, I review the existing literature in the relevant fields. Second, in chapter 3, I will provide data sources and exploratory data analysis. Then, I will propose our selected model in chapter 4. After we selected our model, I will conduct a counterfactual analysis to evaluate the damage of COVID-19 and provide useful insights on key beneficial industries after COVID-19 in chapter 5. Finally, I will provide a brief conclusion and discuss the limitation and possible future extensions in chapter 6. 
 
 
 

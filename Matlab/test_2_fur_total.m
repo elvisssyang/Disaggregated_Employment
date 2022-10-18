@@ -12,7 +12,7 @@ addpath('_funcs')
 
 MAPE_acc = [];
 MASE_acc = [];
-RMSE_acc = [];
+RMSFE_acc = [];
 
 
 
@@ -20,16 +20,10 @@ RMSE_acc = [];
 % Read data, 19 sectors in the first 19 columns - total in the 20th column
 alldata =  xlsread('ABSemp.xlsx', "B2:CH143");
 
-%fulldata = csvread('full_employment_2.csv');
-%alldata = fulldata(1:142,:);
-
-% alldata = fulldata;
-%lambda_lst =  [0.1:0.0001:0.3]'; %--- we found the minima between 0.05 & 0.06
 
 
 lambda_lst =  [0.0001:0.0001:0.3]';
 
-%for i = 60:1:120
 
 for l = 1:numel(lambda_lst)
 
@@ -116,7 +110,7 @@ for l = 1:numel(lambda_lst)
       train_err(b-n,1) = 100 * error(b-n,1) / newraw(b-n,1);
 
 
-% 
+
       MAPE = abs(train_err(b-n,1));
 
       MAPE_withinloop(b-n,:) = MAPE;
@@ -125,7 +119,8 @@ for l = 1:numel(lambda_lst)
    end 
 
 
-   RMSE = sqrt(mean(error.^2));
+   RMSFE = sqrt(mean(error.^2));
+
 
    % Accumulative errors
 
@@ -134,54 +129,18 @@ for l = 1:numel(lambda_lst)
     
    MAPE_acc(l,:) = MAPE_total;
 
-   RMSE_acc(l,1) = RMSE;
+   RMSFE_acc(l,1) = RMSFE;
 
    
 end 
 
 
-%test_acc(i,1) = min(RMSE_acc);
-
-%end 
 
 
 
-% 
-% weighted_error = (MAPE_acc+RMSE_acc)/ 2;
-% 
-% 
-% 
-% 
-% for f = 1: size(weighted_error,1)
-% 
-%     if weighted_error(f,1) == min(weighted_error) 
-%        
-%        min_lambda = lambda_lst(f,1);
-% 
-%     end 
-% 
-% end 
+for f = 1: size(RMSFE_acc,1)
 
-
-
-   
-% Use MAPE only 
-
-% for f = 1: size(MAPE_acc,1)
-% 
-%     if MAPE_acc(f,1) == min(MAPE_acc) 
-%        
-%        min_lambda = lambda_lst(f,1);
-% 
-%     end 
-% 
-% end 
-
-
-
-for f = 1: size(RMSE_acc,1)
-
-    if RMSE_acc(f,1) == min(RMSE_acc) 
+    if RMSFE_acc(f,1) == min(RMSFE_acc) 
        
        min_lambda = lambda_lst(f,1);
 
@@ -208,7 +167,7 @@ p=1;
 
 
 
-csvwrite( "phi_lambda_min.csv", phi_2)
+%csvwrite( "phi_lambda_min.csv", phi_2)
 
 
 

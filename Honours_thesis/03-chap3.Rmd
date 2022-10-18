@@ -5,132 +5,123 @@ knit: "bookdown::render_book"
 
 
 
-# Methdology
+# Data collection and exploratory analysis
 
-## Proposed Model
-
-I plan to use a Bayesian VARX model based on the method used in @anderson2020. The VARX model is especially useful in modelling dynamic behaviours of the relationships between variables [@warsono2019]. In the model, each sector is affected by the lags of sectoral growth and a lag of the total employment growth. The lag of total employment growth is included to act as an economy-wide factor.
-
-In many time series models, the number of lags are selected according to the patterns of the time series (i.e. seasonality, cycle or trend). For quarterly data, four lags are usually used (see @anderson2020 and @stock2001). However, because of the high-dimensionality and relatively small sample size in my case, I will use one lag of 84 sectors and one lag of the total employment. 
-
-Therefore, the suggested BVAR model is: 
-
-$$
-\begin{aligned}
-\textbf{y}_t=\textbf{c}+\textbf{A}_1 \textbf{y}_{t-1}+\boldsymbol{\Gamma}{x}_{t-1}+\bf{u}_t
-\end{aligned}
-$$
-
-where $\bf{y}_t$ is an $84\times1$ vector of two-digit subsectoral employment growth rate at time $t$  and $\bf{x}_{t-1}$ is a $1\times1$ vector stands for one lag on the growth rate of the total employment (this vector of variables are predetermined at time $t$), $\textbf{c}$ is a vector of constants, $\bf{A}_{1}$ are $84\times84$ parameter matrices. $\boldsymbol{\Gamma}$ is a $84\times1$ matrix and $\bf{u}_t$ is a vector of reduced form errors with the mean equals to zero and independent variance $\bf{u}_t \sim (0,\boldsymbol{\Sigma})$. (see Appendix for details)
-
-In the proposed model, the use of seasonality unadjusted data allows the estimates to be coherent (i.e. the sum of  subsectoral employments equals to total employment). Moreover, the share of each subsector change endogenously as the varying employment over time. Therefore, even we have one lag of the growth rate of total employment, there is no multicollinearity because the shares of subsectors change over time. 
+## Data Introduction and wrangling 
 
 
 
-## Prior and Shrinkage
-
-Bayesian VAR helps to overcome the curse of high dimensionality by imposing the prior beliefs on the parameters [@banbura2010large]. I will estimate the employment dynamics using Bayesian VAR model by specifying a Minnesota type prior [e.g. @anderson2020; @litterman1986; @robertson1999vector], which is defined as follows: 
-
-
-
-$$
-\begin{aligned}\label{eq:1}
-&E[a_{i}^{jk}] = E[\gamma_{i}^j]=0\\
-\\
-&Var[a_i^{jk}]= 
-\begin{cases}
-\frac{\lambda^2}{i^2},&j=k\\
-\frac{\lambda^2}{i^2}\frac{\sigma^2_{j}}{\sigma^2_k},& otherwise
-\end{cases}\\
-\\
-&Var[\gamma_i^{j}]=\frac{\lambda^2}{i^2}\frac{\sigma^2_{j}}{\sigma^2_e}
-\end{aligned}
-$$
-
-where in the proposed model (see **Chapter 4.1**), the number of lag is $i=1$. Therefore, the $a_{1}^{jk}$ and $\gamma_{1}^{jk}$ are ${j,k}^{th}$ of $A_1$ and $\Gamma_1$ matrices,  degree of shrinkage is governed by $\lambda$, $\frac{1}{i^2}$ down-weights the distant lags and the $\frac{\sigma_j^2}{\sigma_k^2}$ adjusts for different scale of the data. $\sigma^2_e$ is the variance after fitting an AR model on total employment growth. 
-
-
-
-
-@banbura2010large also suggest a natural conjugate Normal-Inverse-Wishart prior, which retains the principle of Minnesota prior. This will greatly simplify the steps of adding Minnesota prior to the Bayesian VAR model. Its posterior moments can be calculated either analytically or through adding the dummy observations. I will use dummy observations to estimate the BVAR [@banbura2010large]. More details are provided in the Appendix.
-
-
-\newpage
-
-
-## Selecting the hyperparameter of Minnesota Prior 
-
-Specifically, the Minnesota type prior has the following beliefs about the variances in our estimated one lag BVAR model: 
-
-$$
-\begin{aligned}
-&Var[a_1^{jk}]= 
-\begin{cases}
-\lambda^2,&j=k\\
-\frac{\lambda^2\sigma^2_{j}}{\sigma^2_k},& otherwise
-\end{cases}\cdots(4.3.1)\\
-\\
-&Var[\gamma_1^{j}]=\frac{\lambda^2\sigma^2_{j}}{\sigma^2_e}\cdots(4.3.2)
-\end{aligned}
-$$
-
-where $\lambda$ is a hyperparemeter specified based on how far we will shrink the estimator and $\frac{\sigma^2_{j}}{\sigma^2_k}$ adjusts for the different scale of the data. To effectively scale the estimator $\gamma^j_1$ and $a_j^{jk}$, I obtain $\sigma_n^2$ by fitting an AR(4) model on the $n$-th variable using least squares, which is commonly used in many literatures[@anderson2020;@banbura2010large;@koop2013]. 
-
-
-
-As the Minnesota prior defined from the above equations (see $4.3.1$ and $4.3.2$), the hyperparameter $\lambda$ controls the overall tightness (variance) of the prior distribution [@banbura2010large]. If $\lambda\rightarrow0$, we can see that the prior assumption is influential, which means that the posterior getting closer to the prior, so the data have no influence on the estimates. On the contrary, if $\lambda\rightarrow\infty$, the posterior expectations will approach to ordinary least squares (OLS) estimates. In many macroeconomic VAR forecasting, data are presented in a large dimension. As the dimension increases, we want to shrink more in order to avoid the over-fitting [@de2008]. 
-
-
-Admittedly, the hyperparameter $\lambda$ plays an important role in improving forecast accuracy by controlling the degree of shrinkage. For example, @banbura2010large point out that a gain in efficiency could be made by applying an Bayesian shrinkage in estimating large multivariate VAR models. They also conclude that large bayesian vector autoregressions (BVARs) with shrinkage are credible to conduct structural analysis.
-
-Based on applied experiences, Litterman concluded that the shrinkage estimate $\lambda=0.2$ is sufficient to deal with many empirical cases [@litterman1986]. More importantly, the data size also needs to be considered as an essential basis when deciding the degree of shrinkage [@banbura2010large]. Unlike the one-digit level (19 sectors) done by @anderson2020, the two-digit level (84 subsectors) employment in Australia is more complex with many variables. Thus,  $\lambda=0.2$ may not be suitable for this multivariate case. Here, I will provide a detailed analysis of the approach I used to select the optimal $\lambda$.
-
-
-Due to the reason that the size of disaggregated subsectors have different scales, the commonly used scale-dependent error measurement (e.g. MAE, MSE) will fail when comparing forecast accuracy between subsectors. Even though MAPE is unit-free, it is not robust in sectors that have relatively small shares. When $y_t$ is close to zero, MAPE will likely have extreme values or become undefined. Accordingly, I will sum all sectors to the total employment and minimise the forecast error of total employment to select the optimal $\lambda$.
-
-
-
-The error measurement I will use is the root mean squared forecast error RMSFE. It is calculated via an out-of-sample forecasting experiment, which is a similar practice in many empirical cases [@banbura2010large;@koop2013]. Here, I denote $H$ as the longest forecast horizon to be evaluated, both $T_{b}$ and $T_{e}$ as the end of training set and testing set, respectively. Give the forecast horizon $h$, hyperparameter $\lambda$ and model $m$, for each given period between $T_{b}$ and $T_{e}$ ($T=T_b,\cdots,T_{e}-h$), we computer $h$-step-ahead forecasts ${y}_{i,T+h|T}^{(\lambda,m)}$, using only the information up to time T. And then minus the actual data $y_{i,T+h}$ to calculate the forecast error.
-
-Then, out-of-sample forecast accuracy is measured in terms of the root mean squared forecast error (**RMSFE**) as: 
-
-
-$$
-\begin{aligned}
-RMSFE^{\lambda}_{h}=\sqrt{\frac{1}{T_e-T_b-h}\Sigma^{T_{e}-h}_{T=T_{b}}({y}_{T+h|T}^{\lambda}-y_{T+h})^2}
-\end{aligned}
-$$
-
-
-where ${y}_{T+h|T}^{\lambda}$ is defined as the $h$-th steps ahead forecast given the information up to time $T$ and $y_{T+h}$ is the actual data for the $h$-th steps ahead forecast. Here, $m$ and $\lambda$ stands for the evaluated RMSFE, conditioned on a specific model and the hyperparameter $\lambda$. 
-
-
-In this section, I will set up an effective searching algorithm to search for the optimal shrinkage estimator $\lambda$. For our purposes, we want to provide accurate forecasts of total employment based on the scenario where no covid happened to support our counterfactual analysis. Therefore, the pre-covid total employment data (before 2020 Quarter 2) is split into training and test with a training set of length ($n=120=T_b$) and a test set of length ($n=22=T_b+H-h=T_e-h$). As a consequence, I will set the $H=22$ to be the length of test set, $h=1$ for one step experiment and $m$ is the BVAR proposed earlier in **Chapter 4**. 
-
-
-Here is a brief description of the proposed algorithm: 
+The data I use in this thesis comes from the Australia Bureau of Statistics (ABS), and involves 86 industry sub-divisions of main jobs. The ABS records the employment (measured in thousands people $('000)$) from $1984:Q4$ to $2021:Q4$ with a structure provided via Figure \ref{fig:anzsic}. 
 
 
 
 \graphicspath{ {/Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figures} }
 
-\begin{figure}[ht]
-\includegraphics[scale=0.7]{Flowchart_algo}
+
+
+\begin{figure}[H]
+\includegraphics[scale=0.5]{ANZSIC}
 \centering
-\caption{Proposed algorithm of selecting optimal $\lambda$}
-\label{fig:sealgo}
+\caption{Australian Industry Pamamid plot by (ANZSIC)}
+\label{fig:anzsic}
 \end{figure}
 
 
 
 
-To mitigate the adverse impact of high-dimensionality, I set algorithm starting from $0.0001$, with a step of $0.0001$ and will stop at $0.3$. There is 3000 different lambdas are considered and the algorithm will automatically return the lambda with minimum RMSFE in forecasting total number of employment (see Matlab code in my github [Link https://github.com/elvisssyang/Disaggregated_Employment/tree/main/Matlab]). 
+
+
+Although seasonally adjusted data is available in [@ABS2022], however, the seasonal adjustment of post-COVID data is problematic as shocks caused by lockdowns would impact the post-covid seasonality. In addition, the seasonally adjusted subsectoral data do not add up to total employment, which cannot maintain internal consistency (e.g. forecasting coherence) in the model. Therefore, I use the original quarterly employment data with transformations (see description below) to capture any possible changes in seasonal patterns instead of the seasonally adjusted data provided by the Australian Bureau of Statistics. 
 
 
 
-From the return value of our searching algorithm (see Figure \ref{fig:sealgo}). The estimated hyperparameter from the algorithm is $\lambda=0.0808$, which certainly has the lowest mean scaled forecast error (RMSFE) as designed. Based on this, we choose $\lambda=0.0808$ for subsequent analysis. 
+In this thesis, I only downloaded the data from the fourth quarter of 1984 to the second quartert of 2022. In addition, I use Microsoft Excel to extract both the employment for both two-digit disaggregated levels and the total employment. Note that some of the data are zero, which is not feasible for a log transformation, so I will make the following modifications to remove them while keeping the structure of the data coherent. Then, I take the following modifications to remove zeros, while keeping the data structure coherent. The cleaned data can be seen in the *ABSemp.xlsx* file at (https://github.com/elvisssyang/Disaggregated_Employment).
+
+
++ Merge the two-digit subsector *57- Internet Publishing and Broadcasting* and *54- Publishing (except internet)* to a new combined subsector called *54 Publishing and broadcasting*. 
+
+
++ Combine the *96 Private Households Employing Staff and Undifferentiated Goods and Service Producing Activities of Households for Own Use* and *95 Personal and Other Services* as *95 Personal and other services (include activities for own use)*.
+
+
+It can be seen that there are few non-classified series (nfd) in ABS employment data. However, I will not address these series in this thesis because there are no further details provided by ABS. If this is incorporated into the model, it will affect the sectoral dynamics. To make the forecasts coherent (sum to the total employment) and analysis universal, I will not consider them in this thesis. As a result, my total employment data is not the same as the published total employment data. The largest discrepancy, however, concerns only a small portion of the real total employment. Accordingly, this will not significantly affect our analysis. 
+
+<!-- The largest discrepancy, however, is only 12 % of the total employment.  -->
 
 
 
-\newpage
+Without any zeros, a log transformation can be applied to explain the percentage change in employment. Since the estimated VAR model requires stationary data, I will further apply a fourth difference (seasonal difference) to eliminate the seasonality (i.e. nonstationarity) for quarterly data.
 
+Finally, in **Chapter 6**, I have also combine the following data together with the number of employment by subsectors [@ABS2022] to further support our counterfactual analysis: 
+
++ Total Labour Force: Gained from ABS website (see @ABS2022)
+
++ Unemployment Rate: Gained from ABS website (see @ABS2022a)
+
+<!-- + Total "Jobkeeper" Payments by Industy: This dataset has combined three different datasets representing two phrases for the Jobkeeper periods. (see @ABSj1 for the first phrase; @ABSj2,@ABSj3,@ABSj4 for the second phrase) -->
+
+
+
+
+## Preliminary Exploratory Data Analysis
+
+
+Figure \ref{fig:19} illustrates the changes in the raw data for 19 key sectors in Australia between 2010 and 2022. Due to businesses closures and travel bans in 2020:Q2, we can observe that the total employment number dropped substantially (from around 13,200,000 to 12,200,000 in $2020:Q2$). Most industries behaved similarly with significant changes shown in Figure \ref{fig:19}. Compared with the previous data of these industries, the "Accommodation & Food", "Media & telecom" and "Arts" industries have experienced a severe loss of employment and have not fully recovered to the pre-covid level. However, some industries such as "Financial" and "Healthcare" were essentially unchanged and showed a continuously continous uptrend in the pre-COVID period.
+
+
+The employment of subsectors at the two-digit level illustrates a contract pattern compared with the sectoral level, shown in \ref{fig:86}.  From Figure \ref{fig:86}, we can see subsectors like "Food and Beverage Services", "Construction Services", "Professional, Scientific and Technical Services (Except Computer System Design and Related Services)" and "Other Store-Based retailing" are relatively large subsectors with various losses. For example, the “Food and Beverage Services” subsector has a steady increase from 2010 Q1 to 2020 Q1, but is highly influenced by the first lockdown in 2020 Q2 with a loss around 210,000 employed people. On the other hand, “Construction Services”, which belongs to the construction sector, did not have a significant decline during the pandemic. Same as the “Professional, Scientific and Technical Services”, it recovered the loss just in two quarters and tends to increase in the future. 
+
+
+<!-- At the two-digit subsectoral level, the subsectors operate differently and on distinctive scales. From Figure \ref{fig:86}, we can see subsectors like "Food and Beverage Services", "Construction Services", "Professional, Scientific and Technical Services (Except Computer System Design and Related Services)" and "Other Store-Based retailing" are relatively large subsectors. While all of them suffered losses during the initial lockdown in $2020:Q2$, the "Food and Beverage Services" had the largest hit (losing about 210,000 employed people) during this period.  -->
+
+
+
+
+
+
+Nevertheless, there is a drawback to considering the 19 broad sectors only; because the two-digit subsectoral dynamics of these sectors may not be homogeneous with their aggregated sectoral changes. For example, when observing the aggregated performance of the "Manufacturing" and "Mining" sectors from the 19 sectoral level (see Figure \ref{fig:a19}), one might think that the corresponding subsectors should show the same pattern. However, the reality is that while there is a downward trend in the "Manufacturing" sector or an upward trend in the "Mining" sector, some of their two-digit subsectors perform differently (see Figure \ref{fig:a87}). This means that not all two-digit subsectors follow the same pattern as the aggregated sectoral level.
+
+
+
+
+
+
+Table \ref{tab:comp} shows the top five and bottom five two-digit subsectors in terms of their year-on-year growth rate of "2022 Q2". From Table \ref{tab:comp}, we can see that "Other Transport" experienced the most severe shock after the lockdown happened in "2020 Q2", followed by "Non-Metallic Mineral Mining and Quarrying" and "Sports and Recreation Activities". However, not all subsectors suffered a lot in "2020 Q2". During this period, both "Water Transport" and "Gas Supply" had a remarkable increase, followed by "Broadcasting (excerpt Internet)" and "Exploration and Other Mining Support Services". 
+
+
+\begin{table}[ht]
+\begin{center}
+\begin{tabular}{ccc}
+\hline
+Date     & Sector                                        & YoY growth rate \\
+\hline
+2020: Q2  & 48 Water Transport                            & 81.01\%                                \\
+2020: Q2 & 27Gas Supply      & 55.14\%                                \\
+
+2020: Q2 & 56 Broadcasting (except Internet)                            & 34.49\%                                \\
+2020: Q2 & 10 Exploration and Other Mining Support Services                     & 32.87\%                                \\
+2020: Q2 & 63 Insurance and Superannuation Funds & 27.78\% 
+                 \\
+                 \\
+                 \hline
+Date     &  Sectors                                      &YoY growth rate \\
+                 \hline
+2020: Q2 & 50 Other Transport                 &-78.98\%  
+                 \\
+2020: Q2 & 09 Non-Metallic Mineral Mining and Quarrying    & -66.92\% 
+                 \\
+2020: Q2 & 91 Sports and Recreation Activities & -60.48\% 
+                 \\
+2020: Q2 & 55 Motion Picture and Sound Recording Activities                           & -55.19\%  
+                 \\
+2020: Q2 & 03 Forestry and Logging         & -54.40\%
+\end{tabular}
+\end{center}
+\caption{The highest and lowest five two-digit subsectors' employment percentage change for 2020:Q1 to 2020:Q2 }
+\label{tab:comp}
+\end{table}
+
+
+
+
+\clearpage

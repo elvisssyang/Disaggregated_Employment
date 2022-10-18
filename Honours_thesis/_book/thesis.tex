@@ -7,6 +7,8 @@
 \usepackage{booktabs,caption}
 \usepackage[flushleft]{threeparttable}
 \usepackage{float}
+\usepackage{amsmath}
+\usepackage{bm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Add any LaTeX packages and other preamble here if required
@@ -46,13 +48,13 @@ I would like to express gratitude to my supervisor Professor Farshid Vahid and m
 
 \vspace{48pt}
 
-\texttt{Matlab\ version.\ 2022a} codes are used to generate the estimated coefficients for the proposed Bayesian VAR model. The author would like to thank Benjamin Wong for providing the MATLAB packages.
+\texttt{Matlab\ version.\ 2022a} codes are used to generate the estimated coefficients for the proposed Bayesian VAR model.
 
 R \texttt{4.1.2\ "Bird\ Hipple"} \autocite{R} and Rstudio \texttt{2022.07.1+554\ "Spotted\ Wakerobin"} \autocite{Rstudio} are used for data analysis in this thesis.
 
 \vspace{12pt}
 
-R package used and their versions in this research include \texttt{matrixStats\ 0.61.0} \autocite{package_matrixStats}, \texttt{ggplot2\ 3.3.5} \autocite{package_ggplot2}, \texttt{zoo\ 1.8.9} \autocite{zoo}, \texttt{tidyverse\ 1.3.1} \autocite{tidyverse}, \texttt{dplyr\ 1.0.8} \autocite{dplyr}, \texttt{stats\ 4.1.2} \autocite{stats}, \texttt{readr\ 2.1.2} \autocite{readr}, \texttt{pracma\ 2.3.8} \autocite{pracma}, \texttt{lubridate\ 1.8.0} \autocite{lubridate}, \texttt{fpp3\ 0.4.0} \autocite{fpp3}, \texttt{ggpubr\ 0.4.0}\autocite{ggpubr}.
+R package used and their versions in this research include \texttt{matrixStats\ 0.61.0} \autocite{package_matrixStats}, \texttt{ggplot2\ 3.3.5} \autocite{package_ggplot2}, \texttt{zoo\ 1.8.9} \autocite{zoo}, \texttt{tidyverse\ 1.3.1} \autocite{tidyverse}, \texttt{dplyr\ 1.0.8} \autocite{dplyr}, \texttt{stats\ 4.1.2} \autocite{stats}, \texttt{readr\ 2.1.2} \autocite{readr}, \texttt{pracma\ 2.3.8} \autocite{pracma}, \texttt{lubridate\ 1.8.0} \autocite{lubridate}, \texttt{fpp3\ 0.4.0} \autocite{fpp3}, \texttt{ggpubr\ 0.4.0}\autocite{ggpubr}, \texttt{ggrepel\ 0.9.1} \autocite{ggrepel}, \texttt{directlabels\ 2021.1.13} \autocite{directlabels}, \texttt{gghighlight\ 0.3.3} \autocite{gghighlight}.
 (\emph{Note: In no particular order above})
 
 \vspace{12pt}
@@ -73,21 +75,19 @@ I declare that this thesis contains no material which has been submitted in any 
 \chapter*{Abstract}\label{abstract}}
 \addcontentsline{toc}{chapter}{Abstract}
 
-I investigate the performance of Australian employment at a disaggregated level and compare the actual situation with the no-COVID situation, generated via a series of appropriate forecasting methods. A multivariate time series model is developed to determine the long run employment spillovers to the total employment at this level. My results suggest that in the two-digits subsectoral level, \texttt{Other\ Store-Based\ Retailing}, followed by \texttt{Administrative\ Services}, \texttt{Furniture\ and\ Other\ Manufacturing} will generate the strongest positive spillovers to the total economy. One of the main contributions of this paper is that the government can stimulate these high and positive spillovers to recover the total employment rate effectively and efficiently.
-
-Moreover, I evaluate the impacts of COVID-19 on the Australian labour market with the conterfactual analysis. The outcomes demonstrate that the pandemic has a long-lasting effect on the economy. Besides, I point out the main reason behind the lowest unemployment rate record and uncover the underlying problems. The spillover analysis together with the evaluation, thus, provide another aspect for policymarkers to improve the Australian economy.
+I investigate the performance of Australian employment at a disaggregated level and compare the post-COVID situation with the no-COVID situation. The outcomes are generated via a series of appropriate forecasting methods. A multivariate time series model is utilised to determine the long run employment spillovers to the total employment at the two-digit subsectoral level. My results suggest that in the two-digit subsectoral level, \texttt{Other\ Store-Based\ Retailing}, followed by \texttt{Administrative\ Services}, \texttt{Furniture\ and\ Other\ Manufacturing} will generate the strongest positive spillovers to the total economy. One of the main contributions of this paper is that the government can stimulate these high and positive spillovers to recover total employment effectively and efficiently. Moreover, I evaluate the impacts of COVID-19 on the Australian labour market with counterfactual analysis. The outcomes demonstrate that the pandemic has a long-lasting effect on the economy. In addition, I point out the main reason behind the lowest unemployment rate record and compare the no-COVID scenario for unemployment rate. The spillover analysis together with the evaluation, thus, provide another aspect for policymarkers to improve the Australian economy.
 
 \hypertarget{the-australian-covid-19-pandemic-background}{%
 \chapter{The Australian COVID-19 Pandemic Background}\label{the-australian-covid-19-pandemic-background}}
 
-The COVID-19 pandemic has had a massive effect on economies around the world. Across different countries, millions of workers were furloughed or even lost their jobs as businesses struggled to survive \autocite{ny2020}. The same situation happened in Australia, due to more restrictions, many businesses closed their doors, while employees were working with less hours or being dismissed by companies. As a result of the continuous ``lockdown'' periods in 2020, estimates made by the Australian Bureau of Statistics \autocite{ABS2021} concluded that 72\% of businesses generated less revenue and the underemployment rate hit a historical high of 13.8\% by the end of April, 2020, only one month after the COVID-19 outbreak.
+The COVID-19 pandemic has had a massive effect on economies around the world. Across different countries, millions of workers have been furloughed or even lost their jobs as businesses struggled to survive \autocite{ny2020}. The same situation occurred in Australia, due to more restrictions, many businesses closed their doors, while employees were working with less hours or being laid off by businesses. As a result of the continued ``lockdown'' periods in 2020, the Australian Bureau of Statistics \autocite{ABS2021} estimated that 72\% of businesses generated less revenue and the underemployment rate hit a historical high of 13.8\% by the end of April, 2020, only one month after the outbreak of COVID-19.
 
-Our research is motivated by the lack of quantitative research on the employment of two-digit disaggregated industry sectors in Australia, while many studies have focused on the aggregated employment rate. A general problem of aggregated research is the loss of hierarchical information, which may result in a biased conclusion or ``an illusion of employment prosperity''. Thus, a quantitative analysis of the sectoral employment will ameliorate this problem, giving us a better scope to evaluate the impacts of COVID-19 in Australia.
+Our research is motivated by the lack of quantitative research on the employment of two-digit disaggregated industry sectors in Australia, while many studies have focused on the aggregated employment rate. A common problem with aggregated research is the loss of hierarchical information, which can lead to biased conclusions or the illusion of prosperous in labour market. Thus, a quantitative analysis of sectoral employment will ameliorate this problem, giving us a better scope to evaluate the impacts of COVID-19 in Australia.
 
 \hypertarget{research-aim-and-questions}{%
 \section{Research Aim and questions}\label{research-aim-and-questions}}
 
-This research will extend \textcite{anderson2020} by using data on 87 two-digit industry sectors instead of 19 sectors that they used. I will develop a model for the two-digit sectors to evaluate the long run effect and the COVID-19 post-impacts. I will also provide a counterfactual analysis based on an optimistic assumption of no pandemic or major events happened. The two-digit sectoral data will provide us more information, which will assist in getting a better understanding of employment dynamics in Australia on a more disaggregated level.
+This research will extend \textcite{anderson2020} by using data on 87 two-digit industry sectors instead of the 19 sectors that they used. I will develop a model for the two-digit sectors to evaluate the long run effect and the COVID-19 post-impacts. I will also provide a counterfactual analysis based on an optimistic assumption that no pandemic or major events happened. The two-digit sectoral data will provide us more information, which will assist in getting a better understanding of employment dynamics in Australia on a more disaggregated level.
 
 The overall research aim is to provide estimates of two-digit sectoral employment based on historical data. Specifically, my goals are:
 
@@ -104,14 +104,14 @@ The overall research aim is to provide estimates of two-digit sectoral employmen
 \hypertarget{thesis-structure}{%
 \section{Thesis Structure}\label{thesis-structure}}
 
-This thesis focuses on analysing Australian Employment at a disaggregated level, then estimate the long run effects of the COVID-19 to sectoral employment rate in Australia. The remainder of the thesis is structured as follows. First, in chapter 2, I review the existing literature in the relevant fields. Second, in chapter 3, I will provide exploratory data analysis and data resources. Then, I will propose our selected model in chapter 4. After we selected our model, I will conduct counterfactual analysis to evaluate the damages of COVID-19 and provide useful insights on key beneficial industries after COVID-19 in chapter 5. Eventually, I will provide a brief conclusion and discuss the limitations of our works and possible future extensions in chapter 6.
+This thesis focuses on analysing Australian Employment at a disaggregated level, then estimates the long run effects of COVID-19 on the sectoral employment rate in Australia. The remainder of the thesis is structured as follows. First, in chapter 2, I review the existing literature in the relevant fields. Second, in chapter 3, I will provide data sources and exploratory data analysis. Then, I will propose our selected model in chapter 4. After we selected our model, I will conduct a counterfactual analysis to evaluate the damage of COVID-19 and provide useful insights on key beneficial industries after COVID-19 in chapter 5. Finally, I will provide a brief conclusion and discuss the limitation and possible future extensions in chapter 6.
 
 \clearpage
 
 \hypertarget{review-of-literature}{%
 \chapter{Review of literature}\label{review-of-literature}}
 
-Our review of literature mainly focuses on two areas:
+We centred our review of the existing literature around two main areas:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -124,21 +124,23 @@ Our review of literature mainly focuses on two areas:
 \hypertarget{sectoral-impact-of-covid-19.}{%
 \section{Sectoral Impact of COVID-19.}\label{sectoral-impact-of-covid-19.}}
 
-Most existing studies have focused on the evaluation of the impacts of COVID-19 on broad sectors of large economies such as the US and Europe. \textcite{ludvigson2020covid} developed a disaster series to translate the macroeconomic impact of costly and deadly disasters in recent US history and model them as sectoral shocks to predict COVID-19. They concluded that the shock would lead to a cumulative loss of 20\% in industrial production, 39\% in public services and also reduce the US GDP by 12.75 per cent by the end of 2020. \textcite{gregory2020pandemic} conducted simulations under different scenarios via a search theoretic model using US data and found the recovery in the U.S. is L-shaped, with employment remaining lower than pre-covid for a long period. They also extended their studies at a disaggregated level of 20 sectors, showing that ``arts and entertainment'' and ``accommodation and food services'' sectors would have the biggest shock during the pandemic.
+Most existing studies have focused on the evaluation of the impacts of COVID-19 on broad sectors of large economies such as the US and Europe. \textcite{ludvigson2020covid} developed a disaster series to translate the macroeconomic impact of costly and deadly disasters in recent US history and model them as sectoral shocks to predict COVID-19. They concluded that the shock would lead to a cumulative loss of 20\% in industrial production, 39\% in public services and also reduce the US GDP by 12.75 percent by the end of 2020. \textcite{gregory2020pandemic} conducted simulations under different scenarios via a search theoretic model using US data and found that the recovery in the U.S. would be L-shaped, with employment remaining lower than pre-covid for a long period. They also extended their studies at a disaggregated level of 20 sectors, suggesting that the ``arts and entertainment'' and ``accommodation and food services'' sectors would experience the hardest hit during the pandemic.
 
-In Australia, \textcite{anderson2020} developed a multivariate time series model for 19 main sectors in Australia (as a typical small open economy) using a Bayesian VARX model. Their research concluded that ``Manufacturing'' and ``Construction'' have the highest positive spillovers for the aggregate economy. Meanwhile, they also applied a ``conditional forecasting'' method proposed by \textcite{waggoner1999} to simulate different scenarios for the pandemic in Australia. However, their research does not use a finely disaggregated level in Australia (two-digit subsectors of main sectors), which can be informative in macroeconomic analysis.
+In Australia, \textcite{anderson2020} developed a multivariate time series model for 19 main sectors in Australia (as a typical small open economy) using a Bayesian VARX model. Their research concluded that ``Manufacturing'' and ``Construction'' have the highest positive spillovers for the aggregate economy. Meanwhile, they also applied a ``conditional forecasting'' method proposed by \textcite{waggoner1999} to simulate different scenarios for the pandemic in Australia. However, their research did not use a finely disaggregated level in Australia (two-digit subsectors of main sectors), which could be less informative in macroeconomic analysis.
 
 \hypertarget{baysian-var}{%
 \section{Baysian VAR}\label{baysian-var}}
 
-The Bayesian Vector Autoregression model (BVAR) is commonly used in the literature for high-dimensional multivariate modelling \autocites[e.g.][]{anderson2020,litterman1986,banbura2010large}. The BVAR model is attractive because it allows us to estimate a large number of parameters, when the sample size is not large, in a statistically coherent way.\autocite{litterman1986,wozniak2016bayesian}.
+The Bayesian Vector Autoregression model (BVAR) is commonly used in the literature for high-dimensional multivariate modelling \autocites[e.g.][]{anderson2020,litterman1986,banbura2010large}. The BVAR model is attractive because it allows us to estimate a large number of parameters, in a statistically coherent way, when the sample size is not large. \autocite{litterman1986,wozniak2016bayesian}.
 
-In order to utilize the Bayesian VAR estimators, \textcite{litterman1979} proposed the Minnesota Prior, which decreases the weight of the lagged variables with the lag length. The prior mean on the first own lag is set to unity and the rest are set to zero so that \emph{(a)} the most recent lag should provide more information than distant lags; and \emph{(b)} own lags should explain more than the lags of other variables.
+To utilize the Bayesian VAR estimators, \textcite{litterman1979} proposed the Minnesota Prior, which decreases the weight of the lagged variables with the lag length. The prior mean on the first own lag is set to unity and the rest are set to zero so that \emph{(a)} the most recent lag should provide more information than distant lags; and \emph{(b)} own lags should explain more than the lags of other variables.
 
 \hypertarget{setting-minnesota-prior-with-shrinkage}{%
 \section{Setting Minnesota Prior with shrinkage}\label{setting-minnesota-prior-with-shrinkage}}
 
 The literature suggests that a significant improvement in the predicting performance of large BVAR dynamic models can be made by more careful choice of prior assumptions \autocite{banbura2010large,litterman1986}. Moreover, in setting the Minnesota Prior in our estimated model, \textcite{robertson1999vector} and \textcite{kadiyala1997} proposed a Normal-inverse-Wishart prior which retains the principal of Minnesota prior. Particularly, \textcite{banbura2010large} suggested an easier way to apply the Minnesota prior via adding dummy observations into the BVAR system (see Appendix for details).
+
+\clearpage
 
 \hypertarget{data-collection-and-exploratory-analysis}{%
 \chapter{Data collection and exploratory analysis}\label{data-collection-and-exploratory-analysis}}
@@ -146,7 +148,7 @@ The literature suggests that a significant improvement in the predicting perform
 \hypertarget{data-introduction-and-wrangling}{%
 \section{Data Introduction and wrangling}\label{data-introduction-and-wrangling}}
 
-The data I use in this thesis come from the Australia Bureau of Statistics (ABS), involving 86 industry sub-division of main jobs. The ABS records the employment (measured in thousands people \(('000)\)) from \(1984:Q4\) to \(2021:Q4\) with a structure provided via Figure \ref{fig:anzsic}.
+The data I use in this thesis comes from the Australia Bureau of Statistics (ABS), and involves 86 industry sub-divisions of main jobs. The ABS records the employment (measured in thousands people \(('000)\)) from \(1984:Q4\) to \(2021:Q4\) with a structure provided via Figure \ref{fig:anzsic}.
 
 \graphicspath{ {/Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figures} }
 
@@ -157,22 +159,22 @@ The data I use in this thesis come from the Australia Bureau of Statistics (ABS)
 \label{fig:anzsic}
 \end{figure}
 
-Although seasonally adjusted data is available in \autocite{ABS2022}, however, the seasonal adjustment of post-COVID data is problematic due to the shocks caused by lockdowns would impact the post-covid seasonality. Hence, I use the original data to capture any possible changes in seasonal patterns instead of the seasonally adjusted data provided by Australian Bureau of Statistics.
+Although seasonally adjusted data is available in \autocite{ABS2022}, however, the seasonal adjustment of post-COVID data is problematic as shocks caused by lockdowns would impact the post-covid seasonality. In addition, the seasonally adjusted subsectoral data do not add up to total employment, which cannot maintain internal consistency (e.g.~forecasting coherence) in the model. Therefore, I use the original quarterly employment data with transformations (see description below) to capture any possible changes in seasonal patterns instead of the seasonally adjusted data provided by the Australian Bureau of Statistics.
 
-In this thesis, I downloaded only the data from 1984 Quarter 4 to 2022 Quarter 2. Moreover, I use the Excel to extract both the employment for both two-digit disaggregated level and the total employment. Note that some of the data are zero, which is not feasible for a log transformation, so I will making the following modifications to remove them while keeping the structure of data coherent. Then, I take the following modifications to remove zeros, meanwhile, keeping the data structure coherent. The cleaned data can be seen in \emph{ABSemp.xlsx} file at (\url{https://github.com/elvisssyang/Disaggregated_Employment}).
+In this thesis, I only downloaded the data from the fourth quarter of 1984 to the second quartert of 2022. In addition, I use Microsoft Excel to extract both the employment for both two-digit disaggregated levels and the total employment. Note that some of the data are zero, which is not feasible for a log transformation, so I will make the following modifications to remove them while keeping the structure of the data coherent. Then, I take the following modifications to remove zeros, while keeping the data structure coherent. The cleaned data can be seen in the \emph{ABSemp.xlsx} file at (\url{https://github.com/elvisssyang/Disaggregated_Employment}).
 
 \begin{itemize}
 \item
-  Merge the two-digit subsector \emph{57- Internet Publishing and Boardcasting} and \emph{54- Publishing(except internet)} to a new combined subsector called \emph{54 Publishing and boadcasting}.
+  Merge the two-digit subsector \emph{57- Internet Publishing and Broadcasting} and \emph{54- Publishing (except internet)} to a new combined subsector called \emph{54 Publishing and broadcasting}.
 \item
-  Combine the \emph{96 Private Households Employing Staff and Undifferentiated Goodsand Service Producing Activities of Households for Own Use} and \emph{95 Personal and Other Services} as \emph{95 Personal and other services (include activities for own use)}.
+  Combine the \emph{96 Private Households Employing Staff and Undifferentiated Goods and Service Producing Activities of Households for Own Use} and \emph{95 Personal and Other Services} as \emph{95 Personal and other services (include activities for own use)}.
 \end{itemize}
 
-It is notice that there are few non-classified series (nfd) in ABS employment data. However, I will not address these series in this thesis because there are no further details provided by ABS. If this is put into the model, it will influence the sectoral dynamics. To make the forecasts coherent (sum to the total employment) and analysis universal, I will not consider them in this thesis. As a result, my total employment data is not same as the published total employment data. The largest discrepancy, however, is only a small portion of the real total employment. Accordingly, this will not significantly affect our analysis.
+It can be seen that there are few non-classified series (nfd) in ABS employment data. However, I will not address these series in this thesis because there are no further details provided by ABS. If this is incorporated into the model, it will affect the sectoral dynamics. To make the forecasts coherent (sum to the total employment) and analysis universal, I will not consider them in this thesis. As a result, my total employment data is not the same as the published total employment data. The largest discrepancy, however, concerns only a small portion of the real total employment. Accordingly, this will not significantly affect our analysis.
 
-Without any zeros, a log transformation can be applied to interprete the percentage change of the employment. The VAR model decided to fit the data requires stationary. As a result, I will further apply a seasonal difference to eliminate the seasonality (i.e.~nonstationarity).
+Without any zeros, a log transformation can be applied to explain the percentage change in employment. Since the estimated VAR model requires stationary data, I will further apply a fourth difference (seasonal difference) to eliminate the seasonality (i.e.~nonstationarity) for quarterly data.
 
-Finally, in \textbf{Chapter 6}, I have also combine the following data to further support our conterfactual analysis:
+Finally, in \textbf{Chapter 6}, I have also combine the following data together with the number of employment by subsectors \autocite{ABS2022} to further support our counterfactual analysis:
 
 \begin{itemize}
 \item
@@ -184,11 +186,13 @@ Finally, in \textbf{Chapter 6}, I have also combine the following data to furthe
 \hypertarget{preliminary-exploratory-data-analysis}{%
 \section{Preliminary Exploratory Data Analysis}\label{preliminary-exploratory-data-analysis}}
 
-Figure \ref{fig:19} illustrates the changes in the raw data for 19 main sectors in Australia from 2010 to 2022. Due to the closedown of businesses and travel bans on 2020:Q2, we can observe that the total employment number dropped substantially (from around 13,200,000 to 12,200,000 on \(2020:Q2\)). Most industries behaved similarly with significant changes shown in Figure \ref{fig:19} . Comparing with the previous data of these industries,'' Accommodation \& Food'', ``Media \& telecom'' and ``Arts'' industries have experienced a severe loss of employment and have not fully recovered to the pre-covid level. However, some industries like ``Financial'' and ``Healthcare'' has barely changed and showed a continuously increasing trend as the pre-COVID period.
+Figure \ref{fig:19} illustrates the changes in the raw data for 19 key sectors in Australia between 2010 and 2022. Due to businesses closures and travel bans in 2020:Q2, we can observe that the total employment number dropped substantially (from around 13,200,000 to 12,200,000 in \(2020:Q2\)). Most industries behaved similarly with significant changes shown in Figure \ref{fig:19}. Compared with the previous data of these industries, the ``Accommodation \& Food'', ``Media \& telecom'' and ``Arts'' industries have experienced a severe loss of employment and have not fully recovered to the pre-covid level. However, some industries such as ``Financial'' and ``Healthcare'' were essentially unchanged and showed a continuously continous uptrend in the pre-COVID period.
 
-Nevertheless, there is a drawback of considering the 19 broad sectors only; because the two-digit subsectoral dynamics of these sectors may not be homogeneous with their aggregated sectoral changes. For example, when observing the aggregated performance of the ``Manufacturing'' and ``Mining'' sectors from the 19 sectoral level (see Figure \ref{fig:a19}), we may believe that their corresponding subsectors should illustrate the same pattern. However, the reality is that while there is a decreasing trend in the ``Manufacturing'' sector or an increasing trend in the ``Mining'' sector, some of their two-digit subsectors are performed differently (see Figure \ref{fig:a87}). This means that not all two-digit subsectors follow the same pattern with the aggregated sectoral level.
+The employment of subsectors at the two-digit level illustrates a contract pattern compared with the sectoral level, shown in \ref{fig:86}. From Figure \ref{fig:86}, we can see subsectors like ``Food and Beverage Services'', ``Construction Services'', ``Professional, Scientific and Technical Services (Except Computer System Design and Related Services)'' and ``Other Store-Based retailing'' are relatively large subsectors with various losses. For example, the ``Food and Beverage Services'' subsector has a steady increase from 2010 Q1 to 2020 Q1, but is highly influenced by the first lockdown in 2020 Q2 with a loss around 210,000 employed people. On the other hand, ``Construction Services'', which belongs to the construction sector, did not have a significant decline during the pandemic. Same as the ``Professional, Scientific and Technical Services'', it recovered the loss just in two quarters and tends to increase in the future.
 
-Table \ref{tab:comp} shows the top five and bottom five two-digit subsectors in terms of their year-on-year growth rate of ``2022 Q2''. From Table \ref{tab:comp}, we can see that ``Other Transport'' experienced a severe shock after the lockdown happened on ``2020 Q2'', followed by ``Non-Metallic Mineral Mining and Quarrying'' and ``Sports and Recreation Activities''. However, not all subsectors suffered a lot on ``2020 Q2''. Here, we can see that both ``Water Transport'' and ``Gas Supply'' had a remarkable increase, followed by ``Broadcasting (excerpt Internet)'' and ``Exploration and Other Mining Support Services''.
+Nevertheless, there is a drawback to considering the 19 broad sectors only; because the two-digit subsectoral dynamics of these sectors may not be homogeneous with their aggregated sectoral changes. For example, when observing the aggregated performance of the ``Manufacturing'' and ``Mining'' sectors from the 19 sectoral level (see Figure \ref{fig:a19}), one might think that the corresponding subsectors should show the same pattern. However, the reality is that while there is a downward trend in the ``Manufacturing'' sector or an upward trend in the ``Mining'' sector, some of their two-digit subsectors perform differently (see Figure \ref{fig:a87}). This means that not all two-digit subsectors follow the same pattern as the aggregated sectoral level.
+
+Table \ref{tab:comp} shows the top five and bottom five two-digit subsectors in terms of their year-on-year growth rate of ``2022 Q2''. From Table \ref{tab:comp}, we can see that ``Other Transport'' experienced the most severe shock after the lockdown happened in ``2020 Q2'', followed by ``Non-Metallic Mineral Mining and Quarrying'' and ``Sports and Recreation Activities''. However, not all subsectors suffered a lot in ``2020 Q2''. During this period, both ``Water Transport'' and ``Gas Supply'' had a remarkable increase, followed by ``Broadcasting (excerpt Internet)'' and ``Exploration and Other Mining Support Services''.
 
 \begin{table}[ht]
 \begin{center}
@@ -230,9 +234,9 @@ Date     &  Sectors                                      &YoY growth rate \\
 \hypertarget{proposed-model}{%
 \section{Proposed Model}\label{proposed-model}}
 
-I plan to use a Bayesian VARX model based on the method used in \textcite{anderson2020}. The VARX model is especially useful in modelling dynamic behaviours of the relationships between variables \autocite{warsono2019}. In the model, each sector is affected by the lags of sectoral growth and a lag of the total employment growth. The lag of total employment growth is included to act as an economy-wide factor.
+I plan to use a Bayesian VARX model based on the method used in \textcite{anderson2020}. The VARX model is especially useful in modelling dynamic behaviours of the relationships between variables \autocite{warsono2019}. In the model, each sector is affected by the lags of sectoral annual growth and a lag of the total employment growth. The lag of total employment growth is included to act as an economy-wide factor, and also ensures the self-consistency (e.g.~forecasting coherence) to close the model.
 
-In many time series models, the number of lags are selected according to the patterns of the time series (i.e.~seasonality, cycle or trend). For quarterly data, four lags are usually used (see \textcite{anderson2020} and \textcite{stock2001}). However, because of the high-dimensionality and relatively small sample size in my case, I will use one lag of 84 sectors and one lag of the total employment.
+In many time series models, the number of lags is selected according to the patterns of the time series (i.e.~seasonality, cycle, or trend). For quarterly data, four lags are usually used (see \textcite{anderson2020} and \textcite{stock2001}). However, because of the high-dimensionality and relatively small sample size in my case, I will use one lag of 84 sectors and one lag of the total employment.
 
 Therefore, the suggested BVAR model is:
 
@@ -242,14 +246,14 @@ Therefore, the suggested BVAR model is:
 \end{aligned}
 \]
 
-where \(\bf{y}_t\) is an \(84\times1\) vector of two-digit subsectoral employment growth rate at time \(t\) and \(\bf{x}_{t-1}\) is a \(1\times1\) vector stands for one lag on the growth rate of the total employment (this vector of variables are predetermined at time \(t\)), \(\textbf{c}\) is a vector of constants, \(\bf{A}_{1}\) are \(84\times84\) parameter matrices. \(\boldsymbol{\Gamma}\) is a \(84\times1\) matrix and \(\bf{u}_t\) is a vector of reduced form errors with the mean equals to zero and independent variance \(\bf{u}_t \sim (0,\boldsymbol{\Sigma})\). (see Appendix for details)
+where \(\bf{y}_t\) is an \(84\times1\) vector of two-digit subsectoral employment growth rate at time \(t\) and \(\bf{x}_{t-1}\) is a \(1\times1\) vector stands for one lag on the growth rate of the total employment (this vector of variables are predetermined at time \(t\)), \(\textbf{c}\) is a vector of constants, \(\bf{A}_{1}\) is an \(84\times84\) parameter matrix. \(\boldsymbol{\Gamma}\) is an \(84\times1\) matrix and \(\bf{u}_t\) is a vector of reduced form errors with the mean equal to zero and independent variance \(\bf{u}_t \sim (0,\boldsymbol{\Sigma})\). (See Appendix A for details)
 
-In the proposed model, the use of seasonality unadjusted data allows the estimates to be coherent (i.e.~the sum of subsectoral employments equals to total employment). Moreover, the share of each subsector change endogenously as the varying employment over time. Therefore, even we have one lag of the growth rate of total employment, there is no multicollinearity because the shares of subsectors change over time.
+In the proposed model, the use of seasonality unadjusted data allows the estimates to be coherent (i.e.~the sum of subsectoral employment equals total employment). Moreover, the share of each subsector changes endogenously as the varying employment over time. Therefore, even if we have one lag of the growth rate of total employment, there is no multicollinearity because the shares of subsectors change over time.
 
 \hypertarget{prior-and-shrinkage}{%
 \section{Prior and Shrinkage}\label{prior-and-shrinkage}}
 
-Bayesian VAR helps to overcome the curse of high dimensionality by imposing the prior beliefs on the parameters \autocite{banbura2010large}. I will estimate the employment dynamics using Bayesian VAR model by specifying a Minnesota type prior \autocites[e.g.][]{anderson2020,litterman1986,robertson1999vector}, which is defined as follows:
+A Bayesian VAR helps to overcome the curse of high dimensionality by imposing prior beliefs on the parameters \autocite{banbura2010large}. I will estimate the employment dynamics using a the Bayesian VAR model by specifying a Minnesota type prior \autocites[e.g.][]{anderson2020,litterman1986,robertson1999vector}, which is defined as follows:
 
 \[
 \begin{aligned}\label{eq:1}
@@ -267,9 +271,7 @@ Bayesian VAR helps to overcome the curse of high dimensionality by imposing the 
 
 where in the proposed model (see \textbf{Chapter 4.1}), the number of lag is \(i=1\). Therefore, the \(a_{1}^{jk}\) and \(\gamma_{1}^{jk}\) are \({j,k}^{th}\) of \(A_1\) and \(\Gamma_1\) matrices, degree of shrinkage is governed by \(\lambda\), \(\frac{1}{i^2}\) down-weights the distant lags and the \(\frac{\sigma_j^2}{\sigma_k^2}\) adjusts for different scale of the data. \(\sigma^2_e\) is the variance after fitting an AR model on total employment growth.
 
-\textcite{banbura2010large} also suggest a natural conjugate Normal-Inverse-Wishart prior, which retains the principle of Minnesota prior. This will greatly simplify the steps of adding Minnesota prior to the Bayesian VAR model. Its posterior moments can be calculated either analytically or through adding the dummy observations. I will use dummy observations to estimate the BVAR \autocite{banbura2010large}. More details are provided in the Appendix.
-
-\newpage
+\textcite{banbura2010large} also suggests a natural conjugate Normal-Inverse-Wishart prior, which retains the principle of Minnesota prior. This will greatly simplify the steps of adding Minnesota prior to the Bayesian VAR model. Its posterior moments can be calculated either analytically or by adding the dummy observations. I will use dummy observations to estimate the BVAR \autocite{banbura2010large}. More details are provided in the Appendix.
 
 \hypertarget{selecting-the-hyperparameter-of-minnesota-prior}{%
 \section{Selecting the hyperparameter of Minnesota Prior}\label{selecting-the-hyperparameter-of-minnesota-prior}}
@@ -288,17 +290,17 @@ Specifically, the Minnesota type prior has the following beliefs about the varia
 \end{aligned}
 \]
 
-where \(\lambda\) is a hyperparemeter specified based on how far we will shrink the estimator and \(\frac{\sigma^2_{j}}{\sigma^2_k}\) adjusts for the different scale of the data. To effectively scale the estimator \(\gamma^j_1\) and \(a_j^{jk}\), I obtain \(\sigma_n^2\) by fitting an AR(4) model on the \(n\)-th variable using least squares, which is commonly used in many literatures\autocite{anderson2020,banbura2010large,koop2013}.
+where \(\lambda\) is a hyperparameter specified based on how far we will shrink the estimates and \(\frac{\sigma^2_{j}}{\sigma^2_k}\) adjusts for the different scale of the data. To effectively scale the estimator \(\gamma^j_1\) and \(a_j^{jk}\), I obtain \(\sigma_n^2\) by fitting an AR(4) model on the \(n\)-th variable using least squares, which is commonly used in many literatures \autocite{anderson2020,banbura2010large,koop2013}.
 
-As the Minnesota prior defined from the above equations (see \(4.3.1\) and \(4.3.2\)), the hyperparameter \(\lambda\) controls the overall tightness (variance) of the prior distribution \autocite{banbura2010large}. If \(\lambda\rightarrow0\), we can see that the prior assumption is influential, which means that the posterior getting closer to the prior, so the data have no influence on the estimates. On the contrary, if \(\lambda\rightarrow\infty\), the posterior expectations will approach to ordinary least squares (OLS) estimates. In many macroeconomic VAR forecasting, data are presented in a large dimension. As the dimension increases, we want to shrink more in order to avoid the over-fitting \autocite{de2008}.
+As the Minnesota prior defined from the above equations (see \(4.3.1\) and \(4.3.2\)), the hyperparameter \(\lambda\) controls the overall tightness (variance) of the prior distribution \autocite{banbura2010large}. If \(\lambda\rightarrow0\), we can see that the prior assumption is influential, which means that the posterior getting closer to the prior. That is, the data do not affect the estimation. In contrast, if \(\lambda\rightarrow\infty\), the posterior expectations will approach the ordinary least squares (OLS) estimates. In many macroeconomic VAR forecasting situations, the data has a large dimension. As the dimension increases, we want to shrink more in order to avoid over-fitting \autocite{de2008}.
 
-Admittedly, the hyperparameter \(\lambda\) plays an important role in improving forecast accuracy by controlling the degree of shrinkage. For example, \textcite{banbura2010large} point out that a gain in efficiency could be made by applying an Bayesian shrinkage in estimating large multivariate VAR models. They also conclude that large bayesian vector autoregressions (BVARs) with shrinkage are credible to conduct structural analysis.
+Admittedly, the hyperparameter \(\lambda\) plays an important role in improving forecast accuracy by controlling the degree of shrinkage. For example, \textcite{banbura2010large} point out that a gain in efficiency could be made by applying Bayesian shrinkage in estimating large multivariate VAR models. They also conclude that large bayesian vector autoregressions (BVARs) with shrinkage are useful for constructing structural analysis.
 
-Based on applied experiences, Litterman concluded that the shrinkage estimate \(\lambda=0.2\) is sufficient to deal with many empirical cases \autocite{litterman1986}. More importantly, the data size also needs to be considered as an essential basis when deciding the degree of shrinkage \autocite{banbura2010large}. Unlike the one-digit level (19 sectors) done by \textcite{anderson2020}, the two-digit level (84 subsectors) employment in Australia is more complex with many variables. Thus, \(\lambda=0.2\) may not be suitable for this multivariate case. Here, I will provide a detailed analysis of the approach I used to select the optimal \(\lambda\).
+Based on applied experience, Litterman concluded that the shrinkage estimate \(\lambda=0.2\) is sufficient to deal with many empirical cases \autocite{litterman1986}. More importantly, the data size should also needs to be considered as well when deciding the degree of shrinkage \autocite{banbura2010large}. Unlike the one-digit level (19 sectors) studied by \textcite{anderson2020}, the two-digit level (84 subsectors) employment in Australia is more complex on many variables. So \(\lambda=0.2\) may not be suitable for this multivariate case. Here, I will provide a detailed analysis of the approach I used to select the optimal \(\lambda\).
 
-Due to the reason that the size of disaggregated subsectors have different scales, the commonly used scale-dependent error measurement (e.g.~MAE, MSE) will fail when comparing forecast accuracy between subsectors. Even though MAPE is unit-free, it is not robust in sectors that have relatively small shares. When \(y_t\) is close to zero, MAPE will likely have extreme values or become undefined. Accordingly, I will sum all sectors to the total employment and minimise the forecast error of total employment to select the optimal \(\lambda\).
+Due to the reason that the size of disaggregated subsectors has different scales, the commonly used scale-dependent error measurement (e.g.~MAE, MSE) may fail when comparing forecast accuracy between subsectors. Even though MAPE is unit-free, it is not robust in sectors that have relatively small shares. When \(y_t\) is close to zero, MAPE will likely have extreme values or become undefined. Accordingly, I will sum all sectors to the total employment and minimise the forecast error of total employment to select the optimal \(\lambda\).
 
-The error measurement I will use is the root mean squared forecast error RMSFE. It is calculated via an out-of-sample forecasting experiment, which is a similar practice in many empirical cases \autocite{banbura2010large,koop2013}. Here, I denote \(H\) as the longest forecast horizon to be evaluated, both \(T_{b}\) and \(T_{e}\) as the end of training set and testing set, respectively. Give the forecast horizon \(h\), hyperparameter \(\lambda\) and model \(m\), for each given period between \(T_{b}\) and \(T_{e}\) (\(T=T_b,\cdots,T_{e}-h\)), we computer \(h\)-step-ahead forecasts \({y}_{i,T+h|T}^{(\lambda,m)}\), using only the information up to time T. And then minus the actual data \(y_{i,T+h}\) to calculate the forecast error.
+The error measurement I will use is the root mean squared forecast error RMSFE. It is calculated via an out-of-sample forecasting experiment, which is similar to practice in many empirical cases \autocite{banbura2010large,koop2013}. Here, I denote \(H\) as the longest forecast horizon to be evaluated, both \(T_{b}\) and \(T_{e}\) as the end of the training set and testing set, respectively. Give the forecast horizon \(h\), hyperparameter \(\lambda\) and model \(m\), for each given period between \(T_{b}\) and \(T_{e}\) (\(T=T_b,\cdots,T_{e}-h\)), I compute \(h\)-step-ahead forecasts \({y}_{i,T+h|T}^{(\lambda,m)}\), using only the information up to time T. I then minus the actual data \(y_{i,T+h}\) to calculate the forecast error.
 
 Then, out-of-sample forecast accuracy is measured in terms of the root mean squared forecast error (\textbf{RMSFE}) as:
 
@@ -310,7 +312,7 @@ RMSFE^{\lambda}_{h}=\sqrt{\frac{1}{T_e-T_b-h}\Sigma^{T_{e}-h}_{T=T_{b}}({y}_{T+h
 
 where \({y}_{T+h|T}^{\lambda}\) is defined as the \(h\)-th steps ahead forecast given the information up to time \(T\) and \(y_{T+h}\) is the actual data for the \(h\)-th steps ahead forecast. Here, \(m\) and \(\lambda\) stands for the evaluated RMSFE, conditioned on a specific model and the hyperparameter \(\lambda\).
 
-In this section, I will set up an effective searching algorithm to search for the optimal shrinkage estimator \(\lambda\). For our purposes, we want to provide accurate forecasts of total employment based on the scenario where no covid happened to support our counterfactual analysis. Therefore, the pre-covid total employment data (before 2020 Quarter 2) is split into training and test with a training set of length (\(n=120=T_b\)) and a test set of length (\(n=22=T_b+H-h=T_e-h\)). As a consequence, I will set the \(H=22\) to be the length of test set, \(h=1\) for one step experiment and \(m\) is the BVAR proposed earlier in \textbf{Chapter 4}.
+In this section, I will set up an effective searching algorithm to search for the optimal shrinkage estimator \(\lambda\). For our purposes, I want to provide accurate forecasts of total employment based on the scenario where no covid happened to support our counterfactual analysis. Therefore, the pre-covid total employment data (before 2020 Quarter 2) is split into training and test portions with a training set of length (\(n=120=T_b\)) and a test set of length (\(n=22=T_b+H-h=T_e-h\)). As a consequence, I will set \(H=22\) to be the length of test set, \(h=1\) for a one step experiment and \(m\) is the BVAR proposed earlier in \textbf{Chapter 4}.
 
 Here is a brief description of the proposed algorithm:
 
@@ -319,13 +321,13 @@ Here is a brief description of the proposed algorithm:
 \begin{figure}[ht]
 \includegraphics[scale=0.7]{Flowchart_algo}
 \centering
-\caption{Proposed algorithm of selecting optimal $\lambda$}
+\caption{Proposed algorithm for selecting the optimal $\lambda$}
 \label{fig:sealgo}
 \end{figure}
 
-To mitigate the adverse impact of high-dimensionality, I set algorithm starting from \(0.0001\), with a step of \(0.0001\) and will stop at \(0.3\). There is 3000 different lambdas are considered and the algorithm will automatically return the lambda with minimum RMSFE in forecasting total number of employment (see Matlab code in my github {[}Link \url{https://github.com/elvisssyang/Disaggregated_Employment/tree/main/Matlab}{]}).
+To mitigate the adverse impact of high-dimensionality, I set the algorithm to start from \(0.0001\), use steps of \(0.0001\) and stop at \(0.3\). There are 3000 different lambdas considered, and the algorithm will automatically return the lambda with minimum RMSFE in forecasting total number of employment (see Matlab code in my github {[}Link \url{https://github.com/elvisssyang/Disaggregated_Employment/tree/main/Matlab}{]}).
 
-From the return value of our searching algorithm (see Figure \ref{fig:sealgo}). The estimated hyperparameter from the algorithm is \(\lambda=0.0808\), which certainly has the lowest mean scaled forecast error (RMSFE) as designed. Based on this, we choose \(\lambda=0.0808\) for subsequent analysis.
+From the return value of our searching algorithm (see Figure \ref{fig:sealgo}). The estimated hyperparameter from the algorithm is \(\lambda=0.0808\), which certainly has the lowest mean scaled forecast error (RMSFE) as designed. Based on this, I choose \(\lambda=0.0808\) for subsequent analysis.
 
 \newpage
 
@@ -335,19 +337,19 @@ From the return value of our searching algorithm (see Figure \ref{fig:sealgo}). 
 \hypertarget{long-run-multiplier-analysis}{%
 \section{Long-run Multiplier Analysis}\label{long-run-multiplier-analysis}}
 
-Due to the reason that industries are interdependent, we should be aware that the change of one sector may influences both the total employment and other sectors. In this chapter, I will use the structure of multivariate BVAR to capture the dynamics of sectoral employment for each disaggregated sector.
+Due to the reason that industries are interdependent, we should be aware that the change of one sector may influence both the total employment and other sectors. In this chapter, I will use the dynamic structure of my multivariate BVAR to capture the dynamics of sectoral employment for each disaggregated sector.
 
-The following analysis is based on the estimated BVAR model and 87 two-digit disaggregated data. It is also under the assumption that the structure of Australian economy will not change after the COVID-19 happens.
+The following analysis is based on the estimated BVAR model and 84 two-digit disaggregated data. I assume that the structure of Australian economy will not change after the COVID-19.
 
 At each time point, the relationship is defined as:
 
 \[
-GR_T=\sum_{i=1}^{87} w_i\times {GR}_i
+GR_T=\sum_{i=1}^{84} w_i\times {GR}_i
 \]
 
 where \(w_i\) is the share of subsector \(i\), \(GR_T\) is the growth rate of the total employment and \(GR_i\) is the growth rate in employment of subsector \(i\).
 
-In particular, if there is a one percent increase in employment of subsector \emph{i}, the total employment will increase by the corresponding share(\(w_i\)) simultaneously. In addition, given an increase in the total employment, it may also have indirect effects to other sectors in consecutive periods, especially for sectors with close economic ties. Therefore, I define the employment long-run employment multiplier as the effect of initial increase in sector \emph{i} on the total employment in the long-run, which follows the definition in \textcite{anderson2020}. If the subsector has a larger long-run effect on the total employment than its immediate effect, then stimulate this sector will lead a positive spillover effect onto the total employment.
+In particular, if there is a one percent increase in employment of subsector \emph{i}, the total employment will increase by the corresponding share(\(w_i\)) simultaneously. In addition, given an increase in the total employment, it may also have indirect effects to other sectors in consecutive periods, especially for sectors with close economic ties. Therefore, I define the employment long-run employment multiplier as the effect of an initial increase in sector \emph{i} on the total employment in the long-run, which follows the definition in \textcite{anderson2020}. If the subsector has a larger long-run effect on total employment than its immediate effect, then stimulating this sector will lead a positive spillover effect onto the total employment.
 
 I use the estimated BVAR model to simulate the long-run employment multiplier for each sector with the horizons of one year, two years and ten years. Subsequently, the differences between the simulated ten-year multipliers and the initial shares are the spillovers of the disaggregated subsectors. I abstract the top 10 subsectors with strong positive spillovers in Table \ref{fig:spl}. The full list is available in Appendix B (see Table \ref{dis:emp}).
 
@@ -384,11 +386,11 @@ Comparing the long-term multipliers with the shares, we find that \texttt{Other\
 
 It's also worth noticing that some small subsectors (see Table \ref{dis:emp} for sizes) have relative huge changes from Table \ref{fig:spl}. This may be caused by their small shares in the total employment. Thus, a shock in small subsectors (e.g.~\texttt{Fishing,\ Hunting\ and\ Trapping}) will have a significant change relative to the size of this subsector.
 
-There are a few interesting points to be noticed here. First, the spillover effect is not just related the size of subsectors. For instance, \texttt{Fishing,\ Hunting\ and\ Trapping} is the smallest sector (see Table \ref{dis:emp}). However, it generates positive spillovers. On the contrary, both the \texttt{Professional,\ Scientific\ and\ Technical\ Services}, which are a large subsectors but generate negative spillover in the long run.
+There are a few interesting points to be noticed here. First, the spillover effect is not just related the size of subsectors. For instance, \texttt{Fishing,\ Hunting\ and\ Trapping} is the smallest sector (see Table \ref{dis:emp}). However, it generates positive spillovers. On the contrary, both the \texttt{Professional,\ Scientific\ and\ Technical\ Services} and \texttt{Construction\ Services}, which are large subsectors but generate negative spillovers in the long run.
 
-Second, I find that subsectors in the \texttt{Construction} sector\footnote{Construction Sector contains three subsectors: 30. Building Construction; 31. Heavy and Civil Engineering Construction;32. Construction Services} will not bring strong positive spillovers. The \texttt{Construction\ services} subsector even generates a negative spillover. This is in contrast to the result of \textcite{anderson2020} at the broadest level, where they discover that the \texttt{Construction} sector has a strong positive spillover. Although the total spillovers of the \texttt{Construction} sector is still positive\footnote{The Spillover for the \texttt{Construction} sector is equal to the sum of all its subsectors (-0.0004619 + 0.00271218 +0.00066987 = 0.00292015)}, individual subsectors may not have positive spillovers, like the \texttt{Construction\ Service} subsector. This also proves the importance of extending the research to a finer partition (more disaggregated level).
+Second, I find that subsectors in the \texttt{Construction} sector\footnote{Construction Sector contains three subsectors: 30. Building Construction; 31. Heavy and Civil Engineering Construction;32. Construction Services} will not bring strong positive spillovers in the two-digit level. This is in contrast to the result of \textcite{anderson2020} at the broadest level, where they discover that the \texttt{Construction} sector has a strong positive spillover. Although the total spillovers of the \texttt{Construction} sector is still positive\footnote{The Spillover for the \texttt{Construction} sector is equal to the sum of all its subsectors (-0.0004619 + 0.00271218 +0.00066987 = 0.00292015)}, individual subsectors may not have positive spillovers, like the \texttt{Construction\ Service} subsector. This also proves the importance of extending the research to a finer partition (more disaggregated level).
 
-Third, both \texttt{Teritiary\ Education} and \texttt{Adult,\ Community\ and\ Other\ Education} generate negative spillovers, which implies that education industry will reduce the labour force participation in the long run. This is mainly because one decides to persuade an postgraduate degree or a certificate, then the focus will be removed from working/finding jobs. The finding is also consistent with the research of broadest level (19 sectors) done by \textcite{anderson2020}.
+Third, both \texttt{Teritiary\ Education} and \texttt{Adult,\ Community\ and\ Other\ Education} generate negative spillovers, which implies that stimulating the education industry will likely reduce labour force participation in the long run. This is mainly because one decides to pursue a postgraduate degree or a certificate, then the focus will be removed from working/finding jobs. The finding is also consistent with the analysis of broadest level (19 sectors) undertaken by \textcite{anderson2020}.
 
 \hypertarget{evaluations-after-covid-19}{%
 \section{Evaluations after COVID-19}\label{evaluations-after-covid-19}}
@@ -396,32 +398,34 @@ Third, both \texttt{Teritiary\ Education} and \texttt{Adult,\ Community\ and\ Ot
 \hypertarget{losses-of-total-employment}{%
 \subsection{Losses of Total Employment}\label{losses-of-total-employment}}
 
-It is now commonly known that COVID-19 can be rigorously prevented by vaccines, face masks and social distancing. We can never fully stop transmission of the virus or from being infected unless there is no interaction among people. Thus, it is expected that the COVID-19 has caused massive losses to the Australian labour market and these negative impacts will be persistent in the long run. In order to prove my idea and raise the awareness of COVID-19, I will conduct a counterfactual analysis by evaluating the total employment with and without pandemic. In this section, I use the estimated model to provide a counterfactual analysis for total employment after the pandemic. Similar as \textcite{anderson2020}, I will consider a no pandemic case (``no-COVID'' scenario). Other kinds of scenarios are not considered since the pandemic has already happened. Recent data will help to compare and evaluate the impact of COVID-19 on the labour market.
+It is now commonly known that COVID-19 can be rigorously prevented by vaccines, face masks and social distancing. We can never fully stop transmission of the virus or from being infected unless there is no interaction among people.
+
+Based on the fact that COVID-19 can spread quickly and there is no wonder drug to prevent outbreaks of new variants at the moment, it is expected that the COVID-19 will still have a long-term impact on the Australian labour market. Thus, it is expected that the COVID-19 has caused massive losses to the Australian labour market and these negative impacts will be persistent in the long run. In order to prove my idea and raise the awareness of COVID-19, I will conduct a counterfactual analysis by evaluating the total employment with and without pandemic. In this section, I use the estimated model to provide a counterfactual analysis for total employment after the pandemic. Similar to \textcite{anderson2020}, I will consider a no pandemic case (``no-COVID'' scenario). Other kinds of scenarios are not considered since the pandemic has already happened. Recent data will help to compare and evaluate the impact of COVID-19 on the labour market.
 
 \begin{figure}[H]
 \includegraphics[scale=0.6]{cont_analysis}
 \centering
-\caption{Conterfactual analysis of total employment(in thousands) with confidence interval generated via bootstrap}
+\caption{Counterfactual analysis of total employment(in thousands) with confidence interval generated via bootstrap (Blue is counterfactual scenario (no-COVID);Black is the actual data)}
 \label{fig:con}
 \end{figure}
 
-The Figure \ref{fig:con} displays the COVID-19 has caused a continuous structural shock of the total employment in Australia since the outbreak of the COVID-19. Based on the point forecasts together with a 80\% confidence interval (via bootstraping), our model suggests that employment losses remained about 750,000 persons below where it would have been without the pandemic (see the differences in Figure \ref{fig:con}). As a result, by comparing the trend of the ``no pandemic'' scenario and that of the actual data, the essentially parallel trend revealed that we may not expect the total employment reach the forecasts under no-COVID case at this stage. That is, the COVID-19 has a long lasting impacts on the economy even after 2 years, starting from the first lock down in ``2020 Quarter 2''.
+Figure \ref{fig:con} displays COVID-19 has caused a continuous structural shock of total employment in Australia since the outbreak of COVID-19. Based on the point forecasts together with an 80\% confidence interval (via empirical bootstrapping)\footnote{As there are 7224 parameters to estimate, we do not use the Bayesian bootstrap concerning the time complexity required when taking high-dimensional integrals. Since our goal is to apply Bayesian shrinkage to the point estimates and improve forecast accuracy, the use of bootstrap with empirical residuals is more computationally efficient while providing an appropriate reference.}, our model suggests that employment losses remained about 750,000 persons below where it would have been without the pandemic (see the differences in Figure \ref{fig:con}). As a result, by comparing the trend of the ``no pandemic'' scenario and that of the actual data, the essentially parallel trend revealed that we may not expect total employment reach the forecasts under no-COVID case at this stage. That is, the COVID-19 has a long lasting impacts on the economy even after 2 years, starting from the first lock down in ``2020 Quarter 2''.
 
 \begin{figure}[H]
 \includegraphics[scale=0.6]{yoy1}
 \centering
-\caption{Conterfactual analysis of Year-on-Year growth rate with forecasts generated via the estimated BVAR model}
+\caption{Counterfactual analysis of Year-on-Year growth rate with forecasts generated via the estimated BVAR model}
 \label{fig:yoy}
 \end{figure}
 
-I have also considered the Year-on-Year growth for quarterly total employment data from 2020 Q2 to 2022 Q2 (up-to-date at the time of collecting). From the Figure \ref{fig:yoy}, the actual employment growth was far away from the expected growth, especially at 2020 Q2, where Australia was experiencing the first lockdown. Although the year-on-year growth rate gradually recovered to normal after that, the total employment is still lower than it ought to be under the no-covid situation. Again, the has emphasize the finding above as ``We may not expect the employment number to reach the estimated no-COVID level in a short period.'' Therefore, based on the conterfactual analysis of both employment and the year-on-year growth rate, it is reasonable to believe that the COVID-19 has indeed a significant impact in the labour market in the short run as well as in the long run.
+I have also considered the Year-on-Year growth for quarterly total employment data from 2020 Q2 to 2022 Q2 (up-to-date at the time of collecting). From Figure \ref{fig:yoy}, the actual employment growth was far away from expected growth, especially at 2020 Q2, when Australia was experiencing the first lockdown. Although the year-on-year growth rate gradually recovered to normal after that, total employment is still lower than it ought to be under the no-covid situation. Again, it has emphasize the finding above as ``We may not expect the influences of COVID-19 to disappear unless there is a higher year-on-year growth rate and persists for a while.'' Therefore, based on the counterfactual analysis of both employment and the year-on-year growth rate, it is reasonable to believe that COVID-19 has indeed a significant impact in the labour market in the short run as well as in the long run.
 
 \hypertarget{empirical-example-the-historically-lowest-unemployment-rate}{%
 \subsection{Empirical Example: The historically lowest unemployment rate:}\label{empirical-example-the-historically-lowest-unemployment-rate}}
 
-In June 2022, Australia has reached the lowest unemployment rate since August 1974 (\textcite{ABS2022a}). Then one may want to know the underlying reason of this extremely low unemployment rate. Is it the stimulus policies during the COVID-19 has contributed the most for the unemployment rate? In answering this question, I will provide a conterfactual analysis of the unemployment rate to exploit what would the unemployment be without the pandemic case.
+In June 2022, Australia reached the lowest unemployment rate since August 1974 (\textcite{ABS2022a}). Then one may want to know the underlying reason of this extremely low unemployment rate. Is it the stimulus policies during the COVID-19 has contributed the most for the unemployment rate? In answering this question, I will provide a counterfactual analysis of the unemployment rate to exploit the reason behind and what would the unemployment rate be without the pandemic case.
 
-To give an accurate interpretation of the low unemployment rate, the answer should refer to the definition, which is the percentage who are in the labour force but are unemployed. Mathematically, it can be:
+To give an accurate interpretation of the low unemployment rate, the answer should refer to the definition, which is the percentage of people who are in the labour force but are unemployed. Mathematically, it can be:
 
 \[
 \begin{aligned}
@@ -430,25 +434,25 @@ To give an accurate interpretation of the low unemployment rate, the answer shou
 \end{aligned}
 \]
 
-Clearly, the unemployment rate depends on both total labour force and the number of employed people. Since the estimated BVAR model suggested that employment is less than what is would have been without COVID. Therefore, given the low unemployment rate and lower employed people than no-COVID scenario, the reason must be a significant decline in the total labour force after the pandemic.
+Clearly, the unemployment rate depends on both the total labour force and the number of employed people. Since the estimated BVAR model suggested that employment is less than what is would have been without COVID. Therefore, given the low unemployment rate and lower employed people than no-COVID scenario, a possible reason could be a significant decline in the total labour force after the pandemic.
 
-To further support our assumption, I use quarterly labour force data from ABS from ``1984 Q4'' to ``2022 Q2'' \autocite{ABS2022}. Moreover, a stepwise \texttt{ARIMA} model \autocite{fpp3} is used to fit the ``no-COVID'' data between ``1984 Q4'' to ``2020 Q1'' to forecast the total labour force under the ``no-COVID'' scenario (see Figure \ref{fig:lab}). Compare it with the actual data, it is clear that the real total labour force is below its no-COVID forecast the unemployment rate is the lowest historically. Therefore, the main reason of low unemployment is in fact the decline of the total labour force rather than a huge increase in the number of employed people.
+To further support the hypothesis, I use quarterly labour force data from ABS from ``1984 Q4'' to ``2022 Q2'' \autocite{ABS2022}. Moreover, a stepwise \texttt{ARIMA} model \autocite{fpp3} is used to fit the ``no-COVID'' data between ``1984 Q4'' to ``2020 Q1'' to forecast the total labour force under the ``no-COVID'' scenario (see Figure \ref{fig:lab}). Compared with the actual data, it is clear that the real total labour force is below its no-COVID forecast at the time that the unemployment rate is the lowest historically. Therefore, the main reason for low unemployment is in fact the decline of the total labour force rather than the effects of stimulus policies during the pandemic period.
 
 \begin{figure}[H]
 \includegraphics[scale=0.6]{con_labourf}
 \centering
-\caption{Conterfactual analysis of the total labour force}
+\caption{Counterfactual analysis of the total labour force}
 \label{fig:lab}
 \end{figure}
 
-After examining the underlying reason of the low unemployment rate, I have also studied the unemployment rate performance under the no-COVID scenario. The forecasts of no-COVID unemployment rate is the difference between the total labour force and employment rate over the total labour force under the no-COVID scenario. It is noticeable that the expected unemployment rate (under no-COVID scenario) is still achieve or close to the lowest record and with more labour force and total employment.
+After examining the underlying reason for the low unemployment rate, I have also studied the unemployment rate performance under the no-COVID scenario. The forecasts of the no-COVID unemployment rate is the difference between the total labour force and employment rate over the total labour force under the no-COVID scenario. It is noticeable that the expected unemployment rate (under no-COVID scenario) can still be close to the lowest on record, even with a larger labour force and total employment.
 
-Overall, the findings suggest that we would have experienced the historically low unemployment rate even in the absence of COVID-19. This further assures us that the policies directed at stimulating employment during the pandemic (e.g.~Jobkeeper program) are not likely to be responsible for the current low unemployment rate.
+Overall, the findings suggest that we would have experienced the historically low unemployment rate even in the absence of COVID-19. This further assures us that the policies directed at stimulating employment during the pandemic (e.g.~Jobkeeper program) are not likely to be responsible for the current historically low unemployment rate.
 
 \begin{figure}[H]
 \includegraphics[scale=0.7]{cont_rate}
 \centering
-\caption{Conterfactual analysis of the employment rate in Australia}
+\caption{counterfactual analysis of the employment rate in Australia}
 \label{fig:unrate}
 \end{figure}
 
@@ -457,29 +461,21 @@ Overall, the findings suggest that we would have experienced the historically lo
 \hypertarget{discussions-and-conclusion}{%
 \chapter{Discussions and conclusion}\label{discussions-and-conclusion}}
 
-In conclusion, I have developed a dynamic Bayesian VAR system for analysis the two-digit employment dynamics in Australia, which provides a new idea of analysing the employment by different industries in the Australian labour market. We conducted the spillover analysis, concluding that in the subdivision level, \texttt{Other\ Store-Based\ Retailing}, followed by \texttt{Administrative\ Services}, \texttt{Furniture\ and\ Other\ Manufacturing} will generate strong positive spillovers to the total economy. By stimulating these sectors, the total employment will increase more steadily.
+In conclusion, I have developed a dynamic Bayesian VAR (BVAR) system to analyse the two-digit employment dynamics in Australia, exploring the Australia labour market from a new perspective. First, an out-of-sample forecasting algorithm was proposed to select the most optimal hyperparameter in Minnesota Prior and also to improve the forecast accuracy. Second, I conducted the spillover analysis using the estimated model to discover how total employment react in the long-run when the subsectors are stimulated. Based on the result, \texttt{Other\ Store-Based\ Retailing}, followed by \texttt{Administrative\ Services}, \texttt{Furniture\ and\ Other\ Manufacturing} will generate strong positive spillovers. Specifically, they will contribute more to the overall economy than they would have (the shares of them). Therefore, this will provide some insight and extra information for policy makers.
 
-\hypertarget{limitation-and-possible-extensions}{%
-\section{Limitation and possible extensions}\label{limitation-and-possible-extensions}}
+Furthermore, I evaluated the shocks of COVID-19 to the Australian labour market with the estimated BVAR model. This counterfactual analysis ended up with a conclusion that these structural shocks in fact have a long-term negative impact. Thus, it will be hard to fully mitigate the influences of pandemic in a foreseen future. To shed light on the reason of the low unemployment rate in Australia, I conducted an empirical analysis and compared the predicted unemployment rate in the absence of the pandemic with actual values. Results implied that labour force is less than what it would be without the pandemic and we would have experienced the low unemployment rate even in the absence of COVID-19. Given these points, the low unemployment rate is mainly driven by the loss of the total labour force instead of the stimulus policies during the pandemic.
 
-\hypertarget{limitations-on-data.}{%
-\subsection{Limitations on Data.}\label{limitations-on-data.}}
+\hypertarget{limitation}{%
+\section{Limitation}\label{limitation}}
 
-In this research, the Non-classified data have not been taken into consideration in our research. This because it will influence our sectoral dynamics if I distribute these data by the shares of two-digit subsectors. Instead, I aggregate the existing disaggregated data to be our total employment in order to make our forecasts coherent. A possible future direction will be considering an advanced classification algorithm to effectively cluster these non-classified data into the groups. Apart from this, the details of job keepers or how did the subsidies flow into each disaggregated subsectors are also unclear due to the lack of resources.
+There are few non-classified data (nfd data) under each sector in the ABS employment by subdivision dataset \autocite{ABS2022}. In this research, the non-classified data have not been taken into consideration. This is mainly because the data is not evenly distributed\footnote{I consider a}, which will be problematic if we distribute it into our system. At this stage, I cannot come up with an effective ways (e.g.~Contact ABS about detailed information) to trace the source of them. Consequently, the total employment data used in this thesis is not the same as the published total employment data as we discussed in \emph{Chapter 3.1}. Moreover, we consider the ANZSIC subdivision in our case (two-digit sectors) only. In the future, it would be useful to consider adding the Division level (the broadest level) and the group and classes (the finest level) using hierarchical forecasting. The predictions we examined are based on the assumption that the parameter of the model have been constant thought the time before COVID-19 and the structure will not change after COVID-19, which might be restrictive. It will be great to consider an appropriate time-varying model to have more flexibility in modelling dynamics.
 
-Moreover, we only consider the ANZSIC subdivision in our case (two-digit sectors) only. In the future, it will be great to consider adding the Division level (the broadest level) and the group and classes (the finest level) using the hierarchical forecasting.
+\hypertarget{future-extension-an-advanced-algorithm-in-hierarchical-forecasting}{%
+\subsection{Future Extension: An Advanced algorithm in hierarchical forecasting}\label{future-extension-an-advanced-algorithm-in-hierarchical-forecasting}}
 
-\hypertarget{limitations-on-assumption}{%
-\subsection{Limitations on Assumption}\label{limitations-on-assumption}}
+In this research, the Bayesian VAR modelling method has provided a useful analysis of employment dynamics in Australia. However, when there is more data and hierarchies are considered, VAR modelling may also be inefficient. Therefore, a more efficient machine learning method could be considered in an application of hierarchical forecasting.
 
-The predictions we examined are based on the assumption that the both the dynamics and structure of the sectoral employment will not change before and after COVID-19. Therefore, a further research area could consider to justify whether the dynamics or structure of the industries has changed after the COVID.
-
-\hypertarget{advanced-algorithm-in-hierarchical-forecasting}{%
-\subsection{Advanced algorithm in hierarchical forecasting}\label{advanced-algorithm-in-hierarchical-forecasting}}
-
-In this research, the Bayesian VAR modelling method has provided us a great analysis of employment dynamics in Australia. However, when there are more data and hierarchies are considered, the VAR modelling may also be inefficient. Therefore, a more efficient machine learning method can be considered in the application of hierarchical forecasting.
-
-To improve the forecast accuracy, we use machine learning to give a new way designed for accurate and interpretable forecasts. First, pick up the common features or data types from the data and cluster them into groups based on them. Second, conduct the group-based forecasting for each new cluster. Then, we can reconcile them to be coherent, which will benefit the decision and policy implementation processes.
+To improve the forecast accuracy, we could use machine learning to give a new way that account for both accuracy and interpretability. First, pick up the common features or data types from the data and cluster them into groups based on them. Second, conduct the group-based forecasting for each new cluster. Then, we can reconcile them to be coherent, which will benefit the decision and policy implementation processes.
 
 Here, I will given an example of the machine learning algorithm.
 
@@ -490,7 +486,7 @@ Here, I will given an example of the machine learning algorithm.
 \item
   Develop a model to forecast each time series in the same cluster. It looks restrictive but two points should be helpful in improving flexibility. First, the choice of model is flexible and can be complex. There are many types of model to choose, depending on the domain-types and time series patterns. Moreover, the types of model are not limited, which can be either a single model (e.g.~univariate, multivariate and ML) or a combined model (e.g.~Weighted average of various forecasting methods). Second, forecasting methods can be different for different clusters of the data, due to some unique patterns in time series.
 \item
-  Reconcile our forecasts to make them coherent. To get more interpretable results, reconciliation is required to fit all forecasts produced in our program into the original structure of the data (i.e.~original groups).
+  Reconcile the forecasts produced by the machine learning algorithm to make them coherent. To get more interpretable results, reconciliation is required to fit all forecasts produced in our program into the original structure of the data (i.e.~original groups).
 \end{enumerate}
 
 \appendix
@@ -502,7 +498,7 @@ The VARX model is:
 
 \[
 \begin{aligned}
-\boldsymbol{y}_t&=\boldsymbol{c}+\boldsymbol{A}_1 \boldsymbol{y}_{t-1}+\boldsymbol{\Gamma}_1\boldsymbol{x}_{t-1}+\boldsymbol{u}_t\\
+\bm{y}_t&=\bm{c}+\bm{A}_1 \bm{y}_{t-1}+\bm{\Gamma}_1\bm{x}_{t-1}+\bm{u}_t\\
 &=
 \begin{bmatrix}
 c_1\\
@@ -516,7 +512,7 @@ a_1^{11}&\cdots&a_1^{1n}&\gamma_1^{1}\\
 a_1^{n1}&\cdots&a_1^{nn}&\gamma_1^n\\
 \end{bmatrix}
 \begin{bmatrix}
-\boldsymbol{y}_{t-1}\\
+\bm{y}_{t-1}\\
 x_{t-1}\\
 \end{bmatrix}\\
 &+
@@ -528,56 +524,99 @@ u_{n,t}
 \end{aligned}
 \]
 
-where \(\mathbb{E}(\boldsymbol{u}_t\boldsymbol{u}'_t)=\boldsymbol{\Sigma}\) and \(\mathbb{E}(\boldsymbol{u}_t\boldsymbol{u'}_{t-1})=0\). Here the \(n\) represent the number of sectors (in our case this will be 85) and \(\boldsymbol{c}\)represents the vector of constants. There is one lags included for the total employment \((x_{t-1})\) as predetermined variable at time \(t\).
+where \(\bm{y_t} = ln(\bm{z_t})-ln(\bm{z_{t-4}})\) and \(z_t\) is the number of employment in subsectors; \(\mathbb{E}(\bm{u}_t\bm{u}'_t)=\bm{\Sigma}\) and \(\mathbb{E}(\bm{u}_t\bm{u'}_{t-1})=0\). Here the \(n\) represent the number of sectors (in our case this will be 84) and \(\bm{c}\)represents the vector of constants. There is one lag (p=1) included of the total employment growth for each equation \((x_{t-1})\) as a predetermined variable at time \(t\).
 
-Then we implement our VAR by defining \((np+n+1)\) dummy observations.
+We estimate the VARX using Bayesian method via a natural-conjugate-Normal-Wishart prior which preserve the properties of the Minnesota prior. We apply the shrinkage to the VAR slope coefficients using a Minnesota Prior specification as follows:
 
 \[
 \begin{aligned}
-\boldsymbol{Y_d}&=
-\begin{pmatrix}
-\boldsymbol0_{np+p,n}\\
-diag({\sigma_1,\cdots,\sigma_n})\\
-\boldsymbol0_{1\times n}
-\end{pmatrix}\\
-\boldsymbol{X_d}&=
-\begin{pmatrix}
-\boldsymbol{J_p}\otimes diag(\frac{\sigma_1}{\lambda}\cdots\frac{\sigma_n}{\lambda},\frac{\sigma_e}{\lambda})&\boldsymbol0_{(np+p)\times1}\\
-\boldsymbol 0_{n,np+p}&\boldsymbol 0_{n\times1}
+&E[a_{i}^{jk}] = E[\gamma_{i}^j]=0\\
 \\
-\boldsymbol 0_{1,np+p}&\boldsymbol{\epsilon}
-\end{pmatrix}
+&Var[a_i^{jk}]= 
+\begin{cases}
+\frac{\lambda^2}{i^2},&j=k\\
+\frac{\lambda^2}{i^2}\frac{\sigma^2_{j}}{\sigma^2_k},& otherwise
+\end{cases}\\
+\\
+&Var[\gamma_i^{j}]=\frac{\lambda^2}{i^2}\frac{\sigma^2_{j}}{\sigma^2_e}
 \end{aligned}
 \]
+
+The \(\sigma^2_{t}\) is estimated by taking the residual variances after fitting an AR(4) on the \(l^{th}\) variable using least squares, which is common practice (see \textcite{anderson2020};\textcite{banbura2010large}). The degree of shrinkage is governed by \(\lambda\) and the \(i\) stands for number of lags. \(\frac{\sigma^2_{j}}{\sigma^2_e}\) adjust different scales of the data. The \(\lambda\) we apply in this thesis is selected in \emph{Chapter 4.3}.
+
+The nature conjugate Normal-Inverse-Wishart prior implies the posterior moments can be calculated either analytically or by using the dummy observations.
+
+Then we implement our VAR by defining \((np+n+1)\) dummy observations:
+
+To estimate the BVAR using dummy observations, we rewrite the estimated model as
+\[
+\begin{aligned}
+\bm{Y} = \bm{X}\bm{\beta}+\bm{u}
+\end{aligned}
+\]
+where we set the prior parameters as \(\bm{Y} = [\bm{y_1},\cdots,\bm{y_t}]\), \(\bm{X} = [\bm{X_1},\cdots,\bm{X_T}]\) where \(\bm{X_t}=[\bm{y_{t-1}}, x_{t-1}]\) and \(\bm{u} = [u_1,\cdots,u_T]\).
+
+The Normal-Wishart prior distribution then take the form:
 
 \[
 \begin{aligned}
-\boldsymbol{J_p}=diag(1,\cdots,p)\\
-\boldsymbol{S_0}=(Y_d-X_d\times B_0)'(Y_d-X_dB_0)\\
-\boldsymbol{B_0}=(\boldsymbol{X_d}'\boldsymbol{X_d})^{-1}\boldsymbol{X_d}\boldsymbol{Y_d},\ \boldsymbol{\Omega_0}=(\boldsymbol{X_d}'\boldsymbol{X_d})^{-1}\  and\\
-a_0=T_d-np-p-1\\
+vec(\bm{\beta})|\bm{\Sigma} \sim \bm{N}(vec(\bm{\beta_0},\bm{\Sigma}\otimes \bm{\Omega_0})), and\\
+\Sigma \sim IW(\bm{S_0},\bm{a_0})
 \end{aligned}
 \]
+where we set the prior parameters \(\bm{\beta_0}\), \(\bm{\Omega_0}\), \(\bm{S_0}\) and \(\bm(a_0)\) such that they are consistent with the Minnesota Prior setting.
+The expectation of \(\bm{\Sigma}\) being \(diag(\sigma^2_{1},\cdots,\sigma^2_{n})\). We follow \textcite{anderson2020} to set our prior by defining dummy observations:
 
-where \(T_d\) is the number of rows for both \(\boldsymbol{Y}_d\) and \(\boldsymbol{X}_d\).
-
-We can get
 \[
 \begin{aligned}
-\boldsymbol{Y^*}=\boldsymbol{X^*}\boldsymbol{\beta}+\boldsymbol{\mu}^*\ \ \  where: \\
-\boldsymbol{Y^*}=[\boldsymbol{Y'},\boldsymbol{Y'_d}]';\ \boldsymbol{X^*}=[\boldsymbol{X'},\boldsymbol{X'_d}]';\ \boldsymbol{\mu^*}=[\boldsymbol{\mu'},\boldsymbol{\mu'_d}]'
+\bm{Y_d}&=
+\begin{pmatrix}
+\bm0_{np+p,n}\\
+diag({\sigma_1,\cdots,\sigma_n})\\
+\bm0_{1\times n}
+\end{pmatrix},\\
+\bm{X_d}&=
+\begin{pmatrix}
+\bm{J_p}\otimes diag(\frac{\sigma_1}{\lambda}\cdots\frac{\sigma_n}{\lambda},\frac{\sigma_e}{\lambda})&\bm0_{(np+p)\times1}\\
+\bm 0_{n,np+p}&\bm 0_{n\times1}
+\\
+\bm 0_{1,np+p}&\bm{\epsilon}
+\end{pmatrix},
 \end{aligned}
 \]
 
-Then we can estimating the BVAR by conducting least squares regression of \(\boldsymbol{Y}^*\) on\(\boldsymbol{X}^*\). The posterior distribution then has the form of
+where \(\bm{Y_d}\) and \(\bm{X_d}\) are the dummy observations chosen according to the Minnesota Prior assumption (consistent with the mean and variance setups above).
+
 \[
 \begin{aligned}
-&vec(\mathbf{\beta})|\Sigma,Y\sim N(vec(\boldsymbol{\tilde\beta}),\boldsymbol{\Sigma}\otimes(\boldsymbol{X^*}'\boldsymbol{X^*})^{-1})\ and\\
-&\Sigma|Y\sim\mathbf{IW}(\tilde\Sigma,T_d+T-np+2)
+\bm{J_p}=diag(1,\cdots,p),\\
+\bm{S_0}=(\bm{Y_d}-\bm{X_d}\times \bm{B_0})'(\bm{Y_d}-\bm{X_d}\bm{B_0}),\\
+\bm{B_0}=(\bm{X_d}'\bm{X_d})^{-1}\bm{X_d}\bm{Y_d},\ \bm{\Omega_0}=(\bm{X_d}'\bm{X_d})^{-1}\  and\\
+a_0=T_d-np-p-1, \\
 \end{aligned}
 \]
 
-where \(\boldsymbol{\tilde\beta} =(X*'X*)^{-1}X^{*'}Y^*\) and \(\tilde{\boldsymbol{\Sigma}}=(\boldsymbol{Y^*}-\boldsymbol{X^*}\boldsymbol{\tilde\beta})'(\boldsymbol{Y^*}-\boldsymbol{X^*}\boldsymbol{\tilde\beta})\)
+where \(T_d\) is the number of rows for both \(\boldsymbol{Y}_d\) and \(\boldsymbol{X}_d\). \(\epsilon\) is a very small number to impose an uninformative and diffused prior on the constants. The first block of the dummy observations imposes the prior belief on the VAR slope coefficients and the second block contains the prior for the covariance matrix and third block imposes the prior belief on the constants.
+
+Then we augment the original BVAR model with the estimated dummy observations. We can get:
+
+\[
+\begin{aligned}
+\bm{Y^*}=\bm{X^*}\bm{\beta}+\bm{\mu}^*\ \ \  where: \\
+\bm{Y^*}=[\bm{Y'},\bm{Y'_d}]';\ \bm{X^*}=[\bm{X'},\bm{X'_d}]';\ \bm{\mu^*}=[\bm{\mu'},\bm{\mu'_d}]'
+\end{aligned}
+\]
+
+Then we can estimating the BVAR by conducting least squares regression of \(\boldsymbol{Y}^*\) on \(\boldsymbol{X}^*\). The posterior distribution then has the form of
+
+\[
+\begin{aligned}
+&vec(\bm{\beta})|\bm{\Sigma},\bm{Y}\sim N(vec(\boldsymbol{\tilde\beta}),\boldsymbol{\Sigma}\otimes(\boldsymbol{X^*}'\boldsymbol{X^*})^{-1})\ and\\
+&\bm{\Sigma}|\bm{Y}\sim\bm{IW}(\bm{\tilde\Sigma},T_d+T-np+2)
+\end{aligned}
+\]
+
+where \(\bm{\tilde\beta} =({\bm{X^{*}}}'\bm{X^{*}})^{-1} {\bm{X^{*}}}'\bm{Y^{*}}\) and \(\bm{\tilde\Sigma}=(\bm{Y^{*}}-\bm{X^{*}}\bm{\tilde\beta})'(\bm{Y^{*}}-\bm{X^{*}}\bm{\tilde\beta})\)
 
 \newpage
 
@@ -587,17 +626,17 @@ where \(\boldsymbol{\tilde\beta} =(X*'X*)^{-1}X^{*'}Y^*\) and \(\tilde{\boldsymb
 \graphicspath{ {/Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figures} }
 
 \begin{figure}[t]
-\includegraphics[scale=0.7]{anz19}
+\includegraphics[scale=0.5]{19sec}
 \centering
-\caption{Employment('000) of 19 sectors in Australia from 2010:Q1 to 2021:Q4}
+\caption{Employment('000) of 19 sectors in Australia from 2010 to 2022}
 \label{fig:19}
 \end{figure}
 
 \begin{figure}[t]
-\includegraphics[scale=0.5]{free_87}
+\includegraphics[scale=0.5]{87sec}
 \centering
-\caption{Employment('000) of 87 two-digit subsectors in Australia from 2019:Q1 to 2021:Q4}
-\label{fig:87}
+\caption{Employment('000) of two-digit subsectors in Australia from 2010 to 2022}
+\label{fig:86}
 \end{figure}
 
 \begin{figure}[t]

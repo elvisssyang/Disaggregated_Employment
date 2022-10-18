@@ -1,0 +1,360 @@
+---
+chapter: 5
+knit: "bookdown::render_book"
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(viridis)
+```
+
+
+# Sectoral Employment Analysis 
+
+
+
+## Long-run Multiplier Analysis 
+
+Due to the reason that industries are interdependent, we should be aware that the change of one sector may influence both the total employment and other sectors. In this chapter, I will use the dynamic structure of my multivariate BVAR to capture the dynamics of sectoral employment for each disaggregated sector. 
+
+
+The following analysis is based on the estimated BVAR model and 84 two-digit disaggregated data. I assume that the structure of Australian economy will not change after the COVID-19. 
+
+
+
+At each time point, the relationship is defined as:
+
+$$
+GR_T=\sum_{i=1}^{84} w_i\times {GR}_i
+$$
+
+where $w_i$ is the share of subsector $i$, $GR_T$ is the growth rate of the total employment and $GR_i$ is the growth rate in employment of subsector $i$. 
+
+
+
+
+In particular, if there is a one percent increase in employment of subsector *i*, the total employment will increase  by the corresponding share($w_i$) simultaneously. In addition, given an increase in the total employment, it may also have indirect effects to other sectors in consecutive periods, especially for sectors with close economic ties. Therefore, I define the employment long-run employment multiplier as the effect of an initial increase in sector *i* on the total employment in the long-run, which follows the definition in @anderson2020. If the subsector has a larger long-run effect on total employment than its immediate effect, then stimulating this sector will lead a positive spillover effect onto the total employment. 
+
+
+
+
+I use the estimated BVAR model to simulate the long-run employment multiplier for each sector with the horizons of one year, two years and ten years. Subsequently, the differences between the simulated ten-year multipliers and the initial shares are the spillovers of the disaggregated subsectors. I abstract the top 10 subsectors with strong positive spillovers in Table \ref{fig:spl}. The full list is available in Appendix B (see Table \ref{dis:emp}). 
+
+
+
+\begin{table}[H]
+  \centering
+  \caption{Disaggregated Sub-Sectoral Long-run Employment Multipliers}
+   \scalebox{0.7}{
+    \begin{tabular}{|l|r|l|r|}
+     \hline
+    Sector/ Sub-sector &M10-M0 & Sector/ Sub-sector & M10-M0 \\
+    \hline\hline
+    75 Admin/ Public Administration & -0.0356327 & 42 Retail/ Other Store-Based Retailing & 0.01773361 \\
+    80 Educ/ Preschool and School Education & -0.0320646 & 72 Admin/ Administrative Services & 0.01339419 \\
+    81 Educ/Tertiary Education & -0.0215685 & 25Manu/ Furniture and Other Manufacturing & 0.01141447 \\
+    84 Health/ Hospitals & -0.016484 & 39 Retail/ Motor Vehicle and Motor Vehicle Parts Retailing & 0.00966318 \\
+    85 Health/ Medical and Other Health Care Services & -0.0112633 & 56 Info/ Broadcasting (except Internet) & 0.00736334 \\
+    82 Educ/ Adult, Community and Other Education & -0.0109159 & 18 Manu/ Basic Chemical and Chemical Product Manufacturing & 0.00674883 \\
+    46 Trans/ Road Transport & -0.0108955 & {33 Wholesale/ Basic Material Wholesaling} & 0.00646865 \\
+    58 Info/Telecommunications Services & -0.0084901 & 13 Manu/ Textile, Leather, Clothing and Footwear Manufacturing & 0.00619223 \\
+    11 Manu/ Food Product Manufacturing & -0.0082163 & 52 Trans/ Transport Support Services & 0.00617277 \\
+    01 Agri/ Agriculture & -0.0076574 & 94 Other/ Repair and Maintenance & 0.00583089 \\
+    \hline
+    \end{tabular}}
+    \begin{tablenotes} 
+      \footnotesize
+      \item Note: M10 is the 10-year long-run total employment spillovers and M0 is the shares of each sector.
+      ;The M10-M0 are sectors with high spillover effects.;
+      The M10/M0 are the spillover relative the size of sector.
+    \end{tablenotes}
+  \label{fig:spl} 
+\end{table}
+
+
+
+
+Comparing the long-term multipliers with the shares, we find that `Other Store-Based Retailing` ^[This subsector contains the following groups: 421. Furniture, Floor Coverings, Houseware and Textile Goods Retailing; 422. Electrical and Electronic Goods Retailing; 423. Hardware, Building and Garden Supplies Retailing; 424. Recreational Goods Retailing; 425. Clothing, Footwear and Personal Accessory Retailing; 426. Department Stores; 427. Pharmaceutical and Other Store-Based Retailing] will generate the strongest positive spillover to the whole economy, followed by `Administrative Services`^[This subsector contains the following groups: 721. Employment Services; 722. Travel Agency and Tour Arrangement Services; 729. Other Administrative Services.], `Furniture and Other Manufacturing`. They belongs to the `Retailing`, `Administrative and Support Services` and `Manufacturing` sectors in the broadest level respectively. These results imply that if there are exogenous increases of employment in these sectors, total employment increases over and above the initial increase in these sectors. 
+
+
+
+
+It's also worth noticing that some small subsectors (see Table \ref{dis:emp} for sizes) have relative huge changes from Table \ref{fig:spl}. This may be caused by their small shares in the total employment. Thus, a shock in small subsectors (e.g. `Fishing, Hunting and Trapping`) will have a significant change relative to the size of this subsector. 
+
+
+
+
+
+There are a few interesting points to be noticed here. First, the spillover effect is not just related the size of subsectors. For instance, `Fishing, Hunting and Trapping` is the smallest sector (see Table \ref{dis:emp}). However, it generates positive spillovers. On the contrary, both the `Professional, Scientific and Technical Services` and `Construction Services`, which are large subsectors but generate negative spillovers in the long run. 
+
+
+<!-- Second, we can see that the `Construction Service` subsector generates negative spillovers at a disaggregated level. Although we can still see that for `Construction` sector ^[Construction Sector contains three subsectors: 30. Building Construction -->
+<!-- 31. Heavy and Civil Engineering Construction; -->
+<!-- 32. Construction Services; The Spillover at the broader level is (-0.0004619 + 0.00271218 +0.00066987 = 0.00292015)  ], it generates positive spillovers at a broader level. This finding is in contrast to previous research done by @anderson2020, where they conclude the `Construction` sector have strong positive spillover.  -->
+
+<!-- Second, in contrast to the previous research done by @anderson2020, where they conclude the `Construction` sector have strong positive spillover at a broader level. I found that subsectors belong to `Construction` sector^[Construction Sector contains three subsectors: 30. Building Construction; -->
+<!-- 31. Heavy and Civil Engineering Construction;32. Construction Services] are no longer have dominant positive spillovers. Even though the total spillover for the `Construction` sector is still positive ^[The Spillover for the `Construction` sector is equal to the sum of all its subsectors (-0.0004619 + 0.00271218 +0.00066987 = 0.00292015)], it no longer have strong positive spillovers when I extend the research to a more disaggregated level.  -->
+
+
+
+
+Second, I find that subsectors in the `Construction` sector^[Construction Sector contains three subsectors: 30. Building Construction; 31. Heavy and Civil Engineering Construction;32. Construction Services] will not bring strong positive spillovers in the two-digit level. This is in contrast to the result of @anderson2020 at the broadest level, where they discover that the `Construction` sector has a strong positive spillover. Although the total spillovers of the `Construction` sector is still positive^[The Spillover for the `Construction` sector is equal to the sum of all its subsectors (-0.0004619 + 0.00271218 +0.00066987 = 0.00292015)], individual subsectors may not have positive spillovers, like the `Construction Service` subsector. This also proves the importance of extending the research to a finer partition (more disaggregated level).
+
+
+Third, both `Teritiary Education` and `Adult, Community and Other Education` generate negative spillovers, which implies that stimulating the education industry will likely reduce labour force participation in the long run. This is mainly because one decides to pursue a postgraduate degree or a certificate, then the focus will be removed from working/finding jobs. The finding is also consistent with the analysis of broadest level (19 sectors) undertaken by @anderson2020. 
+
+
+
+
+
+## Evaluations after COVID-19
+
+
+
+
+
+### Losses of Total Employment 
+
+
+
+<!-- Based on the fact that COVID-19 can spread quickly and there is no wonder drug to prevent at the moment, it is expected that the COVID-19 still have a long-term impact on the Australian labour market. -->
+
+<!-- The pandemic has caused massive losses to the Australian labour market. Nevertheless, based on the fact that COVID-19 can spread quickly and there is no wonder drug to cure it at the moment, it is expected that the COVID-19 still have a long-term impact on the Australian labour market. At this stage, an evaluation and counterfactual analysis would help to raise the awareness of the impacts of COVID-19.  -->
+
+It is now commonly known that COVID-19 can be rigorously prevented by vaccines, face masks and social distancing. We can never fully stop transmission of the virus or from being infected unless there is no interaction among people.
+
+
+Based on the fact that COVID-19 can spread quickly and there is no wonder drug to prevent outbreaks of new variants at the moment, it is expected that the COVID-19 will still have a long-term impact on the Australian labour market. Thus, it is expected that the COVID-19 has caused massive losses to the Australian labour market and these negative impacts will be persistent in the long run. In order to prove my idea and raise the awareness of COVID-19, I will conduct a counterfactual analysis by evaluating the total employment with and without pandemic. In this section, I use the estimated model to provide a counterfactual analysis for total employment after the pandemic. Similar to @anderson2020, I will consider a no pandemic case ("no-COVID" scenario). Other kinds of scenarios are not considered since the pandemic has already happened. Recent data will help to compare and evaluate the impact of COVID-19 on the labour market. 
+
+
+
+
+
+
+
+
+
+
+
+\begin{figure}[H]
+\includegraphics[scale=0.6]{cont_analysis}
+\centering
+\caption{Counterfactual analysis of total employment(in thousands) with confidence interval generated via bootstrap (Blue is counterfactual scenario (no-COVID);Black is the actual data)}
+\label{fig:con}
+\end{figure}
+
+
+
+Figure \ref{fig:con} displays COVID-19 has caused a continuous structural shock of total employment in Australia since the outbreak of COVID-19. Based on the point forecasts together with an 80% confidence interval (via empirical bootstrapping)^[As there are 7224 parameters to estimate, we do not use the Bayesian bootstrap concerning the time complexity required when taking high-dimensional integrals. Since our goal is to apply Bayesian shrinkage to the point estimates and improve forecast accuracy, the use of bootstrap with empirical residuals is more computationally efficient while providing an appropriate reference.], our model suggests that employment losses remained about 750,000 persons below where it would have been without the pandemic (see the differences in Figure \ref{fig:con}). As a result, by comparing the trend of the "no pandemic" scenario and that of the actual data, the essentially parallel trend revealed that we may not expect total employment reach the forecasts under no-COVID case at this stage. That is, the COVID-19 has a long lasting impacts on the economy even after 2 years, starting from the first lock down in "2020 Quarter 2". 
+
+
+
+
+
+
+
+
+
+
+
+\begin{figure}[H]
+\includegraphics[scale=0.6]{yoy1}
+\centering
+\caption{Counterfactual analysis of Year-on-Year growth rate with forecasts generated via the estimated BVAR model}
+\label{fig:yoy}
+\end{figure}
+
+
+
+
+I have also considered the Year-on-Year growth for quarterly total employment data from 2020 Q2 to 2022 Q2 (up-to-date at the time of collecting). From Figure \ref{fig:yoy}, the actual employment growth was far away from expected growth, especially at 2020 Q2, when Australia was experiencing the first lockdown. Although the year-on-year growth rate gradually recovered to normal after that, total employment is still lower than it ought to be under the no-covid situation. Again, it has emphasize the finding above as "We may not expect the influences of COVID-19 to disappear unless there is a higher year-on-year growth rate and persists for a while." Therefore, based on the counterfactual analysis of both employment and the year-on-year growth rate, it is reasonable to believe that COVID-19 has indeed a significant impact in the labour market in the short run as well as in the long run.
+
+
+
+<!-- According to the enlarged graph on the right of Figure \ref{fig:con}, the gap seems to be smaller than before, which is due to the recovery of year-on-year growth rate (see Figure \ref{fig:yoy}). However, the trend for the actual data intends to be smoother in the future. On the other hand, the both lower and upper bound of the confidence interval has a sharp trend, making the actual data more difficult to recover from losses. Therefore, it is reasonable to believe that the COVID-19 has indeed a significant impact in the labour market in the short run as well as in the long run. Again, it has emphasize the finding above as "We may not expect the employment number to recover at the no-COVID level in a short period." -->
+
+
+
+
+<!-- we can see the growth rate had a sharp increase than the previous year (at the time the shock happened). Even though the year-on-year growth rate has recovered to a no-COVID level, which means the influences of COVID-19 has mitigated. However, the losses has not fully covered unless there is a higher growth rate continuing for a period. Therefore, it has further underscore the damage of COVID-19 to the labour market cannot be fully recovered in a foreseen future.  -->
+
+
+
+
+
+
+
+<!-- \begin{figure}[H] -->
+<!-- \includegraphics[scale=0.6]{yoy2} -->
+<!-- \centering -->
+<!-- \caption{Forecast values of Year-on-Year growth rate till "2025 Q1" generated via the estimated BVAR model} -->
+<!-- \label{fig:yoy2} -->
+<!-- \end{figure} -->
+
+
+
+
+
+
+<!-- Apart from this, I've also provided the forecasts under the optimistic scenario in Figure \ref{fig:yoy2} (i.e. no-COVID) for the total employment growth via the estimated model. At the moment, we may still expect the year-on-year growth rate maintain a level between the 3.25 to 3.75 percent till the "2024 Quarter 4". Again, unless the actual year-on-year growth rate is higher than the optimistic growth rate and persist for a while, we will not expect the influences of COVID-19 has fully perished. -->
+
+
+
+
+### Empirical Example: The historically lowest unemployment rate:
+
+
+
+
+In June 2022, Australia reached the lowest unemployment rate since August 1974 (@ABS2022a). Then one may want to know the underlying reason of this extremely low unemployment rate. Is it the stimulus policies during the COVID-19 has contributed the most for the unemployment rate? In answering this question, I will provide a counterfactual analysis of the unemployment rate to exploit the reason behind and what would the unemployment rate be without the pandemic case. 
+
+
+
+
+<!-- Is it a sharp increase in the total employment? Or it can be something else? However, as mentioned before, it is impossible that the total employment market to recover at the no-COVID level in a short term.  -->
+
+
+
+
+To give an accurate interpretation of the low unemployment rate, the answer should refer to the definition, which is the percentage of people who are in the labour force but are unemployed. Mathematically, it can be: 
+
+$$
+\begin{aligned}
+\text{Unemployment Rate}=\frac{Total\ Labour\  Force- Number\ of \ Employed \ People}{Total\ Labour \ Force}
+\label{equ:unemp}
+\end{aligned}
+$$
+
+
+
+Clearly, the unemployment rate depends on both the total labour force and the number of employed people. Since the estimated BVAR  model suggested that employment is less than what is would have been without COVID. Therefore, given the low unemployment rate and lower employed people than no-COVID scenario, a possible reason could be a significant decline in the total labour force after the pandemic. 
+
+
+
+To further support the hypothesis, I use quarterly labour force data from ABS from "1984 Q4" to "2022 Q2" [@ABS2022]. Moreover, a stepwise `ARIMA` model [@fpp3] is used to fit the "no-COVID" data between "1984 Q4" to "2020 Q1" to forecast the total labour force under the "no-COVID" scenario (see Figure \ref{fig:lab}). Compared with the actual data, it is clear that the real total labour force is below its no-COVID forecast at the time that the unemployment rate is the lowest historically. Therefore, the main reason for low unemployment is in fact the decline of the total labour force rather than the effects of stimulus policies during the pandemic period. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{figure}[H]
+\includegraphics[scale=0.6]{con_labourf}
+\centering
+\caption{Counterfactual analysis of the total labour force}
+\label{fig:lab}
+\end{figure}
+
+
+After examining the underlying reason for the low unemployment rate, I have also studied the unemployment rate performance under the no-COVID scenario. The forecasts of the no-COVID unemployment rate is the difference between the total labour force and employment rate over the total labour force under the no-COVID scenario. It is noticeable that the expected unemployment rate (under no-COVID scenario) can still be close to the lowest on record, even with a larger labour force and total employment. 
+
+
+
+
+
+
+
+Overall, the findings suggest that we would have experienced the historically low unemployment rate even in the absence of COVID-19. This further assures us that the policies directed at stimulating employment during the pandemic (e.g. Jobkeeper program) are not likely to be responsible for the current historically low unemployment rate. 
+
+
+
+
+
+<!-- Moreover, the government should be aware that relatively small unemployment rate may reflect the labour shortage, which is likely to cause problems like losses of employers and increasing inflation.  -->
+
+
+
+
+
+\begin{figure}[H]
+\includegraphics[scale=0.7]{cont_rate}
+\centering
+\caption{counterfactual analysis of the employment rate in Australia}
+\label{fig:unrate}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ### Government Policy Effiency -->
+
+
+<!-- A "Jobkeeper" policy is released during the pandemic as a temporarily subsidy in order to keep people in the labour market. In this subsection, I will evaluate whether this government policy has effectively stimulated the key industries (i.e. high spillover industries). The data used are the total contribution of "Jobkeeper" payments for each industry during the pandemic period.  -->
+
+
+
+<!-- Based on the displayed long run multiplier analysis from Figure \ref{fig:spl} in the **Chapter 5.1**, we see that the subsectors dominant the positive spillovers to the total employment are mainly from the `Retai Trade`, `Manufacturing`, `Wholesale` and `Administrative and Support services`sectors at the broadest level. Subsectors belong to `Wholesale` and `Administrative and Support services` can also lead to strong positive spillovers in the long run. However, subsectors from the `Construction` sector does not obtain a strong positive spillovers in our finer partition, which is different from the conclusion in @anderson2020. -->
+
+
+
+
+
+
+<!-- Looking at the Figure \ref{fig:jobkep}, it is clear that most disaggregated subsectors with high and positive spillovers are supported by the "Job Keeper" payments and gain benefits from broader level. Theoretically, the total employment will be improved both effectively and efficiently by stimulating these key sectors. This could also be the reason that why the total employment recovered soon after "2020 Q2" in Figure \ref{fig:yoy}. On the other hand, however, the government have put more weights on sectors like on the sectors with large shares (e.g. `Construction` and `Health Care` sectors), which will be less efficient in improving employment according to my analysis. Thus, it is important for the government to adjust the policy at the post-covid stage and put more weights on thesse high spillover sectors in the future.  -->
+
+
+
+
+
+
+
+
+
+<!-- \begin{figure}[H] -->
+<!-- \includegraphics[scale=0.7]{jobkeeper} -->
+<!-- \centering -->
+<!-- \caption{Jobkeeper total payments by industry: For the overall duration (Mar 2020 to Mar 2021)} -->
+<!-- \label{fig:jobkep} -->
+<!-- \end{figure} -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\clearpage
+

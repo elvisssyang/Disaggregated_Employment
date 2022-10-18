@@ -1,0 +1,657 @@
+---
+title: "Sectoral Employment Dynamics in Australia"
+subtitle: "A story of 87 two-digits Sectors"
+author: "Zhixiang Yang (Elvis)"
+email: "zyan0056@student.monash.edu"
+date: "10th April 2022"
+pdflink: ""
+bgimg: "images/auz_workers.jpeg"
+output:
+  xaringan::moon_reader:
+    css:
+      - ninjutsu 
+      - "assets/animate.css"
+      - "assets/monash-logo.css"
+      - "assets/monash-brand.css"
+      - "assets/monash-fonts.css"
+      - "assets/styles.css" # small improvements
+      - "assets/custom.css" # add your own CSS here!
+    self_contained: false 
+    seal: false 
+    chakra: 'libs/remark-latest.min.js'
+    lib_dir: libs
+    includes:
+      in_header: "assets/custom.html"
+    mathjax: "assets/mathjax-local/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    nature:
+      highlightStyle: github 
+      highlightLanguage: r 
+      highlightLines: true
+      highlightSpans: false 
+      countIncrementalSlides: false
+      slideNumberFormat: '%current%/%total%'
+      navigation:
+        scroll: false 
+        touch: true
+        click: false
+      ratio: '16:9'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+```
+
+```{r titleslide, child="components/titleslide.Rmd"}
+```
+
+---
+# Background 
+
+<br>
+
+
+.grid[
+
+<div style="font-size:18pt">
+<h2>Health threats</h2>
+<p>
+<b style="font-size:24pt">Life impacts (till last week)</b><br>
+6.07 million people infected and 7355 people have died. There are many short-term and long-term adverse effects on people who get covid-19. <br>
+<br>
+<b style="font-size:24pt">Economic impacts</b><br>
+Australia has lost billions of money because of the pandemic. In 2020, 72% of businesses generated much lower revenue than before. Moreover, the job losses have reached 1.6 million jobs lost in two weeeks after the global pandemic was announced. The underemployment rate hit historically high with 13.8% by the end of April, 2020. 
+</p>
+</div>
+
+<img src="images/covid.png" alt="Trulli" style="width:60%;height:auto">
+<img src="images/covid2.png" alt="Trulli" style="width:53%;height:auto">
+<img src="images/covid3.png" alt="Trulli" style="width:40%;height:auto">
+]
+
+
+---
+# Research Aim 
+
+__The overall research aim is to evaluate the employment effects of COVID-19 via developing a model for the two-digit subsectors (<u>87 totally</u>) .  __ 
+
+<small style="font-size:14pt"> I'm also trying to solve the following tasks: </small>
+
+
+--
+
++ To construct a time series multivariate model of employment in 87 subsectors of the Australian economy. 
+
+--
+
++ To use this model to conduct a contrafactual analysis 
+
+--
+
++ To use this model to determine which sectors have the highest impact (or positive spillover) on employment growth. 
+
+
+---
+# Review of Literature 
+# Sectoral studies of COVID-19:
+
+
+
+.font_my_2[
+
++ At a worldwide level, International Labor Organisation provided some initial estimates and concluded the "Accommodation & Food services", "Real Estate, Business,& Administrative Activities", "Manufacturing", and "Wholesale & Retail Trade" as high risk sectors. 
+ 
+
++ In US, <small style="font-size:13pt">Ludvigson,Ma, and Ng (2020)</small> developed a costly disaster model to translate the impacts of deadly disasters in recent US history and modeled as shocks to predict the COVID-19 influences.  <small style="font-size:13pt">Gregory, Menzio, and Wiczer (2020)</small> expand some Model-based analysis of the disaggregate impacts of 20 sectors. 
+
+
++ In France, <small style="font-size:13pt">Barrot, Grassi and Sauvagnat (2020)</small> estimated the impacts at sectoral level. They then use a production network model to estimate the drop of total GDP and sectoral performances. 
+
+
+]
+
+--
+### Limitation:
+
+However, not many studies have done in Australia (as a small open economy nothing like US, Europe).
+
+
+
+
+---
+# Review of Literature
+
+<br>
+
+<br>
+
+.grid[
+.font_my_2[
+
+### An Aussie story begins:
++ Anderson et al. (2020) conducted a multivariate time series Bayesian VARX model for 19 board sectors in Australia. Their research conducted in 2020 at the time full of uncertainty. Therefore, they applied an "conditional forecasting" method to simulate different scenarios for the sectoral employment in Australia during the pandemic. 
+
+
+
+### Limitation:
+
+Some useful information about macroeconomic analysis <u>has been ignored </u> due to the differences in 19 (Board level) sectors and 87 (Two-digit level) sectors. 
+
+
+]
+
+.font_my_2[
+
+<img src="figure/ANZSIC.png" style="width: 90%; float:right"/>
+
+]
+
+]
+
+---
+# Exploratory Data Analysis
+
+
++ **Don't judge them by their appearances**
+
+
+<small style="font-size:13pt">Here is the reason why we expand Anderson et al. (2020) to a two-digit level. See the differences :-) </small> <small style="font-size:13pt">If we stimulate a industry at a board sector level, our policy may **lack of efficiency**. </small>
+
+
+<br>
+
+.grid[
+
+<img src="figure/agg_19.png" style="width: 100%; float:left"/>
+
+<img src="figure/agg_87.png" style="width: 100%; float:right"/>
+
+
+]
+
+
+<br>
+
+
+
+---
+# Exploratory Data Analysis
+
+<img src="figure/free_87.png" style="width: 90%; float:center"/>
+
+
+<!-- This is not a single case, just be aware that there are many two-digit sectors performs differently. -->
+
+---
+# Project Design (Data)
+
+
+<br>
+
+
++ **Data collection and processing**
+.font_my_2[
+
++ Data is gained from [ABS Labour Force, Australia, Detailed](https://www.abs.gov.au/statistics/labour/employment-and-unemployment/labour-force-australia-detailed/latest-release)
+
++ An **logarithm** and a **seasonal difference **will be conducted to eliminate the seasonality and make it **stationary**, which will make it easier to conduct further steps. 
+
+]
+
+<br>
+
++ **Why don't I use the seasonally adjusted data ?**
+--
+.font_my_2[
+
++ Seasonally adjusted sectoral data in ABS do not add up seasonally adjusted total employment. There is no evidence of how they process the data so it will be problematic if we use it. I CANNOT make reliable evaluation !!! 
+
++ All new changes are expressed in terms of the raw figures.  
+]
+
+---
+
+# Project Design (Modelling)
+
++ **Bayesian Vector Autoregression**(BVAR) is a useful model to estimate a large number of parameters (while sample size is small) in a statistically coherent way. <small style="font-size:14pt">(Anderson et al.,2020;Litterman, 1986;Bańbura,Giannone,&Reichlin,2010)</small>
+
+
+$$\textbf{y}_t=\textbf{c}+\textbf{A}_1 \textbf{y}_{t-1}+\textbf{A}_2\textbf{y}_{t-2}+\textbf{A}_3\textbf{y}_{t-3}+\textbf{A}_4\textbf{y}_{t-4}+\bf{\Gamma}\textbf{x}_{t-1}+\bf{u}_t$$
+.font_small[
+**where:**  
+]
+
+
+.font_my_2[
+
++ $\bf{y}_t$ is an $87\times1$ vector of two-digit subsectoral employment growth rate at time $t$ with $\bf{A}_{1,2,3,4}$ are $87\times87$ parameter matrices. There are four lags of growth rate due to the quarterly data in total. 
+
++ $\bf{x}_{t-1}$ is the $4\times1$ vector of 4 lags of the growth rate of total employment with $\bf{\Gamma}$ is $87\times4$ parameter matrices, which act as economy-wide factors. 
+
++ Reduced form errors $\bf{u}_t \sim (0,\bf{\Sigma})$. 
+
+]
+
+<!-- Also mentioning that we will take log and take  fourth difference to remove seasonality.
+
+2. the reason why we put four lags is because it is a quarterly data-->
+
+
+---
+# Project Design (Modelling)
+
+
+
+.grid[
+.font_my_2[
+<ul><li><b>Bayesian VARX Model</b></li></ul>
+
+<br>
+
+ **Aim**: Analyse Australia sectoral dynamics in a 87 two-digit level and predict the long run effects. 
+ 
+ **Training data**: Historical employment data from 1984:Q4 to 2019:Q4
+ 
+ <br>
+  
+ **Training methods** : Time series Cross Validation (*etc.*)
+ 
+ <br>
+  
+ **Models that will be compared **: 
+  
+  a. Univariate ARIMA models 
+  
+  b. ETS models
+  
+  c. Light GBM model 
+    
+  d. Other machine learning models 
+    (if time permits) 
+
+]
+
+.font_my_2[
+
+<ul><li><b>Prior Selection </b></li></ul>
+
+<br>
+
+ **Minnesota Prior** is a useful strong prior distribution for Bayesian estimators. <small style="font-size:11pt">(Anderson et al.,2020;Litterman,    1986;Bańbura,Giannone,&Reichlin,2010)</small>
+
+<br>
+
+ **Benefits**:  
+  a. Eliminate <u>high-dimensionality</u> curse. 
+  
+  b.  It makes the most <u>recent lag</u> provide more information than distant lags. 
+  
+  c. It makes <u>own lags</u> explain more than the lags of other variables.
+  
+  
+  <br>
+  
+ **Apply** : I will apply it in the BVAR system by creating a Normal- Inverse-Wishart prior (which retain the principal of Minnesota prior) and then adding dummy observations to put the posterior moments of Normal IW prior inside our BVAR system. <small style="font-size:11pt">(Bańbura,Giannone, and Reichlin (2010))</small> 
+
+]
+]
+
+
+---
+#Project Design (Sectoral Multiplier Analysis)
+
+
+.grid[
+
+.font_my_2[
+
+<br>
+
+
+#### Background
+
+The total employment growth is: 
+
+$$GR_T=\sum_{j=1}^{87} w_j\times {GR}_j$$
+
+<small style="font-size:12pt">(where $w_j$ is the share of employment of two-digit sector $j$ in the total employment and  $GR_j$  is the growth rate in employment of two-digit sector j and  $GR_T$  is the growth rate in total employment )</small>
+
+📈 Due to the interconnection of macroeconomic two-digit subsectors, when a two-digit subsector $j$ has an increase in employment, in the long run, it may have spillover effect onto other two-digit subsectors, especially those that have high connections with the two-digit subsector $j$. 
+
+]
+
+
+
+.font_my_2[
+
+<br>
+
+<br>
+
+<ul><b>Why it is useful?:</b></ul>
+
++ This will take the <u>structure of industries</u> into consideration, which is more closer to the reality. It also allows us to assess the damage of COVID-19 to these industries.  
+
++ This will help us to evaluate and improve the efficiency. For example, if policies simulate these subsectors, there will be a *bonus* and then we can say <u>"a dollar to these high spillover industries is more valuable than a dollar"</u>
+
+]
+]
+---
+# Simple Example
+
+
+.grid[
+
+.font_my_2[
+
+<br>
+
+
+## Positive spillover scenario:
+
+Assume there is a high demand of refurnishing houses, then employment in house construction industry will increase. What will happen in the long run? 
+
+#### Answers: 
+
++ More glass windows and wood are needed, which produces work for people in glass and wood manufacturing sectors such as window manufacturers, fence and gate builders. 
+
++ As a result, if a policy has an immediate effect on increasing the employment in the house construction industry. In the long run, the total employment will rise more than the immediate effect for house construction industry due to the indirect effect on glass and wood manufacturing industry, which has also have a positive impact on the total employment. 
+
+]
+.font_my_2[
+
+<br>
+
+<img src="images/window.jpeg" style="width:80%">
+<img src="images/fence.png" style="width:76%">
+
+]
+
+
+
+]
+
+
+---
+# Timeline
+
+## Completed work
+
+<br>
+```{r timeline, results='asis'}
+timeline = data.frame(Timeline = c("Week 2 - 4", "Week 5-7","Week 8", "week 9-10"),
+                      Tasks = c("Data collection and background reading",
+                                "Preparing readings on Bayesian VAR model",
+                                "Prepare readings on Sectoral Multiplier Analysis",
+                                "Write research proposal and prepare the Wednesday presentation"))
+
+
+knitr::kable(timeline,'html') %>%
+  kableExtra::kable_styling(font_size = 18, position = "center")
+  
+```
+
+<br>
+
+## Plan for the research
+
+<br>
+```{r}
+timeline = data.frame(Timeline = c("June - July", "August", "September", "October"),
+                      Tasks = c("Modelling of two-digit subsectoral employment", "Train the model using pre-covid data with BVAR model and compare the accuracy with other models","apply forecasts using BVAR , conduct both conterfactual analysis and sectoral multiplier analysis", "Write my thesis and prepare for the second presentation")) 
+
+knitr::kable(timeline,'html') %>%
+  kableExtra::kable_styling(font_size = 18, position = "center")
+```
+
+<br>
+
+
+
+
+---
+# Future Research Directions
+
++ It is expected that our forecast model can capture the sectoral dynamics in Australia well after training the model.  
+
+<br>
+--
+
++ To compare the model with some typical models, I will try to figure out the advantages of my selected model (<u>BVAR</u>). 
+
+<br>
+--
+
++ Conducting contrafactural analysis to compare different scenarios to the reality. Assessing the damage of COVID-19 to industries in both short and long run.  
+
+<br>
+--
+
++ Consider a sectoral multiplier analysis, which can provides a better scope of some <u>**"Very Important"**</u> industries on the road of recovering. 
+
+<br>
+---
+class: center
+# 👨‍🏫 SPECIAL 👨‍💻 THANKS 👩‍🏫
+<br>
+
+<br>
+
+<br>
+
+
+.monash-blue[I would like to gratitude my supervisor, 
+
+**Farshid Vahid**, for your patient and selfless guidance.  ]
+
+<br>
+
+.monash-blue[I would also appreciate **Heather Anderson** for your devoted coordination along the journey.]
+
+
+---
+##Figure Source 
+.font_small[
+
+covid image1: https://humanrights.gov.au/our-work/childrens-rights/publications/impacts-covid-19-children-and-young-people-who-contact-kids
+
+covid image2: https://aurin.org.au/covid-and-employment/
+
+covid image3: https://www.forbes.com/sites/advisor/2020/04/14/coronavirus-concerns-will-less-income-or-job-loss-hurt-your-credit-score/?sh=648c744e4dc4
+
+Front page Data Source: The first year of COVID-19 in Australia: direct and indirect health effects, Summary - Australian Institute of Health and Welfare. (2022). Retrieved 8 May 2022, from https://www.aihw.gov.au/reports/burden-of-disease/the-first-year-of-covid-19-in-australia/summary
+
+fence:https://canberraweekly.com.au/best-fencing-contractors/
+
+window maker: https://www.bizjournals.com/tampabay/news/2020/02/05/pgt-completes-92m-acquisition-of-tampa-based-door.html
+
+]
+
+## Major references
+
+.font_small[
+
+ABS. (2021). One year of covid-19: Aussie jobs, business and the economy. Retrieved April 29, 2022, from https://www.abs.gov.au/articles/one-year-covid-19-aussie-jobs-business- and-economy
+
+Anderson, H, Caggiano, G, Vahid, F, & Wong, B. (2020). Sectoral employment dynamics in australia and the covid-19 pandemic. Australian Economic Review, 53(3), 402–414.
+
+
+Bańbura, M, Giannone, D, & Reichlin, L. (2010). Large bayesian vector auto regressions. Journal of applied Econometrics, 25(1), 71–92.
+
+
+International Labour Organization 2020. ILO Monitor: Covid‐19 and the World of Work.
+
+
+Kadiyala, KR, & Karlsson, S. (1997). Numerical methods for estimation and inference in bayesian var-models. Journal of Applied Econometrics, 12(2), 99–132.
+
+Litterman, RB. (1986). Forecasting with bayesian vector autoregressions—five years of experience.Journal of Business & Economic Statistics, 4(1), 25–38.
+
+]
+---
+
+
+
+```{r endslide, child="components/endslide.Rmd"}
+```
+
+
+
+---
+class: center
+#APPENDIX (Bayesian VAR)
+
+.font_my_2[
+$$\begin{align}
+\textbf{y}_t&=\textbf{c}+\textbf{A}_1 \textbf{y}_{t-1}+\textbf{A}_2+\cdots+\textbf{A}_4\textbf{y}_{t-4}+\bf{\Gamma}_1\textbf{x}_{t-1}+\bf{u}_t\\
+&=
+\begin{bmatrix}
+c_1\\
+\vdots\\
+c_2
+\end{bmatrix}
++
+\begin{bmatrix}
+a_1^{11}&\cdots&a_1^{1n}&\cdots&a_4^{11}&\cdots&a_4^{1n}&\gamma_1^{1}&\cdots&\gamma_4^{1}\\
+\vdots&\ddots&\vdots&\ddots&\vdots&\ddots&\vdots&\vdots&\ddots&\vdots\\
+a_1^{n1}&\cdots&a_1^{nn}&\cdots&a_4^{n1}&\cdots&a_4^{nn}&\gamma_1^n&\cdots&\gamma_4^n\\
+\end{bmatrix}
+\begin{bmatrix}
+\bf{y}_{t-1}\\
+\vdots\\
+\bf{y}_{t-4}\\
+x_{t-1}\\
+\vdots\\
+x_{t-4}
+\end{bmatrix}\\
+&+
+\begin{bmatrix}
+u_{1,t}\\
+\vdots\\
+u_{n,t}
+\end{bmatrix}\\
+\end{align}$$
+]
+
+.font_my_2[
++ where $E(\bf{u}_t\bf{u}'_t)=\bf{\Sigma}$ and $E(\bf{u}_t\bf{u'}_{t-1})=0$. The $n$ represent the number of sectors (or in our case will be 87) and $c$ represents the vector of constants. There are 4 lags included for the total employment $(x_{t-1},\cdots,x_{t-4})$ as predetermined variable at time $t$.
+
+]
+---
+# Appendix (Minnesota Prior)
+
+.font_my_2[
+$$\begin{aligned}\label{eq:1}
+&E[a_{j}^{jk}] = E[\gamma_{i}^j]=0\\
+\\
+&Var[a_j^{jk}]= 
+\begin{cases}
+\frac{\lambda^2}{i^2},&j=k\\
+\frac{\lambda^2}{i^2}\frac{\sigma^2_{j}}{\sigma^2_k},& otherwise
+\end{cases}\\
+\\
+&Var[\gamma_i^{j}]=\frac{\lambda^2}{i^2}\frac{\sigma^2_{j}}{\sigma^2_e}
+\end{aligned}$$
+]
+
+.font_my_2[
+
++ The degree of shrinkage is governed by $\lambda$, $\frac{1}{i^2}$ to down-weight more distant lags and the $\frac{\sigma_j^2}{\sigma_k^2}$ adjusts for different scale of the data. $\sigma^2_e$ is the variance after fitting an AR model on total employment growth. 
+
+]
+
+
+---
+# Our system 
+.font_my_2[
+$$\begin{aligned}\underbrace{Y}_{T\times n} = \underbrace{XB}_{T\times k \times k \times n} \ +\underbrace{U}_{T\times n}\end{aligned}$$
+
+where $\bf{Y}=(Y_1,\cdots,Y_T)'$;and $\bf{X}=(X_1,\cdots,X_T)'$ with $X_t=(Y'_{t-1},\cdots,Y'_{t-p},x_{t-1},\cdots,x_{t-4},1)'$ and $u=(u_1,\cdots,u_T')$ . 
+
+]
+
+**Normal-Inverse-Wishart Prior** 
+
+.font_my_2[
+The Normal-Inverse-Wishart Prior has the form 
+
+$$\begin{aligned}
+&\bf{vec(\mathbf{\beta})}|\bf{\Sigma}\sim N(\bf{vec}(\bf{\beta_0}),\Sigma\otimes\Omega_0)\ \\
+&\bf{\Sigma}\sim\mathbf{IW}(\bf{S_0},a_0)\end{aligned}$$
+
+where we the prior parameters $\mathbf{\beta}_0$ and $\bf{\Omega_0}$, $\bf{S_0}$  and $a_0$ such that they are consistent with the Minnesota prior we mentioned before and the expectation of $\bf{\Sigma}$ being $diag(\sigma_1^2,\cdots,\sigma_n^2)$.
+]
+---
+# Normal-Inverse-Wishart Prior (Set Up Dummies)
+
+.font_my_2[
+$$\begin{aligned}
+\bf{Y_d}&=
+\begin{pmatrix}
+\bf0_{np+p,n}\\
+\bf diag(\bf{\sigma_1,\cdots,\sigma_n})\\
+\bf0_{1\times n}
+\end{pmatrix}\\
+\end{aligned}$$
+
+
+$$\begin{aligned}
+\bf{X_d}&=
+\begin{pmatrix}
+\bf{J_p}\otimes diag(\frac{\sigma_1}{\lambda}\cdots\frac{\sigma_n}{\lambda},\frac{\sigma_e}{\lambda})&\bf0_{(np+p)\times1}\\
+\bf 0_{n,np+p}&\bf 0_{n\times1}
+\\
+\bf 0_{1,np+p}&\bf \epsilon
+\end{pmatrix}
+\end{aligned}$$
+
+]
+
+.font_my_2[
+
+
+<br>
+
+
+where:
+$\bf{J_p}=diag(1,\cdots,p)$; $\bf{S_0}=(Y_d-X_d\times B_0)'(Y_d-X_dB_0)$, $\bf{B_0}=(X_d'X_d)^{-1}X_dY_d$, $\bf{\Omega_0}=(X_d'X_d)^{-1}$ and  $a_0=T_d-np-p-1;$ 
+
+<br>
+
+Here, both $\bf{Y}_d$ and $\bf{X}_d$ are the dummy observations we set 
+where $T_d$ is the number of rows for both $\bf{Y}_d$ and $\bf{X}_d$.
+]
+
+---
+# Normal-Inverse-Wishart Prior 
+
+
+## We can get:
+
+.font_my[
+
+$$\begin{aligned}
+\bf{Y^*}=\bf{X^*}\bf{\beta}+\bf{\mu}^*\\:
+\end{aligned}$$
+
+where : 
+
+
+$$\begin{aligned}
+\bf{Y^*}=[\bf{Y'},\bf{Y'_d}]';\ \bf{X^*}=[\bf{X'},\bf{X'_d}]';\ \bf{\mu^*}=[\bf{\mu'},\bf{\mu'_d}]'
+\end{aligned}$$
+
+]
+
+.font_my_2[
+Then we can estimate
+ng the BVAR by conducting an least square regression of $Y^*$ on $X^*$ . The posterior distribution then have the form of
+
+$$\begin{align}
+&\bf{vec(\mathbf{\beta})}|\Sigma,Y\sim N(vec(\bf{\tilde\beta}),\Sigma\otimes(\bf{X^*}'\bf{X^*})^{-1})\ and\\
+&\bf{\Sigma|Y}\sim\mathbf{IW}(\bf{\tilde\Sigma},T_d+T-np+2)
+\end{align}$$
+
+
+where $\bf{\tilde\beta} =(X*'X*)^{-1}X^{*'}Y^*$ and $\bf{\tilde\Sigma}=(\bf{Y^*}-\bf{X^*}\bf{\tilde\beta})'(\bf{Y^*}-\bf{X^*}\bf{\tilde\beta})$
+
+]

@@ -86,13 +86,13 @@ for (i in 2:n){
   sdiff[i+4,] = exp(yhat[i,1:k]/100)
 }  
 
-
 test <- rawhat[-c(1:5),] - rawdata[-c(1:5),]
 
 
 
 dd_origin = as.yearqtr(1986 + seq(0,136)/4)
-# 
+
+
 origin_fore <- data.frame(dd_origin, "Estimated" = rawhat[-c(1:5),85] , `Actual`= as_tibble(alldata[-c(1:5),85]))
 
 
@@ -140,7 +140,7 @@ multipliers = colSums(multigrowth)/4 # division by 4 is necessary because of sea
 mpers = colCumsums(multigrowth[5:44,])/4 #colCumsums() is a function in matrixStats package
 shares=colSums(rawdata[(nrow(rawdata)-3):nrow(rawdata),1:84])/sum(rawdata[(nrow(rawdata)-3):nrow(rawdata),85]) #sector shares estimated like this to eliminate the effect of seasonality
 mtplers <- rbind(shares,mpers)
-#write.csv(file="multipliers_1.csv",rbind(shares,mpers))
+#write.csv(file="multipliers.csv",rbind(shares,mpers))
 
 
 
@@ -227,7 +227,7 @@ grow1 <- ggplot(duringcov,aes(x = Date, y = YoY)) +
 
 
 grow1
-#write.csv(file = "oneemp.csv",allrawfcasts)
+#write.csv(file = "growth.csv",allrawfcasts)
  
 grow2 <- ggplot(allrawfcasts,aes(x=Date, y=YoY)) +
   geom_line(aes(x = Date, y = YoY), colour = "Red") +
@@ -350,10 +350,11 @@ covid_losses<- as.matrix(fraw0[6:14,]) - as.matrix(actual_covid[1:9,])
 
 average_losses <- colSums(covid_losses)/nrow(covid_losses)
 
+# Average losses 
 
 rowSums(average_losses)
 
-# Average losses 
+
 
 
 

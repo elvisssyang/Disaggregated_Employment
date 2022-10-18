@@ -1,0 +1,413 @@
+---
+knit: "bookdown::render_book"
+---
+
+\appendix
+
+# An Example of Bayesian VAR Prior 
+
+
+The VARX model is: 
+
+$$
+\begin{aligned}
+\bm{y}_t&=\bm{c}+\bm{A}_1 \bm{y}_{t-1}+\bm{\Gamma}_1\bm{x}_{t-1}+\bm{u}_t\\
+&=
+\begin{bmatrix}
+c_1\\
+\vdots\\
+c_n
+\end{bmatrix}
++
+\begin{bmatrix}
+a_1^{11}&\cdots&a_1^{1n}&\gamma_1^{1}\\
+\vdots&\ddots&\vdots&\vdots\\
+a_1^{n1}&\cdots&a_1^{nn}&\gamma_1^n\\
+\end{bmatrix}
+\begin{bmatrix}
+\bm{y}_{t-1}\\
+x_{t-1}\\
+\end{bmatrix}\\
+&+
+\begin{bmatrix}
+u_{1,t}\\
+\vdots\\
+u_{n,t}
+\end{bmatrix}\\
+\end{aligned}
+$$
+
+
+where $\bm{y_t} = ln(\bm{z_t})-ln(\bm{z_{t-4}})$ and $z_t$ is the number of employment in subsectors;  $\mathbb{E}(\bm{u}_t\bm{u}'_t)=\bm{\Sigma}$ and $\mathbb{E}(\bm{u}_t\bm{u'}_{t-1})=0$. Here the $n$ represent the number of sectors (in our case this will be 84) and $\bm{c}$represents the vector of constants. There is one lag (p=1) included of the total employment growth for each equation $(x_{t-1})$ as a predetermined variable at time $t$.
+
+
+We estimate the VARX using Bayesian method via a natural-conjugate-Normal-Wishart prior which preserve the properties of the Minnesota prior. We apply the shrinkage to the VAR slope coefficients using a Minnesota Prior specification as follows: 
+
+$$
+\begin{aligned}
+&E[a_{i}^{jk}] = E[\gamma_{i}^j]=0\\
+\\
+&Var[a_i^{jk}]= 
+\begin{cases}
+\frac{\lambda^2}{i^2},&j=k\\
+\frac{\lambda^2}{i^2}\frac{\sigma^2_{j}}{\sigma^2_k},& otherwise
+\end{cases}\\
+\\
+&Var[\gamma_i^{j}]=\frac{\lambda^2}{i^2}\frac{\sigma^2_{j}}{\sigma^2_e}
+\end{aligned}
+$$
+
+The $\sigma^2_{t}$ is estimated by taking the residual variances after fitting an AR(4) on the $l^{th}$ variable using least squares, which is common practice (see @anderson2020;@banbura2010large). The degree of shrinkage is governed by $\lambda$ and the $i$ stands for number of lags. $\frac{\sigma^2_{j}}{\sigma^2_e}$ adjust different scales of the data. The $\lambda$ we apply in this thesis is selected in *Chapter 4.3*. 
+
+The nature conjugate Normal-Inverse-Wishart prior implies the posterior moments can be calculated either analytically or by using the dummy observations. 
+
+Then we implement our VAR by defining $(np+n+1)$ dummy observations: 
+
+To estimate the BVAR using dummy observations, we rewrite the estimated model as 
+$$
+\begin{aligned}
+\bm{Y} = \bm{X}\bm{\beta}+\bm{u}
+\end{aligned}
+$$
+where we set the prior parameters as $\bm{Y} = [\bm{y_1},\cdots,\bm{y_t}]$, $\bm{X} = [\bm{X_1},\cdots,\bm{X_T}]$ where $\bm{X_t}=[\bm{y_{t-1}}, x_{t-1}]$ and $\bm{u} = [u_1,\cdots,u_T]$. 
+
+
+The Normal-Wishart prior distribution then take the form: 
+
+
+
+$$
+\begin{aligned}
+vec(\bm{\beta})|\bm{\Sigma} \sim \bm{N}(vec(\bm{\beta_0},\bm{\Sigma}\otimes \bm{\Omega_0})), and\\
+\Sigma \sim IW(\bm{S_0},\bm{a_0})
+\end{aligned}
+$$
+where we set the prior parameters $\bm{\beta_0}$, $\bm{\Omega_0}$, $\bm{S_0}$ and $\bm(a_0)$ such that they are consistent with the Minnesota Prior setting. 
+The expectation of $\bm{\Sigma}$ being $diag(\sigma^2_{1},\cdots,\sigma^2_{n})$. We follow @anderson2020 to set our prior by defining dummy observations: 
+
+
+
+
+$$
+\begin{aligned}
+\bm{Y_d}&=
+\begin{pmatrix}
+\bm0_{np+p,n}\\
+diag({\sigma_1,\cdots,\sigma_n})\\
+\bm0_{1\times n}
+\end{pmatrix},\\
+\bm{X_d}&=
+\begin{pmatrix}
+\bm{J_p}\otimes diag(\frac{\sigma_1}{\lambda}\cdots\frac{\sigma_n}{\lambda},\frac{\sigma_e}{\lambda})&\bm0_{(np+p)\times1}\\
+\bm 0_{n,np+p}&\bm 0_{n\times1}
+\\
+\bm 0_{1,np+p}&\bm{\epsilon}
+\end{pmatrix},
+\end{aligned}
+$$ 
+
+where $\bm{Y_d}$ and $\bm{X_d}$ are the dummy observations chosen according to the Minnesota Prior assumption (consistent with the mean and variance setups above). 
+
+
+
+$$
+\begin{aligned}
+\bm{J_p}=diag(1,\cdots,p),\\
+\bm{S_0}=(\bm{Y_d}-\bm{X_d}\times \bm{B_0})'(\bm{Y_d}-\bm{X_d}\bm{B_0}),\\
+\bm{B_0}=(\bm{X_d}'\bm{X_d})^{-1}\bm{X_d}\bm{Y_d},\ \bm{\Omega_0}=(\bm{X_d}'\bm{X_d})^{-1}\  and\\
+a_0=T_d-np-p-1, \\
+\end{aligned}
+$$ 
+
+where $T_d$ is the number of rows for both $\boldsymbol{Y}_d$ and $\boldsymbol{X}_d$. $\epsilon$ is a very small number to impose an uninformative and diffused prior on the constants. The first block of the dummy observations imposes the prior belief on the VAR slope coefficients and the second block contains the prior for the covariance matrix and third block imposes the prior belief on the constants. 
+
+
+
+
+
+Then we augment the original BVAR model with the estimated dummy observations. We can get: 
+
+$$
+\begin{aligned}
+\bm{Y^*}=\bm{X^*}\bm{\beta}+\bm{\mu}^*\ \ \  where: \\
+\bm{Y^*}=[\bm{Y'},\bm{Y'_d}]';\ \bm{X^*}=[\bm{X'},\bm{X'_d}]';\ \bm{\mu^*}=[\bm{\mu'},\bm{\mu'_d}]'
+\end{aligned}
+$$
+
+
+Then we can estimating the BVAR by conducting least squares regression of $\boldsymbol{Y}^*$ on $\boldsymbol{X}^*$. The posterior distribution then has the form of
+
+$$
+\begin{aligned}
+&vec(\bm{\beta})|\bm{\Sigma},\bm{Y}\sim N(vec(\boldsymbol{\tilde\beta}),\boldsymbol{\Sigma}\otimes(\boldsymbol{X^*}'\boldsymbol{X^*})^{-1})\ and\\
+&\bm{\Sigma}|\bm{Y}\sim\bm{IW}(\bm{\tilde\Sigma},T_d+T-np+2)
+\end{aligned}
+$$
+
+where $\bm{\tilde\beta} =({\bm{X^{*}}}'\bm{X^{*}})^{-1} {\bm{X^{*}}}'\bm{Y^{*}}$ and $\bm{\tilde\Sigma}=(\bm{Y^{*}}-\bm{X^{*}}\bm{\tilde\beta})'(\bm{Y^{*}}-\bm{X^{*}}\bm{\tilde\beta})$
+
+
+\newpage
+
+
+
+# Graphs 
+
+
+\graphicspath{ {/Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figures} }
+
+
+\begin{figure}[t]
+\includegraphics[scale=0.5]{19sec}
+\centering
+\caption{Employment('000) of 19 sectors in Australia from 2010 to 2022}
+\label{fig:19}
+\end{figure}
+
+
+\begin{figure}[t]
+\includegraphics[scale=0.5]{87sec}
+\centering
+\caption{Employment('000) of two-digit subsectors in Australia from 2010 to 2022}
+\label{fig:86}
+\end{figure}
+
+
+\begin{figure}[t]
+\includegraphics[scale=0.5]{agg_19}
+\centering
+\caption{Aggregated Employment(in thousands) for Manufacturing and Mining sector in Australia from 1984:Q4 to 2021:Q4}
+\label{fig:a19}
+\end{figure}
+
+\begin{figure}[t]
+\includegraphics[scale=0.5]{agg_87}
+\centering
+\caption{Disaaggregate Employment(in thousands) of 87 two-digit subsectors in Manufacturing and Mining sector from 1984:Q4 to 2021:Q4}
+\label{fig:a87}
+\end{figure}
+
+
+
+<!-- \newpage -->
+
+
+
+\begin{table}[ht]
+  \centering
+  \caption{\textbf{The long run Employment Multipliers Analysis (84 Disaggregated Sectors)} Sorted by Shares of Subsectors}
+  \scalebox{0.5}{
+    \begin{tabular}{|l|r|rrrr|rr|}
+    \hline 
+    Sub-Sector & Shares & 1 Year  & \multicolumn{1}{l}{2 Years } & \multicolumn{1}{l}{5 Years} & \multicolumn{1}{l}{10 Years } & M10/M0 & M10-M0 \\
+    \hline\hline
+  69 Professional, Scientific and Technical Services (Except Computer System) Design and Related Services) & 0.06931674 & 0.0485337 & 0.062318 & 0.06666942 & 0.06671967 & 0.96253315 & -0.0025971 \\
+    45 Food and Beverage Services & 0.06348661 & 0.04693738 & 0.06311697 & 0.0666367 & 0.06668314 & 1.05034955 & 0.00319652 \\
+    32 Construction Services & 0.05913525 & 0.04299346 & 0.05568259 & 0.05863971 & 0.05867338 & 0.99218952 & -0.0004619 \\
+    42 Other Store-Based Retailing & 0.05378582 & 0.04963343 & 0.06655111 & 0.07145667 & 0.07151944 & 1.32970786 & 0.01773361 \\
+    80 Preschool and School Education & 0.0492665 & 0.02091953 & 0.01855257 & 0.01721796 & 0.01720194 & 0.34916098 & -0.0320646 \\
+    75 Public Administration & 0.04641708 & 0.01553789 & 0.01250828 & 0.01080403 & 0.01078435 & 0.23233592 & -0.0356327 \\
+    85 Medical and Other Health Care Services & 0.04116996 & 0.02431334 & 0.02916687 & 0.02989798 & 0.02990662 & 0.72641828 & -0.0112633 \\
+    84 Hospitals & 0.0369132 & 0.01785159 & 0.0199097 & 0.02042347 & 0.02042915 & 0.55343755 & -0.016484 \\
+    87 Social Assistance Services & 0.03680509 & 0.02207106 & 0.02929537 & 0.0311832 & 0.03120476 & 0.84783798 & -0.0056003 \\
+    41 Food Retailing & 0.03040546 & 0.01923095 & 0.02775936 & 0.03134743 & 0.0313965 & 1.03259348 & 0.00099102 \\
+    30 Building Construction & 0.02365835 & 0.01966493 & 0.02362512 & 0.02432029 & 0.02432822 & 1.02831441 & 0.00066987 \\
+    46 Road Transport & 0.02212746 & 0.01012106 & 0.01115604 & 0.01122802 & 0.011232 & 0.50760455 & -0.0108955 \\
+    01 Agriculture & 0.02177417 & 0.00998719 & 0.01235378 & 0.01409829 & 0.01411674 & 0.64832471 & -0.0076574 \\
+    95 Personal and other services (include activities for own use) & 0.02127031 & 0.0127474 & 0.01505848 & 0.01597865 & 0.01599074 & 0.75178666 & -0.0052796 \\
+    86 Residential Care Services & 0.02028961 & 0.0108231 & 0.01516439 & 0.01583014 & 0.0158379 & 0.78059125 & -0.0044517 \\
+    70 Computer System Design and Related Services & 0.01989965 & 0.01064273 & 0.01220485 & 0.0126649 & 0.01267126 & 0.63675763 & -0.0072284 \\
+    81 Tertiary Education & 0.01945371 & 0.00166075 & -0.0015457 & -0.0021075 & -0.0021148 & -0.1087109 & -0.0215685 \\
+    72 Administrative Services & 0.01790544 & 0.02068182 & 0.02911507 & 0.03127308 & 0.03129963 & 1.74805115 & 0.01339419 \\
+    94 Repair and Maintenance & 0.0177703 & 0.01434611 & 0.02128838 & 0.02357418 & 0.0236012 & 1.32812526 & 0.00583089 \\
+    73 Building Cleaning, Pest Control and Other Support Services & 0.01736876 & 0.01180556 & 0.01573853 & 0.01716652 & 0.01718243 & 0.98927169 & -0.0001863 \\
+    11Food Product Manufacturing & 0.01649038 & 0.00702254 & 0.00846642 & 0.00827582 & 0.00827409 & 0.50175246 & -0.0082163 \\
+    82 Adult, Community and Other Education & 0.01566605 & 0.00554203 & 0.00471415 & 0.00475267 & 0.00475016 & 0.30321348 & -0.0109159 \\
+    77 Public Order, Safety and Regulatory Services & 0.01521818 & 0.00871417 & 0.01309719 & 0.01440524 & 0.01442184 & 0.94767203 & -0.0007963 \\
+    62 Finance & 0.01472397 & 0.00857652 & 0.01062002 & 0.0110417 & 0.01104891 & 0.75040274 & -0.0036751 \\
+    67 Property Operators and Real Estate Services & 0.01358111 & 0.00573538 & 0.00632144 & 0.00644085 & 0.00644122 & 0.47427795 & -0.0071399 \\
+    64 Auxiliary Finance and Insurance Services & 0.01229925 & 0.00710233 & 0.00875331 & 0.00932324 & 0.00933078 & 0.75864648 & -0.0029685 \\
+    91 Sports and Recreation Activities & 0.01027608 & 0.00887835 & 0.01209347 & 0.01274308 & 0.01275193 & 1.24093321 & 0.00247585 \\
+    24Machinery and Equipment Manufacturing & 0.0087394 & 0.00384771 & 0.00486625 & 0.00522805 & 0.00523156 & 0.59861717 & -0.0035078 \\
+    34 Machinery and Equipment Wholesaling & 0.00863129 & 0.00463038 & 0.00550646 & 0.00586781 & 0.00587311 & 0.68044432 & -0.0027582 \\
+    39Motor Vehicle and Motor Vehicle Parts Retailing & 0.00844596 & 0.01088201 & 0.01646315 & 0.01809008 & 0.01810914 & 2.14411792 & 0.00966318 \\
+    08 Metal Ore Mining & 0.00838419 & 0.00574686 & 0.00556897 & 0.0053132 & 0.00530956 & 0.6332827 & -0.0030746 \\
+    31 Heavy and Civil Engineering Construction & 0.00832434 & 0.00731709 & 0.01027104 & 0.01102691 & 0.01103652 & 1.32581315 & 0.00271218 \\
+    63 Insurance and Superannuation Funds & 0.00805214 & 0.00443011 & 0.00497832 & 0.00501181 & 0.00501281 & 0.62254327 & -0.0030393 \\
+    51 Postal and Courier Pick-up and Delivery Services & 0.00757723 & 0.00121361 & 0.00131748 & 0.00140896 & 0.00141185 & 0.18632811 & -0.0061654 \\
+    44 Accommodation & 0.00753476 & 0.0032441 & 0.00545 & 0.00634005 & 0.00635098 & 0.84289032 & -0.0011838 \\
+    37 Other Goods Wholesaling & 0.0071892 & 0.00459914 & 0.00631193 & 0.00661623 & 0.00662058 & 0.92090624 & -0.0005686 \\
+    58 Telecommunications Services & 0.00707916 & 0.00011311 & -0.001374 & -0.0014087 & -0.001411 & -0.1993137 & -0.0084901 \\
+  33 Basic Material Wholesaling & 0.00697878 & 0.00828557 & 0.01222171 & 0.01343315 & 0.01344743 & 1.92690232 & 0.00646865 \\
+    52 Transport Support Services & 0.00675677 & 0.00753772 & 0.01162295 & 0.01291333 & 0.01292955 & 1.91356851 & 0.00617277 \\
+    21Primary Metal and Metal Product Manufacturing & 0.0058726 & 0.00462923 & 0.00499628 & 0.00494162 & 0.00494054 & 0.84128732 & -0.0009321 \\
+    22Fabricated Metal Product Manufacturing & 0.00538804 & 0.0066765 & 0.00944416 & 0.01058564 & 0.01059958 & 1.96724154 & 0.00521154 \\
+    53 Warehousing and Storage Services & 0.00527028 & 0.00263016 & 0.00272967 & 0.00287253 & 0.00287296 & 0.54512411 & -0.0023973 \\
+    23Transport Equipment Manufacturing & 0.00514673 & 0.00299308 & 0.00469464 & 0.00556819 & 0.0055781 & 1.08381385 & 0.00043137 \\
+    26Electricity Supply & 0.00502125 & 0.00491081 & 0.00586741 & 0.00563882 & 0.005636 & 1.12243022 & 0.00061475 \\
+    25Furniture and Other Manufacturing & 0.00496526 & 0.00907029 & 0.01434533 & 0.01635773 & 0.01637974 & 3.29886584 & 0.01141447 \\
+    36 Grocery, Liquor and Tobacco Product Wholesaling & 0.00491893 & 0.00061785 & -0.0006336 & -0.0008216 & -0.0008238 & -0.1674704 & -0.0057427 \\
+    49 Air and Space Transport & 0.00419885 & 0.00350454 & 0.00513191 & 0.00542985 & 0.00543509 & 1.29442326 & 0.00123624 \\
+    18 Basic Chemical and Chemical Product Manufacturing & 0.00395754 & 0.00606204 & 0.00950461 & 0.01069071 & 0.01070637 & 2.70531007 & 0.00674883 \\
+    06 Coal Mining & 0.00383591 & 0.00383353 & 0.00407393 & 0.00408138 & 0.00408139 & 1.06399293 & 0.00024547 \\
+    47 Rail Transport & 0.00381661 & 0.00126166 & 0.00105419 & 0.00112838 & 0.00112925 & 0.29587899 & -0.0026874 \\
+    90 Creative and Performing Arts Activities & 0.00360425 & 0.00468914 & 0.00613651 & 0.00651375 & 0.00651912 & 1.80872881 & 0.00291486 \\
+    14Wood Product Manufacturing & 0.00347877 & 0.00302624 & 0.00302602 & 0.00331986 & 0.00332296 & 0.9552116 & -0.0001558 \\
+    29Waste Collection, Treatment and Disposal Services & 0.00339383 & 0.00565936 & 0.00756816 & 0.0078664 & 0.0078681 & 2.31835492 & 0.00447427 \\
+    89 Heritage Activities & 0.00301159 & 0.00369792 & 0.0051636 & 0.00528106 & 0.00528232 & 1.7539992 & 0.00227074 \\
+    10 Exploration and Other Mining Support Services & 0.00299228 & -0.0006873 & -0.0017035 & -0.0019049 & -0.0019072 & -0.6373821 & -0.0048995 \\
+    55 Motion Picture and Sound Recording Activities & 0.00294209 & 0.00032963 & -0.0005498 & -0.0005605 & -0.0005605 & -0.1905091 & -0.0035026 \\
+    40 Fuel Retailing & 0.00291506 & -0.0012046 & -0.0024966 & -0.0027078 & -0.0027087 & -0.9292227 & -0.0056238 \\
+    66 Rental and Hiring Services (except Real Estate) & 0.00287066 & 0.003369 & 0.00341671 & 0.00336895 & 0.00336725 & 1.17298563 & 0.00049658 \\
+    19Polymer Product and Rubber Product Manufacturing & 0.00283012 & 0.00233992 & 0.00331413 & 0.00359534 & 0.00359859 & 1.27153097 & 0.00076847 \\
+    20Non-Metallic Mineral Product Manufacturing & 0.00277221 & 0.00357344 & 0.00319618 & 0.0030411 & 0.0030398 & 1.0965273 & 0.00026759 \\
+    16Printing (including the Reproduction of Recorded Media) & 0.00262163 & -0.000264 & 0.00122375 & 0.00182629 & 0.00183417 & 0.69963121 & -0.0007875 \\
+    12Beverage and Tobacco Product Manufacturing & 0.00252896 & 0.00277597 & 0.00231169 & 0.00223403 & 0.00223473 & 0.88365682 & -0.0002942 \\
+    28Water Supply, Sewerage and Drainage Services & 0.00249614 & 0.00282008 & 0.00239868 & 0.00201716 & 0.0020111 & 0.80568129 & -0.000485 \\
+    13Textile, Leather, Clothing and Footwear Manufacturing & 0.00244016 & 0.00487731 & 0.00773749 & 0.00862047 & 0.00863239 & 3.53763202 & 0.00619223 \\
+    92 Gambling Activities & 0.00243437 & 0.00430809 & 0.00667533 & 0.00741282 & 0.00742126 & 3.04853477 & 0.00498689 \\
+    07 Oil and Gas Extraction & 0.00232626 & -0.0017933 & -0.0034336 & -0.0039433 & -0.0039495 & -1.6977721 & -0.0062757 \\
+    56 Broadcasting (except Internet) & 0.00225097 & 0.00562035 & 0.00883845 & 0.00960654 & 0.00961432 & 4.27118764 & 0.00736334 \\
+    35 Motor Vehicle and Motor Vehicle Parts Wholesaling & 0.00208109 & 0.00130996 & 0.0019761 & 0.0022859 & 0.00228915 & 1.09997643 & 0.00020806 \\
+    76 Defence & 0.00203668 & 0.00108328 & 0.00081797 & 0.00081458 & 0.00081483 & 0.40007524 & -0.0012219 \\
+    05 Agriculture, Forestry and Fishing Support Services & 0.00201545 & 0.00410222 & 0.00612542 & 0.00684863 & 0.00685748 & 3.40246046 & 0.00484203 \\
+    54 Publishing and Broadcasting & 0.00199035 & 0.00146161 & 0.00254755 & 0.00299741 & 0.00300331 & 1.50893341 & 0.00101296 \\
+    43 Non-Store Retailing and Retail Commission Based Buying and/or Selling & 0.00198842 & 0.00008765 & -0.0006368 & -0.0010072 & -0.0010108 & -0.5083429 & -0.0029992 \\
+    15Pulp, Paper and Converted Paper Product Manufacturing & 0.00134556 & 0.00088098 & 0.00127857 & 0.00145108 & 0.00145231 & 1.07933418 & 0.00010675 \\
+    60 Library and Other Information Services & 0.00113321 & 0.00262681 & 0.00408402 & 0.00438669 & 0.00438973 & 3.8737221 & 0.00325652 \\
+    09 Non-Metallic Mineral Mining and Quarrying & 0.00109846 & 0.00030124 & 0.00035283 & 0.00047586 & 0.00047618 & 0.43350017 & -0.0006223 \\
+    27Gas Supply & 0.00093436 & 0.00119372 & 0.00200704 & 0.00226239 & 0.00226542 & 2.42456061 & 0.00133106 \\
+    38 Commission-Based Wholesaling & 0.00073359 & 0.00117105 & 0.00148834 & 0.00157279 & 0.00157404 & 2.14566446 & 0.00084045 \\
+    59 Internet Service Providers, Web Search Portals and Data Processing Services & 0.00071236 & -0.0002143 & -0.0006387 & -0.0006332 & -0.0006331 & -0.8887063 & -0.0013454 \\
+    48 Water Transport & 0.00067182 & -0.0003845 & -0.0003261 & -0.0002884 & -0.0002886 & -0.4295098 & -0.0009604 \\
+    17Petroleum and Coal Product Manufacturing & 0.00066795 & 0.00026082 & -0.0002759 & -0.0005609 & -0.0005649 & -0.8457507 & -0.0012329 \\
+    50 Other Transport & 0.00062162 & 0.00128362 & 0.00155246 & 0.00160919 & 0.00160982 & 2.58970933 & 0.0009882 \\
+    03 Forestry and Logging & 0.00053668 & -0.0012108 & -0.0017314 & -0.0018066 & -0.0018077 & -3.3683565 & -0.0023444 \\
+    02 Aquaculture & 0.00050193 & -0.0001496 & -0.0003808 & -0.0004863 & -0.0004873 & -0.9709079 & -0.0009893 \\
+    04 Fishing, Hunting and Trapping & 0.00046139 & 0.00209291 & 0.00329398 & 0.00352863 & 0.00353112 & 7.65320735 & 0.00306973 \\
+    \hline\hline 
+    \end{tabular}} 
+    \begin{tablenotes} 
+      \footnotesize
+      \item \emph{Note}: The long run employment multiplier for subsector $i$ is the effect of a 1\% increase in employment of subsector on the total employment in the long run. \\
+      M10 is the long term multiplier; M0 is the initial responses of the total employment (i.e. the shares of subsector $i$). 
+      M10-M0 is the spillover of the subsector $i$. \\
+      M10/M0 is the spillover of the subsector $i$ relative to the share of it.
+\end{tablenotes}
+\caption{Disaggregated Sectoral Long-Run Employment Multipliers: Full list of 84 sectors}
+  \label{dis:emp}
+\end{table}
+
+
+<!-- \newpage -->
+
+
+
+
+
+
+<!-- \begin{table}[ht] -->
+<!-- \begin{center} -->
+<!-- \scalebox{0.5}{ -->
+<!-- \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|} -->
+<!-- \multicolumn{10}{c}{\textbf{The long run Employment Multipliers Analysis (84 Disaggregated Sectors)}}                                                                                                                                                                                                            \\  -->
+<!-- \hline                                                                                                                                    &  &  & \multicolumn{4}{c}{\textit{Forecast Horizon (Spillover Analysis)}}  & \multicolumn{2}{c}{\textit{Spillover Measures}} \\ \cline{4-2} \cline{5-2} \cline{6-2}\cline{7-2}\cline{9-2}\cline{10-2} -->
+<!--                                                                                                                                                             & Shares                &  & 1 year          & 2 years        & 5 years        & 10 years       &  & M5/M0                  & M5-M0                  \\ -->
+<!-- 01 Agriculture                                                                                                                                              & 0.02177417            &  & 0.00998719      & 0.01235378     & 0.01409829     & 0.01411674     &  & -0.0076574             & 0.6483247              \\ -->
+<!-- 02 Aquaculture                                                                                                                                              & 0.00050193            &  & -0.0001496      & -0.0003808     & -0.0004863     & -0.0004873     &  & -0.9709079             & -0.0009893             \\ -->
+<!-- 03 Forestry and Logging                                                                                                                                     & 0.00053668            &  & -0.0012108      & -0.0017314     & -0.0018066     & -0.0018077     &  & -3.3683565             & -0.0023444             \\ -->
+<!-- 04 Fishing, Hunting and Trapping                                                                                                                            & 0.00046139            &  & 0.00209291      & 0.00329398     & 0.00352863     & 0.00353112     &  & 7.65320735             & 0.00306973             \\ -->
+<!-- 05 Agriculture, Forestry and Fishing   Support Services                                                                                                     & 0.00201545            &  & 0.00410222      & 0.00612542     & 0.00684863     & 0.00685748     &  & 3.40246046             & 0.00484203             \\ -->
+<!-- 06 Coal Mining                                                                                                                                              & 0.00383591            &  & 0.00383353      & 0.00407393     & 0.00408138     & 0.00408139     &  & 1.06399293             & 0.00024547             \\ -->
+<!-- 07 Oil and Gas Extraction                                                                                                                                   & 0.00232626            &  & -0.0017933      & -0.0034336     & -0.0039433     & -0.0039495     &  & -1.6977721             & -0.0062757             \\ -->
+<!-- 08 Metal Ore Mining                                                                                                                                         & 0.00838419            &  & 0.00574686      & 0.00556897     & 0.0053132      & 0.00530956     &  & 0.6332827              & -0.0030746             \\ -->
+<!-- 09 Non-Metallic Mineral Mining and   Quarrying                                                                                                              & 0.00109846            &  & 0.00030124      & 0.00035283     & 0.00047586     & 0.00047618     &  & 0.43350017             & -0.0006223             \\ -->
+<!-- 10 Exploration and Other Mining Support   Services                                                                                                          & 0.00299228            &  & -0.0006873      & -0.0017035     & -0.0019049     & -0.0019072     &  & -0.6373821             & -0.0048995             \\ -->
+<!-- 11Food Product Manufacturing                                                                                                                                & 0.01649038            &  & 0.00702254      & 0.00846642     & 0.00827582     & 0.00827409     &  & 0.50175246             & -0.0082163             \\ -->
+<!-- 12Beverage and Tobacco Product   Manufacturing                                                                                                              & 0.00252896            &  & 0.00277597      & 0.00231169     & 0.00223403     & 0.00223473     &  & 0.88365682             & -0.0002942             \\ -->
+<!-- 13Textile, Leather, Clothing and Footwear   Manufacturing                                                                                                   & 0.00244016            &  & 0.00487731      & 0.00773749     & 0.00862047     & 0.00863239     &  & 3.53763202             & 0.00619223             \\ -->
+<!-- 14Wood Product Manufacturing                                                                                                                                & 0.00347877            &  & 0.00302624      & 0.00302602     & 0.00331986     & 0.00332296     &  & 0.9552116              & -0.0001558             \\ -->
+<!-- 15Pulp, Paper and Converted Paper Product   Manufacturing                                                                                                   & 0.00134556            &  & 0.00088098      & 0.00127857     & 0.00145108     & 0.00145231     &  & 1.07933418             & 0.00010675             \\ -->
+<!-- 16Printing (including the Reproduction of Recorded Media)                                                                                                 & 0.00262163            &  & -0.000264       & 0.00122375     & 0.00182629     & 0.00183417     &  & 0.69963121             & -0.0007875             \\ -->
+<!-- 17Petroleum and Coal Product   Manufacturing                                                                                                                & 0.00066795            &  & 0.00026082      & -0.0002759     & -0.0005609     & -0.0005649     &  & -0.8457507             & -0.0012329             \\ -->
+<!-- 18 Basic Chemical and Chemical Product   Manufacturing                                                                                                      & 0.00395754            &  & 0.00606204      & 0.00950461     & 0.01069071     & 0.01070637     &  & 2.70531007             & 0.00674883             \\ -->
+<!-- 19Polymer Product and Rubber Product   Manufacturing                                                                                                        & 0.00283012            &  & 0.00233992      & 0.00331413     & 0.00359534     & 0.00359859     &  & 1.27153097             & 0.00076847             \\ -->
+<!-- 20Non-Metallic Mineral Product   Manufacturing                                                                                                              & 0.00277221            &  & 0.00357344      & 0.00319618     & 0.0030411      & 0.0030398      &  & 1.0965273              & 0.00026759             \\ -->
+<!-- 21Primary Metal and Metal Product   Manufacturing                                                                                                           & 0.0058726             &  & 0.00462923      & 0.00499628     & 0.00494162     & 0.00494054     &  & 0.84128732             & -0.0009321             \\ -->
+<!-- 22Fabricated Metal Product Manufacturing                                                                                                                    & 0.00538804            &  & 0.0066765       & 0.00944416     & 0.01058564     & 0.01059958     &  & 1.96724154             & 0.00521154             \\ -->
+<!-- 23Transport Equipment Manufacturing                                                                                                                         & 0.00514673            &  & 0.00299308      & 0.00469464     & 0.00556819     & 0.0055781      &  & 1.08381385             & 0.00043137             \\ -->
+<!-- 24Machinery and Equipment Manufacturing                                                                                                                     & 0.0087394             &  & 0.00384771      & 0.00486625     & 0.00522805     & 0.00523156     &  & 0.59861717             & -0.0035078             \\ -->
+<!-- 25Furniture and Other Manufacturing                                                                                                                         & 0.00496526            &  & 0.00907029      & 0.01434533     & 0.01635773     & 0.01637974     &  & 3.29886584             & 0.01141447             \\ -->
+<!-- 26Electricity Supply                                                                                                                                        & 0.00502125            &  & 0.00491081      & 0.00586741     & 0.00563882     & 0.005636       &  & 1.12243022             & 0.00061475             \\ -->
+<!-- 27Gas Supply                                                                                                                                                & 0.00093436            &  & 0.00119372      & 0.00200704     & 0.00226239     & 0.00226542     &  & 2.42456061             & 0.00133106             \\ -->
+<!-- 28Water Supply, Sewerage and Drainage   Services                                                                                                            & 0.00249614            &  & 0.00282008      & 0.00239868     & 0.00201716     & 0.0020111      &  & 0.80568129             & -0.000485              \\ -->
+<!-- 29Waste Collection, Treatment and   Disposal Services                                                                                                       & 0.00339383            &  & 0.00565936      & 0.00756816     & 0.0078664      & 0.0078681      &  & 2.31835492             & 0.00447427             \\ -->
+<!-- 30 Building Construction                                                                                                                                    & 0.02365835            &  & 0.01966493      & 0.02362512     & 0.02432029     & 0.02432822     &  & 1.02831441             & 0.00066987             \\ -->
+<!-- 31 Heavy and Civil Engineering   Construction                                                                                                               & 0.00832434            &  & 0.00731709      & 0.01027104     & 0.01102691     & 0.01103652     &  & 1.32581315             & 0.00271218             \\ -->
+<!-- 32 Construction Services                                                                                                                                    & 0.05913525            &  & 0.04299346      & 0.05568259     & 0.05863971     & 0.05867338     &  & 0.99218952             & -0.0004619             \\ -->
+<!-- 33 Basic Material Wholesaling                                                                                                                               & 0.00697878            &  & 0.00828557      & 0.01222171     & 0.01343315     & 0.01344743     &  & 1.92690232             & 0.00646865             \\ -->
+<!-- 34 Machinery and Equipment Wholesaling                                                                                                                      & 0.00863129            &  & 0.00463038      & 0.00550646     & 0.00586781     & 0.00587311     &  & 0.68044432             & -0.0027582             \\ -->
+<!-- 35 Motor Vehicle and Motor Vehicle Parts   Wholesaling                                                                                                      & 0.00208109            &  & 0.00130996      & 0.0019761      & 0.0022859      & 0.00228915     &  & 1.09997643             & 0.00020806             \\ -->
+<!-- 36 Grocery, Liquor and Tobacco Product   Wholesaling                                                                                                        & 0.00491893            &  & 0.00061785      & -0.0006336     & -0.0008216     & -0.0008238     &  & -0.1674704             & -0.0057427             \\ -->
+<!-- 37 Other Goods Wholesaling                                                                                                                                  & 0.0071892             &  & 0.00459914      & 0.00631193     & 0.00661623     & 0.00662058     &  & 0.92090624             & -0.0005686             \\ -->
+<!-- 38 Commission-Based Wholesaling                                                                                                                             & 0.00073359            &  & 0.00117105      & 0.00148834     & 0.00157279     & 0.00157404     &  & 2.14566446             & 0.00084045             \\ -->
+<!-- 39Motor Vehicle and Motor Vehicle Parts   Retailing                                                                                                         & 0.00844596            &  & 0.01088201      & 0.01646315     & 0.01809008     & 0.01810914     &  & 2.14411792             & 0.00966318             \\ -->
+<!-- 40 Fuel Retailing                                                                                                                                           & 0.00291506            &  & -0.0012046      & -0.0024966     & -0.0027078     & -0.0027087     &  & -0.9292227             & -0.0056238             \\ -->
+<!-- 41 Food Retailing                                                                                                                                           & 0.03040546            &  & 0.01923095      & 0.02775936     & 0.03134743     & 0.0313965      &  & 1.03259348             & 0.00099102             \\ -->
+<!-- 42 Other Store-Based Retailing                                                                                                                              & 0.05378582            &  & 0.04963343      & 0.06655111     & 0.07145667     & 0.07151944     &  & 1.32970786             & 0.01773361             \\ -->
+<!-- 43 Non-Store Retailing and Retail   Commission Based Buying and/or Selling                                                                                  & 0.00198842            &  & 8.765E-05       & -0.0006368     & -0.0010072     & -0.0010108     &  & -0.5083429             & -0.0029992             \\ -->
+<!-- 44 Accommodation                                                                                                                                            & 0.00753476            &  & 0.0032441       & 0.00545        & 0.00634005     & 0.00635098     &  & 0.84289032             & -0.0011838             \\ -->
+<!-- 45 Food and Beverage Services                                                                                                                               & 0.06348661            &  & 0.04693738      & 0.06311697     & 0.0666367      & 0.06668314     &  & 1.05034955             & 0.00319652             \\ -->
+<!-- 46 Road Transport                                                                                                                                           & 0.02212746            &  & 0.01012106      & 0.01115604     & 0.01122802     & 0.011232       &  & 0.50760455             & -0.0108955             \\ -->
+<!-- 47 Rail Transport                                                                                                                                           & 0.00381661            &  & 0.00126166      & 0.00105419     & 0.00112838     & 0.00112925     &  & 0.29587899             & -0.0026874             \\ -->
+<!-- 48 Water Transport                                                 ==                                                                                         & 0.00067182            &  & -0.0003845      & -0.0003261     & -0.0002884     & -0.0002886     &  & -0.4295098             & -0.0009604             \\ -->
+<!-- 49 Air and Space Transport                                                                                                                                  & 0.00419885            &  & 0.00350454      & 0.00513191     & 0.00542985     & 0.00543509     &  & 1.29442326             & 0.00123624             \\ -->
+<!-- 50 Other Transport                                                                                                                                          & 0.00062162            &  & 0.00128362      & 0.00155246     & 0.00160919     & 0.00160982     &  & 2.58970933             & 0.0009882              \\ -->
+<!-- 51 Postal and Courier Pick-up and   Delivery Services                                                                                                       & 0.00757723            &  & 0.00121361      & 0.00131748     & 0.00140896     & 0.00141185     &  & 0.18632811             & -0.0061654             \\ -->
+<!-- 52 Transport Support Services                                                                                                                               & 0.00675677            &  & 0.00753772      & 0.01162295     & 0.01291333     & 0.01292955     &  & 1.91356851             & 0.00617277             \\ -->
+<!-- 53 Warehousing and Storage Services                                                                                                                         & 0.00527028            &  & 0.00263016      & 0.00272967     & 0.00287253     & 0.00287296     &  & 0.54512411             & -0.0023973             \\ -->
+<!-- 54 Publishing and Broadcasting                                                                                                                              & 0.00199035            &  & 0.00146161      & 0.00254755     & 0.00299741     & 0.00300331     &  & 1.50893341             & 0.00101296             \\ -->
+<!-- 55 Motion Picture and Sound Recording   Activities                                                                                                          & 0.00294209            &  & 0.00032963      & -0.0005498     & -0.0005605     & -0.0005605     &  & -0.1905091             & -0.0035026             \\ -->
+<!-- 56 Broadcasting (except Internet)                                                                                                                           & 0.00225097            &  & 0.00562035      & 0.00883845     & 0.00960654     & 0.00961432     &  & 4.27118764             & 0.00736334             \\ -->
+<!-- 58 Telecommunications Services                                                                                                                              & 0.00707916            &  & 0.00011311      & -0.001374      & -0.0014087     & -0.001411      &  & -0.1993137             & -0.0084901             \\ -->
+<!-- 59 Internet Service Providers, Web Search   Portals and Data Processing Services                                                                            & 0.00071236            &  & -0.0002143      & -0.0006387     & -0.0006332     & -0.0006331     &  & -0.8887063             & -0.0013454             \\ -->
+<!-- 60 Library and Other Information Services                                                                                                                   & 0.00113321            &  & 0.00262681      & 0.00408402     & 0.00438669     & 0.00438973     &  & 3.8737221              & 0.00325652             \\ -->
+<!-- 62 Finance                                                                                                                                                  & 0.01472397            &  & 0.00857652      & 0.01062002     & 0.0110417      & 0.01104891     &  & 0.75040274             & -0.0036751             \\ -->
+<!-- 63 Insurance and Superannuation Funds                                                                                                                       & 0.00805214            &  & 0.00443011      & 0.00497832     & 0.00501181     & 0.00501281     &  & 0.62254327             & -0.0030393             \\ -->
+<!-- 64 Auxiliary Finance and Insurance   Services                                                                                                               & 0.01229925            &  & 0.00710233      & 0.00875331     & 0.00932324     & 0.00933078     &  & 0.75864648             & -0.0029685             \\ -->
+<!-- 66 Rental and Hiring Services (except   Real Estate)                                                                                                        & 0.00287066            &  & 0.003369        & 0.00341671     & 0.00336895     & 0.00336725     &  & 1.17298563             & 0.00049658             \\ -->
+<!-- 67 Property Operators and Real Estate   Services                                                                                                            & 0.01358111            &  & 0.00573538      & 0.00632144     & 0.00644085     & 0.00644122     &  & 0.47427795             & -0.0071399             \\ -->
+<!-- 69   Professional, Scientific and Technical Services (Except Computer   System Design and Related Services) & 0.06931674            &  & 0.0485337       & 0.062318       & 0.06666942     & 0.06671967     &  & 0.96253315             & -0.0025971             \\ -->
+<!-- 70 Computer System Design and Related   Services                                                                                                            & 0.01989965            &  & 0.01064273      & 0.01220485     & 0.0126649      & 0.01267126     &  & 0.63675763             & -0.0072284             \\ -->
+<!-- 72 Administrative Services                                                                                                                                  & 0.01790544            &  & 0.02068182      & 0.02911507     & 0.03127308     & 0.03129963     &  & 1.74805115             & 0.01339419             \\ -->
+<!-- 73 Building Cleaning, Pest Control and   Other Support Services                                                                                             & 0.01736876            &  & 0.01180556      & 0.01573853     & 0.01716652     & 0.01718243     &  & 0.98927169             & -0.0001863             \\ -->
+<!-- 75 Public Administration                                                                                                                                    & 0.04641708            &  & 0.01553789      & 0.01250828     & 0.01080403     & 0.01078435     &  & 0.23233592             & -0.0356327             \\ -->
+<!-- 76 Defence                                                                                                                                                  & 0.00203668            &  & 0.00108328      & 0.00081797     & 0.00081458     & 0.00081483     &  & 0.40007524             & -0.0012219             \\ -->
+<!-- 77 Public Order, Safety and Regulatory   Services                                                                                                           & 0.01521818            &  & 0.00871417      & 0.01309719     & 0.01440524     & 0.01442184     &  & 0.94767203             & -0.0007963             \\ -->
+<!-- 80 Preschool and School Education                                                                                                                           & 0.0492665             &  & 0.02091953      & 0.01855257     & 0.01721796     & 0.01720194     &  & 0.34916098             & -0.0320646             \\ -->
+<!-- 81 Tertiary Education                                                                                                                                       & 0.01945371            &  & 0.00166075      & -0.0015457     & -0.0021075     & -0.0021148     &  & -0.1087109             & -0.0215685             \\ -->
+<!-- 82 Adult, Community and Other Education                                                                                                                     & 0.01566605            &  & 0.00554203      & 0.00471415     & 0.00475267     & 0.00475016     &  & 0.30321348             & -0.0109159             \\ -->
+<!-- 84 Hospitals                                                                                                                                                & 0.0369132             &  & 0.01785159      & 0.0199097      & 0.02042347     & 0.02042915     &  & 0.55343755             & -0.016484              \\ -->
+<!-- 85 Medical and Other Health Care Services                                                                                                                   & 0.04116996            &  & 0.02431334      & 0.02916687     & 0.02989798     & 0.02990662     &  & 0.72641828             & -0.0112633             \\ -->
+<!-- 86 Residential Care Services                                                                                                                                & 0.02028961            &  & 0.0108231       & 0.01516439     & 0.01583014     & 0.0158379      &  & 0.78059125             & -0.0044517             \\ -->
+<!-- 87 Social Assistance Services                                                                                                                               & 0.03680509            &  & 0.02207106      & 0.02929537     & 0.0311832      & 0.03120476     &  & 0.84783798             & -0.0056003             \\ -->
+<!-- 89 Heritage Activities                                                                                                                                      & 0.00301159            &  & 0.00369792      & 0.0051636      & 0.00528106     & 0.00528232     &  & 1.7539992              & 0.00227074             \\ -->
+<!-- 90 Creative and Performing Arts   Activities                                                                                                                & 0.00360425            &  & 0.00468914      & 0.00613651     & 0.00651375     & 0.00651912     &  & 1.80872881             & 0.00291486             \\ -->
+<!-- 91 Sports and Recreation Activities                                                                                                                         & 0.01027608            &  & 0.00887835      & 0.01209347     & 0.01274308     & 0.01275193     &  & 1.24093321             & 0.00247585             \\ -->
+<!-- 92 Gambling Activities                                                                                                                                      & 0.00243437            &  & 0.00430809      & 0.00667533     & 0.00741282     & 0.00742126     &  & 3.04853477             & 0.00498689             \\ -->
+<!-- 94 Repair and Maintenance                                                                                                                                   & 0.0177703             &  & 0.01434611      & 0.02128838     & 0.02357418     & 0.0236012      &  & 1.32812526             & 0.00583089             \\ -->
+<!-- 95 Personal and other services (include   activities for own use)                                                                                           & 0.02127031            &  & 0.0127474       & 0.01505848     & 0.01597865     & 0.01599074     &  & 0.75178666             & -0.0052796   \\ -->
+<!-- \hline -->
+<!-- \end{tabular}} -->
+<!-- \end{center} -->
+<!-- \begin{tablenotes}  -->
+<!--       \footnotesize -->
+<!--       \item \emph{Note}: The long run employment multiplier for subsector $i$ is the effect of a 1\% increase in employment of subsector on the total employment in the long run. \\ -->
+<!--       M10 is the long term multiplier; M0 is the initial responses of the total employment (i.e. the shares of subsector $i$).  -->
+<!--       M10-M0 is the spillover of the subsector $i$. \\ -->
+<!--       M10/M0 is the spillover of the subsector $i$ relative to the share of it. -->
+<!-- \end{tablenotes} -->
+<!-- \caption{Disaggregated Sectoral Long-Run Employment Multipliers: Full list of 84 sectors} -->
+<!-- \label{dis:emp} -->
+<!-- \end{table} -->
+

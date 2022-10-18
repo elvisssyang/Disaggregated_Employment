@@ -1,0 +1,276 @@
+---
+title: "Data_visual"
+author: "Elvis Yang"
+date: '2022-04-20'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+
+library(fpp3)
+library(ggpubr)
+library(ggrepel)
+library(directlabels)
+library(dplyr)
+library(gghighlight)
+```
+
+
+
+# data 
+
+
+```{r}
+longdata<- readr::read_csv("data/longerformat.csv")
+```
+
+ 
+
+
+```{r}
+longts<-longdata %>%
+  mutate(Date = yearquarter(Date)) %>% 
+  #group_by(Primary , Industry) %>% 
+  as_tsibble( index = Date ,  key = c(name , Industry))
+
+```
+
+
+```{r}
+emp_hts <- longts %>% 
+  aggregate_key(name / Industry,Employment = sum(Employment))
+
+
+p1 <- emp_hts %>% 
+  filter(Date >= yearquarter("2010 Q1")) %>% 
+  filter(is_aggregated(Industry)) %>% 
+  #filter(!is_aggregated(name)) %>% 
+  autoplot(Employment)+  
+  labs(y = "Employment",title = "Australian employment by 19 Sectors ",subtitle = "Year from 2010 to 2022") +
+  facet_wrap(vars(name), scales = "free_y", ncol = 5) +
+  theme(legend.position = "None")
+p1
+
+```
+
+
+# ggplot in different sectors 
+
+```{r}
+
+
+p2 <- emp_hts %>% 
+  filter(Date >= yearquarter("2010 Q1")) %>% 
+  filter(vctrs::vec_in(Industry, c( "01 Agriculture"                                                                                                               
+, "02 Aquaculture"                                                                                                               
+,"03 Forestry and Logging"                                                                                                      
+,"04 Fishing, Hunting and Trapping"                                                                                             
+,"05 Agriculture, Forestry and Fishing Support Services"
+
+, "06 Coal Mining"                                                                                                               
+, "07 Oil and Gas Extraction"                                                                                                    
+, "08 Metal Ore Mining"                                                                                                          
+, "09 Non-Metallic Mineral Mining and Quarrying"                                                                                 
+, "10 Exploration and Other Mining Support Services"                                                                             
+, "11Food Product Manufacturing"                                                                                                 
+, "12Beverage and Tobacco Product Manufacturing"                                                                                 
+, "13Textile, Leather, Clothing and Footwear Manufacturing"                                                                      
+, "14Wood Product Manufacturing"                                                                                                 
+,"15Pulp, Paper and Converted Paper Product Manufacturing"                                                                      
+, "16Printing (including the Reproduction of Recorded Media)"                                                                    
+, "17Petroleum and Coal Product Manufacturing"                                                                                   
+,"18 Basic Chemical and Chemical Product Manufacturing"                                                                         
+, "19Polymer Product and Rubber Product Manufacturing"                                                                           
+, "20Non-Metallic Mineral Product Manufacturing"                                                                                 
+, "21Primary Metal and Metal Product Manufacturing"                                                                              
+, "22Fabricated Metal Product Manufacturing"                                                                                     
+,"23Transport Equipment Manufacturing"                                                                                          
+,"24Machinery and Equipment Manufacturing"                                                                                      
+, "25Furniture and Other Manufacturing"                                                                                          
+, "26Electricity Supply"                                                                                                         
+, "27Gas Supply"                                                                                                                 
+, "28Water Supply, Sewerage and Drainage Services"                                                                               
+, "29Waste Collection, Treatment and Disposal Services"                                                                          
+,"30 Building Construction"                                                                                                     
+, "31 Heavy and Civil Engineering Construction"                                                                                  
+, "32 Construction Services"                                                                                                     
+, "\n33 Basic Material Wholesaling"                                                                                              
+, "34 Machinery and Equipment Wholesaling"                                                                                       
+, "35 Motor Vehicle and Motor Vehicle Parts Wholesaling"                                                                         
+, "36 Grocery, Liquor and Tobacco Product Wholesaling"                                                                           
+, "37 Other Goods Wholesaling"                                                                                                   
+, "38 Commission-Based Wholesaling"                                                                                              
+, "39Motor Vehicle and Motor Vehicle Parts Retailing"                                                                            
+, "40 Fuel Retailing"                                                                                                            
+, "41 Food Retailing"                                                                                                            
+, "42 Other Store-Based Retailing"                                                                                               
+, "43 Non-Store Retailing and Retail Commission Based Buying and/or Selling"                                                     
+, "44 Accommodation"                                                                                                             
+,"45 Food and Beverage Services"                                                                                                
+, "46 Road Transport"                                                                                                            
+,"47 Rail Transport"                                                                                                            
+, "48 Water Transport"                                                                                                           
+, "49 Air and Space Transport"                                                                                                   
+, "50 Other Transport"                                                                                                           
+,"51 Postal and Courier Pick-up and Delivery Services"                                                                          
+, "52 Transport Support Services"                                                                                                
+,"53 Warehousing and Storage Services"                                                                                          
+, "54 Publishing (except Internet and Music Publishing)"                                                                         
+, "55 Motion Picture and Sound Recording Activities"                                                                             
+,"56 Broadcasting (except Internet)"                                                                                            
+, "57 Internet Publishing and Broadcasting"                                                                                      
+, "58 Telecommunications Services"                                                                                               
+,"59 Internet Service Providers, Web Search Portals and Data Processing Services"                                               
+, "60 Library and Other Information Services"                                                                                    
+, "62 Finance"                                                                                                                   
+, "63 Insurance and Superannuation Funds"                                                                                        
+, "64 Auxiliary Finance and Insurance Services"                                                                                  
+, "66 Rental and Hiring Services (except Real Estate)"                                                                           
+, "67 Property Operators and Real Estate Services"                                                                               
+, "69 Professional, Scientific and Technical Services (Except Computer System)\nDesign and Related Services)"                    
+
+,"70 Computer System Design and Related Services"                                                                               
+, "72 Administrative Services"                                                                                                   
+ ,"73 Building Cleaning, Pest Control and Other Support Services"                                                                
+,"75 Public Administration"                                                                                                     
+, "76 Defence"                                                                                                                   
+, "77 Public Order, Safety and Regulatory Services"                                                                              
+, "80 Preschool and School Education"                                                                                            
+, "81 Tertiary Education"                                                                                                        
+, "82 Adult, Community and Other Education"                                                                                      
+, "84 Hospitals"                                                                                                                 
+, "85 Medical and Other Health Care Services"                                                                                    
+, "86 Residential Care Services"                                                                                                 
+, "87 Social Assistance Services"                                                                                                
+,"89 Heritage Activities"                                                                                                       
+,"90 Creative and Performing Arts Activities"                                                                                   
+, "91 Sports and Recreation Activities"                                                                                          
+, "92 Gambling Activities"                                                                                                       
+, "94 Repair and Maintenance"                                                                                                    
+, "95 Personal and Other Services"                                                                                               
+, "96 Private Households Employing Staff and Undifferentiated Goods- and Service- Producing Activities of Households for Own Use"))) %>% 
+  autoplot(Employment) +
+  facet_wrap(name ~. , scales = "free_y")+
+   labs(y = "Employment",title = "Australian employment by 87 Sub-Sectors",subtitle = "Year from 2010 to 2022") +
+  theme(legend.position = "none") 
+
+p2 + geom_dl(aes(label = Industry), method = list(dl.trans(x = x + 5), "first.points", cex = 0.4))
+
+```
+
+
+
+
+
+# labelling 
+
+
+# plot some specific industries 
+
+
+```{r}
+
+longts %>% 
+  filter(name == c("Manufacturing"))%>%
+  group_by(Industry) %>% 
+  autoplot() +
+  facet_wrap(name ~. , scales = "free_y")+
+  theme(legend.position = "None")+
+    labs(y=("Employment (in thousands)"),
+       title = "Disaggregated Employment Changes for Manufacturing subsector",
+       subtitle = "Time range 1984:Q4 to 2021:Q4")
+
+
+
+longts %>% 
+  group_by(name) %>%
+  summarise(sum(Employment)) %>% 
+  filter(name == c("Manufacturing")) %>%
+  autoplot(colour = "Red")+
+  facet_wrap(name ~. , scales = "free_y")+
+  labs(y=("Employment (in thousands)"),
+       title = "Aggregated Employment Changes for Manufacturing sector (19 in total)",
+       subtitle = "Time range 1984:Q4 to 2021:Q4")
+
+```
+
+
+
+
+
+
+
+
+<!-- ```{r} -->
+
+<!-- Q1<- longdata %>% -->
+<!--   filter(Date == "2020 Q1") -->
+
+
+<!-- Q2<- longdata %>% -->
+<!--   filter(Date == "2020 Q2") -->
+
+<!-- diff <- Q2$Employment-Q1$Employment -->
+<!-- Q2 <- Q2 %>% -->
+<!--   cbind(diff) -->
+
+<!-- Q1 <- Q1 %>% -->
+<!--   cbind(diff) -->
+
+
+
+<!-- Q1 <- Q1 %>% mutate(diffr = diff/Employment) -->
+
+
+
+<!-- test<- Q2 %>% -->
+<!--   group_by(Industry,name) %>% -->
+<!--   select(-Primary) %>% -->
+<!--   arrange(desc(diff)) %>% -->
+<!--   head(5) -->
+
+<!-- test1<- Q2 %>% -->
+<!--   group_by(Industry,name) %>% -->
+<!--   select(-Primary) %>% -->
+<!--   arrange(desc(diff)) %>% -->
+<!--   tail(5) -->
+
+<!-- overall<-cbind(test[,-c(3,4)],test1[,c(2,5)]) -->
+
+<!-- colnames(overall)<-c("Date", "Industry" , "Top five", "Industry", "bottom five") -->
+
+<!-- overall %>% knitr::kable(caption="Main Sub-Sectors with highest and lowest difference in 2020:Q2 compare with Q1",align = "lccccr")%>% -->
+<!--   kableExtra::kable_classic_2() -->
+<!-- ``` -->
+
+
+
+<!-- ```{r} -->
+
+
+
+<!-- longdata %>% -->
+<!--   filter(Date >= "2019 Q1") %>% -->
+<!--   ggplot(aes(x = Date, y = Employment, group = Industry)) + -->
+<!--   geom_line(aes(colour=Industry),alpha = 0.2)+ -->
+<!--   gghighlight(max(Employment) >670)+ -->
+<!--   labs(y = "Employment",title = "Australian employment by 87 Sub-Sectors with same y-axis",subtitle = "Year from 2010 to 2022") -->
+<!-- # geom_dl(aes(label = Industry), method = list(dl.trans(x = x + 3 ), "first.points", cex = 0.3)) -->
+
+<!-- ``` -->
+
+<!-- ```{r} -->
+
+<!-- # via ggplot instead of the autoplot -->
+<!-- longdata %>% -->
+<!--   filter(Date >= "1984 Q4") %>% -->
+<!--   ggplot(aes(x = Date, y = Employment, group = Industry)) + -->
+<!--   geom_line(aes(colour=Industry))+ labs(y = "Employment",title = "Australian employment by 87 Sub-Sectors",subtitle = "Date from 2017:Q1 to 2021:Q4") + -->
+<!-- #  gghighlight(max(Employment) >600,unhighlighted_params = list(colour = NULL, alpha = 0.8))+ -->
+<!--   facet_wrap(name ~. , scales = "free_y") + theme(legend.position = "none") -->
+
+<!-- ``` -->
+
+
