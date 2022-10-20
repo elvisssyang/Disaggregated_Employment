@@ -4,7 +4,7 @@ knit: "bookdown::render_book"
 
 \appendix
 
-# An Example of Bayesian VAR Prior 
+# An Example of Bayesian VAR and Minnesota Prior
 
 
 The VARX model is: 
@@ -164,28 +164,28 @@ where $\bm{\tilde\beta} =({\bm{X^{*}}}'\bm{X^{*}})^{-1} {\bm{X^{*}}}'\bm{Y^{*}}$
 \label{fig:19}
 \end{figure}
 
-
+\begin{sidewaysfigure}
 \begin{figure}[t]
 \includegraphics[scale=0.5]{87sec}
 \centering
 \caption{Employment('000) of two-digit subsectors in Australia from 2010 to 2022}
 \label{fig:86}
 \end{figure}
+\begin{sidewaysfigure}
 
+<!-- \begin{figure}[t] -->
+<!-- \includegraphics[scale=0.5]{agg_19} -->
+<!-- \centering -->
+<!-- \caption{Aggregated Employment(in thousands) for Manufacturing and Mining sector in Australia from 1984:Q4 to 2021:Q4} -->
+<!-- \label{fig:a19} -->
+<!-- \end{figure} -->
 
-\begin{figure}[t]
-\includegraphics[scale=0.5]{agg_19}
-\centering
-\caption{Aggregated Employment(in thousands) for Manufacturing and Mining sector in Australia from 1984:Q4 to 2021:Q4}
-\label{fig:a19}
-\end{figure}
-
-\begin{figure}[t]
-\includegraphics[scale=0.5]{agg_87}
-\centering
-\caption{Disaaggregate Employment(in thousands) of 87 two-digit subsectors in Manufacturing and Mining sector from 1984:Q4 to 2021:Q4}
-\label{fig:a87}
-\end{figure}
+<!-- \begin{figure}[t] -->
+<!-- \includegraphics[scale=0.5]{agg_87} -->
+<!-- \centering -->
+<!-- \caption{Disaaggregate Employment(in thousands) of two-digit subsectors in Manufacturing and Mining sector from 1984:Q4 to 2021:Q4} -->
+<!-- \label{fig:a87} -->
+<!-- \end{figure} -->
 
 
 
@@ -290,11 +290,11 @@ where $\bm{\tilde\beta} =({\bm{X^{*}}}'\bm{X^{*}})^{-1} {\bm{X^{*}}}'\bm{Y^{*}}$
     \begin{tablenotes} 
       \footnotesize
       \item \emph{Note}: The long run employment multiplier for subsector $i$ is the effect of a 1\% increase in employment of subsector on the total employment in the long run. \\
-      M10 is the long term multiplier; M0 is the initial responses of the total employment (i.e. the shares of subsector $i$). 
+      M10 is the long term multiplier; M0 is the share of subsector $i$ in total employment.
       M10-M0 is the spillover of the subsector $i$. \\
       M10/M0 is the spillover of the subsector $i$ relative to the share of it.
 \end{tablenotes}
-\caption{Disaggregated Sectoral Long-Run Employment Multipliers: Full list of 84 sectors}
+\caption{Disaggregated Sectoral Long-Run Employment Multipliers: Full list of 84 sectors (Sorted by Shares)}
   \label{dis:emp}
 \end{table}
 

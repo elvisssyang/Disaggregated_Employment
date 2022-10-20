@@ -104,7 +104,7 @@ Based on applied experience, Litterman concluded that the shrinkage estimate $\l
 
 
 
-Due to the reason that the size of disaggregated subsectors has different scales, the commonly used scale-dependent error measurement (e.g. MAE, MSE) may fail when comparing forecast accuracy between subsectors. Even though MAPE is unit-free, it is not robust in sectors that have relatively small shares. When $y_t$ is close to zero, MAPE will likely have extreme values or become undefined. Accordingly, I will sum all sectors to the total employment and minimise the forecast error of total employment to select the optimal $\lambda$.
+Due to the reason that the size of disaggregated subsectors has different scales, the commonly used scale-dependent error measurement (e.g. MAE, MSE) may fail when comparing forecast accuracy between subsectors. Even though MAPE is unit-free, it is not accurate in sectors that have relatively small shares (e.g. a small change will significantly increase the MAPE). When $y_t$ is close to zero, MAPE will likely have extreme values or become undefined. Accordingly, I will sum all sectors to the total employment and minimise the forecast error of total employment to select the optimal $\lambda$.
 
 
 
@@ -117,16 +117,16 @@ Then, out-of-sample forecast accuracy is measured in terms of the root mean squa
 
 $$
 \begin{aligned}
-RMSFE^{\lambda}_{h}=\sqrt{\frac{1}{T_e-T_b-h}\Sigma^{T_{e}-h}_{T=T_{b}}({y}_{T+h|T}^{\lambda}-y_{T+h})^2}
+RMSFE^{\lambda}_{h}=\sqrt{\frac{1}{T_e-h-T_b+1}\Sigma^{T_{e}-h}_{T=T_{b}}({y}_{T+h|T}^{\lambda}-y_{T+h})^2}
 \end{aligned}
 $$
 
 
-where ${y}_{T+h|T}^{\lambda}$ is defined as the $h$-th steps ahead forecast given the information up to time $T$ and $y_{T+h}$ is the actual data for the $h$-th steps ahead forecast. Here, $m$ and $\lambda$ stands for the evaluated RMSFE, conditioned on a specific model and the hyperparameter $\lambda$. 
+where ${y}_{T+h|T}^{\lambda}$ is defined as the $h$-th steps ahead forecast (total employment in this case) given the information up to time $T$ and $y_{T+h}$ is the actual data for the $h$-th steps ahead forecast (total employment in this case). Here, $\lambda$ stands for the evaluated RMSFE, conditioned on a specific model and the hyperparameter $\lambda$. 
 
 
 
-In this section, I will set up an effective searching algorithm to search for the optimal shrinkage estimator $\lambda$. For our purposes, I want to provide accurate forecasts of total employment based on the scenario where no covid happened to support our counterfactual analysis. Therefore, the pre-covid total employment data (before 2020 Quarter 2) is split into training and test portions with a training set of length ($n=120=T_b$) and a test set of length ($n=22=T_b+H-h=T_e-h$). As a consequence, I will set $H=22$ to be the length of test set, $h=1$ for a one step experiment and $m$ is the BVAR proposed earlier in **Chapter 4**. 
+In this section, I will set up an effective searching algorithm to search for the optimal shrinkage estimator $\lambda$. For our purposes, I want to provide accurate forecasts of total employment based on the scenario where no covid happened to support our counterfactual analysis. Therefore, the pre-covid total employment data (before 2020 Quarter 2) of length $T_e=142$ is split into training and test portions with a training set of length ($n=120=T_b$) and a test set of length ($n=22=T_e-h-T_b+1$). As a consequence, I will set $H=22$ to be the length of test set, $h=1$ for a one step experiment. 
 
 
 Here is a brief description of the proposed algorithm: 
@@ -141,7 +141,7 @@ Here is a brief description of the proposed algorithm:
 \caption{Proposed algorithm for selecting the optimal $\lambda$}
 \label{fig:sealgo}
 \end{figure}
-
+  
 
 
 

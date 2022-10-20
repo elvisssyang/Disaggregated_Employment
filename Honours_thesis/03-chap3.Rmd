@@ -44,17 +44,17 @@ In this thesis, I only downloaded the data from the fourth quarter of 1984 to th
 + Combine the *96 Private Households Employing Staff and Undifferentiated Goods and Service Producing Activities of Households for Own Use* and *95 Personal and Other Services* as *95 Personal and other services (include activities for own use)*.
 
 
-It can be seen that there are few non-classified series (nfd) in ABS employment data. However, I will not address these series in this thesis because there are no further details provided by ABS. If this is incorporated into the model, it will affect the sectoral dynamics. To make the forecasts coherent (sum to the total employment) and analysis universal, I will not consider them in this thesis. As a result, my total employment data is not the same as the published total employment data. The largest discrepancy, however, concerns only a small portion of the real total employment. Accordingly, this will not significantly affect our analysis. 
+It can be seen that there are few non-classified series (nfd) in ABS employment data. However, I will not address these series in this thesis because there are no further details provided by ABS. If this is incorporated into the model, it will affect the sectoral dynamics. To make the forecasts coherent (sum to the total employment) and analysis universal, I will not consider them at this stage. As a result, my total employment data is not the same as the published total employment data. The largest discrepancy, however, concerns only a small portion of the real total employment. Accordingly, this will not significantly affect our analysis. 
 
 <!-- The largest discrepancy, however, is only 12 % of the total employment.  -->
 
 
 
-Without any zeros, a log transformation can be applied to explain the percentage change in employment. Since the estimated VAR model requires stationary data, I will further apply a fourth difference (seasonal difference) to eliminate the seasonality (i.e. nonstationarity) for quarterly data.
+Without any zeros, a log transformation can be applied to explain the percentage change in employment. Since the estimated VAR model requires stationary data, I will further apply a fourth difference (seasonal difference) to eliminate the seasonality (i.e. nonstationarity) for the original quarterly data.
 
-Finally, in **Chapter 6**, I have also combine the following data together with the number of employment by subsectors [@ABS2022] to further support our counterfactual analysis: 
+Finally, in *Chapter 6*, I have also combine the following data together with the number of employment by subsectors [@ABS2022] to further support our counterfactual analysis: 
 
-+ Total Labour Force: Gained from ABS website (see @ABS2022)
++ Total Labour Force: Gained from ABS website (see @ABS2022) ^[This includes the number of employment by subsectors, which is the original data we use in this thesis.]. 
 
 + Unemployment Rate: Gained from ABS website (see @ABS2022a)
 
@@ -79,7 +79,7 @@ The employment of subsectors at the two-digit level illustrates a contract patte
 
 
 
-Nevertheless, there is a drawback to considering the 19 broad sectors only; because the two-digit subsectoral dynamics of these sectors may not be homogeneous with their aggregated sectoral changes. For example, when observing the aggregated performance of the "Manufacturing" and "Mining" sectors from the 19 sectoral level (see Figure \ref{fig:a19}), one might think that the corresponding subsectors should show the same pattern. However, the reality is that while there is a downward trend in the "Manufacturing" sector or an upward trend in the "Mining" sector, some of their two-digit subsectors perform differently (see Figure \ref{fig:a87}). This means that not all two-digit subsectors follow the same pattern as the aggregated sectoral level.
+Nevertheless, there is a drawback of considering the 19 broad sectors only; because the two-digit subsectoral dynamics of these sectors may not be homogeneous with their aggregated sectoral changes. For example, when observing the aggregated performance of the "Education" and "Healthcare" sectors from the 19 sectoral level (see Figure \ref{fig:19}), one might think that the corresponding subsectors should show the same pattern. However, the reality is that while there is an overall upward trend in the "Healthcare" sector or in the "Education" sector, some of their two-digit subsectors perform differently (e.g. "Residential Care Services" and "Tertiary Education" ) (see Figure \ref{fig:86}). This means that not all two-digit subsectors follow the same pattern as the aggregated sectoral level.
 
 
 

@@ -7,43 +7,11 @@ knit: "bookdown::render_book"
 # Discussions and conclusion 
 
 
-In conclusion, I have developed a dynamic Bayesian VAR (BVAR) system to analyse the two-digit employment dynamics in Australia, exploring the Australia labour market from a new perspective. First, an out-of-sample forecasting algorithm was proposed to select the most optimal hyperparameter in Minnesota Prior and also to improve the forecast accuracy. Second, I conducted the spillover analysis using the estimated model to discover how total employment react in the long-run when the subsectors are stimulated. Based on the result, `Other Store-Based Retailing`, followed by `Administrative Services`, `Furniture and Other Manufacturing` will generate strong positive spillovers. Specifically, they will contribute more to the overall economy than they would have (the shares of them). Therefore, this will provide some insight and extra information for policy makers. 
+In conclusion, I have developed a dynamic Bayesian VAR (BVAR) system to analyze the two-digit employment dynamics in Australia, exploring the Australian labour market from a new perspective. First, an out-of-sample forecasting algorithm was proposed to select the most optimal hyperparameter in Minnesota Prior and also to improve the forecast accuracy. Second, I conducted the spillover analysis using the estimated model to discover how total employment reacts in the long run when the subsectors are stimulated. Based on the result, `Other Store-Based Retailing`, followed by `Administrative Services`, `Furniture and Other Manufacturing` will generate strong positive spillovers in employment. Specifically, they will contribute more to the overall economy than they would have (i.e. the shares of subsectors). This therefore provides some insight and extra information for policymakers. 
 
-Furthermore, I evaluated the shocks of COVID-19 to the Australian labour market with the estimated BVAR model. This counterfactual analysis ended up with a conclusion that these structural shocks in fact have a long-term negative impact. Thus, it will be hard to fully mitigate the influences of pandemic in a foreseen future. To shed light on the reason of the low unemployment rate in Australia, I conducted an empirical analysis and compared the predicted unemployment rate in the absence of the pandemic with actual values. Results implied that labour force is less than what it would be without the pandemic and we would have experienced the low unemployment rate even in the absence of COVID-19. Given these points, the low unemployment rate is mainly driven by the loss of the total labour force instead of the stimulus policies during the pandemic. 
-
-
+Furthermore, I evaluate the shocks of COVID-19 to the Australian labour market with the estimated BVAR model. This counterfactual analysis end up with a conclusion that these structural shocks in fact have a long-term negative impact. Thus, it will be hard to fully mitigate the influences of the pandemic in the foreseeable future. To shed light on the reason for the low unemployment rate in Australia, I conduct an empirical analysis and compare the predicted unemployment rate in the absence of the pandemic with actual values. Results suggest that labour force is less than what it would be without the pandemic and we would have experienced a low unemployment rate even in the absence of COVID-19. Given these points, I identify that the low unemployment rate is mainly driven by the loss of the total labour force rather than the stimulus policies during the pandemic. 
 
 
-
-<!-- Given these points, I have also provide a conterfactual analysis for the no-COVID unemployment rate and conclude that the unemployment rate is still be able to achieve the lowest record even without the pandemic, which have further supported the implication above.   -->
-
-
-
-
-
-
-<!-- To improve the forecast accuracy, I proposed an out-of-sample forecasting algorithm that return the most optimal hyperparameter in Minnesota Prior by mitigating the root mean squared forecast error (RMSFE). It has significant advantages when the unit measurement is relatively small and with different scales. I also conducted the spillover analysis, concluding that in the subdivision level, `Other Store-Based Retailing`, followed by `Administrative Services`, `Furniture and Other Manufacturing` will generate strong positive spillovers to the total economy. When thinking about policies to increase the total employment, it will be safer to stimulate high-spillover subsectors. That is ,by stimulating these sectors, the total employment will increase more steadily.  -->
-
-
-<!-- Furthermore, based on the estimated model, I provide an evaluation on the shocks of COVID-19 to the Australian labour market. Specifically, I found that the COVID-19 has a long term shock compare with the no pandemic scenario we estimated. Therefore, we will less likely to see total employment achieve the no pandemic scenario in a foreseen future. To shed a light on the reason of low unemployment rate in Australia, I also did an empirical analysis based on the estimated model. My analysis, perhaps not surprisingly, identifies the low unemployment rate is mainly driven by the loss of total labour force rather than the effect of policies. Even without the pandemic, the unemployment rate is still able to achieve the lowest record with more labour force and employed people.  -->
-
-
-
-
-<!-- ## Policy Implications  -->
-
-
-<!-- Our analysis suggests that the impacts COVID-19 mitigated as time goes further. Nevertheless, there is no evidence that the pandemic can be controlled or prevented thoroughly but lives together with humans. Therefore, the COVID-19 will continue influencing the labour market. Maintain the employment rate is one of the goals that the Australia government is trying to achieve. The current situation implies that they should implement more appropriate policies to support the recovery of the economy. One possible strategy is to stimulate these high spillover sectors in a disaggregated level.  -->
-
-
-
-
-<!-- Despite this, we have to admit that the COVID-19 is still not a past story. Strategies may need to be taken by the Australian government to stimulate these high spillover sectors in a disaggregated level. -->
-
-<!-- For example, the government can encourage in-store shopping by providing hardship funds to `Other Store-Based Retailing`. Moreover, they can also deduct tax for businesses in the `Manufacturing` related sectors.  -->
-
-
-<!-- Besides, the micro businesses also play important roles in economic recovery. While supporting the large-share sectors, it is essential for the government to pay attention to the micro businesses. They also have great potential for economic development in industries like `Agriculture` and `Information` related services (e.g. `Broadcasting `or `Library Services`).  -->
 
 
 
@@ -55,7 +23,7 @@ Furthermore, I evaluated the shocks of COVID-19 to the Australian labour market 
 ## Limitation 
 
 
-There are few non-classified data (nfd data) under each sector in the ABS employment by subdivision dataset [@ABS2022]. In this research, the non-classified data have not been taken into consideration. This is mainly because the data is not evenly distributed^[I consider a ], which will be problematic if we distribute it into our system. At this stage, I cannot come up with an effective ways (e.g. Contact ABS about detailed information) to trace the source of them. Consequently, the total employment data used in this thesis is not the same as the published total employment data as we discussed in *Chapter 3.1*. Moreover, we consider the ANZSIC subdivision in our case (two-digit sectors) only. In the future, it would be useful to consider adding the Division level (the broadest level) and the group and classes (the finest level) using hierarchical forecasting. The predictions we examined are based on the assumption that the parameter of the model have been constant thought the time before COVID-19 and the structure will not change after COVID-19, which might be restrictive. It will be great to consider an appropriate time-varying model to have more flexibility in modelling dynamics. 
+There are few non-classified data (nfd data) under each sector in the ABS employment by subdivision dataset [@ABS2022]. In this research, the non-classified data have not been taken into consideration. This is mainly because the data is not evenly distributed, which will be problematic if we simply distribute it into our system by the share of each subsector. At this stage, I cannot come up with an effective way (e.g. Contact ABS about detailed information) to trace the source of them. Consequently, the total employment data used in this thesis is not the same as the published total employment data as we discussed in *Chapter 3.1*. Moreover, we consider the ANZSIC subdivision in our case (two-digit sectors) only. In the future, it would be useful to consider adding the Division level (the broadest level) and the group and classes (the finest level) using hierarchical forecasting. The predictions we examined are based on the assumption that the parameter of the model has been constant thought the time before COVID-19 and structure will not change after COVID-19, which might be restrictive. It would be useful to consider an appropriate time-varying model to have more flexibility in modelling dynamics. 
 
 
 
@@ -70,16 +38,16 @@ There are few non-classified data (nfd data) under each sector in the ABS employ
 In this research, the Bayesian VAR modelling method has provided a useful analysis of employment dynamics in Australia. However, when there is more data and hierarchies are considered, VAR modelling may also be inefficient. Therefore, a more efficient machine learning method could be considered in an application of hierarchical forecasting. 
 
 
-To improve the forecast accuracy, we could use machine learning to give a new way that account for both accuracy and interpretability. First, pick up the common features or data types from the data and cluster them into groups based on them. Second, conduct the group-based forecasting for each new cluster. Then, we can reconcile them to be coherent, which will benefit the decision and policy implementation processes.  
+To improve the forecast accuracy, we could use machine learning to give a new way that accounts for both accuracy and interpretability. First, pick up the common features or data types from the data and cluster them into groups based on them. Second, conduct group-based forecasting for each new cluster. Then, we can reconcile them to be coherent, which will benefit the decision and policy implementation processes.  
   
 
-Here, I will given an example of the machine learning algorithm. 
+Here, I will give an example of the machine learning algorithm. 
 
-1. Cluster bottom level data  based on common features (e.g. domain-specific features, time series characteristic etc.) via possible machine learning algorithms (e.g. manifold learning, k-means).
+1. Cluster-bottom level data based on common features (e.g. domain-specific features, time series characteristics etc.) via possible machine learning algorithms (e.g. manifold learning, k-means).
 
 
 
-2. Develop a model to forecast each time series in the same cluster. It looks restrictive but two points should be helpful in improving flexibility. First, the choice of model is flexible and can be complex. There are many types of model to choose, depending on the domain-types and time series patterns. Moreover, the types of model are not limited, which can be either a single model (e.g. univariate, multivariate and ML) or a combined model (e.g. Weighted average of various forecasting methods). Second, forecasting methods can be different for different clusters of the data, due to some unique patterns in time series. 
+2. Develop a model to forecast each time series in the same cluster. It looks restrictive but two points should be helpful in improving flexibility. First, the choice of model is flexible and can be complex. There are many types of models to choose from, depending on the domain types and time series patterns. Moreover, the types of models are not limited, which can be either a single model (e.g. univariate, multivariate, and ML) or a combined model (e.g. Weighted average of various forecasting methods). Second, forecasting methods can be different for different clusters of the data, due to some unique patterns in time series. 
 
 
 3. Reconcile the forecasts produced by the machine learning algorithm to make them coherent. To get more interpretable results, reconciliation is required to fit all forecasts produced in our program into the original structure of the data (i.e. original groups).
