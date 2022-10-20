@@ -328,14 +328,6 @@ fore_shares <- as_tibble(t(mtplers[1,]))
 actual = matrix(0,9,k)
 
 
-# Divide the total employment forecasts by shares 
-
-# for (h in 1:ncol(fore_shares)){
-#   
-#   fore_shares[2:10,h] = as.matrix(comp_fore$Employment) %*% as.matrix(fore_shares[1,h])
-#   
-#   actual[1:9,h] = as.matrix(comp_fore$`96 Total`) %*% as.matrix(fore_shares[1,h])
-# }
 
 covidloss <- colSums(as.matrix(comp_fore$Employment) - as.matrix(comp_fore$`96 Total`))
 

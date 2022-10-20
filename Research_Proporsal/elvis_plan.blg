@@ -1,5 +1,0 @@
-[0] Config.pm:311> INFO - This is Biber 2.16
-[0] Config.pm:314> INFO - Logfile is 'elvis_plan.blg'
-[56] biber-darwin:340> INFO - === Wed May  4, 2022, 14:54:50
-[190] Utils.pm:411> ERROR - Cannot find 'elvis_plan.bcf'!
-[190] Biber.pm:132> INFO - ERRORS: 1

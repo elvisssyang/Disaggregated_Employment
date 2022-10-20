@@ -42,6 +42,7 @@ longts<-longdata %>%
 emp_hts <- longts %>% 
   aggregate_key(name / Industry,Employment = sum(Employment))
 
+# plot the Australian employment by 19 Sectors from 2010 to 2022
 
 p1 <- emp_hts %>% 
   filter(Date >= yearquarter("2010 Q1")) %>% 
