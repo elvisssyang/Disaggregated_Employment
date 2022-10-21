@@ -11,7 +11,7 @@ knit: "bookdown::render_book"
 
 
 
-The data I use in this thesis comes from the Australia Bureau of Statistics (ABS), and involves 86 industry sub-divisions of main jobs. The ABS records the employment (measured in thousands people $('000)$) from $1984:Q4$ to $2021:Q4$ with a structure provided via Figure \ref{fig:anzsic}. 
+The data I use for this thesis comes from the Australia Bureau of Statistics (ABS), which covers 86 industry sub-divisions of main jobs. The ABS records the employment (measured in thousands of people $('000)$) from $1984:Q4$ to $2021:Q4$ with a structure shown in Figure \ref{fig:anzsic}. 
 
 
 
@@ -31,11 +31,11 @@ The data I use in this thesis comes from the Australia Bureau of Statistics (ABS
 
 
 
-Although seasonally adjusted data is available in [@ABS2022], however, the seasonal adjustment of post-COVID data is problematic as shocks caused by lockdowns would impact the post-covid seasonality. In addition, the seasonally adjusted subsectoral data do not add up to total employment, which cannot maintain internal consistency (e.g. forecasting coherence) in the model. Therefore, I use the original quarterly employment data with transformations (see description below) to capture any possible changes in seasonal patterns instead of the seasonally adjusted data provided by the Australian Bureau of Statistics. 
+Although seasonally adjusted data is available in [@ABS2022], however, the seasonal adjustment of post-COVID data is problematic as shocks caused by lockdowns would affect the post-covid seasonality. In addition, the seasonally adjusted subsectoral data do not add up to total employment, which prevents the model from maintaining internal consistency (such as forecasting coherence) in the model. Therefore, rather than using the seasonally adjusted data provided by the Australian Bureau of Statistics, I use the original quarterly employment data with transformations (see description below) to capture any potential changes in seasonal patterns.
 
 
 
-In this thesis, I only downloaded the data from the fourth quarter of 1984 to the second quartert of 2022. In addition, I use Microsoft Excel to extract both the employment for both two-digit disaggregated levels and the total employment. Note that some of the data are zero, which is not feasible for a log transformation, so I will make the following modifications to remove them while keeping the structure of the data coherent. Then, I take the following modifications to remove zeros, while keeping the data structure coherent. The cleaned data can be seen in the *ABSemp.xlsx* file at (https://github.com/elvisssyang/Disaggregated_Employment).
+In this thesis, I only downloaded the data from the fourth quarter of 1984 to the second quarter of 2022. I also use Microsoft Excel to extract both the employment for two-digit disaggregated levels as well as total employment. It should be noted that some of the data are zero, which makes a log transformation impractical. As a result, I will make the changes below to get rid of them while preserving the coherence of the data structure. The cleaned data can be seen in the *ABSemp.xlsx* file at (https://github.com/elvisssyang/Disaggregated_Employment).
 
 
 + Merge the two-digit subsector *57- Internet Publishing and Broadcasting* and *54- Publishing (except internet)* to a new combined subsector called *54 Publishing and broadcasting*. 
@@ -44,19 +44,19 @@ In this thesis, I only downloaded the data from the fourth quarter of 1984 to th
 + Combine the *96 Private Households Employing Staff and Undifferentiated Goods and Service Producing Activities of Households for Own Use* and *95 Personal and Other Services* as *95 Personal and other services (include activities for own use)*.
 
 
-It can be seen that there are few non-classified series (nfd) in ABS employment data. However, I will not address these series in this thesis because there are no further details provided by ABS. If this is incorporated into the model, it will affect the sectoral dynamics. To make the forecasts coherent (sum to the total employment) and analysis universal, I will not consider them at this stage. As a result, my total employment data is not the same as the published total employment data. The largest discrepancy, however, concerns only a small portion of the real total employment. Accordingly, this will not significantly affect our analysis. 
+It is obvious that the  ABS employment data contains few non-classified series (nfd). Because ABS offers no additional information, I will not discuss these series in this thesis. If this is incorporated into the model, it will have an impact on the sectoral dynamics. To make the forecasts coherent (sum to total employment) and analysis universal, I will not take them into account at this stage. As a result, my total employment data differs from the total employment data that has been published. The largest discrepancy, however, concerns only a small portion of the real total employment. Accordingly, this will not have a big impact on our analysis. 
 
 <!-- The largest discrepancy, however, is only 12 % of the total employment.  -->
 
 
 
-Without any zeros, a log transformation can be applied to explain the percentage change in employment. Since the estimated VAR model requires stationary data, I will further apply a fourth difference (seasonal difference) to eliminate the seasonality (i.e. nonstationarity) for the original quarterly data.
+When there are no zeros, a log transformation can be used to explain the percentage change in employment. To generate accurate forecasts from the estimated VAR model, we need the data to be stationary. Thus, I will further apply a fourth difference (seasonal difference) to eliminate the seasonality and nonstationarity for the original quarterly data.
 
-Finally, in *Chapter 6*, I have also combine the following data together with the number of employment by subsectors [@ABS2022] to further support our counterfactual analysis: 
+Finally, in *Chapter 6*, I also combine the following data together with the number of employment by subsectors [@ABS2022] to further support our counterfactual analysis: 
 
-+ Total Labour Force: Gained from ABS website (see @ABS2022) ^[This includes the number of employment by subsectors, which is the original data we use in this thesis.]. 
++ Total Labour Force: Downloaded from ABS website (see @ABS2022) ^[This includes the number of employment by subsectors, which is the original data we use in this thesis.]. 
 
-+ Unemployment Rate: Gained from ABS website (see @ABS2022a)
++ Unemployment Rate: Downloaded from ABS website (see @ABS2022a)
 
 <!-- + Total "Jobkeeper" Payments by Industy: This dataset has combined three different datasets representing two phrases for the Jobkeeper periods. (see @ABSj1 for the first phrase; @ABSj2,@ABSj3,@ABSj4 for the second phrase) -->
 
@@ -66,27 +66,18 @@ Finally, in *Chapter 6*, I have also combine the following data together with th
 ## Preliminary Exploratory Data Analysis
 
 
-Figure \ref{fig:19} illustrates the changes in the raw data for 19 key sectors in Australia between 2010 and 2022. Due to businesses closures and travel bans in 2020:Q2, we can observe that the total employment number dropped substantially (from around 13,200,000 to 12,200,000 in $2020:Q2$). Most industries behaved similarly with significant changes shown in Figure \ref{fig:19}. Compared with the previous data of these industries, the "Accommodation & Food", "Media & telecom" and "Arts" industries have experienced a severe loss of employment and have not fully recovered to the pre-covid level. However, some industries such as "Financial" and "Healthcare" were essentially unchanged and showed a continuously continous uptrend in the pre-COVID period.
+Figure \ref{fig:19} illustrates the changes in the raw data for 19 key sectors in Australia between 2010 and 2022. As a result of business closings and travel bans in 2020:Q2, we can observe that the number of total employment dropped substantially (from around 13,200,000 to 12,200,000 in $2020:Q2$). Figure \ref{fig:19} illustrates how most industries behaved similarly and underwent significant changes during the pandemic. The "Accommodation & Food", "Media & telecom" and "Arts" industries have experienced a severe loss of employment when compared to the previous data of these industries, and have not yet fully recovered to the pre-covid level. Some industries, such as "Financial" and "Healthcare", on the other hand, essentially remained the same as pre-COVID period and displayed an ongoing upward trend.
 
 
-The employment of subsectors at the two-digit level illustrates a contract pattern compared with the sectoral level, shown in \ref{fig:86}.  From Figure \ref{fig:86}, we can see subsectors like "Food and Beverage Services", "Construction Services", "Professional, Scientific and Technical Services (Except Computer System Design and Related Services)" and "Other Store-Based retailing" are relatively large subsectors with various losses. For example, the “Food and Beverage Services” subsector has a steady increase from 2010 Q1 to 2020 Q1, but is highly influenced by the first lockdown in 2020 Q2 with a loss around 210,000 employed people. On the other hand, “Construction Services”, which belongs to the construction sector, did not have a significant decline during the pandemic. Same as the “Professional, Scientific and Technical Services”, it recovered the loss just in two quarters and tends to increase in the future. 
+When compared to the sectoral level, the employment of subsectors at the two-digit level illustrates a different pattern (see Figure \ref{fig:86}). As shown in Figure \ref{fig:86}, the subsectors "Food and Beverage Services", "Construction Services", "Professional, Scientific and Technical Services (Except Computer System Design and Related Services)" and "Other Store-Based retailing" are relatively large subsectors with various losses. For example, the “Food and Beverage Services” subsector increased steadily from 2010 Q1 to 2020 Q1, but was significantly impacted by the first lockdown in 2020 Q2, which resulted in a loss of about 210,000 employed people. On the other hand, “Construction Services”, which belongs to the construction sector, did not experience a sizable decline during the pandemic. Similar to the “Professional, Scientific and Technical Services” subsector, it recovered the loss in just two quarters and is expected to increase in the future. 
 
 
-<!-- At the two-digit subsectoral level, the subsectors operate differently and on distinctive scales. From Figure \ref{fig:86}, we can see subsectors like "Food and Beverage Services", "Construction Services", "Professional, Scientific and Technical Services (Except Computer System Design and Related Services)" and "Other Store-Based retailing" are relatively large subsectors. While all of them suffered losses during the initial lockdown in $2020:Q2$, the "Food and Beverage Services" had the largest hit (losing about 210,000 employed people) during this period.  -->
-
-
-
-
-
-
-Nevertheless, there is a drawback of considering the 19 broad sectors only; because the two-digit subsectoral dynamics of these sectors may not be homogeneous with their aggregated sectoral changes. For example, when observing the aggregated performance of the "Education" and "Healthcare" sectors from the 19 sectoral level (see Figure \ref{fig:19}), one might think that the corresponding subsectors should show the same pattern. However, the reality is that while there is an overall upward trend in the "Healthcare" sector or in the "Education" sector, some of their two-digit subsectors perform differently (e.g. "Residential Care Services" and "Tertiary Education" ) (see Figure \ref{fig:86}). This means that not all two-digit subsectors follow the same pattern as the aggregated sectoral level.
+However, only taking into account the 19 broad sectors has a disadvantage in that the two-digit subsectoral dynamics of these sectors might not be consistent with their aggregated sectoral changes. For instance, one might assume that the corresponding subsectors would exhibit the same pattern based on the aggregated performance of the "Education" and "Healthcare" sectors at the 19 sectoral level (see Figure \ref{fig:19}). However, the reality is that while there is an overall upward trend in the "Healthcare" sector or in the "Education" sector, some of their two-digit subsectors perform differently (e.g. "Residential Care Services" and "Tertiary Education" ) (see Figure \ref{fig:86}). This indicates that not all two-digit subsectors behave in the same way as the sectoral level.
 
 
 
 
-
-
-Table \ref{tab:comp} shows the top five and bottom five two-digit subsectors in terms of their year-on-year growth rate of "2022 Q2". From Table \ref{tab:comp}, we can see that "Other Transport" experienced the most severe shock after the lockdown happened in "2020 Q2", followed by "Non-Metallic Mineral Mining and Quarrying" and "Sports and Recreation Activities". However, not all subsectors suffered a lot in "2020 Q2". During this period, both "Water Transport" and "Gas Supply" had a remarkable increase, followed by "Broadcasting (excerpt Internet)" and "Exploration and Other Mining Support Services". 
+The top five and bottom five two-digit subsectors in terms of their year-on-year growth rate of "2022 Q2" are shown in Table \ref{tab:comp}. From Table \ref{tab:comp}, we can see that "Other Transport", "Non-Metallic Mineral Mining and Quarrying" and "Sports and Recreation Activities" were the industries that affected most by the lockdown in "2020 Q2". However, not all subsectors suffered a lot in "2020 Q2". During this period, both "Water Transport" and "Gas Supply" had a remarkable increase, followed by "Broadcasting (except Internet)" and "Exploration and Other Mining Support Services". 
 
 
 \begin{table}[ht]

@@ -5,9 +5,9 @@ knit: "bookdown::render_book"
 
 # Review of literature
 
-We centred our review of the existing literature around two main areas:
+We focused our review of the existing literature on two major topics:
 
-1.  The COVID-19 sectoral impacts and modelling of the economy
+1.  The COVID-19 sectoral impacts and economic modelling
 
 2.  Bayesian VAR Modelling of large numbers of time series
 
@@ -15,11 +15,11 @@ We centred our review of the existing literature around two main areas:
 
 ## Sectoral Impact of COVID-19.
 
-Most existing studies have focused on the evaluation of the impacts of COVID-19 on broad sectors of large economies such as the US and Europe. @ludvigson2020covid developed a disaster series to translate the macroeconomic impact of costly and deadly disasters in recent US history and model them as sectoral shocks to predict COVID-19. They concluded that the shock would lead to a cumulative loss of 20% in industrial production, 39% in public services and also reduce the US GDP by 12.75 percent by the end of 2020. @gregory2020pandemic conducted simulations under different scenarios via a search theoretic model using US data and found that the recovery in the U.S. would be L-shaped, with employment remaining lower than pre-covid for a long period. They also extended their studies at a disaggregated level of 20 sectors, suggesting that the "arts and entertainment" and "accommodation and food services" sectors would experience the hardest hit during the pandemic.
+Most existing studies have concentrated on assessing the effects of COVID-19 on broad sectors of large economies such as the US and Europe. To predict the impacts of COVID-19, @ludvigson2020covid developed a disaster series to translate the macroeconomic impact of costly and deadly disasters in recent US history and model them as sectoral shocks. They concluded that the shock would result in a cumulative loss of 20% in industrial production, 39% in public services and a 12.75 percent reduction in US GDP by the end of 2020. @gregory2020pandemic conducted simulations under various scenarios via a search theoretic model using US data and discovered that the recovery in the U.S. would be L-shaped, with employment remaining lower than pre-covid for a long period. They also expanded the research to a disaggregated level of 20 sectors, predicting that the "arts and entertainment" and "accommodation and food services" sectors would experience the hardest hit during the pandemic.
 
 
 
-In Australia, @anderson2020 developed a multivariate time series model for 19 main sectors in Australia (as a typical small open economy) using a Bayesian VARX model. Their research concluded that "Manufacturing" and "Construction" have the highest positive spillovers for the aggregate economy. Meanwhile, they also applied a "conditional forecasting" method proposed by @waggoner1999 to simulate different scenarios for the pandemic in Australia. However, their research did not use a finely disaggregated level in Australia (two-digit subsectors of main sectors), which could be less informative in macroeconomic analysis.
+In Australia, @anderson2020 developed a multivariate time series model for 19 main sectors (as a typical small open economy) using a Bayesian VARX model. According to their findings, "Manufacturing" and "Construction" have the greatest positive spillovers for the overall economy. Meanwhile, they also applied a "conditional forecasting" method proposed by @waggoner1999 to forecast different scenarios of total employment in Australia after the pandemic. However, their research did not use a finely disaggregated level in Australia (two-digit subsectors of main sectors), which may be less informative in macroeconomic analysis.
 
 
 
@@ -27,13 +27,13 @@ In Australia, @anderson2020 developed a multivariate time series model for 19 ma
 
 ## Baysian VAR
 
-The Bayesian Vector Autoregression model (BVAR) is commonly used in the literature for high-dimensional multivariate modelling [e.g. @anderson2020; @litterman1986; @banbura2010large]. The BVAR model is attractive because it allows us to estimate a large number of parameters, in a statistically coherent way when the sample size is not large. [@litterman1986;@wozniak2016bayesian].
+The Bayesian Vector Autoregression model (BVAR) is commonly used in the literature for high-dimensional multivariate modelling [e.g. @anderson2020; @litterman1986; @banbura2010large]. The BVAR model is appealing because it allows us to estimate a large number of parameters when the sample size is small, in a statistically coherent way. [@litterman1986;@wozniak2016bayesian].
 
 To utilize the Bayesian VAR estimators, @litterman1979 proposed the Minnesota Prior, which decreases the weight of the lagged variables with the lag length. The prior mean on the first own lag is set to unity and the rest are set to zero so that *(a)* the most recent lag should provide more information than distant lags; and *(b)* own lags should explain more than the lags of other variables.
 
-## Setting Minnesota Prior with shrinkage
+## Setting Minnesota Prior with Shrinkage
 
-The literature suggests that a significant improvement in the predicting performance of large BVAR dynamic models can be made by more careful choice of prior assumptions [@banbura2010large; @litterman1986]. Moreover, in setting the Minnesota Prior in our estimated model, @robertson1999vector and @kadiyala1997 proposed a Normal-inverse-Wishart prior which retains the principal of Minnesota prior. Particularly, @banbura2010large suggested an easier way to apply the Minnesota prior via adding dummy observations into the BVAR system (see Appendix A for details).
+The literature suggests that a significant improvement in the predicting performance of large BVAR dynamic models can be made by more careful choice of the prior assumptions [@banbura2010large; @litterman1986]. Additionally, @robertson1999vector and @kadiyala1997 proposed a Normal-inverse-Wishart prior to put the Minnesota prior in our estimated model, by preserving its main characteristics. Particularly, @banbura2010large suggested incorporating dummy observations into the BVAR system as an easier way to apply the Normal-inverse-Wishart prior (see Appendix A for details).
 
 
 

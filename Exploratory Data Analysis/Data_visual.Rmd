@@ -154,7 +154,7 @@ p2 <- emp_hts %>%
 , "96 Private Households Employing Staff and Undifferentiated Goods- and Service- Producing Activities of Households for Own Use"))) %>% 
   autoplot(Employment) +
   facet_wrap(name ~. , scales = "free_y")+
-   labs(y = "Employment",title = "Australian employment by 87 Sub-Sectors",subtitle = "Year from 2010 to 2022") +
+   labs(y = "Employment",title = "Australian employment by Sub-Sectors",subtitle = "Year from 2010 to 2022") +
   theme(legend.position = "none") 
 
 p2 + geom_dl(aes(label = Industry), method = list(dl.trans(x = x + 5), "first.points", cex = 0.4))

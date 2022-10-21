@@ -321,30 +321,33 @@ fits <- estim_fore |>
 ggarrange(fits,con,nrow = 1, ncol = 2)
 
 
-# Extract the shares of sectors 
-
-fore_shares <- as_tibble(t(mtplers[1,]))
-
-actual = matrix(0,9,k)
-
-
-
-covidloss <- colSums(as.matrix(comp_fore$Employment) - as.matrix(comp_fore$`96 Total`))
-
-# lower bound 
-covidloss_lower <- colSums(as.matrix(comp_fore$lower_bound) - as.matrix(comp_fore$`96 Total`))
-
-# upper bound 
-covidloss_upper <- colSums(as.matrix(comp_fore$upper_bound) - as.matrix(comp_fore$`96 Total`))
-
-
-covid_losses<- as.matrix(fraw0[6:14,]) - as.matrix(actual_covid[1:9,])
-
-average_losses <- colSums(covid_losses)/nrow(covid_losses)
-
-# Average losses 
-
-rowSums(average_losses)
+# 
+# 
+# 
+# # Extract the shares of sectors 
+# 
+# fore_shares <- as_tibble(t(mtplers[1,]))
+# 
+# actual = matrix(0,9,k)
+# 
+# 
+# 
+# covidloss <- colSums(as.matrix(comp_fore$Employment) - as.matrix(comp_fore$`96 Total`))
+# 
+# # lower bound 
+# covidloss_lower <- colSums(as.matrix(comp_fore$lower_bound) - as.matrix(comp_fore$`96 Total`))
+# 
+# # upper bound 
+# covidloss_upper <- colSums(as.matrix(comp_fore$upper_bound) - as.matrix(comp_fore$`96 Total`))
+# 
+# 
+# covid_losses<- as.matrix(fraw0[6:14,]) - as.matrix(actual_covid[1:9,])
+# 
+# average_losses <- colSums(covid_losses)/nrow(covid_losses)
+# 
+# # Average losses 
+# 
+# rowSums(average_losses)
 
 
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2022.2.28)  19 OCT 2022 18:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2022.2.28)  21 OCT 2022 16:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -868,7 +868,7 @@ LaTeX Font Info:    Font shape `T1/fvs/m/n' will be
 (Font)              scaled to size 12.9599pt on input line 38.
 LaTeX Font Info:    Font shape `T1/fvs/m/n' will be
 (Font)              scaled to size 15.55188pt on input line 38.
-<figures/crest.jpg, id=104, 509.905pt x 553.06625pt>
+<figures/crest.jpg, id=112, 509.905pt x 553.06625pt>
 File: figures/crest.jpg Graphic file (type jpg)
 <use figures/crest.jpg>
 Package pdftex.def Info: figures/crest.jpg  used on input line 38.
@@ -957,7 +957,7 @@ Chapter 2.
 ] [10]
 Chapter 3.
 </Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figu
-res/ANZSIC.png, id=274, 575.0283pt x 367.6134pt>
+res/ANZSIC.png, id=284, 575.0283pt x 367.6134pt>
 File: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis
 /figures/ANZSIC.png Graphic file (type png)
 <use /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/
@@ -981,7 +981,7 @@ Chapter 4.
 
 ] [16] [17] [18]
 </Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figu
-res/Flowchart_algo.png, id=370, 672.56268pt x 224.037pt>
+res/Flowchart_algo.png, id=380, 672.56268pt x 224.037pt>
 File: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis
 /figures/Flowchart_algo.png Graphic file (type png)
 <use /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/
@@ -1004,14 +1004,12 @@ Overfull \hbox (50.17561pt too wide) in paragraph at lines 376--378
 [][]
  []
 
-LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
-(Font)              scaled to size 8.09995pt on input line 388.
 [22]
 LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
 (Font)              scaled to size 10.79993pt on input line 398.
 [23]
 </Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figu
-res/cont_analysis.png, id=421, 708.9687pt x 349.42545pt>
+res/cont_analysis.png, id=430, 708.9687pt x 349.42545pt>
 File: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis
 /figures/cont_analysis.png Graphic file (type png)
 <use /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/
@@ -1020,7 +1018,7 @@ Package pdftex.def Info: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employ
 ment/Honours_thesis/figures/cont_analysis.png  used on input line 403.
 (pdftex.def)             Requested size: 425.38449pt x 209.65688pt.
 </Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figu
-res/yoy1.png, id=425, 549.252pt x 368.577pt>
+res/yoy1.png, id=434, 549.252pt x 368.577pt>
 File: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis
 /figures/yoy1.png Graphic file (type png)
 <use /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/
@@ -1032,7 +1030,7 @@ ment/Honours_thesis/figures/yoy1.png  used on input line 412.
 figures/cont_analysis.png>] [25 </Users/elvisyang/Desktop/hon_proj/Disaggregate
 d_Employment/Honours_thesis/figures/yoy1.png>]
 </Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figu
-res/con_labourf.png, id=447, 754.13745pt x 344.36655pt>
+res/con_labourf.png, id=455, 754.13745pt x 344.36655pt>
 File: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis
 /figures/con_labourf.png Graphic file (type png)
 <use /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/
@@ -1043,7 +1041,7 @@ ment/Honours_thesis/figures/con_labourf.png  used on input line 439.
 [26 </Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/
 figures/con_labourf.png>]
 </Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figu
-res/unempcont.png, id=454, 527.20966pt x 349.42545pt>
+res/unempcont.png, id=462, 527.20966pt x 349.42545pt>
 File: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis
 /figures/unempcont.png Graphic file (type png)
 <use /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/
@@ -1070,48 +1068,58 @@ File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
 ]
 Appendix B.
 </Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figu
-res/19sec.png, id=516, 1011.78pt x 614.295pt>
+res/19sec.png, id=522, 1011.78pt x 614.295pt>
 File: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis
 /figures/19sec.png Graphic file (type png)
 <use /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/
 figures/19sec.png>
 Package pdftex.def Info: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employ
-ment/Honours_thesis/figures/19sec.png  used on input line 626.
+ment/Honours_thesis/figures/19sec.png  used on input line 625.
 (pdftex.def)             Requested size: 505.88876pt x 307.14674pt.
 
-Overfull \hbox (50.64465pt too wide) in paragraph at lines 626--628
+Overfull \hbox (50.64465pt too wide) in paragraph at lines 625--627
  [][] 
  []
 
 </Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/figu
-res/87sec.png, id=517, 1011.78pt x 614.295pt>
+res/87sec.png, id=523, 1011.78pt x 614.295pt>
 File: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis
 /figures/87sec.png Graphic file (type png)
 <use /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_thesis/
 figures/87sec.png>
 Package pdftex.def Info: /Users/elvisyang/Desktop/hon_proj/Disaggregated_Employ
-ment/Honours_thesis/figures/87sec.png  used on input line 635.
+ment/Honours_thesis/figures/87sec.png  used on input line 632.
 (pdftex.def)             Requested size: 505.88876pt x 307.14674pt.
 
-Overfull \hbox (50.64465pt too wide) in paragraph at lines 635--637
+Overfull \hbox (50.64465pt too wide) in paragraph at lines 632--634
  [][] 
  []
 
 
-Overfull \hbox (30.91121pt too wide) in paragraph at lines 736--738
+Overfull \hbox (30.91121pt too wide) in paragraph at lines 731--733
 [][]
  []
 
 
-LaTeX Warning: Float too large for page by 9.75446pt on input line 746.
+LaTeX Warning: Float too large for page by 9.75446pt on input line 741.
 
 [37] [38 </Users/elvisyang/Desktop/hon_proj/Disaggregated_Employment/Honours_th
 esis/figures/19sec.png> </Users/elvisyang/Desktop/hon_proj/Disaggregated_Employ
 ment/Honours_thesis/figures/87sec.png>] [39] [40
 
-] [41] [42] [43] (./thesis.aux)
+]
+Appendix C.
+
+Underfull \hbox (badness 5667) in paragraph at lines 746--747
+\T1/fvm/m/n/10.95 Employment / tree / main / Matlab$[][]\T1/ppl/m/n/10.95 (+20)
+ ]. Please con-tact me via Github or email me at
+ []
+
+[41] [42
+
+] [43] [44] [45] (./thesis.aux)
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: E10190DA658B18D66483E44D1BF03748;4753.
+(rerunfilecheck)             Checksum: 5F8E1BC887AC69782E0D24906AAA0CB3;5525.
 Package logreq Info: Writing requests to 'thesis.run.xml'.
 \openout1 = `thesis.run.xml'.
 
@@ -1121,35 +1129,34 @@ Package logreq Info: Writing requests to 'thesis.run.xml'.
 ### semi simple group (level 1) entered at line 102 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 22887 strings out of 478994
- 385339 string characters out of 5858184
- 1225047 words of memory out of 5000000
- 39316 multiletter control sequences out of 15000+600000
- 540644 words of font info for 464 fonts, out of 8000000 for 9000
+ 22886 strings out of 478994
+ 385391 string characters out of 5858184
+ 1225182 words of memory out of 5000000
+ 39317 multiletter control sequences out of 15000+600000
+ 539875 words of font info for 458 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 86i,15n,89p,1319b,17839s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 86i,15n,89p,1352b,17839s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/base/8r.enc
 }</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb
-></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
-</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
-/usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></u
-sr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></us
-r/local/texlive/2021/texmf-dist/fonts/type1/public/mathpazo/fplmb.pfb></usr/loc
-al/texlive/2021/texmf-dist/fonts/type1/public/mathpazo/fplmbb.pfb></usr/local/t
-exlive/2021/texmf-dist/fonts/type1/public/mathpazo/fplmbi.pfb></usr/local/texli
-ve/2021/texmf-dist/fonts/type1/public/mathpazo/fplmr.pfb></usr/local/texlive/20
-21/texmf-dist/fonts/type1/public/mathpazo/fplmri.pfb></usr/local/texlive/2021/t
-exmf-dist/fonts/type1/public/bera/fvmr8a.pfb></usr/local/texlive/2021/texmf-dis
-t/fonts/type1/public/bera/fvsb8a.pfb></usr/local/texlive/2021/texmf-dist/fonts/
-type1/public/bera/fvsr8a.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/ur
-w/palatino/uplb8a.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/urw/palat
-ino/uplbi8a.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/urw/palatino/up
-lr8a.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/urw/palatino/uplri8a.p
-fb>
-Output written on thesis.pdf (46 pages, 1554720 bytes).
+></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb>
+</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></
+usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></u
+sr/local/texlive/2021/texmf-dist/fonts/type1/public/mathpazo/fplmb.pfb></usr/lo
+cal/texlive/2021/texmf-dist/fonts/type1/public/mathpazo/fplmbb.pfb></usr/local/
+texlive/2021/texmf-dist/fonts/type1/public/mathpazo/fplmbi.pfb></usr/local/texl
+ive/2021/texmf-dist/fonts/type1/public/mathpazo/fplmr.pfb></usr/local/texlive/2
+021/texmf-dist/fonts/type1/public/mathpazo/fplmri.pfb></usr/local/texlive/2021/
+texmf-dist/fonts/type1/public/bera/fvmr8a.pfb></usr/local/texlive/2021/texmf-di
+st/fonts/type1/public/bera/fvsb8a.pfb></usr/local/texlive/2021/texmf-dist/fonts
+/type1/public/bera/fvsr8a.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/u
+rw/palatino/uplb8a.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/urw/pala
+tino/uplbi8a.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/urw/palatino/u
+plr8a.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/urw/palatino/uplri8a.
+pfb>
+Output written on thesis.pdf (48 pages, 1548009 bytes).
 PDF statistics:
- 671 PDF objects out of 1000 (max. 8388607)
- 583 compressed objects within 6 object streams
- 164 named destinations out of 1000 (max. 500000)
- 134390 words of extra memory for PDF output out of 154059 (max. 10000000)
+ 685 PDF objects out of 1000 (max. 8388607)
+ 596 compressed objects within 6 object streams
+ 168 named destinations out of 1000 (max. 500000)
+ 133894 words of extra memory for PDF output out of 154059 (max. 10000000)
 

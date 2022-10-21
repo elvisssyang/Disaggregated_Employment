@@ -6,10 +6,12 @@ knit: "bookdown::render_book"
 
 # Discussions and conclusion 
 
+In conclusion, I have developed a dynamic Bayesian VAR (BVAR) system to analyse the two-digit employment dynamics in Australia. This allows me to view the Australian employment market from a new perspective. First, an out-of-sample forecasting algorithm was proposed to select the most optimal hyperparameter in Minnesota Prior and also to improve the forecast accuracy. Second, I conducted the spillover analysis using the estimated model to discover how total employment reacts in the long run when the subsectors are stimulated. Based on the result, "Other Store-Based Retailing", followed by "Administrative Services", "Furniture and Other Manufacturing" will generate strong positive spillovers in employment. In particular, they will maker greater contributions to total employment than their original sizes (i.e. the shares of subsectors). It is helpful for policymakers to consider industries that could operate efficiently, and act as the backbone of the economy (i.e. high-spillover industries) when formulating policies to stimulate the economy. 
 
-In conclusion, I have developed a dynamic Bayesian VAR (BVAR) system to analyze the two-digit employment dynamics in Australia, exploring the Australian labour market from a new perspective. First, an out-of-sample forecasting algorithm was proposed to select the most optimal hyperparameter in Minnesota Prior and also to improve the forecast accuracy. Second, I conducted the spillover analysis using the estimated model to discover how total employment reacts in the long run when the subsectors are stimulated. Based on the result, `Other Store-Based Retailing`, followed by `Administrative Services`, `Furniture and Other Manufacturing` will generate strong positive spillovers in employment. Specifically, they will contribute more to the overall economy than they would have (i.e. the shares of subsectors). This therefore provides some insight and extra information for policymakers. 
 
-Furthermore, I evaluate the shocks of COVID-19 to the Australian labour market with the estimated BVAR model. This counterfactual analysis end up with a conclusion that these structural shocks in fact have a long-term negative impact. Thus, it will be hard to fully mitigate the influences of the pandemic in the foreseeable future. To shed light on the reason for the low unemployment rate in Australia, I conduct an empirical analysis and compare the predicted unemployment rate in the absence of the pandemic with actual values. Results suggest that labour force is less than what it would be without the pandemic and we would have experienced a low unemployment rate even in the absence of COVID-19. Given these points, I identify that the low unemployment rate is mainly driven by the loss of the total labour force rather than the stimulus policies during the pandemic. 
+
+
+Furthermore, I evaluate the shocks of COVID-19 to the Australian labour market with the estimated BVAR model. This counterfactual analysis end up with a conclusion that these structural shocks in fact have a long-term negative impact. As a result, it will be challenging to completely mitigate the influences of the pandemic in the foreseeable future. To shed light on the reason for the low unemployment rate in Australia, I conduct an empirical analysis and compare the estimated unemployment rate in the absence of the pandemic with actual values. Results suggest that labour force is less than it would have been without the pandemic, and we would have experienced a low unemployment rate even in the absence of COVID-19. Given these points, I identify that the low unemployment rate is mainly driven by the loss of the total labour force rather than the stimulus policies during the pandemic. 
 
 
 
@@ -23,23 +25,18 @@ Furthermore, I evaluate the shocks of COVID-19 to the Australian labour market w
 ## Limitation 
 
 
-There are few non-classified data (nfd data) under each sector in the ABS employment by subdivision dataset [@ABS2022]. In this research, the non-classified data have not been taken into consideration. This is mainly because the data is not evenly distributed, which will be problematic if we simply distribute it into our system by the share of each subsector. At this stage, I cannot come up with an effective way (e.g. Contact ABS about detailed information) to trace the source of them. Consequently, the total employment data used in this thesis is not the same as the published total employment data as we discussed in *Chapter 3.1*. Moreover, we consider the ANZSIC subdivision in our case (two-digit sectors) only. In the future, it would be useful to consider adding the Division level (the broadest level) and the group and classes (the finest level) using hierarchical forecasting. The predictions we examined are based on the assumption that the parameter of the model has been constant thought the time before COVID-19 and structure will not change after COVID-19, which might be restrictive. It would be useful to consider an appropriate time-varying model to have more flexibility in modelling dynamics. 
+There are few non-classified data (nfd data) under each sector in the ABS employment by subdivision dataset [@ABS2022]. Data that are not classified have not been considered in this study. This is mainly because the data is not evenly distributed, which will be problematic if we simply distribute it into our system by the share of each subsector.I haven't yet thought of a good way to distribute the data. In the future, it would be great to come up with some effective ways (e.g. Contact ABS about detailed information) to trace the source of them. Consequently, the total employment data used in this thesis is not the same as the published total employment data as we discussed in *Chapter 3.1*. Nevertheless, we only consider the ANZSIC subdivision in our case (two-digit sectors). In the future, it would be beneficial to consider using both the Division level (the broadest level) and the group and classes (the finest level) using hierarchical forecasting. The predictions we examined are based on the assumption that the parameter of the model has been constant thought the time before COVID-19 and structure will not change after COVID-19, which might be restrictive. An appropriate time-varying model could be implemented to have more flexibility in modelling dynamics. 
 
 
 
 
 
-<!-- [I consider to distribute these data by the shares of two-digit subsectors. The nfd data is systematic (i.e. they have non-zero between 2001 and 2016). Therefore, it will impact our subsectoral dynamics if I distribute them using shares. A possible reason could be the non-classified data is not directly related to the size of subsectors]. -->
+## Future Extension: An Application of Machine Learning in Hierarchical Forecasting  
+
+In this research, the Bayesian VAR modelling method has provided a useful analysis of employment dynamics in Australia. However, VAR modelling may be inefficient, when there is more data and hierarchies are considered. Therefore, a more efficient machine learning technique could be considered as an extension of the hierarchical forecasting. 
 
 
-
-### Future Extension: An Advanced algorithm in hierarchical forecasting  
-
-In this research, the Bayesian VAR modelling method has provided a useful analysis of employment dynamics in Australia. However, when there is more data and hierarchies are considered, VAR modelling may also be inefficient. Therefore, a more efficient machine learning method could be considered in an application of hierarchical forecasting. 
-
-
-To improve the forecast accuracy, we could use machine learning to give a new way that accounts for both accuracy and interpretability. First, pick up the common features or data types from the data and cluster them into groups based on them. Second, conduct group-based forecasting for each new cluster. Then, we can reconcile them to be coherent, which will benefit the decision and policy implementation processes.  
-  
+To improve the forecast accuracy, we could use machine learning to give a new way that accounts for both accuracy and interpretability. First, pick up the common features or data types from the data and cluster them into groups based on them. Second, conduct group-based forecasting for each new cluster. Then, we can reconcile them to be coherent, which will benefit the decision and policy implementation processes.
 
 Here, I will give an example of the machine learning algorithm. 
 
@@ -47,13 +44,11 @@ Here, I will give an example of the machine learning algorithm.
 
 
 
-2. Develop a model to forecast each time series in the same cluster. It looks restrictive but two points should be helpful in improving flexibility. First, the choice of model is flexible and can be complex. There are many types of models to choose from, depending on the domain types and time series patterns. Moreover, the types of models are not limited, which can be either a single model (e.g. univariate, multivariate, and ML) or a combined model (e.g. Weighted average of various forecasting methods). Second, forecasting methods can be different for different clusters of the data, due to some unique patterns in time series. 
-
-
-3. Reconcile the forecasts produced by the machine learning algorithm to make them coherent. To get more interpretable results, reconciliation is required to fit all forecasts produced in our program into the original structure of the data (i.e. original groups).
+2. Create a model to forecast each time series within the same cluster. Although it seems restrictive, there are two points should be helpful in proving both accuracyc and flexibility. First, the choice of model is flexible andcan be complex. There are many types of models to choose from, depending on the domaintypes and time series patterns. Moreover, the types of models are not limited, which canbe either a single model (e.g. univariate, multivariate, and ML) or a combined model(e.g. Weighted average of various forecasting methods). Second, forecasting methods canbe different for different clusters of the data, due to some unique patterns in time series.
 
 
 
+3. Reconcile the forecasts produced by the machine learning algorithm to make them coherent. To get more interpretable results, reconciliation is required to fit all forecasts produced in our clusters into the original structure of the data (i.e. original groups).
 
 
 

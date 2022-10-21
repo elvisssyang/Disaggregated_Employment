@@ -4,6 +4,9 @@ knit: "bookdown::render_book"
 
 \appendix
 
+
+
+
 # An Example of Bayesian VAR and Minnesota Prior
 
 
@@ -78,11 +81,13 @@ The Normal-Wishart prior distribution then take the form:
 
 $$
 \begin{aligned}
-vec(\bm{\beta})|\bm{\Sigma} \sim \bm{N}(vec(\bm{\beta_0},\bm{\Sigma}\otimes \bm{\Omega_0})), and\\
-\Sigma \sim IW(\bm{S_0},\bm{a_0})
+vec(\bm{\beta})|\bm{\Sigma} \sim \bm{N}(vec(\bm{\beta_0}),\bm{\Sigma}\otimes \bm{\Omega_0})), and\\
+\Sigma \sim IW(\bm{S_0},a_0)
 \end{aligned}
 $$
-where we set the prior parameters $\bm{\beta_0}$, $\bm{\Omega_0}$, $\bm{S_0}$ and $\bm(a_0)$ such that they are consistent with the Minnesota Prior setting. 
+where we set the prior parameters $\bm{\beta_0}$, $\bm{\Omega_0}$, $\bm{S_0}$ and $a_0$ such that they are consistent with the Minnesota Prior setting. 
+
+
 The expectation of $\bm{\Sigma}$ being $diag(\sigma^2_{1},\cdots,\sigma^2_{n})$. We follow @anderson2020 to set our prior by defining dummy observations: 
 
 
@@ -113,7 +118,7 @@ where $\bm{Y_d}$ and $\bm{X_d}$ are the dummy observations chosen according to t
 $$
 \begin{aligned}
 \bm{J_p}=diag(1,\cdots,p),\\
-\bm{S_0}=(\bm{Y_d}-\bm{X_d}\times \bm{B_0})'(\bm{Y_d}-\bm{X_d}\bm{B_0}),\\
+\bm{S_0}=(\bm{Y_d}-\bm{X_d} \bm{B_0})'(\bm{Y_d}-\bm{X_d}\bm{B_0}),\\
 \bm{B_0}=(\bm{X_d}'\bm{X_d})^{-1}\bm{X_d}\bm{Y_d},\ \bm{\Omega_0}=(\bm{X_d}'\bm{X_d})^{-1}\  and\\
 a_0=T_d-np-p-1, \\
 \end{aligned}
@@ -147,8 +152,6 @@ $$
 where $\bm{\tilde\beta} =({\bm{X^{*}}}'\bm{X^{*}})^{-1} {\bm{X^{*}}}'\bm{Y^{*}}$ and $\bm{\tilde\Sigma}=(\bm{Y^{*}}-\bm{X^{*}}\bm{\tilde\beta})'(\bm{Y^{*}}-\bm{X^{*}}\bm{\tilde\beta})$
 
 
-\newpage
-
 
 
 # Graphs 
@@ -164,14 +167,14 @@ where $\bm{\tilde\beta} =({\bm{X^{*}}}'\bm{X^{*}})^{-1} {\bm{X^{*}}}'\bm{Y^{*}}$
 \label{fig:19}
 \end{figure}
 
-\begin{sidewaysfigure}
+
 \begin{figure}[t]
 \includegraphics[scale=0.5]{87sec}
 \centering
 \caption{Employment('000) of two-digit subsectors in Australia from 2010 to 2022}
 \label{fig:86}
 \end{figure}
-\begin{sidewaysfigure}
+
 
 <!-- \begin{figure}[t] -->
 <!-- \includegraphics[scale=0.5]{agg_19} -->
@@ -289,7 +292,7 @@ where $\bm{\tilde\beta} =({\bm{X^{*}}}'\bm{X^{*}})^{-1} {\bm{X^{*}}}'\bm{Y^{*}}$
     \end{tabular}} 
     \begin{tablenotes} 
       \footnotesize
-      \item \emph{Note}: The long run employment multiplier for subsector $i$ is the effect of a 1\% increase in employment of subsector on the total employment in the long run. \\
+      \item \emph{Note}: The long run employment multiplier for subsector $i$ is the effect of a 1\% increase in employment of subsector on total employment in the long run. \\
       M10 is the long term multiplier; M0 is the share of subsector $i$ in total employment.
       M10-M0 is the spillover of the subsector $i$. \\
       M10/M0 is the spillover of the subsector $i$ relative to the share of it.
@@ -297,6 +300,13 @@ where $\bm{\tilde\beta} =({\bm{X^{*}}}'\bm{X^{*}})^{-1} {\bm{X^{*}}}'\bm{Y^{*}}$
 \caption{Disaggregated Sectoral Long-Run Employment Multipliers: Full list of 84 sectors (Sorted by Shares)}
   \label{dis:emp}
 \end{table}
+
+# Supplementary Materials (Data & Codes)
+
+Supplementary materials include figures, codes and documentations can be found in the Github repo of this project: [Link: https://github.com/elvisssyang/Disaggregated_Employment/tree/main/Matlab]. Please contact me via Github or email me at `zyan0056@student.monash.edu` if something is unclear. 
+
+
+
 
 
 <!-- \newpage -->
