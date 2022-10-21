@@ -19,9 +19,6 @@ employment <- read_csv("ABSemp.csv")
 
 oneemp <- read_csv("oneemp.csv")
 
-NFD_data<- read_csv("NFD_data.csv")
-
-NFD <- NFD_data$Total
 
 empfore<- oneemp$`96 Total`
 

@@ -285,7 +285,7 @@ Overall, the findings suggest that we would have experienced the historically lo
 \begin{figure}[H]
 \includegraphics[scale=0.7]{unempcont}
 \centering
-\caption{counterfactual analysis of the unemployment rate in Australia}
+\caption{Counterfactual analysis of the unemployment rate in Australia}
 \label{fig:unrate}
 \end{figure}
  
