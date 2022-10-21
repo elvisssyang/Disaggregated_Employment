@@ -25,17 +25,22 @@ empfore<- oneemp$`96 Total`
 cont_emp <- oneemp$Employment
 
 
+# post-covid data 
+
 tot_postcov <- employment |> 
   select(Date,`96 Total`) |> 
   mutate(Quarter = yearquarter(my(Date))) |> 
   filter(Quarter > yearquarter("2020 Q1"))
 
+# Convert Monthly to Quarterly Data 
 
 ts_labour <- labour |>
   filter(month(my(Date)) %in% c(2,5,8,11)) |> 
   mutate(Quarter = yearquarter(my(Date))) |>
   select(-Date) |>
   as_tsibble(index = Quarter)
+
+# pre-covid data 
 
 
 ts_labour <- ts_labour |> 
@@ -51,12 +56,13 @@ post_2020 <- ts_labour|>
   filter(Quarter > yearquarter("2020 Q1"))
 
 
+# Fit the stepwise ARIMA 
 
 fc_model <- pre_2020 |> 
   model(stepwise = ARIMA(labour_force))
 
 
-
+# Conduct forecast 
 
 fc_emp<- fc_model |> 
   forecast(h=9)
@@ -72,7 +78,7 @@ plabour1<- fc_emp|>
        title = "Forecasts of total labour force in Australia", 
        subtitle = "Black: Actual Data")
 
-# zoomed ones 
+# Figure 5.3
 
 
 plabour2<- fc_emp|> 
@@ -82,8 +88,6 @@ plabour2<- fc_emp|>
        title = "Forecasts of total labour force in Australia",
        subtitle = "Data Range from 2020 Q2 to 2022 Q1",
        caption = "Black: Actual Datal; Data Range till 2022 Q1")
-
-
 
 ggarrange(plabour1,plabour2)
 
@@ -110,7 +114,7 @@ fc_emp$.mean / post_2020$labour_force
 (post_2020$labour_force[1:9] - empfore)/post_2020$labour_force[1:9]
 
 
-# contrafactual unemployment rate 
+# counterfactual unemployment rate 
 
 
 contfac_unemp<- (fc_emp$.mean - cont_emp)/fc_emp$.mean
@@ -150,6 +154,7 @@ data1 <- dplyr::bind_rows(unemp_plot, cont_data)
 
 colors <- c("Actual" = "blue", "Forecasts" = "red")
 
+# Figure 5.4 
 
  ggplot()+
   geom_line(data = unemp_plot, aes(x = Quarter,y = Unemploment.Rate), colour = "blue",linetype = "dashed")+ 

@@ -18,14 +18,6 @@ library(lubridate)
 library(fpp3)
 library(ggpubr)
 
-# generate the circular plots 
-library(viridis)
-
-
-
-# Donut plot 
-
-library(lessR)
 
 
 # clean the data and reset the total employment by removing the NFD data  
@@ -153,12 +145,12 @@ m5m0_min <- (mtplers[40,] - shares)
 
 # write.csv(file = "spillover_effect.csv",cbind(m5m0_div,m5m0_min))
 
-
+# Relative to its shares M10/M0
 spilloverm5_timesm0 <- m5m0_div |> 
   sort(decreasing = TRUE) |> 
   enframe()
 
-
+# Spillover effect M10-M0
 
 spilloverm5_m0 <- m5m0_min |> 
   sort(decreasing = TRUE) |> 
@@ -176,6 +168,7 @@ fgr0 = matrix(0,26,k)
 fgr0[1,] = d4logdata[nrow(d4logdata),]
 
 
+# Calculate forecasts of YoY growth rate 
 
 for (i in 2:21){
   for (j in 1:(k-1)){
@@ -210,6 +203,7 @@ as.matrix(allrawfcasts$Employment)[1:9]
 
 fgr1= matrix(0,9,1)
 
+
 for (jj in 5:13){
   
   fgr1[jj-4,]= 100*log(as.matrix(yoy_act[jj,]) / as.matrix(yoy_act[jj-4,]))
@@ -217,6 +211,9 @@ for (jj in 5:13){
 }
 
 duringcov <- cbind(allrawfcasts[1:9,],fgr1)
+
+
+# Counterfactual of YoY growth 
 
 grow1 <- ggplot(duringcov,aes(x = Date, y = YoY)) + 
   geom_line(aes(x = Date, y = YoY), colour = "Red") + 
@@ -229,6 +226,8 @@ grow1 <- ggplot(duringcov,aes(x = Date, y = YoY)) +
 grow1
 #write.csv(file = "growth.csv",allrawfcasts)
  
+# Forecasts of YoY Growth 
+
 grow2 <- ggplot(allrawfcasts,aes(x=Date, y=YoY)) +
   geom_line(aes(x = Date, y = YoY), colour = "Red") +
   ylab("YoY Growth in Total Employment in %") + 
@@ -307,13 +306,15 @@ con <- ggplot(comp_fore,aes(x=Date, y=Employment)) +
 
 
 
-
+ 
 comp_fore_val <- comp_fore |> 
   mutate(dd_origin = as.yearqtr(Date), Estimated = Employment, `X96.Total` = `96 Total`) |> 
   select(-`Date`, -`YoY`, - `Employment`, -`96 Total`,-`lower_bound`, -`upper_bound`)
 
 estim_fore <- rbind(origin_fore,comp_fore_val)
 
+
+# Figure 5.1
 fits <- estim_fore |> 
   ggplot(aes(x = dd_origin, y = Estimated))+ geom_line(colour = "Blue") + geom_line(aes(y =`X96.Total`),colour = "Red",linetype = "dashed") +
   labs(x = "Quarter", y = "Employment in ('000)", title = "Fitness of the proposed VAR Modelling", subtitle = "Red line is Actual Data;Blue line is the Estimated Data ")
