@@ -16,7 +16,7 @@ I plan to use a Bayesian VARX model based on the method used in @anderson2020. T
 
 
 
-In many time series models, the number of lags is selected based on the patterns of the time series (i.e. seasonality, cycle, or trend). Four lags are typically used for quarterly data (see @anderson2020 and @stock2001). However, because of the high-dimensionality and relatively small sample size in my case, I will use one lag of 84 sectors and one lag of the total employment. 
+In many time series models, the number of lags is selected based on the patterns of the time series (i.e. seasonality, cycle, or trend). Four lags are typically used for quarterly data (see @anderson2020 and @stock2001). However, because of the high-dimensionality and relatively small sample size in my case, I will use one lag of the 84 subsectoral employment growth rate and one lag of the total employment growth rate. 
 
 Therefore, the suggested BVAR model is: 
 

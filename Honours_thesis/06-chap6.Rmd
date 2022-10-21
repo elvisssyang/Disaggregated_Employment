@@ -48,7 +48,7 @@ Here, I will give an example of the machine learning algorithm.
 
 
 
-3. Reconcile the forecasts produced by the machine learning algorithm to make them coherent. To get more interpretable results, reconciliation is required to fit all forecasts produced in our clusters into the original structure of the data (i.e. original groups).
+3. Reconcile the forecasts produced by the machine learning algorithm to make them coherent. To get more interpretable results, reconciliation is required to fit all forecasts produced in our clusters into the original structure of the data (i.e. the original groups).
 
 
 

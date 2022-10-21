@@ -237,7 +237,7 @@ Date     &  Sectors                                      &YoY growth rate \\
 
 I plan to use a Bayesian VARX model based on the method used in \textcite{anderson2020}. The VARX model is particularly useful in modelling dynamic behaviours of the inter-variable relationships \autocite{warsono2019}. In the model, each sector is affected by the lags of sectoral annual growth and a lag of the total employment growth. In addition to serving as an economy-wide factor, the inclusion of the lag of total employment growth ensures the model's self-consistency (e.g., forecasting coherence).
 
-In many time series models, the number of lags is selected based on the patterns of the time series (i.e.~seasonality, cycle, or trend). Four lags are typically used for quarterly data (see \textcite{anderson2020} and \textcite{stock2001}). However, because of the high-dimensionality and relatively small sample size in my case, I will use one lag of 84 sectors and one lag of the total employment.
+In many time series models, the number of lags is selected based on the patterns of the time series (i.e.~seasonality, cycle, or trend). Four lags are typically used for quarterly data (see \textcite{anderson2020} and \textcite{stock2001}). However, because of the high-dimensionality and relatively small sample size in my case, I will use one lag of the 84 subsectoral employment growth rate and one lag of the total employment growth rate.
 
 Therefore, the suggested BVAR model is:
 
@@ -483,7 +483,7 @@ Here, I will give an example of the machine learning algorithm.
 \item
   Create a model to forecast each time series within the same cluster. Although it seems restrictive, there are two points should be helpful in proving both accuracyc and flexibility. First, the choice of model is flexible andcan be complex. There are many types of models to choose from, depending on the domaintypes and time series patterns. Moreover, the types of models are not limited, which canbe either a single model (e.g.~univariate, multivariate, and ML) or a combined model(e.g.~Weighted average of various forecasting methods). Second, forecasting methods canbe different for different clusters of the data, due to some unique patterns in time series.
 \item
-  Reconcile the forecasts produced by the machine learning algorithm to make them coherent. To get more interpretable results, reconciliation is required to fit all forecasts produced in our clusters into the original structure of the data (i.e.~original groups).
+  Reconcile the forecasts produced by the machine learning algorithm to make them coherent. To get more interpretable results, reconciliation is required to fit all forecasts produced in our clusters into the original structure of the data (i.e.~the original groups).
 \end{enumerate}
 
 \appendix
@@ -743,7 +743,7 @@ where \(\bm{\tilde\beta} =({\bm{X^{*}}}'\bm{X^{*}})^{-1} {\bm{X^{*}}}'\bm{Y^{*}}
 \hypertarget{supplementary-materials-data-codes}{%
 \chapter{Supplementary Materials (Data \& Codes)}\label{supplementary-materials-data-codes}}
 
-Supplementary materials include figures, codes and documentations can be found in the Github repo of this project: {[}Link: \url{https://github.com/elvisssyang/Disaggregated_Employment/tree/main/Matlab}{]}. Please contact me via Github or email me at \texttt{zyan0056@student.monash.edu} if something is unclear.
+Supplementary materials include figures, codes and documentations can be found in the Github repo of this project: {[}Link: \url{https://github.com/elvisssyang/Disaggregated_Employment}{]}. Please contact me via Github or email me at \texttt{zyan0056@student.monash.edu} if something is unclear.
 
 \printbibliography[heading=bibintoc]
 

@@ -303,7 +303,7 @@ where $\bm{\tilde\beta} =({\bm{X^{*}}}'\bm{X^{*}})^{-1} {\bm{X^{*}}}'\bm{Y^{*}}$
 
 # Supplementary Materials (Data & Codes)
 
-Supplementary materials include figures, codes and documentations can be found in the Github repo of this project: [Link: https://github.com/elvisssyang/Disaggregated_Employment/tree/main/Matlab]. Please contact me via Github or email me at `zyan0056@student.monash.edu` if something is unclear. 
+Supplementary materials include figures, codes and documentations can be found in the Github repo of this project: [Link: https://github.com/elvisssyang/Disaggregated_Employment]. Please contact me via Github or email me at `zyan0056@student.monash.edu` if something is unclear. 
 
 
 
